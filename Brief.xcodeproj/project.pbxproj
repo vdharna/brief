@@ -60,6 +60,7 @@
 		62888FE7197A1EB4002D0DD0 /* CompletedBriefButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedBriefButtonView.swift; sourceTree = "<group>"; };
 		62888FE9197B954E002D0DD0 /* ComposeBriefButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeBriefButtonView.swift; sourceTree = "<group>"; };
 		6295FAC519746D6500C338D3 /* Brief.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brief.swift; sourceTree = "<group>"; };
+		62A745AE197C31E100479514 /* table-cell-image.graffle */ = {isa = PBXFileReference; lastKnownFileType = file; path = "table-cell-image.graffle"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +115,7 @@
 		6247412B196CB5A10043C7E5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				62A745AE197C31E100479514 /* table-cell-image.graffle */,
 				6247412C196CB5A10043C7E5 /* Info.plist */,
 			);
 			name = "Supporting Files";
