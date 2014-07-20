@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6185.7" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6181.2"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddBriefViewController" customModule="Brief" customModuleProvider="target">
+            <connections>
+                <outlet property="content" destination="srX-6c-6CE" id="jWf-CU-FvF"/>
+                <outlet property="saveButton" destination="9TS-H5-IQa" id="xcM-jj-dG7"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT" userLabel="Main View">
+            <rect key="frame" x="0.0" y="44" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="srX-6c-6CE" userLabel="Content Text View">
+                    <rect key="frame" x="0.0" y="64" width="320" height="220"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cWL-7h-ehU">
+                    <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <items>
+                        <navigationItem title="Compose" id="zhC-2i-8iF">
+                            <barButtonItem key="leftBarButtonItem" title="Close" id="fDT-dH-I7W">
+                                <connections>
+                                    <action selector="dismissModal:" destination="-1" id="ByR-xn-L6U"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem key="rightBarButtonItem" enabled="NO" title="Save" id="9TS-H5-IQa"/>
+                        </navigationItem>
+                    </items>
+                </navigationBar>
+            </subviews>
+            <nil key="simulatedStatusBarMetrics"/>
+            <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4">
+                <size key="portraitSize" width="320" height="568"/>
+                <size key="landscapeSize" width="568" height="320"/>
+            </simulatedScreenMetrics>
+            <point key="canvasLocation" x="111" y="166"/>
+        </view>
+    </objects>
+</document>
