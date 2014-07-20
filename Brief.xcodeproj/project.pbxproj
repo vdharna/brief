@@ -7,15 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6241FB57196F137F0092B014 /* BriefHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6241FB56196F137F0092B014 /* BriefHomeViewController.xib */; };
-		6241FB59196F2C020092B014 /* CreateBriefViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6241FB58196F2C020092B014 /* CreateBriefViewController.xib */; };
-		6241FB64196F5BB50092B014 /* AddBriefViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6241FB62196F5BB50092B014 /* AddBriefViewController.swift */; };
-		6241FB65196F5BB50092B014 /* AddBriefViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6241FB63196F5BB50092B014 /* AddBriefViewController.xib */; };
+		623B21BA19744C4F00EC766F /* Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623B21B919744C4F00EC766F /* Progress.swift */; };
+		623B21BC19744C5B00EC766F /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623B21BB19744C5B00EC766F /* Plan.swift */; };
+		623B21BE19744C6600EC766F /* Problem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623B21BD19744C6600EC766F /* Problem.swift */; };
+		623B21C019744DB400EC766F /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623B21BF19744DB400EC766F /* Team.swift */; };
+		623B21C219744DC200EC766F /* TeamMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623B21C119744DC200EC766F /* TeamMember.swift */; };
+		6241FB57196F137F0092B014 /* BriefHomeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6241FB56196F137F0092B014 /* BriefHomeController.xib */; };
+		6241FB59196F2C020092B014 /* CreateBriefController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6241FB58196F2C020092B014 /* CreateBriefController.xib */; };
+		6241FB64196F5BB50092B014 /* AddPPPController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6241FB62196F5BB50092B014 /* AddPPPController.swift */; };
+		6241FB65196F5BB50092B014 /* AddPPPController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6241FB63196F5BB50092B014 /* AddPPPController.xib */; };
 		6247412E196CB5A10043C7E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6247412D196CB5A10043C7E5 /* AppDelegate.swift */; };
-		62474130196CB5A10043C7E5 /* BriefHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6247412F196CB5A10043C7E5 /* BriefHomeViewController.swift */; };
-		62474132196CB5A10043C7E5 /* CreateBriefViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62474131196CB5A10043C7E5 /* CreateBriefViewController.swift */; };
+		62474130196CB5A10043C7E5 /* BriefHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6247412F196CB5A10043C7E5 /* BriefHomeController.swift */; };
+		62474132196CB5A10043C7E5 /* CreateBriefController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62474131196CB5A10043C7E5 /* CreateBriefController.swift */; };
 		62474137196CB5A10043C7E5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62474136196CB5A10043C7E5 /* Images.xcassets */; };
 		62474143196CB5A10043C7E5 /* BriefTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62474142196CB5A10043C7E5 /* BriefTests.swift */; };
+		6247F76E1975B11B002FC8B4 /* PPPEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6247F76D1975B11B002FC8B4 /* PPPEntity.swift */; };
+		62888FE8197A1EB4002D0DD0 /* CompletedBriefButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62888FE7197A1EB4002D0DD0 /* CompletedBriefButtonView.swift */; };
+		62888FEA197B954E002D0DD0 /* ComposeBriefButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62888FE9197B954E002D0DD0 /* ComposeBriefButtonView.swift */; };
+		6295FAC619746D6500C338D3 /* Brief.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6295FAC519746D6500C338D3 /* Brief.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,19 +38,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6241FB56196F137F0092B014 /* BriefHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BriefHomeViewController.xib; sourceTree = "<group>"; };
-		6241FB58196F2C020092B014 /* CreateBriefViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateBriefViewController.xib; sourceTree = "<group>"; };
-		6241FB62196F5BB50092B014 /* AddBriefViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddBriefViewController.swift; sourceTree = "<group>"; };
-		6241FB63196F5BB50092B014 /* AddBriefViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddBriefViewController.xib; sourceTree = "<group>"; };
+		623B21B919744C4F00EC766F /* Progress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Progress.swift; sourceTree = "<group>"; };
+		623B21BB19744C5B00EC766F /* Plan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
+		623B21BD19744C6600EC766F /* Problem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Problem.swift; sourceTree = "<group>"; };
+		623B21BF19744DB400EC766F /* Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
+		623B21C119744DC200EC766F /* TeamMember.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamMember.swift; sourceTree = "<group>"; };
+		6241FB56196F137F0092B014 /* BriefHomeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BriefHomeController.xib; sourceTree = "<group>"; };
+		6241FB58196F2C020092B014 /* CreateBriefController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateBriefController.xib; sourceTree = "<group>"; };
+		6241FB62196F5BB50092B014 /* AddPPPController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPPPController.swift; sourceTree = "<group>"; };
+		6241FB63196F5BB50092B014 /* AddPPPController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddPPPController.xib; sourceTree = "<group>"; };
 		62474128196CB5A10043C7E5 /* Brief.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Brief.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6247412C196CB5A10043C7E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6247412D196CB5A10043C7E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6247412F196CB5A10043C7E5 /* BriefHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BriefHomeViewController.swift; sourceTree = "<group>"; };
-		62474131196CB5A10043C7E5 /* CreateBriefViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBriefViewController.swift; sourceTree = "<group>"; };
+		6247412F196CB5A10043C7E5 /* BriefHomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BriefHomeController.swift; sourceTree = "<group>"; };
+		62474131196CB5A10043C7E5 /* CreateBriefController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBriefController.swift; sourceTree = "<group>"; };
 		62474136196CB5A10043C7E5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6247413C196CB5A10043C7E5 /* BriefTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BriefTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		62474141196CB5A10043C7E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		62474142196CB5A10043C7E5 /* BriefTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BriefTests.swift; sourceTree = "<group>"; };
+		6247F76D1975B11B002FC8B4 /* PPPEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPPEntity.swift; sourceTree = "<group>"; };
+		62888FE7197A1EB4002D0DD0 /* CompletedBriefButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedBriefButtonView.swift; sourceTree = "<group>"; };
+		62888FE9197B954E002D0DD0 /* ComposeBriefButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeBriefButtonView.swift; sourceTree = "<group>"; };
+		6295FAC519746D6500C338D3 /* Brief.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brief.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				624741A7196DB0930043C7E5 /* Application */,
+				62888FE6197A1E67002D0DD0 /* Views */,
 				624741A6196DB0840043C7E5 /* View Controllers */,
 				624741A8196DB0A30043C7E5 /* Model */,
 				62474136196CB5A10043C7E5 /* Images.xcassets */,
@@ -120,12 +139,12 @@
 		624741A6196DB0840043C7E5 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				6241FB62196F5BB50092B014 /* AddBriefViewController.swift */,
-				6241FB63196F5BB50092B014 /* AddBriefViewController.xib */,
-				6247412F196CB5A10043C7E5 /* BriefHomeViewController.swift */,
-				6241FB56196F137F0092B014 /* BriefHomeViewController.xib */,
-				62474131196CB5A10043C7E5 /* CreateBriefViewController.swift */,
-				6241FB58196F2C020092B014 /* CreateBriefViewController.xib */,
+				6247412F196CB5A10043C7E5 /* BriefHomeController.swift */,
+				6241FB56196F137F0092B014 /* BriefHomeController.xib */,
+				62474131196CB5A10043C7E5 /* CreateBriefController.swift */,
+				6241FB58196F2C020092B014 /* CreateBriefController.xib */,
+				6241FB62196F5BB50092B014 /* AddPPPController.swift */,
+				6241FB63196F5BB50092B014 /* AddPPPController.xib */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -141,8 +160,40 @@
 		624741A8196DB0A30043C7E5 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6295FAC319746D4E00C338D3 /* Brief */,
+				6295FAC419746D5800C338D3 /* Team */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		62888FE6197A1E67002D0DD0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				62888FE9197B954E002D0DD0 /* ComposeBriefButtonView.swift */,
+				62888FE7197A1EB4002D0DD0 /* CompletedBriefButtonView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		6295FAC319746D4E00C338D3 /* Brief */ = {
+			isa = PBXGroup;
+			children = (
+				6295FAC519746D6500C338D3 /* Brief.swift */,
+				6247F76D1975B11B002FC8B4 /* PPPEntity.swift */,
+				623B21B919744C4F00EC766F /* Progress.swift */,
+				623B21BB19744C5B00EC766F /* Plan.swift */,
+				623B21BD19744C6600EC766F /* Problem.swift */,
+			);
+			name = Brief;
+			sourceTree = "<group>";
+		};
+		6295FAC419746D5800C338D3 /* Team */ = {
+			isa = PBXGroup;
+			children = (
+				623B21BF19744DB400EC766F /* Team.swift */,
+				623B21C119744DC200EC766F /* TeamMember.swift */,
+			);
+			name = Team;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -225,10 +276,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6241FB57196F137F0092B014 /* BriefHomeViewController.xib in Resources */,
+				6241FB57196F137F0092B014 /* BriefHomeController.xib in Resources */,
 				62474137196CB5A10043C7E5 /* Images.xcassets in Resources */,
-				6241FB59196F2C020092B014 /* CreateBriefViewController.xib in Resources */,
-				6241FB65196F5BB50092B014 /* AddBriefViewController.xib in Resources */,
+				6241FB59196F2C020092B014 /* CreateBriefController.xib in Resources */,
+				6241FB65196F5BB50092B014 /* AddPPPController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,10 +297,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				62474132196CB5A10043C7E5 /* CreateBriefViewController.swift in Sources */,
+				623B21BE19744C6600EC766F /* Problem.swift in Sources */,
+				62474132196CB5A10043C7E5 /* CreateBriefController.swift in Sources */,
+				623B21C219744DC200EC766F /* TeamMember.swift in Sources */,
+				623B21BA19744C4F00EC766F /* Progress.swift in Sources */,
+				6295FAC619746D6500C338D3 /* Brief.swift in Sources */,
+				62888FE8197A1EB4002D0DD0 /* CompletedBriefButtonView.swift in Sources */,
+				62888FEA197B954E002D0DD0 /* ComposeBriefButtonView.swift in Sources */,
+				6247F76E1975B11B002FC8B4 /* PPPEntity.swift in Sources */,
+				623B21BC19744C5B00EC766F /* Plan.swift in Sources */,
+				623B21C019744DB400EC766F /* Team.swift in Sources */,
 				6247412E196CB5A10043C7E5 /* AppDelegate.swift in Sources */,
-				62474130196CB5A10043C7E5 /* BriefHomeViewController.swift in Sources */,
-				6241FB64196F5BB50092B014 /* AddBriefViewController.swift in Sources */,
+				62474130196CB5A10043C7E5 /* BriefHomeController.swift in Sources */,
+				6241FB64196F5BB50092B014 /* AddPPPController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

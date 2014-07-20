@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6181.2"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreateBriefViewController" customModule="Brief" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreateBriefController" customModule="Brief" customModuleProvider="target">
             <connections>
                 <outlet property="view" destination="GrQ-cF-UqD" id="ZyC-KS-K6r"/>
             </connections>
@@ -13,22 +13,8 @@
         <view contentMode="scaleToFill" id="GrQ-cF-UqD">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <subviews>
-                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="MzJ-cn-NdL">
-                    <rect key="frame" x="0.0" y="524" width="320" height="44"/>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <items>
-                        <barButtonItem enabled="NO" systemItem="trash" id="Rdn-kf-Q9A">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="umx-Gr-ghd"/>
-                        <barButtonItem enabled="NO" systemItem="action" id="u1H-CG-eX6">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </barButtonItem>
-                    </items>
-                </toolbar>
-            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <gestureRecognizers/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
@@ -36,7 +22,7 @@
                 <size key="portraitSize" width="320" height="568"/>
                 <size key="landscapeSize" width="568" height="320"/>
             </simulatedScreenMetrics>
-            <point key="canvasLocation" x="577" y="265"/>
+            <point key="canvasLocation" x="483" y="263"/>
         </view>
     </objects>
 </document>

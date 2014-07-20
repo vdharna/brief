@@ -5,13 +5,12 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "history_brief.png"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "history_brief@2X.png"
+      "filename" : "continue-highlighted@2x.png"
     }
   ],
   "info" : {

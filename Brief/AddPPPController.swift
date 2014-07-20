@@ -8,12 +8,16 @@
 
 import UIKit
 
-class AddBriefViewController: UIViewController, UITextViewDelegate {
+class AddPPPController: UIViewController, UITextViewDelegate, UIActionSheetDelegate {
 
     @IBOutlet var content: UITextView
     @IBOutlet var saveButton: UIBarButtonItem
+    @IBOutlet var cancelButton: UIBarButtonItem
     var charCountView: UIView = UIView()
     var charCountLabel: UILabel = UILabel()
+    var selectedSegment: Int?
+    var selectedPPPElement = -1 //default to indicate nothing is transitioned
+    var snapshot:String?
     
     // ==========================================
     // MARK: lifecycle methods
@@ -22,7 +26,6 @@ class AddBriefViewController: UIViewController, UITextViewDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        println("<<< viewDidLoad >>>")
         content.delegate = self;
         content.returnKeyType = .Default
         content.keyboardAppearance = .Dark
@@ -36,29 +39,33 @@ class AddBriefViewController: UIViewController, UITextViewDelegate {
     }
     
     override func viewWillAppear(animated: Bool) {
-        println("<<< viewWillAppear >>>")
+        super.viewWillAppear(animated)
+        
+        setContentForEdit()
         registerForKeyboardNotifications()
         updateCharacterCount()
+        //take snapshot for comparison
+        snapshot = content.text
     }
     
     override func viewWillDisappear(animated: Bool) {
-        println("<<< viewWillDisappear >>>")
-        content.resignFirstResponder()
+        super.viewWillDisappear(animated)
+        
+        self.view.endEditing(true)
         deregisterForKeyboardNotifications()
     }
     
     override func viewDidAppear(animated: Bool) {
-        println("<<< viewDidAppear >>>")
+        super.viewDidAppear(animated)
     }
 
     override func viewDidDisappear(animated: Bool) {
-        println("<<< viewDidDisappear >>>")
+        super.viewDidAppear(animated)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-        println("<<< didReceiveMemoryWarning >>>")
     }
     
     
@@ -66,24 +73,103 @@ class AddBriefViewController: UIViewController, UITextViewDelegate {
     // MARK: action methods
     // ===========================================
     @IBAction func dismissModal(sender: UIButton) {
+        
+        if(snapshot == content.text) {
+            self.dismissViewControllerAnimated(true, completion: nil)
+        } else {
+            var actionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Discard" )
+            actionSheet.addButtonWithTitle("Save")
+            actionSheet.showInView(UIApplication.sharedApplication().keyWindow)
+        }
+        
+    }
+    
+    @IBAction func save(sender: UIBarButtonItem) {
+        //create the correct model object
+        var editMode = selectedPPPElement > -1
+        switch (selectedSegment!) {
+            
+        case 0:
+            var progress = Progress(content: content.text)
+            if (editMode) {
+                user.brief.updateProgress(selectedPPPElement, p: progress)
+            } else {
+                user.brief.addProgress(progress)
+            }
+            
+        case 1:
+            var plan = Plan(content: content.text)
+            if (editMode) {
+                user.brief.updatePlan(selectedPPPElement, p: plan)
+            } else {
+                user.brief.addPlan(plan)
+            }
+            
+        case 2:
+            var problem = Problem(content: content.text)
+            if (editMode) {
+                user.brief.updateProblem(selectedPPPElement, p: problem)
+            } else {
+                user.brief.addProblem(problem)
+            }
+            
+        default:
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+        
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    
+    func actionSheet(actionSheet: UIActionSheet!, clickedButtonAtIndex buttonIndex: Int) {
+        println(buttonIndex)
+        switch(buttonIndex) {
+        
+        case 0: //discard
+            self.dismissViewControllerAnimated(true, completion: nil)
+
+        case 1: //cancel
+            break
+            
+        case 2:
+            self.save(cancelButton) //save the information
+            self.dismissViewControllerAnimated(true, completion: nil)
+            
+        default:
+            break
+        }
+        
+    }
+    
     
     // ===========================================
     // MARK: Helper methods
     // ===========================================
-    func updateCharacterCount() {
-        //update the count character label
-        println("<<< updateCharacterCount >>>")
-        charCountLabel.text = (140 - content.text.utf16count).description
-    }
     
     func toggleSaveButton() {
-        
         if(!content.text.isEmpty) {
             saveButton.enabled = true;
         } else {
             saveButton.enabled = false
+        }
+    }
+    
+    func setContentForEdit() {
+        if (selectedPPPElement > -1) { //something was passed for edit
+            switch (selectedSegment!) {
+                
+            case 0:
+                content.text = user.brief.progress[selectedPPPElement].content
+
+            case 1:
+                content.text = user.brief.plans[selectedPPPElement].content
+                
+            case 2:
+                content.text = user.brief.problems[selectedPPPElement].content
+                
+            default:
+                content.text = ""
+            }
         }
     }
     
@@ -92,21 +178,16 @@ class AddBriefViewController: UIViewController, UITextViewDelegate {
     // MARK: TextView Delegate methods
     // ===========================================
     func textViewShouldBeginEditing(textView: UITextView!) -> Bool {
-        
-        println("<<< textViewShouldBeginEditing >>>")
         return true
     }
     
     func textViewDidChange(textView: UITextView!) {
-        println("<<< textViewDidChange >>>")
-        
         updateCharacterCount()
         toggleSaveButton()
     }
     
     func textView(textView: UITextView!, shouldChangeTextInRange range: NSRange, replacementText text: String!) -> Bool {
         
-        println("<<< textView shouldChangeTextInRange >>>")
         return true
     }
     
@@ -115,19 +196,15 @@ class AddBriefViewController: UIViewController, UITextViewDelegate {
     // ===========================================
     
     func registerForKeyboardNotifications() {
-        println("<<< registerForKeyboardNotifications >>>")
         var notificationCenter = NSNotificationCenter.defaultCenter()
         
         notificationCenter.addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardDidShowNotification, object: nil)
-        
         notificationCenter.addObserver(self, selector: "keyboardWillChangeFrame:", name: UIKeyboardWillChangeFrameNotification, object: nil)
-        
         notificationCenter.addObserver(self, selector: "keyboardDidChangeFrame:", name: UIKeyboardDidChangeFrameNotification, object: nil)
         
     }
     
     func deregisterForKeyboardNotifications() {
-        println("<<< deregisterForKeyboardNotifications >>>")
         var notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.removeObserver(self)
     }
@@ -135,11 +212,9 @@ class AddBriefViewController: UIViewController, UITextViewDelegate {
     
     // Called when the UIKeyboardDidShowNotification is sent.
     func keyboardWasShown(notification: NSNotification) {
-        println("<<< keyboardWasShown >>>")
     }
     
     func keyboardWillChangeFrame(notification: NSNotification) {
-        println("<<< keyboardWillChangeFrame >>>")
         
         var info: NSDictionary = notification.userInfo;
         var nsValue =  info.objectForKey(UIKeyboardFrameEndUserInfoKey) as NSValue
@@ -148,11 +223,9 @@ class AddBriefViewController: UIViewController, UITextViewDelegate {
     }
     
     func keyboardDidChangeFrame(notification: NSNotification) {
-        println("<<< keyboardDidChangeFrame >>>")
     }
     
     func drawCharacterCountLabel(kbRect: CGRect) {
-        println("<<< drawCharacterCountLabel >>>")
         
         let viewWidth: CGFloat = kbRect.width
         let viewHeight: CGFloat = 30;
@@ -169,7 +242,11 @@ class AddBriefViewController: UIViewController, UITextViewDelegate {
         charCountLabel.frame = CGRectMake(charCountView.frame.width - labelWidth, 0, labelWidth, charCountView.frame.height)
         charCountView.addSubview(charCountLabel)
         
-        
+    }
+    
+    func updateCharacterCount() {
+        //update the count character label
+        charCountLabel.text = (140 - content.text.utf16count).description
     }
 
 }
