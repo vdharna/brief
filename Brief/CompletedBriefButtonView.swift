@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import QuartzCore
 
 class CompletedBriefButtonView: UIView {
     
@@ -35,6 +36,7 @@ class CompletedBriefButtonView: UIView {
         // Add an arc to the path at center, with radius of radius,
         // from 0 to 2*PI radians (a circle)
         //path.addArcWithCenter(center, radius: radius - lineWidth, startAngle: 0.0, endAngle: M_PI * 2.0, clockwise: true)
+        createCircle()
         
         //draw the hour hand line at 12 o'clock
         path.moveToPoint(center)
@@ -49,6 +51,19 @@ class CompletedBriefButtonView: UIView {
        
         path.stroke()
         
+    }
+    
+    func createCircle() {
+        var orbit1 = CALayer()
+        
+        orbit1.bounds = self.bounds
+        orbit1.position = self.center;
+        orbit1.cornerRadius = 40
+        orbit1.borderColor = UIColor.darkGrayColor().CGColor;
+        orbit1.borderWidth = 2;
+        
+        self.layer.addSublayer(orbit1)
+
     }
     
     

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6185.7" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6185.11" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6181.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6190.4"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BriefHomeController" customModule="Brief" customModuleProvider="target">
@@ -10,8 +10,6 @@
                 <outlet property="completedLabel" destination="Ul2-HT-6Wn" id="6FA-0x-yoF"/>
                 <outlet property="composeButton" destination="b4b-st-HJq" id="W90-hv-dtC"/>
                 <outlet property="composeLabel" destination="jc6-df-MJB" id="jQx-E5-tN5"/>
-                <outlet property="continueButton" destination="tH2-Wf-J6n" id="Myi-Bv-SIp"/>
-                <outlet property="continueLabel" destination="YmI-P4-ZbR" id="1vl-PG-KBS"/>
                 <outlet property="view" destination="Fda-Io-Fys" id="u8y-Et-Psl"/>
             </connections>
         </placeholder>
@@ -21,7 +19,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b4b-st-HJq" userLabel="compose button">
-                    <rect key="frame" x="120" y="80" width="80" height="80"/>
+                    <rect key="frame" x="120" y="147" width="80" height="80"/>
                     <state key="normal">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -30,28 +28,13 @@
                     </connections>
                 </button>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Compose" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jc6-df-MJB" userLabel="compose label">
-                    <rect key="frame" x="120" y="168" width="80" height="21"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tH2-Wf-J6n" userLabel="continue button">
-                    <rect key="frame" x="120" y="225" width="80" height="80"/>
-                    <state key="normal" title="Button" image="continue">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="continueBrief:" destination="-1" eventType="touchUpInside" id="sZI-N0-gad"/>
-                    </connections>
-                </button>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Continue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YmI-P4-ZbR" userLabel="continue label">
-                    <rect key="frame" x="120" y="313" width="80" height="21"/>
+                    <rect key="frame" x="120" y="235" width="80" height="21"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                     <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SQh-Xg-khp" userLabel="completed button">
-                    <rect key="frame" x="120" y="369" width="80" height="80"/>
+                    <rect key="frame" x="120" y="323" width="80" height="80"/>
                     <state key="normal">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -60,7 +43,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Completed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ul2-HT-6Wn" userLabel="completed label">
-                    <rect key="frame" x="117" y="457" width="86" height="21"/>
+                    <rect key="frame" x="117" y="411" width="86" height="21"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                     <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -75,7 +58,4 @@
             <point key="canvasLocation" x="432" y="313"/>
         </view>
     </objects>
-    <resources>
-        <image name="continue" width="219" height="219"/>
-    </resources>
 </document>

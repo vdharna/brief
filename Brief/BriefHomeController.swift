@@ -15,9 +15,6 @@ class BriefHomeController: UIViewController {
     @IBOutlet var composeButton: UIButton!
     @IBOutlet var composeLabel: UILabel!
     
-    @IBOutlet var continueButton: UIButton!
-    @IBOutlet var continueLabel: UILabel!
-    
     @IBOutlet var completedButton: UIButton!
     @IBOutlet var completedLabel: UILabel!
     
@@ -46,6 +43,22 @@ class BriefHomeController: UIViewController {
         
         origComposeRect = composeButtonView!.bounds
         origCompleteRect = completedButtonView!.bounds
+    
+        //nav bar setup
+        self.navigationController.navigationBar.barTintColor = UIColor.blackColor()
+        self.navigationController.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationController.navigationBar.barStyle = UIBarStyle.Black
+        
+        // this will appear as the title in the navigation bar
+        var label = UILabel()
+        label.text = "Brief"
+        label.backgroundColor = UIColor.clearColor()
+        label.font = UIFont.boldSystemFontOfSize(25.0)
+        label.textAlignment = NSTextAlignment.Center
+        label.textColor = UIColor.whiteColor()
+        self.navigationItem.titleView = label;
+        label.sizeToFit()
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,20 +67,6 @@ class BriefHomeController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        self.navigationController.navigationBarHidden = true
-        self.navigationItem.title = ""
-        
-        //graphite color
-        self.navigationController.navigationBar.barTintColor = UIColor.darkTextColor()
-        self.navigationController.navigationBar.tintColor = UIColor.whiteColor()
-        
-        if (user.brief.isEmpty()) {
-            continueButton.enabled = false
-            continueLabel.enabled = false
-        } else {
-            continueButton.enabled = true
-            continueLabel.enabled = true
-        }
         
         if (origComposeRect!.size != composeButtonView!.bounds.size) {
             self.composeButtonView!.bounds = origComposeRect!
@@ -77,6 +76,10 @@ class BriefHomeController: UIViewController {
             self.completedButtonView!.bounds = origCompleteRect!
         }
         
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        self.navigationItem.title = ""
     }
     
     // ==========================================
@@ -108,11 +111,11 @@ class BriefHomeController: UIViewController {
         UIView.animateWithDuration(0.5, animations: {
             UIView.setAnimationRepeatAutoreverses(true)
             UIView.setAnimationRepeatCount(5.0)
-            var rect = self.continueButton.frame
+            var rect = self.composeButton.frame
             rect.size.height += 15
             rect.size.width += 15
             
-            self.continueButton.bounds = rect
+            self.composeButton.bounds = rect
             
             }, completion: {
                 (value: Bool) in
