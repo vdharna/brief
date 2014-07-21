@@ -10,7 +10,7 @@ import UIKit
 
 class CompletedBriefButtonView: UIView {
     
-    let lineWidth: Double = 2
+    let lineWidth: CGFloat = 2
 
     init(frame: CGRect) {
         super.init(frame: frame)
@@ -34,7 +34,7 @@ class CompletedBriefButtonView: UIView {
         
         // Add an arc to the path at center, with radius of radius,
         // from 0 to 2*PI radians (a circle)
-        path.addArcWithCenter(center, radius: radius - lineWidth, startAngle: 0.0, endAngle: M_PI * 2.0, clockwise: true)
+        //path.addArcWithCenter(center, radius: radius - lineWidth, startAngle: 0.0, endAngle: M_PI * 2.0, clockwise: true)
         
         //draw the hour hand line at 12 o'clock
         path.moveToPoint(center)

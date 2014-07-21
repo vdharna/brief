@@ -10,14 +10,18 @@ import UIKit
 
 class AddPPPController: UIViewController, UITextViewDelegate, UIActionSheetDelegate {
 
-    @IBOutlet var content: UITextView
-    @IBOutlet var saveButton: UIBarButtonItem
-    @IBOutlet var cancelButton: UIBarButtonItem
+    @IBOutlet var content: UITextView!
+    @IBOutlet var saveButton: UIBarButtonItem!
+    @IBOutlet var cancelButton: UIBarButtonItem!
     var charCountView: UIView = UIView()
     var charCountLabel: UILabel = UILabel()
     var selectedSegment: Int?
     var selectedPPPElement = -1 //default to indicate nothing is transitioned
     var snapshot:String?
+    
+    init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
     
     // ==========================================
     // MARK: lifecycle methods
@@ -246,7 +250,7 @@ class AddPPPController: UIViewController, UITextViewDelegate, UIActionSheetDeleg
     
     func updateCharacterCount() {
         //update the count character label
-        charCountLabel.text = (140 - content.text.utf16count).description
+        charCountLabel.text = (140 - content.text.utf16Count).description
     }
 
 }

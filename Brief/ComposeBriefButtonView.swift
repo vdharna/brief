@@ -10,7 +10,7 @@ import UIKit
 
 class ComposeBriefButtonView: UIView {
 
-    let lineWidth: Double = 2
+    let lineWidth: CGFloat = 2
     
     init(frame: CGRect) {
         super.init(frame: frame)

@@ -165,7 +165,7 @@ class CreateBriefController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func add() {
-        var addPPPVC = AddPPPController()
+        var addPPPVC = AddPPPController(nibName: nil, bundle: nil)
         addPPPVC.selectedSegment = selectedSegment //pass the selected segment to create the correct PPP instance
         self.navigationController.presentViewController(addPPPVC, animated: true, completion: nil)
     }
@@ -393,7 +393,7 @@ class CreateBriefController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!)  {
         
-        var addPPPVC = AddPPPController()
+        var addPPPVC = AddPPPController(nibName: nil, bundle: nil)
         addPPPVC.selectedSegment = selectedSegment //pass the selected segment to create the correct PPP instance
         addPPPVC.selectedPPPElement = indexPath.row
         self.navigationController.presentViewController(addPPPVC, animated: true, completion: nil)

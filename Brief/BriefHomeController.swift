@@ -12,20 +12,24 @@ class BriefHomeController: UIViewController {
     
     var createBriefVC: CreateBriefController?
     
-    @IBOutlet var composeButton: UIButton
-    @IBOutlet var composeLabel: UILabel
+    @IBOutlet var composeButton: UIButton!
+    @IBOutlet var composeLabel: UILabel!
     
-    @IBOutlet var continueButton: UIButton
-    @IBOutlet var continueLabel: UILabel
+    @IBOutlet var continueButton: UIButton!
+    @IBOutlet var continueLabel: UILabel!
     
-    @IBOutlet var completedButton: UIButton
-    @IBOutlet var completedLabel: UILabel
+    @IBOutlet var completedButton: UIButton!
+    @IBOutlet var completedLabel: UILabel!
     
     var composeButtonView:ComposeBriefButtonView?
     var completedButtonView:CompletedBriefButtonView?
     
     var origComposeRect:CGRect?
     var origCompleteRect:CGRect?
+    
+    init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
     
     // ==========================================
     // MARK: lifecycle methods
