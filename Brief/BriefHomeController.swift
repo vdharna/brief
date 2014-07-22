@@ -168,7 +168,6 @@ class BriefHomeController: UIViewController {
             })
     }
     
-    
     @IBAction func showCompletedBriefs(sender: AnyObject) {
         
         //prevent duplicate tap
@@ -179,8 +178,8 @@ class BriefHomeController: UIViewController {
         var planet = CALayer()
         
         CATransaction.setCompletionBlock({
-            self.createBriefVC = CreateBriefController()
-            self.navigationController.pushViewController(self.createBriefVC, animated: true)
+            var cbvc = CompletedBriefViewController(nibName: nil, bundle: nil)
+            self.navigationController.pushViewController(cbvc, animated: true)
             planet.removeFromSuperlayer()
             self.composeButton.enabled = true
             self.completedButton.enabled = true

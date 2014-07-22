@@ -10,11 +10,13 @@ import Foundation
 
 class Brief {
     
+    let id: NSString
     var progress: Array<Progress>
     var plans: Array<Plan>
     var problems: Array<Problem>
     
     init() {
+        id = NSUUID.UUID().UUIDString
         progress = []
         plans = []
         problems = []
