@@ -21,7 +21,7 @@
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b4b-st-HJq" userLabel="compose button">
                     <rect key="frame" x="135" y="158" width="50" height="50"/>
                     <state key="normal">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="composeBrief:" destination="-1" eventType="touchUpInside" id="7vs-iU-PMp"/>
@@ -33,10 +33,10 @@
                     <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SQh-Xg-khp" userLabel="completed button">
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SQh-Xg-khp" userLabel="completed button">
                     <rect key="frame" x="135" y="323" width="50" height="50"/>
                     <state key="normal">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="showCompletedBriefs:" destination="-1" eventType="touchUpInside" id="7Td-db-boK"/>
@@ -55,7 +55,7 @@
                 <size key="portraitSize" width="320" height="568"/>
                 <size key="landscapeSize" width="568" height="320"/>
             </simulatedScreenMetrics>
-            <point key="canvasLocation" x="432" y="313"/>
+            <point key="canvasLocation" x="259" y="220"/>
         </view>
     </objects>
 </document>

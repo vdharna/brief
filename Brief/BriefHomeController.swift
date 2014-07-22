@@ -139,11 +139,8 @@ class BriefHomeController: UIViewController {
     @IBAction func composeBrief(sender: AnyObject) {
         
         //prevent duplicate tap
-        if (actionInProgress) {
-            return
-        }
-        
-        actionInProgress = true
+        composeButton.enabled = false
+        completedButton.enabled = false
         
         UIView.animateWithDuration(0.3, animations: {
             
@@ -157,6 +154,8 @@ class BriefHomeController: UIViewController {
                 (value: Bool) in
                 self.createBriefVC = CreateBriefController()
                 self.navigationController.pushViewController(self.createBriefVC, animated: true)
+                self.composeButton.enabled = true
+                self.completedButton.enabled = true
             })
     }
     
@@ -164,11 +163,8 @@ class BriefHomeController: UIViewController {
     @IBAction func showCompletedBriefs(sender: AnyObject) {
         
         //prevent duplicate tap
-        if (actionInProgress) {
-            return
-        }
-        
-        actionInProgress = true
+        composeButton.enabled = false
+        completedButton.enabled = false
         
         CATransaction.begin()
         var planet = CALayer()
@@ -177,6 +173,8 @@ class BriefHomeController: UIViewController {
             self.createBriefVC = CreateBriefController()
             self.navigationController.pushViewController(self.createBriefVC, animated: true)
             planet.removeFromSuperlayer()
+            self.composeButton.enabled = true
+            self.completedButton.enabled = true
             })
         
         planet.bounds = CGRectMake(0, 0, 7, 7);
