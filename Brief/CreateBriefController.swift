@@ -12,9 +12,9 @@ class CreateBriefController: UIViewController, UITableViewDelegate, UITableViewD
     
     var descriptionLabel:UILabel?
     
-    let progressDescription = "List three to five accomplishments, finished items and closed tasks for the current reporting period"
-    let planDescription = "List your goals and objectives for the next reporting period. Keep the list to between three and five items."
-    let problemDescription = "List items that are stuck and can’t be finished. Problems often need escalation and help from someone else."
+    let progressDescription = "List your accomplishments, finished items and closed tasks for the current reporting period"
+    let planDescription = "List your goals and objectives for the next reporting period"
+    let problemDescription = "List items you can't finish and need escalation or help from someone else."
     
     let segmentedControl = UISegmentedControl(items: ["Progress", "Plans", "Problems"])
     var selectedSegment = 0 //remember which segment was selected
@@ -56,10 +56,11 @@ class CreateBriefController: UIViewController, UITableViewDelegate, UITableViewD
     
     func setupDescriptionLabel() {
         // set the attributedString to the label for proper font rendering
-        descriptionLabel = UILabel(frame: CGRectMake(self.view.frame.origin.x + 10, self.view.frame.origin.y + 80, self.view.frame.width - 30, 88))
+        descriptionLabel = UILabel(frame: CGRectMake(self.view.frame.origin.x + 20, self.view.frame.origin.y + 80, self.view.frame.width, self.view.frame.height))
         
         var formattedText = formatDescLabelText(progressDescription)
         descriptionLabel!.attributedText = formattedText
+        
         //use this to align the text to the top
         descriptionLabel!.numberOfLines = 0;
         descriptionLabel!.sizeToFit()
@@ -372,13 +373,13 @@ class CreateBriefController: UIViewController, UITableViewDelegate, UITableViewD
         
         cell.textLabel.text = text
         cell.textLabel.font = UIFont(name: "HelveticaNeue-Light", size: 14)
-        cell.textLabel.numberOfLines = 5
+        cell.textLabel.numberOfLines = 6
         //cell.backgroundColor = UIColor.lightGrayColor()
         cell.accessoryType = .DisclosureIndicator
         cell.imageView.image = UIImage(named: "cell-30pt.png")
         
-        //following code keeps the cell images flush between cell
-        var itemSize = CGSizeMake(30, 100)
+        //following code keeps the cell images flush between cells
+        var itemSize = CGSizeMake(30, tableCellHeight)
         UIGraphicsBeginImageContextWithOptions(itemSize, false, UIScreen.mainScreen().scale);
         var imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
         cell.imageView.image.drawInRect(imageRect)

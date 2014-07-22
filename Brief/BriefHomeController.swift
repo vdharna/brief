@@ -29,8 +29,6 @@ class BriefHomeController: UIViewController {
     var hourLine = CAShapeLayer()
     var minuteLine = CAShapeLayer()
     
-    var actionInProgress = false
-    
     init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         //assign the constant
@@ -52,6 +50,10 @@ class BriefHomeController: UIViewController {
         composeButtonView = ComposeBriefButtonView(frame: CGRectMake(0, 0, composeButton.frame.width, composeButton.frame.height))
         composeButton.addSubview(composeButtonView)
         origComposeRect = composeButton.bounds
+    }
+    
+    func setupContinueButton() {
+        
     }
     
     func setupHistoryButton() {
@@ -110,8 +112,11 @@ class BriefHomeController: UIViewController {
         label.sizeToFit()
     
         //setup the gear
-        UIBarButtonItem.appearance().setTitleTextAttributes(NSDictionary(dictionary: [NSFontAttributeName : UIFont(name: "Helvetica", size: 25.0)]), forState: UIControlState.Normal)
-        var gearButton = UIBarButtonItem(title: "\u{2699}", style: UIBarButtonItemStyle.Plain, target: self, action: "settings")
+        
+//        var gearButton = UIBarButtonItem(title: "\u{2699} ", style: UIBarButtonItemStyle.Plain, target: self, action: "settings")
+        var gearImage = UIImage(named: "gear.png")
+        var gearButton = UIBarButtonItem(image: gearImage, style: .Plain, target: self, action: "settings")
+//        var gearButton = UIBarButtonItem(title: "\u{2699} ", style: UIBarButtonItemStyle.Plain, target: self, action: "settings")
         self.navigationItem.rightBarButtonItem = gearButton;
         
 
@@ -134,8 +139,6 @@ class BriefHomeController: UIViewController {
         super.viewDidDisappear(animated)
         //reset the button size
         self.composeButtonView!.bounds = origComposeRect!
-        self.actionInProgress = false
-
     }
     
     // ==========================================

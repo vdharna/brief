@@ -50,6 +50,7 @@ class AddPPPController: UIViewController, UITextViewDelegate, UIActionSheetDeleg
         updateCharacterCount()
         //take snapshot for comparison
         snapshot = content.text
+    
     }
     
     override func viewWillDisappear(animated: Bool) {
