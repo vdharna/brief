@@ -11,7 +11,8 @@ import QuartzCore
 
 class CompletedBriefButtonView: UIView {
     
-    let lineWidth: CGFloat = 2
+    let lineWidth: CGFloat = 1
+    var animate = false
 
     init(frame: CGRect) {
         super.init(frame: frame)
@@ -23,28 +24,45 @@ class CompletedBriefButtonView: UIView {
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
         // Drawing code
-        var bounds = self.bounds
+        var orbit = CALayer()
         
-        // Figure out the center of the bounds rectangle
-        var center = CGPointMake(bounds.origin.x + bounds.size.width / 2.0, bounds.origin.y + bounds.size.height / 2.0)
+        orbit.bounds = self.bounds
+        orbit.position = self.center;
+        orbit.cornerRadius = self.bounds.width / 2
+        orbit.borderColor = UIColor.darkGrayColor().CGColor;
+        orbit.borderWidth = 1;
         
-        // The circle will be the largest that will fit in the view
-        var radius = (min(bounds.size.width, bounds.size.height) / 2.0)
-   
+        if (animate) {
+            
+            var planet = CALayer()
+            planet.bounds = CGRectMake(0, 0, 10, 10);
+            planet.position = CGPointMake(self.bounds.width / 2, 0);
+            planet.cornerRadius = 5;
+            planet.backgroundColor = UIColor.darkGrayColor().CGColor
+            orbit.addSublayer(planet)
+            
+            
+            var anim = CABasicAnimation(keyPath: "transform.rotation")
+            anim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+            anim.fromValue = 0
+            anim.toValue = (360 * M_PI) / 180
+            anim.repeatCount = Float.infinity
+            anim.duration = 8.0
+            
+            orbit.addAnimation(anim, forKey: "transform")
+        }
+        
+        self.layer.addSublayer(orbit)
+
         var path = UIBezierPath()
-        
-        // Add an arc to the path at center, with radius of radius,
-        // from 0 to 2*PI radians (a circle)
-        //path.addArcWithCenter(center, radius: radius - lineWidth, startAngle: 0.0, endAngle: M_PI * 2.0, clockwise: true)
-        createCircle()
         
         //draw the hour hand line at 12 o'clock
         path.moveToPoint(center)
-        path.addLineToPoint(CGPointMake(center.x, center.y - 25))
+        path.addLineToPoint(CGPointMake(center.x, center.y - 15))
         
         //draw the second-hand line at 45
         path.moveToPoint(center)
-        path.addLineToPoint(CGPointMake(center.x - 28, center.y))
+        path.addLineToPoint(CGPointMake(center.x - 18, center.y))
         
         path.lineWidth = lineWidth
         UIColor.darkGrayColor().setStroke()
@@ -52,20 +70,5 @@ class CompletedBriefButtonView: UIView {
         path.stroke()
         
     }
-    
-    func createCircle() {
-        var orbit1 = CALayer()
-        
-        orbit1.bounds = self.bounds
-        orbit1.position = self.center;
-        orbit1.cornerRadius = 40
-        orbit1.borderColor = UIColor.darkGrayColor().CGColor;
-        orbit1.borderWidth = 2;
-        
-        self.layer.addSublayer(orbit1)
-
-    }
-    
-    
 
 }

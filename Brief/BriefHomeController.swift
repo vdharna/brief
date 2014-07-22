@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import QuartzCore
 
 class BriefHomeController: UIViewController {
     
@@ -22,10 +23,17 @@ class BriefHomeController: UIViewController {
     var completedButtonView:CompletedBriefButtonView?
     
     var origComposeRect:CGRect?
-    var origCompleteRect:CGRect?
+    
+    var circle = CALayer()
+    var linePath = UIBezierPath()
+    var hourLine = CAShapeLayer()
+    var minuteLine = CAShapeLayer()
+    
+    var actionInProgress = false
     
     init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        //assign the constant
     }
     
     // ==========================================
@@ -35,19 +43,61 @@ class BriefHomeController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        setupComposeButton()
+        setupHistoryButtonAlternate()
+        setupNavBar()
+    }
+    
+    func setupComposeButton() {
         composeButtonView = ComposeBriefButtonView(frame: CGRectMake(0, 0, composeButton.frame.width, composeButton.frame.height))
         composeButton.addSubview(composeButtonView)
-        
+        origComposeRect = composeButton.bounds
+    }
+    
+    func setupHistoryButton() {
         completedButtonView = CompletedBriefButtonView(frame: CGRectMake(0, 0, completedButton.frame.width, completedButton.frame.height))
         completedButton.addSubview(completedButtonView)
-        
-        origComposeRect = composeButtonView!.bounds
-        origCompleteRect = completedButtonView!.bounds
+    }
     
+    func setupHistoryButtonAlternate() {
+        
+        //draw the circle
+        
+        circle.bounds = completedButton!.bounds
+        circle.position = completedButton!.center;
+        circle.cornerRadius = completedButton!.bounds.width / 2
+        circle.borderColor = UIColor.darkGrayColor().CGColor;
+        circle.borderWidth = 1;
+        
+        //draw the hour line
+        linePath.moveToPoint(completedButton!.center)
+        linePath.addLineToPoint(CGPointMake(completedButton!.center.x, completedButton!.center.y - 15))
+        hourLine.path = linePath.CGPath
+        hourLine.fillColor = nil
+        hourLine.opacity = 1.0
+        hourLine.strokeColor = UIColor.darkGrayColor().CGColor
+        
+        //draw the minute line
+        linePath.moveToPoint(completedButton!.center)
+        linePath.addLineToPoint(CGPointMake(completedButton!.center.x - 18, completedButton!.center.y))
+        minuteLine.path = linePath.CGPath
+        minuteLine.fillColor = nil
+        minuteLine.opacity = 1.0
+        minuteLine.strokeColor = UIColor.darkGrayColor().CGColor
+        
+        self.view.layer.addSublayer(circle)
+        self.view.layer.addSublayer(hourLine)
+        self.view.layer.addSublayer(minuteLine)
+
+    }
+    
+    func setupNavBar() {
+        
         //nav bar setup
         self.navigationController.navigationBar.barTintColor = UIColor.blackColor()
         self.navigationController.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController.navigationBar.barStyle = UIBarStyle.Black
+        self.navigationItem.title = ""
         
         // this will appear as the title in the navigation bar
         var label = UILabel()
@@ -58,7 +108,7 @@ class BriefHomeController: UIViewController {
         label.textColor = UIColor.whiteColor()
         self.navigationItem.titleView = label;
         label.sizeToFit()
-
+    
     }
 
     override func didReceiveMemoryWarning() {
@@ -67,19 +117,19 @@ class BriefHomeController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        
-        if (origComposeRect!.size != composeButtonView!.bounds.size) {
-            self.composeButtonView!.bounds = origComposeRect!
-        }
-        
-        if (origCompleteRect!.size != completedButtonView!.bounds.size) {
-            self.completedButtonView!.bounds = origCompleteRect!
-        }
-        
+        super.viewWillAppear(animated)
     }
     
     override func viewWillDisappear(animated: Bool) {
-        self.navigationItem.title = ""
+        super.viewWillDisappear(animated)
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        //reset the button size
+        self.composeButtonView!.bounds = origComposeRect!
+        self.actionInProgress = false
+
     }
     
     // ==========================================
@@ -88,7 +138,14 @@ class BriefHomeController: UIViewController {
 
     @IBAction func composeBrief(sender: AnyObject) {
         
-        UIView.animateWithDuration(0.5, animations: {
+        //prevent duplicate tap
+        if (actionInProgress) {
+            return
+        }
+        
+        actionInProgress = true
+        
+        UIView.animateWithDuration(0.3, animations: {
             
             var rect = self.composeButtonView!.frame
             rect.size.height += 15
@@ -100,48 +157,44 @@ class BriefHomeController: UIViewController {
                 (value: Bool) in
                 self.createBriefVC = CreateBriefController()
                 self.navigationController.pushViewController(self.createBriefVC, animated: true)
-
-            })
-        
-
-    }
-
-    @IBAction func continueBrief(sender: AnyObject) {
-        
-        UIView.animateWithDuration(0.5, animations: {
-            UIView.setAnimationRepeatAutoreverses(true)
-            UIView.setAnimationRepeatCount(5.0)
-            var rect = self.composeButton.frame
-            rect.size.height += 15
-            rect.size.width += 15
-            
-            self.composeButton.bounds = rect
-            
-            }, completion: {
-                (value: Bool) in
-                self.createBriefVC = CreateBriefController()
-                self.navigationController.pushViewController(self.createBriefVC, animated: true)
             })
     }
     
     
     @IBAction func showCompletedBriefs(sender: AnyObject) {
         
-        UIView.animateWithDuration(0.88, animations: {
-            
-            var rect = self.completedButtonView!.frame
-            rect.size.height += 15
-            rect.size.width += 15
-            
-            self.completedButtonView!.bounds = rect
-            
-            }, completion: {
-                (value: Bool) in
-                self.createBriefVC = CreateBriefController()
-                self.navigationController.pushViewController(self.createBriefVC, animated: true)
-                
+        //prevent duplicate tap
+        if (actionInProgress) {
+            return
+        }
+        
+        actionInProgress = true
+        
+        CATransaction.begin()
+        var planet = CALayer()
+        
+        CATransaction.setCompletionBlock({
+            self.createBriefVC = CreateBriefController()
+            self.navigationController.pushViewController(self.createBriefVC, animated: true)
+            planet.removeFromSuperlayer()
             })
         
+        planet.bounds = CGRectMake(0, 0, 7, 7);
+        planet.position = CGPointMake(self.completedButton.bounds.width / 2, 0);
+        planet.cornerRadius = 5;
+        planet.backgroundColor = UIColor.redColor().CGColor
+        self.circle.addSublayer(planet)
+        
+        var anim = CABasicAnimation(keyPath: "transform.rotation")
+        anim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        anim.fromValue = 0
+        anim.toValue = (360 * M_PI) / 180
+        anim.repeatCount = 1
+        anim.duration = 0.3
+        
+        self.circle.addAnimation(anim, forKey: "transform")
+        CATransaction.commit()
     }
+    
 }
 
