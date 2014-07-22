@@ -109,6 +109,12 @@ class BriefHomeController: UIViewController {
         self.navigationItem.titleView = label;
         label.sizeToFit()
     
+        //setup the gear
+        UIBarButtonItem.appearance().setTitleTextAttributes(NSDictionary(dictionary: [NSFontAttributeName : UIFont(name: "Helvetica", size: 25.0)]), forState: UIControlState.Normal)
+        var gearButton = UIBarButtonItem(title: "\u{2699}", style: UIBarButtonItemStyle.Plain, target: self, action: "settings")
+        self.navigationItem.rightBarButtonItem = gearButton;
+        
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -192,6 +198,10 @@ class BriefHomeController: UIViewController {
         
         self.circle.addAnimation(anim, forKey: "transform")
         CATransaction.commit()
+    }
+    
+    func settings() {
+        println("settings")
     }
     
 }
