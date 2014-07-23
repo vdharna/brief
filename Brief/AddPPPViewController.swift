@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddPPPController: UIViewController, UITextViewDelegate, UIActionSheetDelegate {
+class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetDelegate {
 
     @IBOutlet var content: UITextView!
     @IBOutlet var saveButton: UIBarButtonItem!

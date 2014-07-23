@@ -12,16 +12,18 @@ func ==(lhs: PPPEntity, rhs: PPPEntity) -> Bool {
     return lhs.id == rhs.id
 }
 
+var id: Int = 0
+
 class PPPEntity: Equatable, Printable {
     
-    var id: String
+    var id: Int
     var content: String
     
     var description : String { return String(id) }
 
     
     init(content: String) {
-        self.id = NSUUID.UUID().UUIDString
+        self.id = NSUUID.UUID().hashValue
         self.content = content
     }
 }

@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
 
-        var bhvc = BriefHomeController(nibName: nil, bundle: nil)
+        var bhvc = HomeViewController(nibName: nil, bundle: nil)
         var bnavc = UINavigationController(rootViewController: bhvc)
         
         self.window!.rootViewController = bnavc

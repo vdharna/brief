@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreateBriefController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate {
+class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate {
     
     var descriptionLabel:UILabel?
     
@@ -166,7 +166,7 @@ class CreateBriefController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func add() {
-        var addPPPVC = AddPPPController(nibName: nil, bundle: nil)
+        var addPPPVC = AddPPPViewController(nibName: nil, bundle: nil)
         addPPPVC.selectedSegment = selectedSegment //pass the selected segment to create the correct PPP instance
         self.navigationController.presentViewController(addPPPVC, animated: true, completion: nil)
     }
@@ -329,9 +329,9 @@ class CreateBriefController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     
-    // ==========================================
-    // MARK: tableview methods
-    // ==========================================
+    // ============================================
+    // MARK: UITableViewDataSource implementation
+    // ============================================
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
         
         switch (selectedSegment) {
@@ -355,26 +355,31 @@ class CreateBriefController: UIViewController, UITableViewDelegate, UITableViewD
         var cell: UITableViewCell = pppTable!.dequeueReusableCellWithIdentifier("UITableViewCell", forIndexPath: indexPath) as UITableViewCell
        
         var text:String
+        var id: Int
         
         switch (selectedSegment) {
             
         case 0:
             text = user.brief.progress[indexPath.row].content
+            id = user.brief.progress[indexPath.row].id
             
         case 1:
             text = user.brief.plans[indexPath.row].content
+            id = user.brief.plans[indexPath.row].id
             
         case 2:
             text = user.brief.problems[indexPath.row].content
+            id = user.brief.problems[indexPath.row].id
             
         default:
             text = ""
+            id = 0
         }
         
+        cell.tag = id
         cell.textLabel.text = text
         cell.textLabel.font = UIFont(name: "HelveticaNeue-Light", size: 14)
         cell.textLabel.numberOfLines = 6
-        //cell.backgroundColor = UIColor.lightGrayColor()
         cell.accessoryType = .DisclosureIndicator
         cell.imageView.image = UIImage(named: "cell-30pt.png")
         
@@ -385,20 +390,8 @@ class CreateBriefController: UIViewController, UITableViewDelegate, UITableViewD
         cell.imageView.image.drawInRect(imageRect)
         cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
+        
         return cell
-    }
-    
-    func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
-        return tableCellHeight
-    }
-    
-    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!)  {
-        
-        var addPPPVC = AddPPPController(nibName: nil, bundle: nil)
-        addPPPVC.selectedSegment = selectedSegment //pass the selected segment to create the correct PPP instance
-        addPPPVC.selectedPPPElement = indexPath.row
-        self.navigationController.presentViewController(addPPPVC, animated: true, completion: nil)
-        
     }
     
     func tableView(tableView: UITableView!, canEditRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
@@ -435,7 +428,23 @@ class CreateBriefController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
- 
+    // ============================================
+    // MARK: UITableViewDelegate implementation
+    // ============================================
+    
+    func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+        return tableCellHeight
+    }
+    
+    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!)  {
+        
+        var addPPPVC = AddPPPViewController(nibName: nil, bundle: nil)
+        addPPPVC.selectedSegment = selectedSegment //pass the selected segment to create the correct PPP instance
+        addPPPVC.selectedPPPElement = indexPath.row
+        self.navigationController.presentViewController(addPPPVC, animated: true, completion: nil)
+        
+    }
+
     // ==========================================
     // MARK: helper methods
     // ==========================================

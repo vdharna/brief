@@ -9,9 +9,9 @@
 import UIKit
 import QuartzCore
 
-class BriefHomeController: UIViewController {
+class HomeViewController: UIViewController {
     
-    var createBriefVC: CreateBriefController?
+    var cvc: ComposeViewController?
     
     @IBOutlet var composeButton: UIButton!
     @IBOutlet var composeLabel: UILabel!
@@ -161,8 +161,8 @@ class BriefHomeController: UIViewController {
             
             }, completion: {
                 (value: Bool) in
-                self.createBriefVC = CreateBriefController()
-                self.navigationController.pushViewController(self.createBriefVC, animated: true)
+                self.cvc = ComposeViewController()
+                self.navigationController.pushViewController(self.cvc, animated: true)
                 self.composeButton.enabled = true
                 self.completedButton.enabled = true
             })
