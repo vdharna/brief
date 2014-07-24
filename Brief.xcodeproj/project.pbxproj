@@ -34,6 +34,7 @@
 		62C032851981BDFD005AC29F /* comment_icon.graffle in Resources */ = {isa = PBXBuildFile; fileRef = 62C032821981BDFD005AC29F /* comment_icon.graffle */; };
 		62C032881981CE86005AC29F /* ComposeBriefTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C032861981CE86005AC29F /* ComposeBriefTableViewCell.swift */; };
 		62C032891981CE86005AC29F /* ComposeBriefTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62C032871981CE86005AC29F /* ComposeBriefTableViewCell.xib */; };
+		62C0328B1981D260005AC29F /* compose-table-cell.graffle in Resources */ = {isa = PBXBuildFile; fileRef = 62C0328A1981D260005AC29F /* compose-table-cell.graffle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,12 +74,12 @@
 		62888FE7197A1EB4002D0DD0 /* CompletedBriefButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedBriefButtonView.swift; sourceTree = "<group>"; };
 		62888FE9197B954E002D0DD0 /* ComposeBriefButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeBriefButtonView.swift; sourceTree = "<group>"; };
 		6295FAC519746D6500C338D3 /* Brief.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brief.swift; sourceTree = "<group>"; };
-		62A745AE197C31E100479514 /* table-cell-image.graffle */ = {isa = PBXFileReference; lastKnownFileType = file; path = "table-cell-image.graffle"; sourceTree = "<group>"; };
 		62C032801981BDFD005AC29F /* share_icon.graffle */ = {isa = PBXFileReference; lastKnownFileType = file; name = share_icon.graffle; path = ../../../../Desktop/share_icon.graffle; sourceTree = "<group>"; };
 		62C032811981BDFD005AC29F /* flag_icon.graffle */ = {isa = PBXFileReference; lastKnownFileType = file; name = flag_icon.graffle; path = ../../../../Desktop/flag_icon.graffle; sourceTree = "<group>"; };
 		62C032821981BDFD005AC29F /* comment_icon.graffle */ = {isa = PBXFileReference; lastKnownFileType = file; name = comment_icon.graffle; path = ../../../../Desktop/comment_icon.graffle; sourceTree = "<group>"; };
 		62C032861981CE86005AC29F /* ComposeBriefTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeBriefTableViewCell.swift; sourceTree = "<group>"; };
 		62C032871981CE86005AC29F /* ComposeBriefTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ComposeBriefTableViewCell.xib; sourceTree = "<group>"; };
+		62C0328A1981D260005AC29F /* compose-table-cell.graffle */ = {isa = PBXFileReference; lastKnownFileType = file; path = "compose-table-cell.graffle"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,10 +134,10 @@
 		6247412B196CB5A10043C7E5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				62C0328A1981D260005AC29F /* compose-table-cell.graffle */,
 				62C032801981BDFD005AC29F /* share_icon.graffle */,
 				62C032811981BDFD005AC29F /* flag_icon.graffle */,
 				62C032821981BDFD005AC29F /* comment_icon.graffle */,
-				62A745AE197C31E100479514 /* table-cell-image.graffle */,
 				6247412C196CB5A10043C7E5 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -321,6 +322,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62C0328B1981D260005AC29F /* compose-table-cell.graffle in Resources */,
 				622582F519802B3D000E4F27 /* CompletedBriefCell.xib in Resources */,
 				6241FB57196F137F0092B014 /* HomeViewController.xib in Resources */,
 				62C032831981BDFD005AC29F /* share_icon.graffle in Resources */,
