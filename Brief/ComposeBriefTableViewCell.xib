@@ -19,15 +19,16 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="compose-table-cell-green" translatesAutoresizingMaskIntoConstraints="NO" id="H3g-CA-nDY">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H3g-CA-nDY">
                         <rect key="frame" x="3" y="0.0" width="30" height="130"/>
                     </imageView>
                 </subviews>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="cellImage" destination="H3g-CA-nDY" id="15h-sd-jD6"/>
+                <outlet property="cellLabel" destination="kaa-V6-GSS" id="rek-Uj-dif"/>
+            </connections>
             <point key="canvasLocation" x="139" y="197"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="compose-table-cell-green" width="104" height="451"/>
-    </resources>
 </document>
