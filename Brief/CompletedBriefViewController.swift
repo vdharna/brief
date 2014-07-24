@@ -33,17 +33,20 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         // Register this NIB, which contains the cell
         self.table.registerNib(nib1, forCellReuseIdentifier: "CompletedBriefCell")
         
-        // load the custom cell via NIB
-        var nib2 = UINib(nibName: "DropDownCell", bundle: nil)
-        
-        // Register this NIB, which contains the cell
-        self.table.registerNib(nib2, forCellReuseIdentifier: "DropDownCell")
+        //setup the tableview
+        setupTableView()
         
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func setupTableView() {
+        var footer = UIView(frame: CGRectMake(0, 0, self.table.frame.width, 25))
+        footer.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.92)
+        self.table.tableFooterView = footer
     }
     
     // ============================================
@@ -125,7 +128,7 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     func tableView(tableView: UITableView!, willDisplayHeaderView view: UIView!, forSection section: Int) {
         
         //background color
-        view.tintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.93)
+        view.tintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.92)
         
         //text color
         var header = view as UITableViewHeaderFooterView
