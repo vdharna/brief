@@ -29,6 +29,8 @@
 		62888FE8197A1EB4002D0DD0 /* CompletedBriefButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62888FE7197A1EB4002D0DD0 /* CompletedBriefButtonView.swift */; };
 		62888FEA197B954E002D0DD0 /* ComposeBriefButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62888FE9197B954E002D0DD0 /* ComposeBriefButtonView.swift */; };
 		6295FAC619746D6500C338D3 /* Brief.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6295FAC519746D6500C338D3 /* Brief.swift */; };
+		6296EE981980D87100C518F3 /* DropDownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6296EE961980D87100C518F3 /* DropDownCell.swift */; };
+		6296EE991980D87100C518F3 /* DropDownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6296EE971980D87100C518F3 /* DropDownCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +70,8 @@
 		62888FE7197A1EB4002D0DD0 /* CompletedBriefButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedBriefButtonView.swift; sourceTree = "<group>"; };
 		62888FE9197B954E002D0DD0 /* ComposeBriefButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeBriefButtonView.swift; sourceTree = "<group>"; };
 		6295FAC519746D6500C338D3 /* Brief.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brief.swift; sourceTree = "<group>"; };
+		6296EE961980D87100C518F3 /* DropDownCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownCell.swift; sourceTree = "<group>"; };
+		6296EE971980D87100C518F3 /* DropDownCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DropDownCell.xib; sourceTree = "<group>"; };
 		62A745AE197C31E100479514 /* table-cell-image.graffle */ = {isa = PBXFileReference; lastKnownFileType = file; path = "table-cell-image.graffle"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -197,6 +201,8 @@
 		62888FE6197A1E67002D0DD0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6296EE961980D87100C518F3 /* DropDownCell.swift */,
+				6296EE971980D87100C518F3 /* DropDownCell.xib */,
 				62888FE9197B954E002D0DD0 /* ComposeBriefButtonView.swift */,
 				62888FE7197A1EB4002D0DD0 /* CompletedBriefButtonView.swift */,
 				622582F219802B3D000E4F27 /* CompletedBriefCell.swift */,
@@ -309,6 +315,7 @@
 				622582F519802B3D000E4F27 /* CompletedBriefCell.xib in Resources */,
 				6241FB57196F137F0092B014 /* HomeViewController.xib in Resources */,
 				62474137196CB5A10043C7E5 /* Images.xcassets in Resources */,
+				6296EE991980D87100C518F3 /* DropDownCell.xib in Resources */,
 				6241FB59196F2C020092B014 /* ComposeViewController.xib in Resources */,
 				6241FB65196F5BB50092B014 /* AddPPPViewController.xib in Resources */,
 				6261D5FC197EE3EB007B8AA3 /* CompletedBriefViewController.xib in Resources */,
@@ -339,6 +346,7 @@
 				6247F76E1975B11B002FC8B4 /* PPPEntity.swift in Sources */,
 				623B21BC19744C5B00EC766F /* Plan.swift in Sources */,
 				623B21C019744DB400EC766F /* Team.swift in Sources */,
+				6296EE981980D87100C518F3 /* DropDownCell.swift in Sources */,
 				6247412E196CB5A10043C7E5 /* AppDelegate.swift in Sources */,
 				6261D5FB197EE3EB007B8AA3 /* CompletedBriefViewController.swift in Sources */,
 				62474130196CB5A10043C7E5 /* HomeViewController.swift in Sources */,

@@ -13,6 +13,10 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var table: UITableView!
     
+    private var progressDS = ["1", "2", "3"]
+    private var plansDS = ["A", "B", "C"]
+    private var problemsDS = ["X", "Y", "Z"]
+    
     init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -24,10 +28,16 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         self.navigationItem.title = "Completed Briefs"
         
         // load the custom cell via NIB
-        var nib = UINib(nibName: "CompletedBriefCell", bundle: nil)
+        var nib1 = UINib(nibName: "CompletedBriefCell", bundle: nil)
         
         // Register this NIB, which contains the cell
-        self.table.registerNib(nib, forCellReuseIdentifier: "CompletedBriefCell")
+        self.table.registerNib(nib1, forCellReuseIdentifier: "CompletedBriefCell")
+        
+        // load the custom cell via NIB
+        var nib2 = UINib(nibName: "DropDownCell", bundle: nil)
+        
+        // Register this NIB, which contains the cell
+        self.table.registerNib(nib2, forCellReuseIdentifier: "DropDownCell")
         
     }
 
@@ -42,11 +52,18 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     
     // Asks the data source for a cell to insert in a particular location of the table view. (required)
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
+
         
         // Get a new or recycled cell
         var cell = self.table.dequeueReusableCellWithIdentifier("CompletedBriefCell", forIndexPath: indexPath) as CompletedBriefCell
-
-        cell.cellLabel.text = "One of the greatest things about the iOS platform and applications people see on it is its beauty. Smooth gradients, consistent transitions."
+        
+        switch(indexPath.section) {
+        case 0: cell.cellLabel.text = progressDS[indexPath.row] + ": iOS 8 is the biggest iOS release ever — for developers and everyone else. But that wasn’t the goal. We simply set out to create the most natural experience."
+        case 1: cell.cellLabel.text = plansDS[indexPath.row] + ": iOS 8 is the biggest iOS release ever — for developers and everyone else. But that wasn’t the goal. We simply set out to create the most natural experience."
+        case 2: cell.cellLabel.text = problemsDS[indexPath.row] + ": iOS 8 is the biggest iOS release ever — for developers and everyone else. But that wasn’t the goal. We simply set out to create the most natural experience."
+        default: cell.cellLabel.text = "iOS 8 is the biggest iOS release ever — for developers and everyone else. But that wasn’t the goal. We simply set out to create the most natural experience."
+        
+        }
         
         return cell
     }
@@ -61,7 +78,12 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     // Tells the data source to return the number of rows in a given section of a table view. (required)
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
         
-        return 3
+        switch(section) {
+        case 0: return progressDS.count
+        case 1: return plansDS.count
+        case 2: return problemsDS.count
+        default: return 0
+        }
         
     }
 
@@ -92,8 +114,17 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     
     // Asks the delegate for the height to use for a row in a specified location.
     func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+        
         return 100
     }
-
+    
+    func tableView(tableView: UITableView!, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        return 25
+    }
+    
+    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+        
+    }
 
 }
