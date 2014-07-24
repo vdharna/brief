@@ -1,14 +1,14 @@
 //
-//  DropDownCell.swift
+//  ComposeBriefTableViewCell.swift
 //  Brief
 //
-//  Created by Dharminder Dharna on 7/23/14.
+//  Created by Dharminder Dharna on 7/24/14.
 //  Copyright (c) 2014 Simple Enterprises. All rights reserved.
 //
 
 import UIKit
 
-class DropDownCell: UITableViewCell {
+class ComposeBriefTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -19,6 +19,8 @@ class DropDownCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+        cellLabel.numberOfLines = 5
+        self.selectionStyle = UITableViewCellSelectionStyle.None
     }
     
 }
