@@ -98,7 +98,7 @@ class HomeViewController: UIViewController {
         //nav bar setup
         self.navigationController.navigationBar.barTintColor = UIColor.blackColor()
         self.navigationController.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController.navigationBar.barStyle = UIBarStyle.Black
+        self.navigationController.navigationBar.barStyle = UIBarStyle.BlackTranslucent
         self.navigationItem.title = ""
         
         // this will appear as the title in the navigation bar

@@ -29,14 +29,19 @@ class CompletedBriefCell: UITableViewCell {
 
         // Configure the view for the selected state
         cellLabel.numberOfLines = 5
+        self.selectionStyle = UITableViewCellSelectionStyle.None
+
     }
     
     @IBAction func flag(sender: AnyObject) {
+        println("flag")
     }
     
     @IBAction func comment(sender: AnyObject) {
+        println("comment")
     }
     
     @IBAction func share(sender: AnyObject) {
+        println("share")
     }
 }

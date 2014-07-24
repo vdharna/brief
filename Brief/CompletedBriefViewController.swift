@@ -52,7 +52,6 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     
     // Asks the data source for a cell to insert in a particular location of the table view. (required)
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-
         
         // Get a new or recycled cell
         var cell = self.table.dequeueReusableCellWithIdentifier("CompletedBriefCell", forIndexPath: indexPath) as CompletedBriefCell
@@ -64,7 +63,7 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         default: cell.cellLabel.text = "iOS 8 is the biggest iOS release ever — for developers and everyone else. But that wasn’t the goal. We simply set out to create the most natural experience."
         
         }
-        
+                
         return cell
     }
     
@@ -123,7 +122,15 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         return 25
     }
     
-    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+    func tableView(tableView: UITableView!, willDisplayHeaderView view: UIView!, forSection section: Int) {
+        
+        //background color
+        view.tintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.93)
+        
+        //text color
+        var header = view as UITableViewHeaderFooterView
+        header.textLabel.textColor = UIColor.whiteColor()
+        
         
     }
 

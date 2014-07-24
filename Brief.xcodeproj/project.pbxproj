@@ -31,6 +31,9 @@
 		6295FAC619746D6500C338D3 /* Brief.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6295FAC519746D6500C338D3 /* Brief.swift */; };
 		6296EE981980D87100C518F3 /* DropDownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6296EE961980D87100C518F3 /* DropDownCell.swift */; };
 		6296EE991980D87100C518F3 /* DropDownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6296EE971980D87100C518F3 /* DropDownCell.xib */; };
+		62C032831981BDFD005AC29F /* share_icon.graffle in Resources */ = {isa = PBXBuildFile; fileRef = 62C032801981BDFD005AC29F /* share_icon.graffle */; };
+		62C032841981BDFD005AC29F /* flag_icon.graffle in Resources */ = {isa = PBXBuildFile; fileRef = 62C032811981BDFD005AC29F /* flag_icon.graffle */; };
+		62C032851981BDFD005AC29F /* comment_icon.graffle in Resources */ = {isa = PBXBuildFile; fileRef = 62C032821981BDFD005AC29F /* comment_icon.graffle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +76,9 @@
 		6296EE961980D87100C518F3 /* DropDownCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownCell.swift; sourceTree = "<group>"; };
 		6296EE971980D87100C518F3 /* DropDownCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DropDownCell.xib; sourceTree = "<group>"; };
 		62A745AE197C31E100479514 /* table-cell-image.graffle */ = {isa = PBXFileReference; lastKnownFileType = file; path = "table-cell-image.graffle"; sourceTree = "<group>"; };
+		62C032801981BDFD005AC29F /* share_icon.graffle */ = {isa = PBXFileReference; lastKnownFileType = file; name = share_icon.graffle; path = ../../../../Desktop/share_icon.graffle; sourceTree = "<group>"; };
+		62C032811981BDFD005AC29F /* flag_icon.graffle */ = {isa = PBXFileReference; lastKnownFileType = file; name = flag_icon.graffle; path = ../../../../Desktop/flag_icon.graffle; sourceTree = "<group>"; };
+		62C032821981BDFD005AC29F /* comment_icon.graffle */ = {isa = PBXFileReference; lastKnownFileType = file; name = comment_icon.graffle; path = ../../../../Desktop/comment_icon.graffle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +133,9 @@
 		6247412B196CB5A10043C7E5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				62C032801981BDFD005AC29F /* share_icon.graffle */,
+				62C032811981BDFD005AC29F /* flag_icon.graffle */,
+				62C032821981BDFD005AC29F /* comment_icon.graffle */,
 				62A745AE197C31E100479514 /* table-cell-image.graffle */,
 				6247412C196CB5A10043C7E5 /* Info.plist */,
 			);
@@ -314,10 +323,13 @@
 			files = (
 				622582F519802B3D000E4F27 /* CompletedBriefCell.xib in Resources */,
 				6241FB57196F137F0092B014 /* HomeViewController.xib in Resources */,
+				62C032831981BDFD005AC29F /* share_icon.graffle in Resources */,
 				62474137196CB5A10043C7E5 /* Images.xcassets in Resources */,
+				62C032841981BDFD005AC29F /* flag_icon.graffle in Resources */,
 				6296EE991980D87100C518F3 /* DropDownCell.xib in Resources */,
 				6241FB59196F2C020092B014 /* ComposeViewController.xib in Resources */,
 				6241FB65196F5BB50092B014 /* AddPPPViewController.xib in Resources */,
+				62C032851981BDFD005AC29F /* comment_icon.graffle in Resources */,
 				6261D5FC197EE3EB007B8AA3 /* CompletedBriefViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
