@@ -8,6 +8,16 @@
 
 import UIKit
 
+let progressDescription = "List your accomplishments, finished items and closed tasks for the current reporting period"
+let planDescription = "List your goals and objectives for the next reporting period"
+let problemDescription = "List items you can't finish and need escalation or help from someone else."
+
+let segmentedControl = UISegmentedControl(items: ["Progress", "Plans", "Problems"])
+
+let cellName = "ComposeBriefTableViewCell"
+let redCellImage = UIImage(named: "compose-table-cell-red.png")
+let greenCellImage = UIImage(named: "compose-table-cell-green.png")
+
 class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate {
     
     @IBOutlet weak var toolbar: UIToolbar!
@@ -16,22 +26,12 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var table: UITableView!
     @IBOutlet weak var descriptionLabel: UILabel!
     
-    let progressDescription = "List your accomplishments, finished items and closed tasks for the current reporting period"
-    let planDescription = "List your goals and objectives for the next reporting period"
-    let problemDescription = "List items you can't finish and need escalation or help from someone else."
-    
-    let segmentedControl = UISegmentedControl(items: ["Progress", "Plans", "Problems"])
     var selectedSegment = 0 //remember which segment was selected
     
-    //var pppTable:UITableView?
     let tableCellHeight:CGFloat = 130
     
     var snapshot: UIView?        ///< A snapshot of the row user is moving.
     var sourceIndexPath:NSIndexPath? ///< Initial index path, where gesture begins.
-    
-    let cellName = "ComposeBriefTableViewCell"
-    let redCellImage = UIImage(named: "compose-table-cell-red.png")
-    let greenCellImage = UIImage(named: "compose-table-cell-green.png")
     
     init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
