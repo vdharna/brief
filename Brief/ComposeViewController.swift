@@ -8,16 +8,13 @@
 
 import UIKit
 
-var snapshot: UIView?
-
 class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate {
     
     @IBOutlet weak var toolbar: UIToolbar!
     @IBOutlet weak var deleteButton: UIBarButtonItem!
     @IBOutlet weak var actionButton: UIBarButtonItem!
     @IBOutlet weak var table: UITableView!
-    
-    var descriptionLabel:UILabel?
+    @IBOutlet weak var descriptionLabel: UILabel!
     
     let progressDescription = "List your accomplishments, finished items and closed tasks for the current reporting period"
     let planDescription = "List your goals and objectives for the next reporting period"
@@ -29,7 +26,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     //var pppTable:UITableView?
     let tableCellHeight:CGFloat = 130
     
-    //var snapshot: UIView?        ///< A snapshot of the row user is moving.
+    var snapshot: UIView?        ///< A snapshot of the row user is moving.
     var sourceIndexPath:NSIndexPath? ///< Initial index path, where gesture begins.
     
     let cellName = "ComposeBriefTableViewCell"
@@ -66,23 +63,17 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func setupDescriptionLabel() {
-        // set the attributedString to the label for proper font rendering
-        descriptionLabel = UILabel(frame: CGRectMake(self.view.frame.origin.x + 20, self.view.frame.origin.y + 80, self.view.frame.width, self.view.frame.height))
+
         var formattedText = formatDescLabelText(progressDescription)
-        descriptionLabel!.attributedText = formattedText
+        descriptionLabel.attributedText = formattedText
         
         //use this to align the text to the top
-        descriptionLabel!.numberOfLines = 0;
-        descriptionLabel!.sizeToFit()
-        
-        //add to the subview
-        self.view.addSubview(descriptionLabel)
+        descriptionLabel.numberOfLines = 0;
+        descriptionLabel.sizeToFit()
     }
     
     func setupTableView() {
         
-        //table view set-up
-//        table = UITableView(frame: CGRectMake(self.view.frame.origin.x, descriptionLabel!.frame.origin.y + 50, self.view.frame.width, 390))
         table.separatorStyle = UITableViewCellSeparatorStyle.None
         table.delegate = self
         table.dataSource = self
@@ -100,9 +91,6 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         //add long tap gesture recognizer
         var longPress = UILongPressGestureRecognizer(target: self, action: "longPressGestureRecognized:")
         table.addGestureRecognizer(longPress)
-        
-        //add to the main view
-//        self.view.addSubview(pppTable)
         
     }
     
@@ -142,16 +130,16 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         switch (selectedSegment) {
             
         case 0:
-            descriptionLabel!.attributedText = formatDescLabelText(progressDescription)
+            descriptionLabel.attributedText = formatDescLabelText(progressDescription)
             
         case 1:
-            descriptionLabel!.attributedText = formatDescLabelText(planDescription)
+            descriptionLabel.attributedText = formatDescLabelText(planDescription)
             
         case 2:
-            descriptionLabel!.attributedText = formatDescLabelText(problemDescription)
+            descriptionLabel.attributedText = formatDescLabelText(problemDescription)
             
         default:
-            descriptionLabel!.text = ""
+            descriptionLabel.text = ""
         }
         
         table.reloadData()
@@ -226,9 +214,9 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
                     
                     // Offset for gesture location.
                     center.y = location.y;
-                    snapshot!.center = center;
-                    snapshot!.transform = CGAffineTransformMakeScale(1.05, 1.05);
-                    snapshot!.alpha = 0.98;
+                    self.snapshot!.center = center;
+                    self.snapshot!.transform = CGAffineTransformMakeScale(1.05, 1.05);
+                    self.snapshot!.alpha = 0.98;
                     cell.hidden = true
                     
                     }, completion: nil)
@@ -278,17 +266,17 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
             var cell = table.cellForRowAtIndexPath(sourceIndexPath)
             UIView.animateWithDuration(0.2, animations: {
                 
-                snapshot!.center = cell.center;
-                snapshot!.transform = CGAffineTransformIdentity;
-                snapshot!.alpha = 0.0;
+                self.snapshot!.center = cell.center;
+                self.snapshot!.transform = CGAffineTransformIdentity;
+                self.snapshot!.alpha = 0.0;
                 
                 // Undo the black-out effect we did.
                 cell.backgroundColor = UIColor.whiteColor()
 
                 }, completion: {
                     (value: Bool) in
-                    snapshot!.removeFromSuperview()
-                    snapshot = nil;
+                    self.snapshot!.removeFromSuperview()
+                    self.snapshot = nil;
                 })
             
             sourceIndexPath = nil;
