@@ -75,7 +75,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     func setupTableView() {
         
         //table view set-up
-        pppTable = UITableView(frame: CGRectMake(self.view.frame.origin.x, descriptionLabel!.frame.origin.y + 50, self.view.frame.width, 374))
+        pppTable = UITableView(frame: CGRectMake(self.view.frame.origin.x, descriptionLabel!.frame.origin.y + 50, self.view.frame.width, 390))
         pppTable!.separatorStyle = UITableViewCellSeparatorStyle.None
         pppTable!.delegate = self
         pppTable!.dataSource = self
