@@ -161,7 +161,7 @@ class HomeViewController: UIViewController {
             
             }, completion: {
                 (value: Bool) in
-                self.cvc = ComposeViewController()
+                self.cvc = ComposeViewController(nibName: nil, bundle: nil)
                 self.navigationController.pushViewController(self.cvc, animated: true)
                 self.composeButton.enabled = true
                 self.completedButton.enabled = true

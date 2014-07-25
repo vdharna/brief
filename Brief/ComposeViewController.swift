@@ -8,7 +8,14 @@
 
 import UIKit
 
+var snapshot: UIView?
+
 class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate {
+    
+    @IBOutlet weak var toolbar: UIToolbar!
+    @IBOutlet weak var deleteButton: UIBarButtonItem!
+    @IBOutlet weak var actionButton: UIBarButtonItem!
+    @IBOutlet weak var table: UITableView!
     
     var descriptionLabel:UILabel?
     
@@ -19,19 +26,19 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     let segmentedControl = UISegmentedControl(items: ["Progress", "Plans", "Problems"])
     var selectedSegment = 0 //remember which segment was selected
     
-    var deleteButton: UIBarButtonItem?
-    var actionButton: UIBarButtonItem?
-    var toolBar: UIToolbar?
-    
-    var pppTable:UITableView?
+    //var pppTable:UITableView?
     let tableCellHeight:CGFloat = 130
     
-    var snapshot: UIView?        ///< A snapshot of the row user is moving.
+    //var snapshot: UIView?        ///< A snapshot of the row user is moving.
     var sourceIndexPath:NSIndexPath? ///< Initial index path, where gesture begins.
     
     let cellName = "ComposeBriefTableViewCell"
     let redCellImage = UIImage(named: "compose-table-cell-red.png")
     let greenCellImage = UIImage(named: "compose-table-cell-green.png")
+    
+    init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
     
     // ==========================================
     // MARK: lifecycle methods
@@ -75,51 +82,34 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     func setupTableView() {
         
         //table view set-up
-        pppTable = UITableView(frame: CGRectMake(self.view.frame.origin.x, descriptionLabel!.frame.origin.y + 50, self.view.frame.width, 390))
-        pppTable!.separatorStyle = UITableViewCellSeparatorStyle.None
-        pppTable!.delegate = self
-        pppTable!.dataSource = self
+//        table = UITableView(frame: CGRectMake(self.view.frame.origin.x, descriptionLabel!.frame.origin.y + 50, self.view.frame.width, 390))
+        table.separatorStyle = UITableViewCellSeparatorStyle.None
+        table.delegate = self
+        table.dataSource = self
         
         //for reusable cells
         // load the custom cell via NIB
         var nib = UINib(nibName: cellName, bundle: nil)
         
         // Register this NIB, which contains the cell
-        self.pppTable!.registerNib(nib, forCellReuseIdentifier: cellName)
+        table.registerNib(nib, forCellReuseIdentifier: cellName)
         
        // self.pppTable!.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: "UITableViewCell")
-        self.pppTable!.allowsMultipleSelectionDuringEditing = false
+        table.allowsMultipleSelectionDuringEditing = false
         
         //add long tap gesture recognizer
         var longPress = UILongPressGestureRecognizer(target: self, action: "longPressGestureRecognized:")
-        self.pppTable!.addGestureRecognizer(longPress)
+        table.addGestureRecognizer(longPress)
         
         //add to the main view
-        self.view.addSubview(pppTable)
+//        self.view.addSubview(pppTable)
         
     }
     
     func setupToolbarView() {
-        //tool bar
-        var rect = CGRectMake(self.view.frame.origin.x, 524, self.view.frame.size.width, 44)
-        toolBar = UIToolbar(frame: rect)
-        toolBar!.barTintColor = UIColor.blackColor()
         
-        deleteButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Trash, target: self,
-            action: "deleteBrief")
-        deleteButton!.tintColor = UIColor.whiteColor()
-        deleteButton!.enabled = false
-        
-        actionButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: self,
-            action: "actionBrief")
-        actionButton!.tintColor = UIColor.whiteColor()
-        actionButton!.enabled = false
-        
-        var flexibleSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-        flexibleSpace.width = 10
-        
-        toolBar!.items = [deleteButton!, flexibleSpace, actionButton!]
-        self.view.addSubview(toolBar)
+        refreshToolbarItems()
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -131,15 +121,9 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.navigationController.navigationBarHidden = false
         segmentedControl.selectedSegmentIndex = selectedSegment //sets to last selected segment
         
-        if (!user.brief.isEmpty()) {
-            deleteButton!.enabled = true
-            actionButton!.enabled = true
-        } else {
-            deleteButton!.enabled = false
-            actionButton!.enabled = false
-        }
+        refreshToolbarItems()
         
-        pppTable!.reloadData()
+        table.reloadData()
         
     }
     
@@ -170,7 +154,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
             descriptionLabel!.text = ""
         }
         
-        pppTable!.reloadData()
+        table.reloadData()
         
     }
     
@@ -180,22 +164,46 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.navigationController.presentViewController(addPPPVC, animated: true, completion: nil)
     }
     
-    func actionBrief() {
 
+    @IBAction func actionBrief(sender: AnyObject) {
+        
+        var alert = UIAlertView(title: "Action", message: "Action Button Clicked", delegate: nil, cancelButtonTitle: "Cancel")
+        alert.show()
     }
     
-    func deleteBrief() {
+    @IBAction func deleteBrief(sender: AnyObject) {
         
         var actionSheet = UIActionSheet(title: "Delete Brief?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Delete" )
         actionSheet.showInView(UIApplication.sharedApplication().keyWindow)
     }
     
+    func actionSheet(actionSheet: UIActionSheet!, clickedButtonAtIndex buttonIndex: Int) {
+        
+        switch(buttonIndex) {
+            
+        case 0: //discard
+            
+            user.brief.delete()
+            selectedSegment = 0
+            table.reloadData()
+            animateBriefDelete()
+            self.deleteButton.enabled = false
+            self.actionButton.enabled = false
+        case 1: //cancel
+            break
+            
+        default:
+            break
+        }
+        
+    }
     
     func longPressGestureRecognized(longPress: UILongPressGestureRecognizer) {
         
         var state: UIGestureRecognizerState = longPress.state
-        var location: CGPoint = longPress.locationInView(self.pppTable!)
-        var indexPath: NSIndexPath? = self.pppTable!.indexPathForRowAtPoint(location)
+        var location: CGPoint = longPress.locationInView(table)
+        var indexPath: NSIndexPath? = table.indexPathForRowAtPoint(location)
+        var currentIndexPath: NSIndexPath?
             
         switch (state) {
         case .Began:
@@ -203,7 +211,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
 
                 sourceIndexPath = indexPath
                 
-                var cell = pppTable!.cellForRowAtIndexPath(indexPath)
+                var cell = table.cellForRowAtIndexPath(indexPath)
                 
                 // Take a snapshot of the selected row using helper method.
                 snapshot = self.customSnapshotFromView(cell)
@@ -212,15 +220,15 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
                 var center = cell.center
                 snapshot!.center = center
                 snapshot!.alpha = 0.0;
-                self.pppTable!.addSubview(snapshot)
+                table.addSubview(snapshot)
                 
                 UIView.animateWithDuration(0.25, animations: {
                     
                     // Offset for gesture location.
                     center.y = location.y;
-                    self.snapshot!.center = center;
-                    self.snapshot!.transform = CGAffineTransformMakeScale(1.05, 1.05);
-                    self.snapshot!.alpha = 0.98;
+                    snapshot!.center = center;
+                    snapshot!.transform = CGAffineTransformMakeScale(1.05, 1.05);
+                    snapshot!.alpha = 0.98;
                     cell.hidden = true
                     
                     }, completion: nil)
@@ -256,7 +264,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
                 
                 // ... move the rows.
-                self.pppTable!.moveRowAtIndexPath(sourceIndexPath, toIndexPath: indexPath)
+                table.moveRowAtIndexPath(sourceIndexPath, toIndexPath: indexPath)
                 
                 // ... and update source so it is in sync with UI changes.
                 sourceIndexPath = indexPath;
@@ -267,47 +275,29 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         default:
             
             //Clean up.
-            var cell = self.pppTable!.cellForRowAtIndexPath(sourceIndexPath)
+            var cell = table.cellForRowAtIndexPath(sourceIndexPath)
             UIView.animateWithDuration(0.2, animations: {
                 
-                self.snapshot!.center = cell.center;
-                self.snapshot!.transform = CGAffineTransformIdentity;
-                self.snapshot!.alpha = 0.0;
+                snapshot!.center = cell.center;
+                snapshot!.transform = CGAffineTransformIdentity;
+                snapshot!.alpha = 0.0;
                 
                 // Undo the black-out effect we did.
                 cell.backgroundColor = UIColor.whiteColor()
 
                 }, completion: {
                     (value: Bool) in
-                    self.snapshot!.removeFromSuperview()
-                    self.snapshot = nil;
+                    snapshot!.removeFromSuperview()
+                    snapshot = nil;
                 })
             
             sourceIndexPath = nil;
             break;
         }
-    }
-    
-    func actionSheet(actionSheet: UIActionSheet!, clickedButtonAtIndex buttonIndex: Int) {
-
-        switch(buttonIndex) {
-            
-        case 0: //discard
-            
-            user.brief.delete()
-            selectedSegment = 0
-            self.pppTable!.reloadData()
-            animateBriefDelete()
-            self.deleteButton!.enabled = false
-            self.actionButton!.enabled = false
-        case 1: //cancel
-            break
-            
-        default:
-            break
-        }
         
     }
+    
+
     
     func animateBriefDelete() {
         
@@ -326,12 +316,15 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     // Returns a customized snapshot of a given view
     func customSnapshotFromView(inputView:UIView) -> UIView {
         
-        var snapshot = inputView.snapshotViewAfterScreenUpdates(true)
+        table.reloadData()
+        
+        var snapshot  = inputView.snapshotViewAfterScreenUpdates(true)
         snapshot.layer.masksToBounds = false
         snapshot.layer.cornerRadius = 0.0;
         snapshot.layer.shadowOffset = CGSizeMake(-5.0, 0.0);
         snapshot.layer.shadowRadius = 5.0;
         snapshot.layer.shadowOpacity = 0.4;
+            
         
         return snapshot;
         
@@ -361,7 +354,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         
-        var cell = pppTable!.dequeueReusableCellWithIdentifier(cellName, forIndexPath: indexPath) as ComposeBriefTableViewCell
+        var cell = table.dequeueReusableCellWithIdentifier(cellName, forIndexPath: indexPath) as ComposeBriefTableViewCell
        
         var text:String
         var id: Int
@@ -419,18 +412,13 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
                 user.brief.deleteProblem(indexPath.row)
                 
             default:
-                self.pppTable!.reloadData()
+                table.reloadData()
             }
             
-            if (!user.brief.isEmpty()) {
-                deleteButton!.enabled = true
-                actionButton!.enabled = true
-            } else {
-                deleteButton!.enabled = false
-                actionButton!.enabled = false
-            }
+            refreshToolbarItems()
+            
             var cellToDelete = NSIndexPath(index: indexPath.row)
-            pppTable!.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            table.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         }
     }
     
@@ -460,6 +448,18 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         attributedText.addAttribute(NSFontAttributeName, value: UIFont(name: "HelveticaNeue-Light", size: 14), range: NSMakeRange(0, countElements(description)))
         
         return attributedText
+    }
+    
+    func refreshToolbarItems() {
+        
+        if (!user.brief.isEmpty()) {
+            deleteButton.enabled = true
+            actionButton.enabled = true
+        } else {
+            deleteButton.enabled = false
+            actionButton.enabled = false
+        }
+        
     }
 }
 
