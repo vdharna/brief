@@ -9,7 +9,7 @@
 import UIKit
 import QuartzCore
 
-class DPTransparentEdgesTableView: UITableView {
+class TransparentEdgesTableView: UITableView {
     var showTopMask = false
     var showBottomMask = false
     var bottomMaskDisabled = false

@@ -9,7 +9,7 @@
 import UIKit
 import QuartzCore
 
-class DPTransparentEdgesScrollView: UIScrollView {
+class TransparentEdgesScrollView: UIScrollView {
     var showTopMask = false
     var showBottomMask = false
     var bottomMaskDisabled = false
