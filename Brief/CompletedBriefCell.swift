@@ -15,6 +15,9 @@ class CompletedBriefCell: UITableViewCell {
     @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
     
+    var indexPath: NSIndexPath?
+    var id: Int?
+    
     init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
@@ -33,15 +36,4 @@ class CompletedBriefCell: UITableViewCell {
 
     }
     
-    @IBAction func flag(sender: AnyObject) {
-        println("flag")
-    }
-    
-    @IBAction func comment(sender: AnyObject) {
-        println("comment")
-    }
-    
-    @IBAction func share(sender: AnyObject) {
-        println("share")
-    }
 }

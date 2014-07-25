@@ -24,10 +24,14 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     var toolBar: UIToolbar?
     
     var pppTable:UITableView?
-    let tableCellHeight:CGFloat = 100
+    let tableCellHeight:CGFloat = 130
     
     var snapshot: UIView?        ///< A snapshot of the row user is moving.
     var sourceIndexPath:NSIndexPath? ///< Initial index path, where gesture begins.
+    
+    let cellName = "ComposeBriefTableViewCell"
+    let redCellImage = UIImage(named: "compose-table-cell-red.png")
+    let greenCellImage = UIImage(named: "compose-table-cell-green.png")
     
     // ==========================================
     // MARK: lifecycle methods
@@ -57,7 +61,6 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     func setupDescriptionLabel() {
         // set the attributedString to the label for proper font rendering
         descriptionLabel = UILabel(frame: CGRectMake(self.view.frame.origin.x + 20, self.view.frame.origin.y + 80, self.view.frame.width, self.view.frame.height))
-        
         var formattedText = formatDescLabelText(progressDescription)
         descriptionLabel!.attributedText = formattedText
         
@@ -72,13 +75,19 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     func setupTableView() {
         
         //table view set-up
-        pppTable = UITableView(frame: CGRectMake(self.view.frame.origin.x, descriptionLabel!.frame.origin.y + 70, self.view.frame.width, 374))
+        pppTable = UITableView(frame: CGRectMake(self.view.frame.origin.x, descriptionLabel!.frame.origin.y + 50, self.view.frame.width, 374))
         pppTable!.separatorStyle = UITableViewCellSeparatorStyle.None
         pppTable!.delegate = self
         pppTable!.dataSource = self
         
         //for reusable cells
-        self.pppTable!.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: "UITableViewCell")
+        // load the custom cell via NIB
+        var nib = UINib(nibName: cellName, bundle: nil)
+        
+        // Register this NIB, which contains the cell
+        self.pppTable!.registerNib(nib, forCellReuseIdentifier: cellName)
+        
+       // self.pppTable!.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: "UITableViewCell")
         self.pppTable!.allowsMultipleSelectionDuringEditing = false
         
         //add long tap gesture recognizer
@@ -352,7 +361,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         
-        var cell: UITableViewCell = pppTable!.dequeueReusableCellWithIdentifier("UITableViewCell", forIndexPath: indexPath) as UITableViewCell
+        var cell = pppTable!.dequeueReusableCellWithIdentifier(cellName, forIndexPath: indexPath) as ComposeBriefTableViewCell
        
         var text:String
         var id: Int
@@ -377,19 +386,16 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         cell.tag = id
-        cell.textLabel.text = text
-        cell.textLabel.font = UIFont(name: "HelveticaNeue-Light", size: 14)
-        cell.textLabel.numberOfLines = 6
+        cell.cellLabel.text = text
+        cell.cellLabel.font = UIFont(name: "HelveticaNeue-Light", size: 14)
+        cell.cellLabel.numberOfLines = 6
         cell.accessoryType = .DisclosureIndicator
-        cell.imageView.image = UIImage(named: "cell-30pt.png")
-        
-        //following code keeps the cell images flush between cells
-        var itemSize = CGSizeMake(30, tableCellHeight)
-        UIGraphicsBeginImageContextWithOptions(itemSize, false, UIScreen.mainScreen().scale);
-        var imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
-        cell.imageView.image.drawInRect(imageRect)
-        cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        if (cell.cellLabel.text.utf16Count > 140) {
+            cell.cellImage.image = redCellImage
+        } else {
+            cell.cellImage.image = greenCellImage
+
+        }
         
         return cell
     }

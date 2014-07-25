@@ -28,10 +28,10 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         self.navigationItem.title = "Completed Briefs"
         
         // load the custom cell via NIB
-        var nib1 = UINib(nibName: "CompletedBriefCell", bundle: nil)
+        var nib = UINib(nibName: "CompletedBriefCell", bundle: nil)
         
         // Register this NIB, which contains the cell
-        self.table.registerNib(nib1, forCellReuseIdentifier: "CompletedBriefCell")
+        self.table.registerNib(nib, forCellReuseIdentifier: "CompletedBriefCell")
         
         //setup the tableview
         setupTableView()
@@ -59,6 +59,15 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         // Get a new or recycled cell
         var cell = self.table.dequeueReusableCellWithIdentifier("CompletedBriefCell", forIndexPath: indexPath) as CompletedBriefCell
         
+        cell.flagButton.addTarget(self, action: "flag:", forControlEvents: UIControlEvents.TouchUpInside)
+        cell.flagButton.tag = NSUUID.UUID().hashValue // add the ppp ID
+        
+        cell.commentButton.addTarget(self, action: "comment:", forControlEvents: UIControlEvents.TouchUpInside)
+        cell.commentButton.tag = NSUUID.UUID().hashValue // add the ppp ID
+        
+        cell.shareButton.addTarget(self, action: "share:", forControlEvents: UIControlEvents.TouchUpInside)
+        cell.shareButton.tag = NSUUID.UUID().hashValue // add the ppp ID
+    
         switch(indexPath.section) {
         case 0: cell.cellLabel.text = progressDS[indexPath.row] + ": iOS 8 is the biggest iOS release ever — for developers and everyone else. But that wasn’t the goal. We simply set out to create the most natural experience."
         case 1: cell.cellLabel.text = plansDS[indexPath.row] + ": iOS 8 is the biggest iOS release ever — for developers and everyone else. But that wasn’t the goal. We simply set out to create the most natural experience."
@@ -135,6 +144,29 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         header.textLabel.textColor = UIColor.whiteColor()
         
         
+    }
+    
+    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+        println("\(indexPath)")
+    }
+    
+    // ============================================
+    // MARK: Actions
+    // ============================================
+    
+    func flag(sender: AnyObject) {
+        println("flag")
+        println("\(sender.tag)")
+    }
+    
+    func comment(sender: AnyObject) {
+        println("comment")
+        println("\(sender.tag)")
+    }
+    
+    func share(sender: AnyObject) {
+        println("share")
+        println("\(sender.tag)")
     }
 
 }

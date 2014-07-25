@@ -14,13 +14,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kaa-V6-GSS">
-                        <rect key="frame" x="41" y="20" width="259" height="90"/>
+                        <rect key="frame" x="41" y="11" width="251" height="107"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H3g-CA-nDY">
-                        <rect key="frame" x="3" y="0.0" width="30" height="130"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="compose-table-cell-green" translatesAutoresizingMaskIntoConstraints="NO" id="H3g-CA-nDY">
+                        <rect key="frame" x="5" y="0.0" width="30" height="130"/>
                     </imageView>
                 </subviews>
             </tableViewCellContentView>
@@ -31,4 +31,7 @@
             <point key="canvasLocation" x="139" y="197"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="compose-table-cell-green" width="104" height="451"/>
+    </resources>
 </document>

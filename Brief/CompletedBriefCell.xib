@@ -28,9 +28,6 @@
                                 <state key="normal" title="Flag">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="flag:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="VVz-Zb-tAN"/>
-                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="flag_icon" translatesAutoresizingMaskIntoConstraints="NO" id="df9-9d-im8" userLabel="flag_image">
                                 <rect key="frame" x="33" y="9" width="11" height="11"/>
@@ -41,9 +38,6 @@
                                 <state key="normal" title="Comment">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="comment:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="o6B-Vv-0eV"/>
-                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="comment_icon" translatesAutoresizingMaskIntoConstraints="NO" id="WIr-Nz-wgj" userLabel="comment_image">
                                 <rect key="frame" x="121" y="9" width="11" height="11"/>
@@ -54,9 +48,6 @@
                                 <state key="normal" title="Share">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="share:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="LNs-j3-pGb"/>
-                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="share_icon" translatesAutoresizingMaskIntoConstraints="NO" id="cvT-Xm-fG0" userLabel="share_image">
                                 <rect key="frame" x="229" y="6" width="15" height="15"/>
@@ -68,9 +59,9 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="cellLabel" destination="8y6-lT-qzs" id="oXT-ax-FWA"/>
-                <outlet property="commentButton" destination="wM9-1L-oIj" id="OcG-cy-BDH"/>
-                <outlet property="flagButton" destination="cCL-8Y-7ym" id="BsI-bX-MRh"/>
-                <outlet property="shareButton" destination="nJq-Op-JaB" id="tUW-Fg-1gR"/>
+                <outlet property="commentButton" destination="wM9-1L-oIj" id="0r0-CJ-tWh"/>
+                <outlet property="flagButton" destination="cCL-8Y-7ym" id="KnH-kq-ywH"/>
+                <outlet property="shareButton" destination="nJq-Op-JaB" id="lHR-Mu-k9B"/>
             </connections>
             <point key="canvasLocation" x="64" y="477"/>
         </tableViewCell>
