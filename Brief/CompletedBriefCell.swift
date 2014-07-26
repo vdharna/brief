@@ -8,15 +8,20 @@
 
 import UIKit
 
-class CompletedBriefCell: UITableViewCell {
+typealias flagActionBlock = () -> ()
+typealias commentActionBlock = () -> ()
+typealias shareActionBlock = () -> ()
+
+class CompletedBriefTableViewCell: UITableViewCell {
     
     @IBOutlet weak var cellLabel: UILabel!
     @IBOutlet weak var flagButton: UIButton!
     @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
     
-    var indexPath: NSIndexPath?
-    var id: Int?
+    var flagActionClosure: flagActionBlock?
+    var commentActionClosure: commentActionBlock?
+    var shareActionClosure: shareActionBlock?
     
     init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -35,5 +40,19 @@ class CompletedBriefCell: UITableViewCell {
         self.selectionStyle = UITableViewCellSelectionStyle.None
 
     }
+    
+    
+    @IBAction func flagPressed(sender: AnyObject) {
+        if flagActionClosure { flagActionClosure!() }
+    }
+    
+    @IBAction func commentPressed(sender: AnyObject) {
+        if commentActionClosure { commentActionClosure!() }
+    }
+    
+    @IBAction func sharePressed(sender: AnyObject) {
+        if shareActionClosure { shareActionClosure!() }
+    }
+    
     
 }

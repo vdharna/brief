@@ -13,6 +13,8 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var table: UITableView!
     
+    let cellName = "CompletedBriefTableViewCell"
+    
     private var progressDS = ["1", "2", "3"]
     private var plansDS = ["A", "B", "C"]
     private var problemsDS = ["X", "Y", "Z"]
@@ -28,10 +30,10 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         self.navigationItem.title = "Completed Briefs"
         
         // load the custom cell via NIB
-        var nib = UINib(nibName: "CompletedBriefCell", bundle: nil)
+        var nib = UINib(nibName: cellName, bundle: nil)
         
         // Register this NIB, which contains the cell
-        self.table.registerNib(nib, forCellReuseIdentifier: "CompletedBriefCell")
+        self.table.registerNib(nib, forCellReuseIdentifier: cellName)
         
         //setup the tableview
         setupTableView()
@@ -57,16 +59,68 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         
         // Get a new or recycled cell
-        var cell = self.table.dequeueReusableCellWithIdentifier("CompletedBriefCell", forIndexPath: indexPath) as CompletedBriefCell
+        let cell = self.table.dequeueReusableCellWithIdentifier(cellName, forIndexPath: indexPath) as CompletedBriefTableViewCell
         
-        cell.flagButton.addTarget(self, action: "flag:", forControlEvents: UIControlEvents.TouchUpInside)
-        cell.flagButton.tag = NSUUID.UUID().hashValue // add the ppp ID
+//        cell.flagButton.addTarget(self, action: "flag:", forControlEvents: UIControlEvents.TouchUpInside)
+//        cell.flagButton.tag = NSUUID.UUID().hashValue // add the ppp ID
+//        
+//        cell.commentButton.addTarget(self, action: "comment:", forControlEvents: UIControlEvents.TouchUpInside)
+//        cell.commentButton.tag = NSUUID.UUID().hashValue // add the ppp ID
+//        
+//        cell.shareButton.addTarget(self, action: "share:", forControlEvents: UIControlEvents.TouchUpInside)
+//        cell.shareButton.tag = NSUUID.UUID().hashValue // add the ppp ID
         
-        cell.commentButton.addTarget(self, action: "comment:", forControlEvents: UIControlEvents.TouchUpInside)
-        cell.commentButton.tag = NSUUID.UUID().hashValue // add the ppp ID
+        // Stops a string reference cycle from happening
+        weak var weakCell = cell
         
-        cell.shareButton.addTarget(self, action: "share:", forControlEvents: UIControlEvents.TouchUpInside)
-        cell.shareButton.tag = NSUUID.UUID().hashValue // add the ppp ID
+        cell.flagActionClosure = {
+            println("Inside closure")
+            
+            // Once the block begins executing, it must be guaranteed that the cell
+            // lives until the block is done executing. So take a temporary strong
+            // ownership of the cell by creating a strong reference, "strongCell" that
+            // will live as long as this block does
+            // Unlike taking a permanent strong reference to a variable from the
+            // enclosing scope, this way the closure only has a strong reference
+            // as long as "strongCell" lives; only while the block is executing
+            let strongCell = weakCell
+            
+            var alert = UIAlertView(title: "Action", message: "Flag Button Clicked", delegate: nil, cancelButtonTitle: "Cancel")
+            alert.show()
+        }
+        
+        cell.commentActionClosure = {
+            println("Inside closure")
+            
+            // Once the block begins executing, it must be guaranteed that the cell
+            // lives until the block is done executing. So take a temporary strong
+            // ownership of the cell by creating a strong reference, "strongCell" that
+            // will live as long as this block does
+            // Unlike taking a permanent strong reference to a variable from the
+            // enclosing scope, this way the closure only has a strong reference
+            // as long as "strongCell" lives; only while the block is executing
+            let strongCell = weakCell
+            
+            var alert = UIAlertView(title: "Action", message: "Comment Button Clicked", delegate: nil, cancelButtonTitle: "Cancel")
+            alert.show()
+        }
+        
+        cell.shareActionClosure = {
+            println("Inside closure")
+            
+            // Once the block begins executing, it must be guaranteed that the cell
+            // lives until the block is done executing. So take a temporary strong
+            // ownership of the cell by creating a strong reference, "strongCell" that
+            // will live as long as this block does
+            // Unlike taking a permanent strong reference to a variable from the
+            // enclosing scope, this way the closure only has a strong reference
+            // as long as "strongCell" lives; only while the block is executing
+            let strongCell = weakCell
+            
+            var alert = UIAlertView(title: "Action", message: "Share Button Clicked", delegate: nil, cancelButtonTitle: "Cancel")
+            alert.show()
+        }
+
     
         switch(indexPath.section) {
         case 0: cell.cellLabel.text = progressDS[indexPath.row] + ": iOS 8 is the biggest iOS release ever — for developers and everyone else. But that wasn’t the goal. We simply set out to create the most natural experience."
