@@ -11,16 +11,14 @@ import QuartzCore
 
 class HomeViewController: UIViewController {
     
-    var cvc: ComposeViewController?
-    
     @IBOutlet var composeButton: UIButton!
     @IBOutlet var composeLabel: UILabel!
     
     @IBOutlet var completedButton: UIButton!
     @IBOutlet var completedLabel: UILabel!
     
-    var composeButtonView:ComposeBriefButtonView?
-    var completedButtonView:CompletedBriefButtonView?
+    var composeButtonView:ComposeBriefButtonView!
+    var completedButtonView:CompletedBriefButtonView!
     
     var origComposeRect:CGRect?
     
@@ -113,10 +111,8 @@ class HomeViewController: UIViewController {
     
         //setup the gear
         
-//        var gearButton = UIBarButtonItem(title: "\u{2699} ", style: UIBarButtonItemStyle.Plain, target: self, action: "settings")
         var gearImage = UIImage(named: "gear.png")
         var gearButton = UIBarButtonItem(image: gearImage, style: .Plain, target: self, action: "settings")
-//        var gearButton = UIBarButtonItem(title: "\u{2699} ", style: UIBarButtonItemStyle.Plain, target: self, action: "settings")
         self.navigationItem.rightBarButtonItem = gearButton;
         
 
@@ -161,8 +157,8 @@ class HomeViewController: UIViewController {
             
             }, completion: {
                 (value: Bool) in
-                self.cvc = ComposeViewController(nibName: nil, bundle: nil)
-                self.navigationController.pushViewController(self.cvc, animated: true)
+                var cvc = ComposeViewController(nibName: nil, bundle: nil)
+                self.navigationController.pushViewController(cvc, animated: true)
                 self.composeButton.enabled = true
                 self.completedButton.enabled = true
             })
