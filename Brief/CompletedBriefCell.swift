@@ -8,9 +8,9 @@
 
 import UIKit
 
-typealias flagActionBlock = () -> ()
-typealias commentActionBlock = () -> ()
-typealias shareActionBlock = () -> ()
+typealias flagActionBlock = () -> (Void)
+typealias commentActionBlock = () -> (Void)
+typealias shareActionBlock = () -> (Void)
 
 class CompletedBriefTableViewCell: UITableViewCell {
     
@@ -18,6 +18,7 @@ class CompletedBriefTableViewCell: UITableViewCell {
     @IBOutlet weak var flagButton: UIButton!
     @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
+    @IBOutlet weak var flagImage: UIImageView!
     
     var flagActionClosure: flagActionBlock?
     var commentActionClosure: commentActionBlock?

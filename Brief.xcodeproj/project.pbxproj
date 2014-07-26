@@ -245,8 +245,8 @@
 		62FC24E21983072800372D14 /* Interface Builder */ = {
 			isa = PBXGroup;
 			children = (
-				622582F319802B3D000E4F27 /* CompletedBriefTableViewCell.xib */,
 				62C032871981CE86005AC29F /* ComposeBriefTableViewCell.xib */,
+				622582F319802B3D000E4F27 /* CompletedBriefTableViewCell.xib */,
 			);
 			name = "Interface Builder";
 			sourceTree = "<group>";

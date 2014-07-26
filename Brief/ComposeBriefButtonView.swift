@@ -22,13 +22,13 @@ class ComposeBriefButtonView: UIView {
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
         // Drawing code
-        var bounds = self.bounds
+        let bounds = self.bounds
         
         // Figure out the center of the bounds rectangle
-        var verticalCenter = CGPointMake(bounds.origin.x + bounds.size.width / 2.0, 0)
-        var horizontalCenter = CGPointMake(0, bounds.origin.y + bounds.size.height / 2.0)
+        let verticalCenter = CGPointMake(bounds.origin.x + bounds.size.width / 2.0, 0)
+        let horizontalCenter = CGPointMake(0, bounds.origin.y + bounds.size.height / 2.0)
         
-        var path = UIBezierPath()
+        let path = UIBezierPath()
         
         //draw the vertical line
         path.moveToPoint(verticalCenter)

@@ -18,12 +18,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
 
-        var bhvc = HomeViewController(nibName: nil, bundle: nil)
-        var bnavc = UINavigationController(rootViewController: bhvc)
+        let bhvc = HomeViewController(nibName: nil, bundle: nil)
+        let bnavc = UINavigationController(rootViewController: bhvc)
         
         self.window!.rootViewController = bnavc
         self.window!.backgroundColor = UIColor.whiteColor()
         self.window!.makeKeyAndVisible()
+        
+        //environment variable for debug
+        let dic = NSProcessInfo.processInfo().environment
+        if dic["debug"] {
+            //create user archive to test
+        }
         
         return true
     }

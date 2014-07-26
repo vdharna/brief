@@ -19,6 +19,8 @@ class PPPEntity: Equatable, Printable {
     var id: Int
     var content: String
     
+    var isFlagged = false
+    
     var description : String { return String(id) }
 
     

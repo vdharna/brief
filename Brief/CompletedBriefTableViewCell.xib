@@ -22,25 +22,6 @@
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nhb-5N-b7y">
                         <rect key="frame" x="0.0" y="75" width="321" height="25"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="flag_icon" translatesAutoresizingMaskIntoConstraints="NO" id="df9-9d-im8" userLabel="Flag Image">
-                                <rect key="frame" x="20" y="8.5" width="12" height="12"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cCL-8Y-7ym" userLabel="Flag Button">
-                                <rect key="frame" x="12" y="0.0" width="58" height="25"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
-                                <state key="normal">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="flagPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Tvi-UM-Fu0"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Flag" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YeF-oQ-KgL">
-                                <rect key="frame" x="39" y="0.0" width="25" height="25"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="comment_icon" translatesAutoresizingMaskIntoConstraints="NO" id="WIr-Nz-wgj" userLabel="Comment Image">
                                 <rect key="frame" x="115" y="9" width="11" height="11"/>
                             </imageView>
@@ -67,16 +48,16 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="share_icon" translatesAutoresizingMaskIntoConstraints="NO" id="cvT-Xm-fG0" userLabel="Share Image">
-                                <rect key="frame" x="246" y="6" width="15" height="15"/>
+                                <rect key="frame" x="243" y="6" width="15" height="15"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Share" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xS5-Je-Q4h">
-                                <rect key="frame" x="269" y="0.0" width="30" height="25"/>
+                                <rect key="frame" x="266" y="0.0" width="30" height="25"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nJq-Op-JaB" userLabel="Share Button">
-                                <rect key="frame" x="239" y="0.0" width="70" height="25"/>
+                                <rect key="frame" x="236" y="0.0" width="70" height="25"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
                                 <state key="normal">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -85,6 +66,25 @@
                                     <action selector="sharePressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="NjI-1C-5Ox"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="flag_icon" translatesAutoresizingMaskIntoConstraints="NO" id="df9-9d-im8" userLabel="Flag Image">
+                                <rect key="frame" x="25" y="9" width="12" height="12"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cCL-8Y-7ym" userLabel="Flag Button">
+                                <rect key="frame" x="17" y="0.0" width="58" height="25"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
+                                <state key="normal">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="flagPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Tvi-UM-Fu0"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Flag" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YeF-oQ-KgL">
+                                <rect key="frame" x="44" y="0.0" width="25" height="25"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="0.35000000000000003" colorSpace="calibratedRGB"/>
                     </view>
@@ -94,6 +94,7 @@
                 <outlet property="cellLabel" destination="8y6-lT-qzs" id="oXT-ax-FWA"/>
                 <outlet property="commentButton" destination="wM9-1L-oIj" id="0r0-CJ-tWh"/>
                 <outlet property="flagButton" destination="cCL-8Y-7ym" id="KnH-kq-ywH"/>
+                <outlet property="flagImage" destination="df9-9d-im8" id="os9-jz-zfI"/>
                 <outlet property="shareButton" destination="nJq-Op-JaB" id="lHR-Mu-k9B"/>
             </connections>
             <point key="canvasLocation" x="64" y="477"/>
