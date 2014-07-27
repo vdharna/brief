@@ -8,15 +8,10 @@
 
 import Foundation
 
-func ==(lhs: PPPEntity, rhs: PPPEntity) -> Bool {
-    return lhs.id == rhs.id
-}
 
-var id: Int = 0
-
-class PPPEntity: Equatable, Printable {
+class PPPEntity {
     
-    var id: Int
+    private var id: Int
     var content: String
     
     var isFlagged = false
@@ -27,6 +22,10 @@ class PPPEntity: Equatable, Printable {
     init(content: String) {
         self.id = NSUUID.UUID().hashValue
         self.content = content
+    }
+    
+    func getId() -> Int {
+        return self.id
     }
     
     

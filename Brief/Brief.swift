@@ -10,16 +10,20 @@ import Foundation
 
 class Brief {
     
-    let id: NSString
+    private let id: Int
     var progress: Array<Progress>
     var plans: Array<Plan>
     var problems: Array<Problem>
     
     init() {
-        id = NSUUID.UUID().UUIDString
+        id = NSUUID.UUID().hashValue
         progress = []
         plans = []
         problems = []
+    }
+    
+    func getId() -> Int {
+        return self.id
     }
     
     func addProgress(p: Progress) {

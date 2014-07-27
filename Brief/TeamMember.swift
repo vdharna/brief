@@ -16,17 +16,29 @@ class TeamMember {
     var lastName: String
     
     var brief:Brief //current brief
-    var archivedBriefs: Dictionary<String, Brief>?
+    var archivedBriefs: Dictionary<Int, Brief>
     
     init() {
         firstName = "Dharminder"
         lastName = "Dharna"
         brief = Brief()
+        archivedBriefs = Dictionary(minimumCapacity: 0)
     }
     
     func loadArchivedBriefs() {
-        archivedBriefs = Dictionary(minimumCapacity: 0)
         //load via server-side archive (e.g. Rest Service or Cloud-Kit)
+        
+        // if this is set to 1, load the archive as a sample
+        let dic = NSProcessInfo.processInfo().environment
+        if dic["debug"] {
+            //create user archive to test
+            for var index = 0; index < 3; ++index {
+                var brief = BriefArchiveDebugLoadUtility.createSampleBrief()
+                var id = brief.getId()
+                archivedBriefs.updateValue(brief, forKey: id)
+            }
+        }
+
     }
     
 }

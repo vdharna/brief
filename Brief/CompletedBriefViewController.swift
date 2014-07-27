@@ -38,6 +38,9 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         //setup the tableview
         setupTableView()
         
+        //load archived briefs
+        user.loadArchivedBriefs()
+        
     }
 
     override func didReceiveMemoryWarning() {

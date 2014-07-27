@@ -25,12 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window!.backgroundColor = UIColor.whiteColor()
         self.window!.makeKeyAndVisible()
         
-        //environment variable for debug
-        let dic = NSProcessInfo.processInfo().environment
-        if dic["debug"] {
-            //create user archive to test
-        }
-        
         return true
     }
 

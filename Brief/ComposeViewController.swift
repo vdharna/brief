@@ -351,15 +351,15 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
             
         case 0:
             text = user.brief.progress[indexPath.row].content
-            id = user.brief.progress[indexPath.row].id
+            id = user.brief.progress[indexPath.row].getId()
             
         case 1:
             text = user.brief.plans[indexPath.row].content
-            id = user.brief.plans[indexPath.row].id
+            id = user.brief.plans[indexPath.row].getId()
             
         case 2:
             text = user.brief.problems[indexPath.row].content
-            id = user.brief.problems[indexPath.row].id
+            id = user.brief.problems[indexPath.row].getId()
             
         default:
             text = ""
