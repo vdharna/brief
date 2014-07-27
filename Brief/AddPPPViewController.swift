@@ -80,7 +80,7 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
     @IBAction func dismissModal(sender: UIButton) {
         
         if(snapshot == content.text) {
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.presentingViewController.dismissViewControllerAnimated(true, completion: nil)
         } else {
             var actionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Discard" )
             actionSheet.addButtonWithTitle("Save")
@@ -119,10 +119,10 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
             }
             
         default:
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.presentingViewController.dismissViewControllerAnimated(true, completion: nil)
         }
         
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.presentingViewController.dismissViewControllerAnimated(true, completion: nil)
     }
     
     
@@ -131,14 +131,14 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
         switch(buttonIndex) {
         
         case 0: //discard
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.presentingViewController.dismissViewControllerAnimated(true, completion: nil)
 
         case 1: //cancel
             break
             
         case 2:
             self.save(cancelButton) //save the information
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.presentingViewController.dismissViewControllerAnimated(true, completion: nil)
             
         default:
             break

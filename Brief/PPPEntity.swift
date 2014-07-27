@@ -28,4 +28,6 @@ class PPPEntity: Equatable, Printable {
         self.id = NSUUID.UUID().hashValue
         self.content = content
     }
+    
+    
 }
