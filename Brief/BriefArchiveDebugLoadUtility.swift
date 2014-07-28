@@ -25,7 +25,7 @@ class BriefArchiveDebugLoadUtility {
         
         for var index = 0; index < 3; ++index {
             let randomIndex = Int(arc4random_uniform(UInt32(samples.count)))
-            var p = Progress(content: samples[randomIndex])
+            var p = Progress(content: "Progress: " + samples[randomIndex], flag: Flag())
             brief.addProgress(p)
         }
     
@@ -35,7 +35,7 @@ class BriefArchiveDebugLoadUtility {
         
         for var index = 0; index < 3; ++index {
             let randomIndex = Int(arc4random_uniform(UInt32(samples.count)))
-            var p = Plan(content: samples[randomIndex])
+            var p = Plan(content: "Plan: " + samples[randomIndex], flag: Flag())
             brief.addPlan(p)
 
         }
@@ -46,7 +46,7 @@ class BriefArchiveDebugLoadUtility {
         
         for var index = 0; index < 3; ++index {
             let randomIndex = Int(arc4random_uniform(UInt32(samples.count)))
-            var p = Problem(content: samples[randomIndex])
+            var p = Problem(content: "Problem: " + samples[randomIndex], flag: Flag())
             brief.addProblem(p)
         }
     }

@@ -8,16 +8,15 @@
 
 import UIKit
 
-class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate {
     
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var table: UITableView!
     
     let cellName = "CompletedBriefTableViewCell"
     
-    private var progressDS = ["1", "2", "3"]
-    private var plansDS = ["A", "B", "C"]
-    private var problemsDS = ["X", "Y", "Z"]
+    var completedBriefs = user.getCompletedBriefs()
+    private var completedBrief: Brief?
     
     init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -35,14 +34,19 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         // Register this NIB, which contains the cell
         self.table.registerNib(nib, forCellReuseIdentifier: cellName)
         
+        loadBrief()
+        
         //setup the tableview
         setupTableView()
         
-        //load archived briefs
-        user.loadArchivedBriefs()
+
         
     }
 
+    override func viewWillAppear(animated: Bool) {
+
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -63,6 +67,30 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         
         // Get a new or recycled cell
         let cell = self.table.dequeueReusableCellWithIdentifier(cellName, forIndexPath: indexPath) as CompletedBriefTableViewCell
+        var item: PPPItem?
+        
+        // populate the table with a brief
+        switch(indexPath.section) {
+        case 0:
+            item = completedBrief!.progress[indexPath.row]
+            cell.cellLabel.text = item!.getContent()
+            cell.tag = item!.getId()
+            
+        case 1:
+            item = completedBrief!.plans[indexPath.row]
+            cell.cellLabel.text = item!.getContent()
+            cell.tag = item!.getId()
+        
+        case 2:
+            item = completedBrief!.problems[indexPath.row]
+            cell.cellLabel.text = item!.getContent()
+            cell.tag = item!.getId()
+        
+        default:
+            cell.cellLabel.text = "No Text"
+            cell.tag = 0
+            
+        }
         
         // Stops a string reference cycle from happening
         weak var weakCell = cell
@@ -70,11 +98,17 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         cell.flagActionClosure = {
             let strongCell = weakCell
             
-            var alert = UIAlertView(title: "Action", message: "Flag Button Clicked", delegate: nil, cancelButtonTitle: "Cancel")
-            alert.show()
+            var actionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil )
+            actionSheet.tag = 0 // represents a flag action
             
-            var image = UIImage(named: "flag_icon_selected.png")
-            strongCell!.flagImage.image = image
+            if (item!.isFlagged()) {
+                actionSheet.addButtonWithTitle("Unflag")
+            } else {
+                actionSheet.addButtonWithTitle("Flag")
+            }
+            
+            actionSheet.showInView(UIApplication.sharedApplication().keyWindow)
+            
         }
         
         cell.commentActionClosure = {
@@ -90,13 +124,7 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         }
 
     
-        switch(indexPath.section) {
-        case 0: cell.cellLabel.text = progressDS[indexPath.row] + ": iOS 8 is the biggest iOS release ever — for developers and everyone else. But that wasn’t the goal. We simply set out to create the most natural experience."
-        case 1: cell.cellLabel.text = plansDS[indexPath.row] + ": iOS 8 is the biggest iOS release ever — for developers and everyone else. But that wasn’t the goal. We simply set out to create the most natural experience."
-        case 2: cell.cellLabel.text = problemsDS[indexPath.row] + ": iOS 8 is the biggest iOS release ever — for developers and everyone else. But that wasn’t the goal. We simply set out to create the most natural experience."
-        default: cell.cellLabel.text = "iOS 8 is the biggest iOS release ever — for developers and everyone else. But that wasn’t the goal. We simply set out to create the most natural experience."
-        
-        }
+  
                 
         return cell
     }
@@ -112,9 +140,9 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
         
         switch(section) {
-        case 0: return progressDS.count
-        case 1: return plansDS.count
-        case 2: return problemsDS.count
+        case 0: return completedBrief!.progress.count
+        case 1: return completedBrief!.plans.count
+        case 2: return completedBrief!.problems.count
         default: return 0
         }
         
@@ -172,6 +200,27 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         println("\(indexPath)")
     }
     
+    // ===========================================
+    // MARK: Action Sheet delegation method
+    // ===========================================
+    
+    func actionSheet(actionSheet: UIActionSheet!, clickedButtonAtIndex buttonIndex: Int) {
+        
+        switch(buttonIndex) {
+            
+        case 0: //cancel
+            println("Cancel called")
+            
+        case 1: //flag
+            println("Flag called")
+            
+        default:
+            break
+        }
+        
+    }
+    
+    
     // ============================================
     // MARK: Actions
     // ============================================
@@ -189,6 +238,15 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     func share(sender: AnyObject) {
         println("share")
         println("\(sender.tag)")
+    }
+    
+    // ============================================
+    // MARK: Utility Methods
+    // ============================================
+    func loadBrief() {
+        // pull the correct Brief based on some parameter
+        let randomIndex = Int(arc4random_uniform(UInt32(completedBriefs.count)))
+        self.completedBrief = completedBriefs[randomIndex]
     }
 
 }

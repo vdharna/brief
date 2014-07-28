@@ -16,16 +16,24 @@ class TeamMember {
     var lastName: String
     
     var brief:Brief //current brief
-    var archivedBriefs: Dictionary<Int, Brief>
+    private var completedBriefs: Array<Brief>
     
     init() {
         firstName = "Dharminder"
         lastName = "Dharna"
         brief = Brief()
-        archivedBriefs = Dictionary(minimumCapacity: 0)
+        completedBriefs = Array()
     }
     
-    func loadArchivedBriefs() {
+    func getCompletedBriefs() -> Array<Brief> {
+        
+        //load archived briefs
+        loadArchivedBriefs()
+        
+        return self.completedBriefs
+    }
+    
+    private func loadArchivedBriefs() {
         //load via server-side archive (e.g. Rest Service or Cloud-Kit)
         
         // if this is set to 1, load the archive as a sample
@@ -35,7 +43,7 @@ class TeamMember {
             for var index = 0; index < 3; ++index {
                 var brief = BriefArchiveDebugLoadUtility.createSampleBrief()
                 var id = brief.getId()
-                archivedBriefs.updateValue(brief, forKey: id)
+                completedBriefs.append(brief)
             }
         }
 

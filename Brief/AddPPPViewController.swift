@@ -28,14 +28,9 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
     // ==========================================
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        content.delegate = self;
-        content.returnKeyType = .Default
-        content.keyboardAppearance = .Dark
-        content.font = UIFont(name: "HelveticaNeue", size: 14)
-        content.becomeFirstResponder()
-        content.keyboardType = .ASCIICapable
+        
+        //setup the content
+        setupContent()
         
         //configure the character count view
         charCountView.backgroundColor = UIColor.grayColor()
@@ -73,6 +68,16 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
         // Dispose of any resources that can be recreated.
     }
     
+    func setupContent() {
+        // Do any additional setup after loading the view.
+        content.delegate = self;
+        content.returnKeyType = .Default
+        content.keyboardAppearance = .Dark
+        content.font = UIFont(name: "HelveticaNeue", size: 14)
+        content.becomeFirstResponder()
+        content.keyboardType = .ASCIICapable
+    }
+    
     
     // ===========================================
     // MARK: action methods
@@ -84,7 +89,9 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
         } else {
             var actionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Discard" )
             actionSheet.addButtonWithTitle("Save")
-            actionSheet.showInView(UIApplication.sharedApplication().keyWindow)
+            //actionSheet.showInView(UIApplication.sharedApplication().keyWindow)
+            self.content.resignFirstResponder()
+            actionSheet.showInView(self.view)
         }
         
     }
@@ -126,6 +133,10 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
     }
     
     
+    // ===========================================
+    // MARK: action sheet delegation method
+    // ===========================================
+    
     func actionSheet(actionSheet: UIActionSheet!, clickedButtonAtIndex buttonIndex: Int) {
         println(buttonIndex)
         switch(buttonIndex) {
@@ -134,7 +145,7 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
             self.presentingViewController.dismissViewControllerAnimated(true, completion: nil)
 
         case 1: //cancel
-            break
+            self.content.becomeFirstResponder()
             
         case 2:
             self.save(cancelButton) //save the information
