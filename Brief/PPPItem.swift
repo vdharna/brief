@@ -13,15 +13,20 @@ class PPPItem {
     
     private var id: Int
     private var content: String
-    private var flag: Flag
+    private var flag: Flag?
     private var comments: Array<Comment>?
     
     var description : String { return String(id) }
-
     
     init(content: String) {
         self.id = NSUUID.UUID().hashValue
         self.content = content
+    }
+    
+    init(content: String, flag: Flag) {
+        self.id = NSUUID.UUID().hashValue
+        self.content = content
+        self.flag = flag
     }
     
     func getId() -> Int {
@@ -37,7 +42,9 @@ class PPPItem {
     }
     
     func isFlagged() -> Bool {
-        return self.flag.isFlagged()
+        
+        return flag!.isFlagged()
+        
     }
     
 }

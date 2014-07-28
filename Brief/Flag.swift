@@ -19,4 +19,5 @@ class Flag {
     func isFlagged() -> Bool {
         return flagged
     }
+    
 }
