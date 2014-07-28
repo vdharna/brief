@@ -89,8 +89,10 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
         } else {
             var actionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Discard" )
             actionSheet.addButtonWithTitle("Save")
+            actionSheet.actionSheetStyle = UIActionSheetStyle.BlackOpaque
             //actionSheet.showInView(UIApplication.sharedApplication().keyWindow)
             self.content.resignFirstResponder()
+            self.charCountView.hidden = true
             actionSheet.showInView(self.view)
         }
         
@@ -138,7 +140,7 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
     // ===========================================
     
     func actionSheet(actionSheet: UIActionSheet!, clickedButtonAtIndex buttonIndex: Int) {
-        println(buttonIndex)
+
         switch(buttonIndex) {
         
         case 0: //discard
@@ -146,10 +148,10 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
 
         case 1: //cancel
             self.content.becomeFirstResponder()
+            self.charCountView.hidden = false
             
         case 2:
             self.save(cancelButton) //save the information
-            self.presentingViewController.dismissViewControllerAnimated(true, completion: nil)
             
         default:
             break
