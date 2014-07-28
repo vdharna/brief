@@ -23,9 +23,12 @@
 		62474132196CB5A10043C7E5 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62474131196CB5A10043C7E5 /* ComposeViewController.swift */; };
 		62474137196CB5A10043C7E5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62474136196CB5A10043C7E5 /* Images.xcassets */; };
 		62474143196CB5A10043C7E5 /* BriefTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62474142196CB5A10043C7E5 /* BriefTests.swift */; };
-		6247F76E1975B11B002FC8B4 /* PPPEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6247F76D1975B11B002FC8B4 /* PPPEntity.swift */; };
+		6247F76E1975B11B002FC8B4 /* PPPItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6247F76D1975B11B002FC8B4 /* PPPItem.swift */; };
 		6261D5FB197EE3EB007B8AA3 /* CompletedBriefViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6261D5F9197EE3EB007B8AA3 /* CompletedBriefViewController.swift */; };
 		6261D5FC197EE3EB007B8AA3 /* CompletedBriefViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6261D5FA197EE3EB007B8AA3 /* CompletedBriefViewController.xib */; };
+		626FCD1E1985A8ED00946973 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626FCD1D1985A8ED00946973 /* Comment.swift */; };
+		626FCD221986B43900946973 /* Flag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626FCD211986B43900946973 /* Flag.swift */; };
+		626FCD241986B44700946973 /* Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626FCD231986B44700946973 /* Share.swift */; };
 		62888FE8197A1EB4002D0DD0 /* CompletedBriefButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62888FE7197A1EB4002D0DD0 /* CompletedBriefButtonView.swift */; };
 		62888FEA197B954E002D0DD0 /* ComposeBriefButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62888FE9197B954E002D0DD0 /* ComposeBriefButtonView.swift */; };
 		6295FAC619746D6500C338D3 /* Brief.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6295FAC519746D6500C338D3 /* Brief.swift */; };
@@ -71,9 +74,12 @@
 		6247413C196CB5A10043C7E5 /* BriefTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BriefTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		62474141196CB5A10043C7E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		62474142196CB5A10043C7E5 /* BriefTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BriefTests.swift; sourceTree = "<group>"; };
-		6247F76D1975B11B002FC8B4 /* PPPEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPPEntity.swift; sourceTree = "<group>"; };
+		6247F76D1975B11B002FC8B4 /* PPPItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPPItem.swift; sourceTree = "<group>"; };
 		6261D5F9197EE3EB007B8AA3 /* CompletedBriefViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedBriefViewController.swift; sourceTree = "<group>"; };
 		6261D5FA197EE3EB007B8AA3 /* CompletedBriefViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompletedBriefViewController.xib; sourceTree = "<group>"; };
+		626FCD1D1985A8ED00946973 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		626FCD211986B43900946973 /* Flag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flag.swift; sourceTree = "<group>"; };
+		626FCD231986B44700946973 /* Share.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Share.swift; sourceTree = "<group>"; };
 		62888FE7197A1EB4002D0DD0 /* CompletedBriefButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedBriefButtonView.swift; sourceTree = "<group>"; };
 		62888FE9197B954E002D0DD0 /* ComposeBriefButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeBriefButtonView.swift; sourceTree = "<group>"; };
 		6295FAC519746D6500C338D3 /* Brief.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brief.swift; sourceTree = "<group>"; };
@@ -227,10 +233,13 @@
 			isa = PBXGroup;
 			children = (
 				6295FAC519746D6500C338D3 /* Brief.swift */,
-				6247F76D1975B11B002FC8B4 /* PPPEntity.swift */,
+				6247F76D1975B11B002FC8B4 /* PPPItem.swift */,
 				623B21B919744C4F00EC766F /* Progress.swift */,
 				623B21BB19744C5B00EC766F /* Plan.swift */,
 				623B21BD19744C6600EC766F /* Problem.swift */,
+				626FCD211986B43900946973 /* Flag.swift */,
+				626FCD1D1985A8ED00946973 /* Comment.swift */,
+				626FCD231986B44700946973 /* Share.swift */,
 				62FC24E419855A0600372D14 /* BriefArchiveDebugLoadUtility.swift */,
 			);
 			name = Brief;
@@ -376,20 +385,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				623B21BE19744C6600EC766F /* Problem.swift in Sources */,
+				626FCD221986B43900946973 /* Flag.swift in Sources */,
 				62FC24E11983060800372D14 /* TransparentEdgesTableView.swift in Sources */,
 				62474132196CB5A10043C7E5 /* ComposeViewController.swift in Sources */,
 				62FC24E01983060800372D14 /* TransparentEdgesScrollView.swift in Sources */,
 				623B21C219744DC200EC766F /* TeamMember.swift in Sources */,
 				623B21BA19744C4F00EC766F /* Progress.swift in Sources */,
+				626FCD241986B44700946973 /* Share.swift in Sources */,
 				6295FAC619746D6500C338D3 /* Brief.swift in Sources */,
 				62888FE8197A1EB4002D0DD0 /* CompletedBriefButtonView.swift in Sources */,
 				62888FEA197B954E002D0DD0 /* ComposeBriefButtonView.swift in Sources */,
-				6247F76E1975B11B002FC8B4 /* PPPEntity.swift in Sources */,
+				6247F76E1975B11B002FC8B4 /* PPPItem.swift in Sources */,
 				623B21BC19744C5B00EC766F /* Plan.swift in Sources */,
 				623B21C019744DB400EC766F /* Team.swift in Sources */,
 				6247412E196CB5A10043C7E5 /* AppDelegate.swift in Sources */,
 				62C032881981CE86005AC29F /* ComposeBriefTableViewCell.swift in Sources */,
 				6261D5FB197EE3EB007B8AA3 /* CompletedBriefViewController.swift in Sources */,
+				626FCD1E1985A8ED00946973 /* Comment.swift in Sources */,
 				62474130196CB5A10043C7E5 /* HomeViewController.swift in Sources */,
 				6241FB64196F5BB50092B014 /* AddPPPViewController.swift in Sources */,
 				622582F419802B3D000E4F27 /* CompletedBriefCell.swift in Sources */,

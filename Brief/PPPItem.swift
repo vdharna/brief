@@ -9,12 +9,12 @@
 import Foundation
 
 
-class PPPEntity {
+class PPPItem {
     
     private var id: Int
-    var content: String
-    
-    var isFlagged = false
+    private var content: String
+    private var flag: Flag
+    private var comments: Array<Comment>?
     
     var description : String { return String(id) }
 
@@ -28,5 +28,16 @@ class PPPEntity {
         return self.id
     }
     
+    func setContent(content: String) {
+        self.content = content
+    }
+    
+    func getContent() -> String {
+        return self.content
+    }
+    
+    func isFlagged() -> Bool {
+        return self.flag.isFlagged()
+    }
     
 }

@@ -1,13 +1,13 @@
 //
-//  Progress.swift
+//  Share.swift
 //  Brief
 //
-//  Created by Dharminder Dharna on 7/14/14.
+//  Created by Dharminder Dharna on 7/28/14.
 //  Copyright (c) 2014 Simple Enterprises. All rights reserved.
 //
 
 import Foundation
 
-class Progress: PPPItem {
+class Share {
     
 }

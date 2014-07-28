@@ -8,6 +8,6 @@
 
 import Foundation
 
-class Problem: PPPEntity {
+class Problem: PPPItem {
     
 }

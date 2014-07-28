@@ -350,15 +350,15 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         switch (selectedSegment) {
             
         case 0:
-            text = user.brief.progress[indexPath.row].content
+            text = user.brief.progress[indexPath.row].getContent()
             id = user.brief.progress[indexPath.row].getId()
             
         case 1:
-            text = user.brief.plans[indexPath.row].content
+            text = user.brief.plans[indexPath.row].getContent()
             id = user.brief.plans[indexPath.row].getId()
             
         case 2:
-            text = user.brief.problems[indexPath.row].content
+            text = user.brief.problems[indexPath.row].getContent()
             id = user.brief.problems[indexPath.row].getId()
             
         default:

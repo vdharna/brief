@@ -164,13 +164,13 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
             switch (selectedSegment!) {
                 
             case 0:
-                content.text = user.brief.progress[selectedPPPElement].content
+                content.text = user.brief.progress[selectedPPPElement].getContent()
 
             case 1:
-                content.text = user.brief.plans[selectedPPPElement].content
+                content.text = user.brief.plans[selectedPPPElement].getContent()
                 
             case 2:
-                content.text = user.brief.problems[selectedPPPElement].content
+                content.text = user.brief.problems[selectedPPPElement].getContent()
                 
             default:
                 content.text = ""
