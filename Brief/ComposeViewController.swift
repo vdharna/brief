@@ -147,9 +147,10 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func add() {
-        var addPPPVC = AddPPPViewController(nibName: nil, bundle: nil)
-        addPPPVC.selectedSegment = selectedSegment //pass the selected segment to create the correct PPP instance
-        self.navigationController.presentViewController(addPPPVC, animated: true, completion: nil)
+        var modalViewController = AddPPPViewController(nibName: nil, bundle: nil)
+        modalViewController.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+        modalViewController.selectedSegment = selectedSegment //pass the selected segment to create the correct PPP instance
+        self.navigationController.presentViewController(modalViewController, animated: true, completion: nil)
     }
     
 

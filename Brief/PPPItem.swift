@@ -47,4 +47,8 @@ class PPPItem {
         
     }
     
+    func flag(flag: Bool) {
+        self.flag!.setFlag(flag)
+    }
+    
 }

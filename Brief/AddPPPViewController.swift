@@ -90,7 +90,6 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
             var actionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Discard" )
             actionSheet.addButtonWithTitle("Save")
             actionSheet.actionSheetStyle = UIActionSheetStyle.BlackOpaque
-            //actionSheet.showInView(UIApplication.sharedApplication().keyWindow)
             self.content.resignFirstResponder()
             self.charCountView.hidden = true
             actionSheet.showInView(self.view)

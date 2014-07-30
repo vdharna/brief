@@ -15,12 +15,20 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     
     let cellName = "CompletedBriefTableViewCell"
     
-    var completedBriefs = user.getCompletedBriefs()
+    private var completedBriefs = user.getCompletedBriefs()
     private var completedBrief: Brief?
+    
+    private var flagIsOn = false
+    
+    private var notificationDelegate: NotificationDelegate?
     
     init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
+    
+    // ============================================
+    // MARK: UIViewController Lifecycle Methods
+    // ============================================
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,30 +75,20 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         
         // Get a new or recycled cell
         let cell = self.table.dequeueReusableCellWithIdentifier(cellName, forIndexPath: indexPath) as CompletedBriefTableViewCell
-        var item: PPPItem?
+        var item: PPPItem = getPPPItem(indexPath)
         
-        // populate the table with a brief
-        switch(indexPath.section) {
-        case 0:
-            item = completedBrief!.progress[indexPath.row]
-            cell.cellLabel.text = item!.getContent()
-            cell.tag = item!.getId()
-            
-        case 1:
-            item = completedBrief!.plans[indexPath.row]
-            cell.cellLabel.text = item!.getContent()
-            cell.tag = item!.getId()
+        cell.cellLabel.text = item.getContent()
+        cell.tag = item.getId()
         
-        case 2:
-            item = completedBrief!.problems[indexPath.row]
-            cell.cellLabel.text = item!.getContent()
-            cell.tag = item!.getId()
-        
-        default:
-            cell.cellLabel.text = "No Text"
-            cell.tag = 0
-            
+        // set flag as on or off
+        if (item.isFlagged()) {
+            cell.flagImage.image = UIImage(named: "flag_icon_selected.png")
+        } else {
+            cell.flagImage.image = UIImage(named: "flag_icon.png")
         }
+        
+        //load the comments label with the appropriate number of comments
+        cell.commentsLabel.text = "0 Comments"
         
         // Stops a string reference cycle from happening
         weak var weakCell = cell
@@ -99,15 +97,16 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
             let strongCell = weakCell
             
             var actionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil )
-            actionSheet.tag = 0 // represents a flag action
+            actionSheet.tag = item.getId() // represents a flag action
             
-            if (item!.isFlagged()) {
+            if (item.isFlagged()) {
                 actionSheet.addButtonWithTitle("Unflag")
             } else {
                 actionSheet.addButtonWithTitle("Flag")
             }
             
-            actionSheet.showInView(UIApplication.sharedApplication().keyWindow)
+            actionSheet.addButtonWithTitle("Notify Me...")
+            actionSheet.showInView(self.view)
             
         }
         
@@ -122,10 +121,7 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
             var alert = UIAlertView(title: "Action", message: "Share Button Clicked", delegate: nil, cancelButtonTitle: "Cancel")
             alert.show()
         }
-
-    
   
-                
         return cell
     }
     
@@ -209,35 +205,27 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         switch(buttonIndex) {
             
         case 0: //cancel
-            println("Cancel called")
+            break
             
         case 1: //flag
-            println("Flag called")
+
+            // update the model to reflect the action
+            var item = self.completedBrief!.findItemById(actionSheet.tag)
+            item.flag(!item.isFlagged()) //set the opposite
+            self.table.reloadData()
+            
+        case 2: // notify me..
+            // call a subsequent uiaction sheet for this
+            var item = self.completedBrief!.findItemById(actionSheet.tag)
+            notificationDelegate = NotificationDelegate(item: item)
+            var notifyActionSheet = UIActionSheet(title: "Receive notifications when anyone replies to his thread", delegate: notificationDelegate, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil)
+            notifyActionSheet.addButtonWithTitle("Notify Me")
+            notifyActionSheet.showInView(self.view)
             
         default:
             break
         }
         
-    }
-    
-    
-    // ============================================
-    // MARK: Actions
-    // ============================================
-    
-    func flag(sender: AnyObject) {
-        println("flag")
-        println("\(sender.tag)")
-    }
-    
-    func comment(sender: AnyObject) {
-        println("comment")
-        println("\(sender.tag)")
-    }
-    
-    func share(sender: AnyObject) {
-        println("share")
-        println("\(sender.tag)")
     }
     
     // ============================================
@@ -247,6 +235,57 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         // pull the correct Brief based on some parameter
         let randomIndex = Int(arc4random_uniform(UInt32(completedBriefs.count)))
         self.completedBrief = completedBriefs[randomIndex]
+    }
+    
+    private func getPPPItem(indexPath: NSIndexPath) -> PPPItem {
+        
+        switch(indexPath.section) {
+            
+        case 0:
+            return completedBrief!.progress[indexPath.row]
+            
+        case 1:
+            return completedBrief!.plans[indexPath.row]
+            
+        case 2:
+            return completedBrief!.problems[indexPath.row]
+            
+        default:
+            return PPPItem(content: "")
+            
+        }
+        
+    }
+    
+    // ============================================
+    // MARK: Nested Classes for Action Sheets
+    // ============================================
+    
+    class NotificationDelegate: NSObject, UIActionSheetDelegate {
+        
+        var item:PPPItem?
+        
+        init(item: PPPItem) {
+            self.item = item
+        }
+        
+        func actionSheet(actionSheet: UIActionSheet!, clickedButtonAtIndex buttonIndex: Int) {
+            
+            switch(buttonIndex) {
+                
+            case 0: //cancel
+                break
+                
+            case 1:
+                var alert = UIAlertView(title: "Action", message: "Call BriefNotificationService for this action", delegate: nil, cancelButtonTitle: "Cancel")
+                alert.show()
+                
+            default:
+                break
+            }
+            
+        }
+        
     }
 
 }

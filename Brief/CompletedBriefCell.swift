@@ -19,6 +19,7 @@ class CompletedBriefTableViewCell: UITableViewCell {
     @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var flagImage: UIImageView!
+    @IBOutlet weak var commentsLabel: UILabel!
     
     var flagActionClosure: flagActionBlock?
     var commentActionClosure: commentActionBlock?

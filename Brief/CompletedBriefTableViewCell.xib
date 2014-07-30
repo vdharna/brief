@@ -25,12 +25,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="comment_icon" translatesAutoresizingMaskIntoConstraints="NO" id="WIr-Nz-wgj" userLabel="Comment Image">
                                 <rect key="frame" x="115" y="9" width="11" height="11"/>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f0L-k9-OVA" userLabel="Comment Counter">
-                                <rect key="frame" x="135" y="0.0" width="10" height="25"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Comments" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ri-Bw-5ZU">
                                 <rect key="frame" x="145" y="0.0" width="57" height="25"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
@@ -93,6 +87,7 @@
             <connections>
                 <outlet property="cellLabel" destination="8y6-lT-qzs" id="oXT-ax-FWA"/>
                 <outlet property="commentButton" destination="wM9-1L-oIj" id="0r0-CJ-tWh"/>
+                <outlet property="commentsLabel" destination="0Ri-Bw-5ZU" id="PeU-OF-JRH"/>
                 <outlet property="flagButton" destination="cCL-8Y-7ym" id="KnH-kq-ywH"/>
                 <outlet property="flagImage" destination="df9-9d-im8" id="os9-jz-zfI"/>
                 <outlet property="shareButton" destination="nJq-Op-JaB" id="lHR-Mu-k9B"/>

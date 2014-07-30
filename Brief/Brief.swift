@@ -94,5 +94,31 @@ class Brief {
             return false
         }
     }
+    
+    func findItemById(id: Int) -> PPPItem {
+        
+        // loop through each array
+        for i in (0 ..< progress.count) {
+            if progress[i].getId() == id {
+                return progress[i]
+            }
+        }
+        
+        // loop through each array
+        for i in (0 ..< plans.count) {
+            if plans[i].getId() == id {
+                return plans[i]
+            }
+        }
+        
+        // loop through each array
+        for i in (0 ..< problems.count) {
+            if problems[i].getId() == id {
+                return problems[i]
+            }
+        }
+        
+        return PPPItem(content: "")
+    }
 
 }

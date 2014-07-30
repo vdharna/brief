@@ -20,4 +20,8 @@ class Flag {
         return flagged
     }
     
+    func setFlag(flag: Bool) {
+        self.flagged = flag
+    }
+    
 }
