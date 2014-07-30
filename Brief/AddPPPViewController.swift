@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetDelegate {
+class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate {
 
     @IBOutlet var content: UITextView!
     @IBOutlet var saveButton: UIBarButtonItem!
@@ -18,6 +18,9 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
     var selectedSegment: Int?
     var selectedPPPElement = -1 //default to indicate nothing is transitioned
     var snapshot:String?
+    
+    let characterLimit = 140
+
     
     init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -98,6 +101,22 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
     }
     
     @IBAction func save(sender: UIBarButtonItem) {
+        
+        if (characterLimit - content.text.utf16Count < 0) {
+            self.content.resignFirstResponder()
+            var alert = UIAlertView(title: "Over Limit", message: "Your status item is over 140 characters. Keep it brief. You can either edit it down or save it as a draft to fix later.", delegate: self, cancelButtonTitle: "Edit", otherButtonTitles: "Save")
+            self.charCountView.hidden = true
+            alert.show()
+            
+        } else {
+            
+            saveItem()
+        }
+
+    }
+    
+    func saveItem() {
+        
         //create the correct model object
         var editMode = selectedPPPElement > -1
         switch (selectedSegment!) {
@@ -209,6 +228,28 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
     }
     
     // ===========================================
+    // MARK: UIAlertView Delegate methods
+    // ===========================================
+    
+    func alertView(alertView: UIAlertView!, clickedButtonAtIndex buttonIndex: Int) {
+        
+        switch (buttonIndex) {
+        
+        case 0: //edit
+            self.content.becomeFirstResponder()
+            self.charCountView.hidden = false
+            break //do nothing
+            
+        case 1: //save for later editing
+            saveItem()
+            
+        default:
+            break
+            
+        }
+    }
+    
+    // ===========================================
     // MARK: Keyboard notification methods
     // ===========================================
     
@@ -249,21 +290,21 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
         let x: CGFloat = 0
         let y: CGFloat = self.view.frame.height - (kbRect.height + viewHeight)
         var rect = CGRectMake(x, y, viewWidth, viewHeight)
-        charCountView.frame = rect
+        self.charCountView.frame = rect
         
         //configure the character count label here since you're redrawing the rect containing the container view (charCountView)
         let labelWidth: CGFloat = 40
-        charCountLabel.textColor = UIColor.lightGrayColor()
-        charCountLabel.font = UIFont(name: "HelveticaNeue", size: 14)
-        charCountLabel.backgroundColor = UIColor.grayColor()
-        charCountLabel.frame = CGRectMake(charCountView.frame.width - labelWidth, 0, labelWidth, charCountView.frame.height)
-        charCountView.addSubview(charCountLabel)
-        
+        self.charCountLabel.textColor = UIColor.lightGrayColor()
+        self.charCountLabel.font = UIFont(name: "HelveticaNeue", size: 14)
+        self.charCountLabel.backgroundColor = UIColor.grayColor()
+        self.charCountLabel.frame = CGRectMake(self.charCountView.frame.width - labelWidth, 0, labelWidth, self.charCountView.frame.height)
+        self.charCountView.addSubview(self.charCountLabel)
+
     }
     
     func updateCharacterCount() {
         //update the count character label
-        charCountLabel.text = (140 - content.text.utf16Count).description
+        charCountLabel.text = (characterLimit - content.text.utf16Count).description
     }
 
 }

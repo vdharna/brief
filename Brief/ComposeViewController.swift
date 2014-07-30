@@ -18,6 +18,10 @@ let cellName = "ComposeBriefTableViewCell"
 let redCellImage = UIImage(named: "compose-table-cell-red.png")
 let greenCellImage = UIImage(named: "compose-table-cell-green.png")
 
+let tableCellHeight:CGFloat = 130
+
+let characterLimit = 140
+
 class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate {
     
     @IBOutlet weak var toolbar: UIToolbar!
@@ -27,8 +31,6 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var descriptionLabel: UILabel!
     
     var selectedSegment = 0 //remember which segment was selected
-    
-    let tableCellHeight:CGFloat = 130
     
     var snapshot: UIView?        ///< A snapshot of the row user is moving.
     var sourceIndexPath:NSIndexPath? ///< Initial index path, where gesture begins.
@@ -372,7 +374,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.cellLabel.font = UIFont(name: "HelveticaNeue-Light", size: 14)
         cell.cellLabel.numberOfLines = 6
         cell.accessoryType = .DisclosureIndicator
-        if (cell.cellLabel.text.utf16Count > 140) {
+        if (cell.cellLabel.text.utf16Count > characterLimit) {
             cell.cellImage.image = redCellImage
         } else {
             cell.cellImage.image = greenCellImage
