@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetDelegate {
+class AddPPPViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet var content: UITextView!
     @IBOutlet var saveButton: UIBarButtonItem!
@@ -31,18 +31,16 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
     // ==========================================
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //setup the content
-        setupContent()
-        
-        //configure the character count view
-        charCountView.backgroundColor = UIColor.grayColor()
-        self.view.addSubview(charCountView)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        //setup the content
+        setupContent()
+        //configure the character count view
+        charCountView.backgroundColor = UIColor.grayColor()
+        self.view.addSubview(charCountView)
         setContentForEdit()
         registerForKeyboardNotifications()
         updateCharacterCount()
@@ -97,7 +95,7 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
             var cancelAlertAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
                 (value: UIAlertAction!) in
                 self.content.becomeFirstResponder()
-                self.content.becomeFirstResponder()
+                println("") //need a line of code to make this work for some reason
                 })
             
             var discardAlertAction = UIAlertAction(title: "Discard", style: .Destructive, handler: {
@@ -118,7 +116,7 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
             self.presentViewController(alertVC, animated: true, completion: {
                 () in
                 self.content.resignFirstResponder()
-                self.content.resignFirstResponder()
+                println("") //need a line of code to make this work for some reason
                 })
 
         }
@@ -128,13 +126,16 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
     @IBAction func save(sender: UIBarButtonItem) {
         
         if (characterLimit - content.text.utf16Count < 0) {
+            
             //set up the alert for characters over 140
             var alertVC = UIAlertController(title: "Over Limit", message: "Your status item is over 140 characters. Keep it brief. You can either edit it down or save it as a draft to fix later.", preferredStyle: UIAlertControllerStyle.Alert)
+            
             var cancelAlertAction = UIAlertAction(title: "Edit", style: .Cancel, handler: {
                 (value: UIAlertAction!) in
                 self.content.becomeFirstResponder()
-                self.content.becomeFirstResponder()
+                println("") //need a line of code to make this work for some reason
                 })
+           
             var saveAlertAction = UIAlertAction(title: "Save", style: .Default, handler: {
                 (value: UIAlertAction!) in
                 self.saveItem()
@@ -142,10 +143,11 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
             
             alertVC.addAction(cancelAlertAction)
             alertVC.addAction(saveAlertAction)
+            
             self.presentViewController(alertVC, animated: true, completion:  {
                 () in
                 self.content.resignFirstResponder()
-                self.content.resignFirstResponder()
+                println("") //need a line of code to make this work for some reason
                 })
         
         } else {

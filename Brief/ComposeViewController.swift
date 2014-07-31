@@ -22,7 +22,7 @@ let tableCellHeight:CGFloat = 130
 
 let characterLimit = 140
 
-class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate {
+class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var toolbar: UIToolbar!
     @IBOutlet weak var deleteButton: UIBarButtonItem!
@@ -92,7 +92,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         //add long tap gesture recognizer
         var longPress = UILongPressGestureRecognizer(target: self, action: "longPressGestureRecognized:")
         table.addGestureRecognizer(longPress)
-        
+                
     }
     
     func setupToolbarView() {
@@ -148,10 +148,10 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func add() {
-        var modalViewController = AddPPPViewController(nibName: nil, bundle: nil)
-        modalViewController.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
-        modalViewController.selectedSegment = selectedSegment //pass the selected segment to create the correct PPP instance
-        self.navigationController.presentViewController(modalViewController, animated: true, completion: nil)
+        var mvc = AddPPPViewController(nibName: nil, bundle: nil)
+        mvc.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+        mvc.selectedSegment = selectedSegment //pass the selected segment to create the correct PPP instance
+        self.navigationController.presentViewController(mvc, animated: true, completion: nil)
     }
     
 
@@ -163,29 +163,26 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBAction func deleteBrief(sender: AnyObject) {
         
-        var actionSheet = UIActionSheet(title: "Delete Brief?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Delete" )
-        actionSheet.showInView(UIApplication.sharedApplication().keyWindow)
-    }
-    
-    func actionSheet(actionSheet: UIActionSheet!, clickedButtonAtIndex buttonIndex: Int) {
+        var alertView = UIAlertController(title: "Delete Brief?", message: nil, preferredStyle: .ActionSheet)
         
-        switch(buttonIndex) {
-            
-        case 0: //discard
-            
+        var cancelActionButton = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+            (alertAction: UIAlertAction!) in
+            })
+        
+        var deleteActionButton = UIAlertAction(title: "Delete", style: .Destructive, handler: {
+            (alertAction: UIAlertAction!) in
             user.brief.delete()
-            selectedSegment = 0
-            table.reloadData()
-            animateBriefDelete()
+            self.selectedSegment = 0
+            self.table.reloadData()
+            self.animateBriefDelete()
             self.deleteButton.enabled = false
             self.actionButton.enabled = false
-        case 1: //cancel
-            break
-            
-        default:
-            break
-        }
+            })
+
+        alertView.addAction(cancelActionButton)
+        alertView.addAction(deleteActionButton)
         
+        self.presentViewController(alertView, animated: true, completion: {})
     }
     
     func longPressGestureRecognized(longPress: UILongPressGestureRecognizer) {
@@ -422,12 +419,15 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!)  {
         
-        var addPPPVC = AddPPPViewController(nibName: nil, bundle: nil)
-        addPPPVC.selectedSegment = selectedSegment //pass the selected segment to create the correct PPP instance
-        addPPPVC.selectedPPPElement = indexPath.row
-        self.navigationController.presentViewController(addPPPVC, animated: true, completion: nil)
+        println("Selected Index: \(indexPath)")
+        var mvc = AddPPPViewController(nibName: nil, bundle: nil)
+        mvc.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+        mvc.selectedSegment = selectedSegment //pass the selected segment to create the correct PPP instance
+        mvc.selectedPPPElement = indexPath.row
+        self.navigationController.presentViewController(mvc, animated: true, completion: nil)
         
     }
+
 
     // ==========================================
     // MARK: helper methods
