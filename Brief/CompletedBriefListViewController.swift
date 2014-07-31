@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class CompletedBriefListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var table: UITableView!

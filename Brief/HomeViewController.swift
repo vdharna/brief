@@ -174,7 +174,7 @@ class HomeViewController: UIViewController {
         var planet = CALayer()
         
         CATransaction.setCompletionBlock({
-            var cbvc = CompletedBriefViewController(nibName: nil, bundle: nil)
+            var cbvc = CompletedBriefListViewController(nibName: nil, bundle: nil)
             self.navigationController.pushViewController(cbvc, animated: true)
             planet.removeFromSuperlayer()
             self.composeButton.enabled = true
