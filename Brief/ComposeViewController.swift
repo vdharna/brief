@@ -75,7 +75,6 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func setupTableView() {
-        
         table.separatorStyle = UITableViewCellSeparatorStyle.None
         table.delegate = self
         table.dataSource = self

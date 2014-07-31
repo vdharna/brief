@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate {
+class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetDelegate {
 
     @IBOutlet var content: UITextView!
     @IBOutlet var saveButton: UIBarButtonItem!
@@ -88,14 +88,39 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
     @IBAction func dismissModal(sender: UIButton) {
         
         if(snapshot == content.text) {
-            self.presentingViewController.dismissViewControllerAnimated(true, completion: nil)
+            self.presentingViewController.dismissViewControllerAnimated(true, completion: {})
+            
         } else {
-            var actionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Discard" )
-            actionSheet.addButtonWithTitle("Save")
-            actionSheet.actionSheetStyle = UIActionSheetStyle.BlackOpaque
-            self.content.resignFirstResponder()
-            self.charCountView.hidden = true
-            actionSheet.showInView(self.view)
+            //set up the action sheets
+            var alertVC = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+            
+            var cancelAlertAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+                (value: UIAlertAction!) in
+                self.content.becomeFirstResponder()
+                self.content.becomeFirstResponder()
+                })
+            
+            var discardAlertAction = UIAlertAction(title: "Discard", style: .Destructive, handler: {
+                (value: UIAlertAction!) in
+                self.presentingViewController.dismissViewControllerAnimated(true, completion: {})
+
+                })
+            
+            var saveAlertAction = UIAlertAction(title: "Save", style: .Destructive, handler: {
+                (value: UIAlertAction!) in
+                self.save(UIBarButtonItem())
+                })
+            
+            alertVC.addAction(cancelAlertAction)
+            alertVC.addAction(discardAlertAction)
+            alertVC.addAction(saveAlertAction)
+            
+            self.presentViewController(alertVC, animated: true, completion: {
+                () in
+                self.content.resignFirstResponder()
+                self.content.resignFirstResponder()
+                })
+
         }
         
     }
@@ -103,11 +128,26 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
     @IBAction func save(sender: UIBarButtonItem) {
         
         if (characterLimit - content.text.utf16Count < 0) {
-            self.content.resignFirstResponder()
-            var alert = UIAlertView(title: "Over Limit", message: "Your status item is over 140 characters. Keep it brief. You can either edit it down or save it as a draft to fix later.", delegate: self, cancelButtonTitle: "Edit", otherButtonTitles: "Save")
-            self.charCountView.hidden = true
-            alert.show()
+            //set up the alert for characters over 140
+            var alertVC = UIAlertController(title: "Over Limit", message: "Your status item is over 140 characters. Keep it brief. You can either edit it down or save it as a draft to fix later.", preferredStyle: UIAlertControllerStyle.Alert)
+            var cancelAlertAction = UIAlertAction(title: "Edit", style: .Cancel, handler: {
+                (value: UIAlertAction!) in
+                self.content.becomeFirstResponder()
+                self.content.becomeFirstResponder()
+                })
+            var saveAlertAction = UIAlertAction(title: "Save", style: .Default, handler: {
+                (value: UIAlertAction!) in
+                self.saveItem()
+                })
             
+            alertVC.addAction(cancelAlertAction)
+            alertVC.addAction(saveAlertAction)
+            self.presentViewController(alertVC, animated: true, completion:  {
+                () in
+                self.content.resignFirstResponder()
+                self.content.resignFirstResponder()
+                })
+        
         } else {
             
             saveItem()
@@ -146,37 +186,13 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
             }
             
         default:
-            self.presentingViewController.dismissViewControllerAnimated(true, completion: nil)
+            self.presentingViewController.dismissViewControllerAnimated(true, completion: {})
+
         }
         
-        self.presentingViewController.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    
-    // ===========================================
-    // MARK: action sheet delegation method
-    // ===========================================
-    
-    func actionSheet(actionSheet: UIActionSheet!, clickedButtonAtIndex buttonIndex: Int) {
+        self.presentingViewController.dismissViewControllerAnimated(true, completion: {})
 
-        switch(buttonIndex) {
-        
-        case 0: //discard
-            self.presentingViewController.dismissViewControllerAnimated(true, completion: nil)
-
-        case 1: //cancel
-            self.content.becomeFirstResponder()
-            self.charCountView.hidden = false
-            
-        case 2:
-            self.save(cancelButton) //save the information
-            
-        default:
-            break
-        }
-        
     }
-    
     
     // ===========================================
     // MARK: Helper methods
@@ -228,37 +244,15 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
     }
     
     // ===========================================
-    // MARK: UIAlertView Delegate methods
-    // ===========================================
-    
-    func alertView(alertView: UIAlertView!, clickedButtonAtIndex buttonIndex: Int) {
-        
-        switch (buttonIndex) {
-        
-        case 0: //edit
-            self.content.becomeFirstResponder()
-            self.charCountView.hidden = false
-            break //do nothing
-            
-        case 1: //save for later editing
-            saveItem()
-            
-        default:
-            break
-            
-        }
-    }
-    
-    // ===========================================
     // MARK: Keyboard notification methods
     // ===========================================
     
     func registerForKeyboardNotifications() {
         var notificationCenter = NSNotificationCenter.defaultCenter()
         
-        notificationCenter.addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardDidShowNotification, object: nil)
+        notificationCenter.addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
         notificationCenter.addObserver(self, selector: "keyboardWillChangeFrame:", name: UIKeyboardWillChangeFrameNotification, object: nil)
-        notificationCenter.addObserver(self, selector: "keyboardDidChangeFrame:", name: UIKeyboardDidChangeFrameNotification, object: nil)
+        notificationCenter.addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
         
     }
     
@@ -268,8 +262,8 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
     }
     
     
-    // Called when the UIKeyboardDidShowNotification is sent.
-    func keyboardWasShown(notification: NSNotification) {
+    func keyboardWillShow(notification: NSNotification) {
+        self.charCountView.hidden = false
     }
     
     func keyboardWillChangeFrame(notification: NSNotification) {
@@ -280,9 +274,14 @@ class AddPPPViewController: UIViewController, UITextViewDelegate, UIActionSheetD
         drawCharacterCountLabel(kbRect)
     }
     
-    func keyboardDidChangeFrame(notification: NSNotification) {
+    func keyboardWillHide(notification: NSNotification) {
+        self.charCountView.hidden = true
     }
     
+    
+    // ===========================================
+    // MARK: View methods
+    // ===========================================
     func drawCharacterCountLabel(kbRect: CGRect) {
         
         let viewWidth: CGFloat = kbRect.width
