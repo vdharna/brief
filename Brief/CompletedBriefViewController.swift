@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate {
+class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var table: UITableView!
@@ -19,8 +19,6 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     private var completedBrief: Brief?
     
     private var flagIsOn = false
-    
-    private var notificationDelegate: NotificationDelegate?
     
     init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -96,18 +94,53 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         cell.flagActionClosure = {
             let strongCell = weakCell
             
-            var actionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil )
-            actionSheet.tag = item.getId() // represents a flag action
+            var alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
             
+            // create flag action button
+            var flagActionTitle = "Flag"
             if (item.isFlagged()) {
-                actionSheet.addButtonWithTitle("Unflag")
-            } else {
-                actionSheet.addButtonWithTitle("Flag")
+                flagActionTitle = "Unflag"
             }
             
-            actionSheet.addButtonWithTitle("Notify Me...")
-            actionSheet.showInView(self.view)
+            var flagAction = UIAlertAction(title: flagActionTitle, style: .Default, handler: {
+                (alertAction: UIAlertAction!) in
+                
+                // update the model to reflect the action
+                item.flag(!item.isFlagged()) //set the opposite
+                self.table.reloadData()
+                })
             
+            var cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+                (alertAction: UIAlertAction!) in
+                })
+            
+            var notifyAction = UIAlertAction(title: "Notify Me...", style: .Default, handler: {
+                (alertAction: UIAlertAction!) in
+                
+                // call a subsequent uiaction sheet for this
+                var alert = UIAlertController(title: "Receive notifications when anyone replies to his thread", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+                
+                var cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+                    (alertAction: UIAlertAction!) in
+                    })
+
+                var notifyAction = UIAlertAction(title: "Notify Me", style: .Default, handler: {
+                    (alertAction: UIAlertAction!) in
+                    })
+                
+                alert.addAction(cancelAction)
+                alert.addAction(notifyAction)
+                
+                self.presentViewController(alert, animated: true, completion: {})
+                
+                })
+            
+            alert.addAction(flagAction)
+            alert.addAction(cancelAction)
+            alert.addAction(notifyAction)
+            
+            self.presentViewController(alert, animated: true, completion: {})
+
         }
         
         cell.commentActionClosure = {
@@ -196,38 +229,6 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         println("\(indexPath)")
     }
     
-    // ===========================================
-    // MARK: Action Sheet delegation method
-    // ===========================================
-    
-    func actionSheet(actionSheet: UIActionSheet!, clickedButtonAtIndex buttonIndex: Int) {
-        
-        switch(buttonIndex) {
-            
-        case 0: //cancel
-            break
-            
-        case 1: //flag
-
-            // update the model to reflect the action
-            var item = self.completedBrief!.findItemById(actionSheet.tag)
-            item.flag(!item.isFlagged()) //set the opposite
-            self.table.reloadData()
-            
-        case 2: // notify me..
-            // call a subsequent uiaction sheet for this
-            var item = self.completedBrief!.findItemById(actionSheet.tag)
-            notificationDelegate = NotificationDelegate(item: item)
-            var notifyActionSheet = UIActionSheet(title: "Receive notifications when anyone replies to his thread", delegate: notificationDelegate, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil)
-            notifyActionSheet.addButtonWithTitle("Notify Me")
-            notifyActionSheet.showInView(self.view)
-            
-        default:
-            break
-        }
-        
-    }
-    
     // ============================================
     // MARK: Utility Methods
     // ============================================
@@ -257,35 +258,4 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         
     }
     
-    // ============================================
-    // MARK: Nested Classes for Action Sheets
-    // ============================================
-    
-    class NotificationDelegate: NSObject, UIActionSheetDelegate {
-        
-        var item:PPPItem?
-        
-        init(item: PPPItem) {
-            self.item = item
-        }
-        
-        func actionSheet(actionSheet: UIActionSheet!, clickedButtonAtIndex buttonIndex: Int) {
-            
-            switch(buttonIndex) {
-                
-            case 0: //cancel
-                break
-                
-            case 1:
-                var alert = UIAlertView(title: "Action", message: "Call BriefNotificationService for this action", delegate: nil, cancelButtonTitle: "Cancel")
-                alert.show()
-                
-            default:
-                break
-            }
-            
-        }
-        
-    }
-
 }
