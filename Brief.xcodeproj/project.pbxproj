@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		620097F4198C118B0058E83B /* BriefItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620097F2198C118B0058E83B /* BriefItemDetailViewController.swift */; };
 		620097F5198C118B0058E83B /* BriefItemDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 620097F3198C118B0058E83B /* BriefItemDetailViewController.xib */; };
-		620097F7198C1A530058E83B /* CharacterCountLabelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 620097F6198C1A530058E83B /* CharacterCountLabelView.xib */; };
+		620097F9198C1ED00058E83B /* CharacterCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620097F8198C1ED00058E83B /* CharacterCountView.swift */; };
+		620097FB198C1EE70058E83B /* CharacterCountView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 620097FA198C1EE70058E83B /* CharacterCountView.xib */; };
 		622582F419802B3D000E4F27 /* CompletedBriefCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622582F219802B3D000E4F27 /* CompletedBriefCell.swift */; };
 		622582F519802B3D000E4F27 /* CompletedBriefTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 622582F319802B3D000E4F27 /* CompletedBriefTableViewCell.xib */; };
 		623B21BA19744C4F00EC766F /* Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623B21B919744C4F00EC766F /* Progress.swift */; };
@@ -59,7 +60,8 @@
 /* Begin PBXFileReference section */
 		620097F2198C118B0058E83B /* BriefItemDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BriefItemDetailViewController.swift; sourceTree = "<group>"; };
 		620097F3198C118B0058E83B /* BriefItemDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BriefItemDetailViewController.xib; sourceTree = "<group>"; };
-		620097F6198C1A530058E83B /* CharacterCountLabelView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CharacterCountLabelView.xib; sourceTree = "<group>"; };
+		620097F8198C1ED00058E83B /* CharacterCountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterCountView.swift; sourceTree = "<group>"; };
+		620097FA198C1EE70058E83B /* CharacterCountView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CharacterCountView.xib; sourceTree = "<group>"; };
 		622582F219802B3D000E4F27 /* CompletedBriefCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedBriefCell.swift; sourceTree = "<group>"; };
 		622582F319802B3D000E4F27 /* CompletedBriefTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompletedBriefTableViewCell.xib; sourceTree = "<group>"; };
 		623B21B919744C4F00EC766F /* Progress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Progress.swift; sourceTree = "<group>"; };
@@ -265,7 +267,7 @@
 		62FC24E21983072800372D14 /* Interface Builder */ = {
 			isa = PBXGroup;
 			children = (
-				620097F6198C1A530058E83B /* CharacterCountLabelView.xib */,
+				620097FA198C1EE70058E83B /* CharacterCountView.xib */,
 				62C032871981CE86005AC29F /* ComposeBriefTableViewCell.xib */,
 				622582F319802B3D000E4F27 /* CompletedBriefTableViewCell.xib */,
 			);
@@ -281,6 +283,7 @@
 				62888FE7197A1EB4002D0DD0 /* CompletedBriefButtonView.swift */,
 				622582F219802B3D000E4F27 /* CompletedBriefCell.swift */,
 				62C032861981CE86005AC29F /* ComposeBriefTableViewCell.swift */,
+				620097F8198C1ED00058E83B /* CharacterCountView.swift */,
 			);
 			name = Swift;
 			sourceTree = "<group>";
@@ -367,7 +370,7 @@
 			files = (
 				62C0328B1981D260005AC29F /* compose-table-cell.graffle in Resources */,
 				622582F519802B3D000E4F27 /* CompletedBriefTableViewCell.xib in Resources */,
-				620097F7198C1A530058E83B /* CharacterCountLabelView.xib in Resources */,
+				620097FB198C1EE70058E83B /* CharacterCountView.xib in Resources */,
 				6241FB57196F137F0092B014 /* HomeViewController.xib in Resources */,
 				62C032831981BDFD005AC29F /* share_icon.graffle in Resources */,
 				62474137196CB5A10043C7E5 /* Images.xcassets in Resources */,
@@ -399,6 +402,7 @@
 				626FCD221986B43900946973 /* Flag.swift in Sources */,
 				62FC24E11983060800372D14 /* TransparentEdgesTableView.swift in Sources */,
 				62474132196CB5A10043C7E5 /* ComposeViewController.swift in Sources */,
+				620097F9198C1ED00058E83B /* CharacterCountView.swift in Sources */,
 				62FC24E01983060800372D14 /* TransparentEdgesScrollView.swift in Sources */,
 				623B21C219744DC200EC766F /* TeamMember.swift in Sources */,
 				623B21BA19744C4F00EC766F /* Progress.swift in Sources */,

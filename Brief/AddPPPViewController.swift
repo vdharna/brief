@@ -13,14 +13,10 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
     @IBOutlet var content: UITextView!
     @IBOutlet var saveButton: UIBarButtonItem!
     @IBOutlet var cancelButton: UIBarButtonItem!
-    var charCountView: UIView = UIView()
-    var charCountLabel: UILabel = UILabel()
+    var charCountView: CharacterCountView?
     var selectedSegment: Int?
     var selectedPPPElement = -1 //default to indicate nothing is transitioned
     var snapshot:String?
-    
-    let characterLimit = 140
-
     
     init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -40,9 +36,8 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
         setupContent()
         //configure the character count view
         setupCharacterCountLabel()
-        //self.view.addSubview(charCountView)
         setContentForEdit()
-        updateCharacterCount()
+        self.charCountView!.updateCharacterCount(content.text.utf16Count)
         //take snapshot for comparison
         snapshot = content.text
     
@@ -231,7 +226,8 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
     // ===========================================
     
     func textViewDidChange(textView: UITextView!) {
-        updateCharacterCount()
+        
+        self.charCountView!.updateCharacterCount(content.text.utf16Count)
         toggleSaveButton()
     }
     
@@ -241,29 +237,11 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
     // ===========================================
     func setupCharacterCountLabel() {
         
-        let viewWidth: CGFloat = self.view.frame.width
-        let viewHeight: CGFloat = 30;
-        let x: CGFloat = 0
-        let y: CGFloat = 0
-        var rect = CGRectMake(x, y, viewWidth, viewHeight)
-        self.charCountView.frame = rect
-        self.charCountView.backgroundColor = UIColor.grayColor()
-
-        //configure the character count label here since you're redrawing the rect containing the container view (charCountView)
-        let labelWidth: CGFloat = 40
-        self.charCountLabel.textColor = UIColor.lightGrayColor()
-        self.charCountLabel.font = UIFont(name: "HelveticaNeue", size: 14)
-        self.charCountLabel.backgroundColor = UIColor.grayColor()
-        self.charCountLabel.frame = CGRectMake(self.charCountView.frame.width - labelWidth, 0, labelWidth, self.charCountView.frame.height)
-        self.charCountView.addSubview(self.charCountLabel)
+        var bundle = NSBundle.mainBundle()
+        charCountView = (bundle.loadNibNamed("CharacterCountView", owner: self, options: nil)[0] as CharacterCountView)
         
-        self.content.inputAccessoryView = self.charCountView
+        self.content.inputAccessoryView = charCountView
 
-    }
-    
-    func updateCharacterCount() {
-        //update the count character label
-        charCountLabel.text = (characterLimit - content.text.utf16Count).description
     }
 
 }
