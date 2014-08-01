@@ -24,8 +24,8 @@
 		62474137196CB5A10043C7E5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62474136196CB5A10043C7E5 /* Images.xcassets */; };
 		62474143196CB5A10043C7E5 /* BriefTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62474142196CB5A10043C7E5 /* BriefTests.swift */; };
 		6247F76E1975B11B002FC8B4 /* PPPItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6247F76D1975B11B002FC8B4 /* PPPItem.swift */; };
-		6261D5FB197EE3EB007B8AA3 /* CompletedBriefListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6261D5F9197EE3EB007B8AA3 /* CompletedBriefListViewController.swift */; };
-		6261D5FC197EE3EB007B8AA3 /* CompletedBriefListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6261D5FA197EE3EB007B8AA3 /* CompletedBriefListViewController.xib */; };
+		6261D5FB197EE3EB007B8AA3 /* CompletedBriefViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6261D5F9197EE3EB007B8AA3 /* CompletedBriefViewController.swift */; };
+		6261D5FC197EE3EB007B8AA3 /* CompletedBriefViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6261D5FA197EE3EB007B8AA3 /* CompletedBriefViewController.xib */; };
 		626FCD1E1985A8ED00946973 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626FCD1D1985A8ED00946973 /* Comment.swift */; };
 		626FCD221986B43900946973 /* Flag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626FCD211986B43900946973 /* Flag.swift */; };
 		626FCD241986B44700946973 /* Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626FCD231986B44700946973 /* Share.swift */; };
@@ -75,8 +75,8 @@
 		62474141196CB5A10043C7E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		62474142196CB5A10043C7E5 /* BriefTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BriefTests.swift; sourceTree = "<group>"; };
 		6247F76D1975B11B002FC8B4 /* PPPItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PPPItem.swift; sourceTree = "<group>"; };
-		6261D5F9197EE3EB007B8AA3 /* CompletedBriefListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedBriefListViewController.swift; sourceTree = "<group>"; };
-		6261D5FA197EE3EB007B8AA3 /* CompletedBriefListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompletedBriefListViewController.xib; sourceTree = "<group>"; };
+		6261D5F9197EE3EB007B8AA3 /* CompletedBriefViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedBriefViewController.swift; sourceTree = "<group>"; };
+		6261D5FA197EE3EB007B8AA3 /* CompletedBriefViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompletedBriefViewController.xib; sourceTree = "<group>"; };
 		626FCD1D1985A8ED00946973 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		626FCD211986B43900946973 /* Flag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flag.swift; sourceTree = "<group>"; };
 		626FCD231986B44700946973 /* Share.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Share.swift; sourceTree = "<group>"; };
@@ -203,7 +203,7 @@
 			children = (
 				6241FB56196F137F0092B014 /* HomeViewController.xib */,
 				6241FB58196F2C020092B014 /* ComposeViewController.xib */,
-				6261D5FA197EE3EB007B8AA3 /* CompletedBriefListViewController.xib */,
+				6261D5FA197EE3EB007B8AA3 /* CompletedBriefViewController.xib */,
 				6241FB63196F5BB50092B014 /* AddPPPViewController.xib */,
 			);
 			name = "Interface Builder";
@@ -214,7 +214,7 @@
 			children = (
 				6247412F196CB5A10043C7E5 /* HomeViewController.swift */,
 				62474131196CB5A10043C7E5 /* ComposeViewController.swift */,
-				6261D5F9197EE3EB007B8AA3 /* CompletedBriefListViewController.swift */,
+				6261D5F9197EE3EB007B8AA3 /* CompletedBriefViewController.swift */,
 				6241FB62196F5BB50092B014 /* AddPPPViewController.swift */,
 			);
 			name = Swift;
@@ -365,7 +365,7 @@
 				6241FB59196F2C020092B014 /* ComposeViewController.xib in Resources */,
 				6241FB65196F5BB50092B014 /* AddPPPViewController.xib in Resources */,
 				62C032851981BDFD005AC29F /* comment_icon.graffle in Resources */,
-				6261D5FC197EE3EB007B8AA3 /* CompletedBriefListViewController.xib in Resources */,
+				6261D5FC197EE3EB007B8AA3 /* CompletedBriefViewController.xib in Resources */,
 				62C032891981CE86005AC29F /* ComposeBriefTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -400,7 +400,7 @@
 				623B21C019744DB400EC766F /* Team.swift in Sources */,
 				6247412E196CB5A10043C7E5 /* AppDelegate.swift in Sources */,
 				62C032881981CE86005AC29F /* ComposeBriefTableViewCell.swift in Sources */,
-				6261D5FB197EE3EB007B8AA3 /* CompletedBriefListViewController.swift in Sources */,
+				6261D5FB197EE3EB007B8AA3 /* CompletedBriefViewController.swift in Sources */,
 				626FCD1E1985A8ED00946973 /* Comment.swift in Sources */,
 				62474130196CB5A10043C7E5 /* HomeViewController.swift in Sources */,
 				6241FB64196F5BB50092B014 /* AddPPPViewController.swift in Sources */,
