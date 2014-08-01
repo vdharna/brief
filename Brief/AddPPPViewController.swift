@@ -39,10 +39,9 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
         //setup the content
         setupContent()
         //configure the character count view
-        charCountView.backgroundColor = UIColor.grayColor()
-        self.view.addSubview(charCountView)
+        setupCharacterCountLabel()
+        //self.view.addSubview(charCountView)
         setContentForEdit()
-        registerForKeyboardNotifications()
         updateCharacterCount()
         //take snapshot for comparison
         snapshot = content.text
@@ -53,7 +52,6 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
         super.viewWillDisappear(animated)
         
         self.view.endEditing(true)
-        deregisterForKeyboardNotifications()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -231,68 +229,26 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
     // ===========================================
     // MARK: TextView Delegate methods
     // ===========================================
-    func textViewShouldBeginEditing(textView: UITextView!) -> Bool {
-        return true
-    }
     
     func textViewDidChange(textView: UITextView!) {
         updateCharacterCount()
         toggleSaveButton()
     }
     
-    func textView(textView: UITextView!, shouldChangeTextInRange range: NSRange, replacementText text: String!) -> Bool {
-        
-        return true
-    }
-    
-    // ===========================================
-    // MARK: Keyboard notification methods
-    // ===========================================
-    
-    func registerForKeyboardNotifications() {
-        var notificationCenter = NSNotificationCenter.defaultCenter()
-        
-        notificationCenter.addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
-        notificationCenter.addObserver(self, selector: "keyboardWillChangeFrame:", name: UIKeyboardWillChangeFrameNotification, object: nil)
-        notificationCenter.addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
-        
-    }
-    
-    func deregisterForKeyboardNotifications() {
-        var notificationCenter = NSNotificationCenter.defaultCenter()
-        notificationCenter.removeObserver(self)
-    }
-    
-    
-    func keyboardWillShow(notification: NSNotification) {
-        self.charCountView.hidden = false
-    }
-    
-    func keyboardWillChangeFrame(notification: NSNotification) {
-        
-        var info: NSDictionary = notification.userInfo;
-        var nsValue =  info.objectForKey(UIKeyboardFrameEndUserInfoKey) as NSValue
-        var kbRect = nsValue.CGRectValue()
-        drawCharacterCountLabel(kbRect)
-    }
-    
-    func keyboardWillHide(notification: NSNotification) {
-        self.charCountView.hidden = true
-    }
-    
     
     // ===========================================
     // MARK: View methods
     // ===========================================
-    func drawCharacterCountLabel(kbRect: CGRect) {
+    func setupCharacterCountLabel() {
         
-        let viewWidth: CGFloat = kbRect.width
+        let viewWidth: CGFloat = self.view.frame.width
         let viewHeight: CGFloat = 30;
         let x: CGFloat = 0
-        let y: CGFloat = self.view.frame.height - (kbRect.height + viewHeight)
+        let y: CGFloat = 0
         var rect = CGRectMake(x, y, viewWidth, viewHeight)
         self.charCountView.frame = rect
-        
+        self.charCountView.backgroundColor = UIColor.grayColor()
+
         //configure the character count label here since you're redrawing the rect containing the container view (charCountView)
         let labelWidth: CGFloat = 40
         self.charCountLabel.textColor = UIColor.lightGrayColor()
@@ -300,6 +256,8 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
         self.charCountLabel.backgroundColor = UIColor.grayColor()
         self.charCountLabel.frame = CGRectMake(self.charCountView.frame.width - labelWidth, 0, labelWidth, self.charCountView.frame.height)
         self.charCountView.addSubview(self.charCountLabel)
+        
+        self.content.inputAccessoryView = self.charCountView
 
     }
     
