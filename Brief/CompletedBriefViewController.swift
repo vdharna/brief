@@ -145,8 +145,8 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         
         cell.commentActionClosure = {
             
-            var alert = UIAlertView(title: "Action", message: "Comment Button Clicked", delegate: nil, cancelButtonTitle: "Cancel")
-            alert.show()
+            var briefItemDetailVC = BriefItemDetailViewController(nibName: nil, bundle: nil)
+            self.navigationController.pushViewController(briefItemDetailVC, animated: true)
         }
         
         cell.shareActionClosure = {
