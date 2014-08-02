@@ -30,9 +30,6 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        self.navigationItem.title = "Completed Briefs"
         
         // load the custom cell via NIB
         var nib = UINib(nibName: cellName, bundle: nil)
@@ -50,7 +47,13 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     }
 
     override func viewWillAppear(animated: Bool) {
-
+        // Do any additional setup after loading the view.
+        self.navigationItem.title = "Completed Briefs"
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        // Do any additional setup after loading the view.
+        self.navigationItem.title = ""
     }
     
     override func didReceiveMemoryWarning() {
