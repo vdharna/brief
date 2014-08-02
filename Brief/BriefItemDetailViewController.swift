@@ -29,10 +29,7 @@ class BriefItemDetailViewController: UIViewController, UITextFieldDelegate {
 
         // Do any additional setup after loading the view.
         self.navigationItem.title = "Comments"
-//        self.commentTextView.layer.cornerRadius = 5.0
-//        self.commentTextView.clipsToBounds = true
-        
-        
+
         self.inputAccessoryToolbar.removeFromSuperview() //needs to be assigned
         textField.inputAccessoryView = inputAccessoryToolbar
                 
@@ -45,19 +42,10 @@ class BriefItemDetailViewController: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardDidShowNotification, object: nil)
-//        
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
-        
     }
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        
-//        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
-//        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
-        
     }
     
     func textFieldDidBeginEditing(textField: UITextField!) {
@@ -90,45 +78,5 @@ class BriefItemDetailViewController: UIViewController, UITextFieldDelegate {
         self.inputAccessoryTextfield.resignFirstResponder()
         
     }
-    
-    
-    
-    
-    
-    
-//    func keyboardWillHide(notification: NSNotification) {
-//        
-//        println("\(notification)")
-//        var notificationInfo = notification.userInfo
-//        var animationDuration = notificationInfo[UIKeyboardAnimationDurationUserInfoKey]?.doubleValue
-//        
-//        // Animate view size synchronously with the appearance of the keyboard.
-//        UIView.beginAnimations(nil, context: nil)
-//        UIView.setAnimationDuration(animationDuration!)
-//        UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
-//        
-//        self.toolbarView.frame = CGRectMake(0, self.view.bounds.size.height - self.toolbarView.bounds.size.height, self.toolbarView.bounds.size.width, self.toolbarView.bounds.size.height)
-//        
-//        UIView.commitAnimations()
-//
-//    }
-//    
-//    func keyboardWillShow(notification: NSNotification) {
-//        
-//        println("\(notification)")
-//        var notificationInfo = notification.userInfo
-//        var animationDuration = notificationInfo[UIKeyboardAnimationDurationUserInfoKey]?.doubleValue
-//        var endFrame: CGRect = (notificationInfo[UIKeyboardFrameEndUserInfoKey] as NSValue).CGRectValue()
-//        
-//        // Animate view size synchronously with the appearance of the keyboard.
-//        UIView.beginAnimations(nil, context: nil)
-//        UIView.setAnimationDuration(animationDuration!)
-//        UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
-//        
-//        self.toolbarView.frame = CGRectMake(0, endFrame.origin.y - self.toolbarView.bounds.size.height,self.toolbarView.bounds.size.width, self.toolbarView.bounds.size.height )
-//                
-//        UIView.commitAnimations()
-//    }
-
 
 }
