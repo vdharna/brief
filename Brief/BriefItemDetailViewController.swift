@@ -87,7 +87,7 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate {
         UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
         
         self.toolbarView.frame = CGRectMake(0, endFrame.origin.y - self.toolbarView.bounds.size.height,self.toolbarView.bounds.size.width, self.toolbarView.bounds.size.height )
-        
+                
         UIView.commitAnimations()
     }
 
