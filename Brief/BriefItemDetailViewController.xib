@@ -6,17 +6,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BriefItemDetailViewController" customModule="Brief" customModuleProvider="target">
             <connections>
-                <outlet property="barButtonItem" destination="99m-aG-Prt" id="K2I-jb-d3Q"/>
-                <outlet property="inputAccessoryBarButtonItem" destination="6aV-zU-fOb" id="xVt-UU-6rG"/>
-                <outlet property="inputAccessoryToolbar" destination="HiU-Yv-T3e" id="KXM-o6-Ixd"/>
                 <outlet property="itemLabel" destination="dIn-sF-PF7" id="6Dp-fu-GUC"/>
                 <outlet property="table" destination="1Qc-PS-f05" id="wha-X6-b6q"/>
-                <outlet property="toolbar" destination="3LF-wP-4ko" id="3p5-z3-LdF"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT" customClass="UIControl">
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -28,41 +24,13 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="1Qc-PS-f05">
-                    <rect key="frame" x="0.0" y="145" width="320" height="76"/>
+                    <rect key="frame" x="0.0" y="145" width="320" height="378"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
-                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="3LF-wP-4ko">
-                    <rect key="frame" x="0.0" y="524" width="320" height="44"/>
-                    <items>
-                        <barButtonItem systemItem="camera" id="80V-u5-uUR">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </barButtonItem>
-                        <barButtonItem title="Item" id="99m-aG-Prt"/>
-                        <barButtonItem title="Post" id="XXr-3M-aao">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </barButtonItem>
-                    </items>
-                    <color key="barTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                </toolbar>
-                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="HiU-Yv-T3e" userLabel="Input Accessory Toolbar">
-                    <rect key="frame" x="0.0" y="524" width="320" height="44"/>
-                    <items>
-                        <barButtonItem systemItem="camera" id="CTf-ms-i2s">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </barButtonItem>
-                        <barButtonItem title="Item" id="6aV-zU-fOb"/>
-                        <barButtonItem title="Post" id="fZB-Fv-6Qu">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="post:" destination="-1" id="3RS-yc-ico"/>
-                            </connections>
-                        </barButtonItem>
-                    </items>
-                    <color key="barTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                </toolbar>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+            <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4">
                 <size key="portraitSize" width="320" height="568"/>

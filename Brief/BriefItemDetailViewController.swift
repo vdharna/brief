@@ -13,18 +13,19 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var itemLabel: UILabel!
     @IBOutlet weak var table: UITableView!
 
-    @IBOutlet weak var toolbar: UIToolbar!
-    @IBOutlet weak var inputAccessoryToolbar: UIToolbar!
+    var toolbar: UIToolbar!
+    var inputAccessoryToolbar: UIToolbar!
     
-    @IBOutlet weak var barButtonItem: UIBarButtonItem!
-    @IBOutlet weak var inputAccessoryBarButtonItem: UIBarButtonItem!
-    
-    var textView = UITextView(frame: CGRectMake(0, 0, 215, 28))
-    var inputAccessoryTextView = UITextView(frame: CGRectMake(0, 0, 215, 28))
-    
+    var textView: UITextView!
+    var inputAccessoryTextView: UITextView!
     
     init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        
+        setupTextViews()
+        setupInputAccessoryToolbar()
+        setupDockedToolbar()
+
     }
     
     override func viewDidLoad() {
@@ -32,9 +33,6 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate {
 
         // Do any additional setup after loading the view.
         self.navigationItem.title = "Comments"
-        setupTextViews()
-        setupToolbars()
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,6 +49,10 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate {
     }
     
     func setupTextViews() {
+        
+        textView = UITextView(frame: CGRectMake(0, 0, 290, 30))
+        inputAccessoryTextView = UITextView(frame: CGRectMake(0, 0, 215, 30))
+        
         self.textView.delegate = self
         self.inputAccessoryTextView.delegate = self
         
@@ -60,25 +62,60 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate {
         inputAccessoryTextView.layer.cornerRadius = 3.0
         inputAccessoryTextView.clipsToBounds = true
         
-        self.inputAccessoryTextView.keyboardDismissMode = .OnDrag
-        self.textView.keyboardDismissMode = .OnDrag
+        self.textView.text = "Enter Comment..."
+        self.textView.textColor = UIColor.lightGrayColor()
 
     }
     
-    func setupToolbars() {
+    func setupInputAccessoryToolbar() {
         
-        self.barButtonItem.customView = self.textView
-        self.inputAccessoryBarButtonItem.customView = self.inputAccessoryTextView
+        // docked toolbar
+        inputAccessoryToolbar = UIToolbar(frame: CGRectMake(0, 524, 320, 44))
+        inputAccessoryToolbar.barTintColor = UIColor.blackColor()
         
-        self.inputAccessoryToolbar.removeFromSuperview() //needs to be assigned
-        self.textView.inputAccessoryView = inputAccessoryToolbar
+        var cameraButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Camera, target: self, action: Selector("attachFile"))
+        cameraButton.tintColor = UIColor.whiteColor()
+        
+        // textview addition to toolbar
+        var textViewButton = UIBarButtonItem(customView: inputAccessoryTextView)
+        textViewButton.tintColor = UIColor.whiteColor()
+
+        // post button
+        var postButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: Selector("post"))
+
+        postButton.tintColor = UIColor.whiteColor()
+
+        inputAccessoryToolbar.setItems([cameraButton, textViewButton, postButton], animated: true)
+        inputAccessoryToolbar.sizeToFit()
+        
         
     }
+    
+    func setupDockedToolbar() {
+        
+        // docked toolbar
+        toolbar = UIToolbar(frame: CGRectMake(0, 524, 320, 44))
+        toolbar.barTintColor = UIColor.blackColor()
+        
+        // textview addition to toolbar
+        var textViewButton = UIBarButtonItem(customView: textView)
+        textViewButton.tintColor = UIColor.whiteColor()
+        
+        // setup the input accessory view
+        self.textView.inputAccessoryView = inputAccessoryToolbar
+        
+        toolbar.setItems([textViewButton], animated: true)
+        
+        // add to subview
+        self.view.addSubview(toolbar)
+    }
+    
+
     
     func textViewDidBeginEditing(textView: UITextView!) {
         if (textView == self.textView) {
             dispatch_async(dispatch_get_main_queue(), {
-                self.inputAccessoryTextView.text = textView.text
+                self.inputAccessoryTextView.text = ""
                 self.inputAccessoryTextView.becomeFirstResponder()
                 })
         }
@@ -101,29 +138,29 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate {
     
     func textViewDidChange(textView: UITextView!) {
         var frame = textView.frame;
-        println("\(frame.size.height)")
         var size = frame.size.height
         var inset = textView.contentInset
         frame.size.height = textView.contentSize.height + inset.top + inset.bottom
-        println("\(frame.size.height)")
-        var newSize = frame.size.height
-        if (newSize - size != 0) {
+        var heightIncrement = frame.size.height - size
+        if (heightIncrement != 0) {
             textView.frame = frame;
             
             //new height value for toolbar
-            self.inputAccessoryToolbar.frame.size.height += newSize - size
+            self.inputAccessoryToolbar.frame.size.height += heightIncrement
             //adjust the y value
-            self.inputAccessoryToolbar.frame.origin.y -= newSize - size
+            self.inputAccessoryToolbar.frame.origin.y -= heightIncrement
             
         }
         
     }
     
-    
-    @IBAction func post(sender: AnyObject) {
+    @IBAction func post() {
         self.inputAccessoryTextView.text = ""
         self.inputAccessoryTextView.frame.size.height = 30
         self.inputAccessoryTextView.resignFirstResponder()
+        
+        self.textView.text = "Enter Comment..."
+        self.textView.textColor = UIColor.lightGrayColor()
         
     }
 
