@@ -59,6 +59,10 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate {
         
         inputAccessoryTextView.layer.cornerRadius = 3.0
         inputAccessoryTextView.clipsToBounds = true
+        
+        self.inputAccessoryTextView.keyboardDismissMode = .OnDrag
+        self.textView.keyboardDismissMode = .OnDrag
+
     }
     
     func setupToolbars() {
@@ -95,10 +99,36 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate {
         }
     }
     
+    func textViewDidChange(textView: UITextView!) {
+        var frame = textView.frame;
+        println("\(frame.size.height)")
+        var size = frame.size.height
+        var inset = textView.contentInset
+        frame.size.height = textView.contentSize.height + inset.top + inset.bottom
+        println("\(frame.size.height)")
+        var newSize = frame.size.height
+        if (newSize - size != 0) {
+            textView.frame = frame;
+            
+            //new height value for toolbar
+            self.inputAccessoryToolbar.frame.size.height += newSize - size
+            //adjust the y value
+            self.inputAccessoryToolbar.frame.origin.y -= newSize - size
+            
+        }
+        
+    }
+    
     
     @IBAction func post(sender: AnyObject) {
+        self.inputAccessoryTextView.text = ""
+        self.inputAccessoryTextView.frame.size.height = 30
         self.inputAccessoryTextView.resignFirstResponder()
         
     }
 
+    @IBAction func dismissKeyboard(sender: AnyObject) {
+        
+        self.inputAccessoryTextView.resignFirstResponder()
+    }
 }
