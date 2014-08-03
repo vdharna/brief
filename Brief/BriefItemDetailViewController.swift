@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BriefItemDetailViewController: UIViewController, UITextFieldDelegate {
+class BriefItemDetailViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet weak var itemLabel: UILabel!
     @IBOutlet weak var table: UITableView!
@@ -16,8 +16,11 @@ class BriefItemDetailViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var toolbar: UIToolbar!
     @IBOutlet weak var inputAccessoryToolbar: UIToolbar!
     
-    @IBOutlet weak var textField: UITextField!
-    @IBOutlet weak var inputAccessoryTextfield: UITextField!
+    @IBOutlet weak var barButtonItem: UIBarButtonItem!
+    @IBOutlet weak var inputAccessoryBarButtonItem: UIBarButtonItem!
+    
+    var textView = UITextView(frame: CGRectMake(0, 0, 215, 28))
+    var inputAccessoryTextView = UITextView(frame: CGRectMake(0, 0, 215, 28))
     
     
     init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
@@ -29,10 +32,9 @@ class BriefItemDetailViewController: UIViewController, UITextFieldDelegate {
 
         // Do any additional setup after loading the view.
         self.navigationItem.title = "Comments"
+        setupTextViews()
+        setupToolbars()
 
-        self.inputAccessoryToolbar.removeFromSuperview() //needs to be assigned
-        textField.inputAccessoryView = inputAccessoryToolbar
-                
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,34 +50,54 @@ class BriefItemDetailViewController: UIViewController, UITextFieldDelegate {
         super.viewDidDisappear(animated)
     }
     
-    func textFieldDidBeginEditing(textField: UITextField!) {
-        println("textFieldDidBeginEditing: \(textField))")
-        if (textField == self.textField) {
+    func setupTextViews() {
+        self.textView.delegate = self
+        self.inputAccessoryTextView.delegate = self
+        
+        textView.layer.cornerRadius = 3.0
+        textView.clipsToBounds = true
+        
+        inputAccessoryTextView.layer.cornerRadius = 3.0
+        inputAccessoryTextView.clipsToBounds = true
+    }
+    
+    func setupToolbars() {
+        
+        self.barButtonItem.customView = self.textView
+        self.inputAccessoryBarButtonItem.customView = self.inputAccessoryTextView
+        
+        self.inputAccessoryToolbar.removeFromSuperview() //needs to be assigned
+        self.textView.inputAccessoryView = inputAccessoryToolbar
+        
+    }
+    
+    func textViewDidBeginEditing(textView: UITextView!) {
+        if (textView == self.textView) {
             dispatch_async(dispatch_get_main_queue(), {
-                self.inputAccessoryTextfield.text = textField.text
-                self.inputAccessoryTextfield.becomeFirstResponder()
+                self.inputAccessoryTextView.text = textView.text
+                self.inputAccessoryTextView.becomeFirstResponder()
                 })
         }
     }
     
-    func textFieldShouldBeginEditing(textField: UITextField!) -> Bool {
-        println("textFieldShouldBeginEditing: \(textField))")
-        if (textField == self.textField) {
-            return !inputAccessoryTextfield.isFirstResponder()
+    func textViewShouldBeginEditing(textView: UITextView!) -> Bool {
+        
+        if (textView == self.textView) {
+            return !inputAccessoryTextView.isFirstResponder()
         }
         return true
     }
     
-    func textFieldDidEndEditing(textField: UITextField!) {
-        println("textFieldDidEndEditing: \(textField))")
-        if (textField == inputAccessoryTextfield) {
-            self.textField.text = textField.text
-        }
+    func textViewDidEndEditing(textView: UITextView!) {
         
+        if (textView == inputAccessoryTextView) {
+            self.textView.text = textView.text
+        }
     }
     
+    
     @IBAction func post(sender: AnyObject) {
-        self.inputAccessoryTextfield.resignFirstResponder()
+        self.inputAccessoryTextView.resignFirstResponder()
         
     }
 

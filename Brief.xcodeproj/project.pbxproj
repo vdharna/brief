@@ -42,8 +42,6 @@
 		62C032881981CE86005AC29F /* ComposeBriefTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C032861981CE86005AC29F /* ComposeBriefTableViewCell.swift */; };
 		62C032891981CE86005AC29F /* ComposeBriefTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62C032871981CE86005AC29F /* ComposeBriefTableViewCell.xib */; };
 		62C0328B1981D260005AC29F /* compose-table-cell.graffle in Resources */ = {isa = PBXBuildFile; fileRef = 62C0328A1981D260005AC29F /* compose-table-cell.graffle */; };
-		62C810EC198C99DC00005671 /* CommentToolbarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62C810EB198C99DC00005671 /* CommentToolbarView.xib */; };
-		62C810EE198C9A7A00005671 /* CommentToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C810ED198C9A7A00005671 /* CommentToolbarView.swift */; };
 		62FC24E01983060800372D14 /* TransparentEdgesScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FC24DE1983060800372D14 /* TransparentEdgesScrollView.swift */; };
 		62FC24E11983060800372D14 /* TransparentEdgesTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FC24DF1983060800372D14 /* TransparentEdgesTableView.swift */; };
 		62FC24E519855A0600372D14 /* BriefArchiveDebugLoadUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62FC24E419855A0600372D14 /* BriefArchiveDebugLoadUtility.swift */; };
@@ -99,8 +97,6 @@
 		62C032861981CE86005AC29F /* ComposeBriefTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeBriefTableViewCell.swift; sourceTree = "<group>"; };
 		62C032871981CE86005AC29F /* ComposeBriefTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ComposeBriefTableViewCell.xib; sourceTree = "<group>"; };
 		62C0328A1981D260005AC29F /* compose-table-cell.graffle */ = {isa = PBXFileReference; lastKnownFileType = file; path = "compose-table-cell.graffle"; sourceTree = "<group>"; };
-		62C810EB198C99DC00005671 /* CommentToolbarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentToolbarView.xib; sourceTree = "<group>"; };
-		62C810ED198C9A7A00005671 /* CommentToolbarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentToolbarView.swift; sourceTree = "<group>"; };
 		62FC24DE1983060800372D14 /* TransparentEdgesScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransparentEdgesScrollView.swift; sourceTree = "<group>"; };
 		62FC24DF1983060800372D14 /* TransparentEdgesTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransparentEdgesTableView.swift; sourceTree = "<group>"; };
 		62FC24E419855A0600372D14 /* BriefArchiveDebugLoadUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BriefArchiveDebugLoadUtility.swift; sourceTree = "<group>"; };
@@ -271,7 +267,6 @@
 		62FC24E21983072800372D14 /* Interface Builder */ = {
 			isa = PBXGroup;
 			children = (
-				62C810EB198C99DC00005671 /* CommentToolbarView.xib */,
 				620097FA198C1EE70058E83B /* CharacterCountView.xib */,
 				62C032871981CE86005AC29F /* ComposeBriefTableViewCell.xib */,
 				622582F319802B3D000E4F27 /* CompletedBriefTableViewCell.xib */,
@@ -289,7 +284,6 @@
 				622582F219802B3D000E4F27 /* CompletedBriefCell.swift */,
 				62C032861981CE86005AC29F /* ComposeBriefTableViewCell.swift */,
 				620097F8198C1ED00058E83B /* CharacterCountView.swift */,
-				62C810ED198C9A7A00005671 /* CommentToolbarView.swift */,
 			);
 			name = Swift;
 			sourceTree = "<group>";
@@ -381,7 +375,6 @@
 				62C032831981BDFD005AC29F /* share_icon.graffle in Resources */,
 				62474137196CB5A10043C7E5 /* Images.xcassets in Resources */,
 				620097F5198C118B0058E83B /* BriefItemDetailViewController.xib in Resources */,
-				62C810EC198C99DC00005671 /* CommentToolbarView.xib in Resources */,
 				62C032841981BDFD005AC29F /* flag_icon.graffle in Resources */,
 				6241FB59196F2C020092B014 /* ComposeViewController.xib in Resources */,
 				6241FB65196F5BB50092B014 /* AddPPPViewController.xib in Resources */,
@@ -406,7 +399,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				623B21BE19744C6600EC766F /* Problem.swift in Sources */,
-				62C810EE198C9A7A00005671 /* CommentToolbarView.swift in Sources */,
 				626FCD221986B43900946973 /* Flag.swift in Sources */,
 				62FC24E11983060800372D14 /* TransparentEdgesTableView.swift in Sources */,
 				62474132196CB5A10043C7E5 /* ComposeViewController.swift in Sources */,
