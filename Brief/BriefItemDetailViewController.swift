@@ -164,8 +164,4 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate {
         
     }
 
-    @IBAction func dismissKeyboard(sender: AnyObject) {
-        
-        self.inputAccessoryTextView.resignFirstResponder()
-    }
 }
