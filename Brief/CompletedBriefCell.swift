@@ -25,8 +25,12 @@ class CompletedBriefTableViewCell: UITableViewCell {
     var commentActionClosure: commentActionBlock?
     var shareActionClosure: shareActionBlock?
     
-    init(style: UITableViewCellStyle, reuseIdentifier: String!) {
+    override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+    }
+    
+    required init(coder aDecoder: NSCoder!) {
+        super.init(coder: aDecoder)
     }
     
     override func awakeFromNib() {
@@ -45,15 +49,15 @@ class CompletedBriefTableViewCell: UITableViewCell {
     
     
     @IBAction func flagPressed(sender: AnyObject) {
-        if flagActionClosure { flagActionClosure!() }
+       if (flagActionClosure != nil) { flagActionClosure!() }
     }
     
     @IBAction func commentPressed(sender: AnyObject) {
-        if commentActionClosure { commentActionClosure!() }
+        if (commentActionClosure != nil) { commentActionClosure!() }
     }
     
     @IBAction func sharePressed(sender: AnyObject) {
-        if shareActionClosure { shareActionClosure!() }
+        if (shareActionClosure != nil) { shareActionClosure!() }
     }
     
     

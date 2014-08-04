@@ -18,8 +18,12 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
     var selectedPPPElement = -1 //default to indicate nothing is transitioned
     var snapshot:String?
     
-    init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    required init(coder aDecoder: NSCoder!) {
+        super.init(coder: aDecoder)
     }
     
     // ==========================================

@@ -35,8 +35,12 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     var snapshot: UIView?        ///< A snapshot of the row user is moving.
     var sourceIndexPath:NSIndexPath? ///< Initial index path, where gesture begins.
     
-    init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    required init(coder aDecoder: NSCoder!) {
+        super.init(coder: aDecoder)
     }
     
     // ==========================================
@@ -81,7 +85,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         //for reusable cells
         // load the custom cell via NIB
-        var nib = UINib(nibName: cellName, bundle: nil)
+        var nib = UINib(nibName: cellName, bundle: NSBundle.mainBundle())
         
         // Register this NIB, which contains the cell
         table.registerNib(nib, forCellReuseIdentifier: cellName)
@@ -148,7 +152,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func add() {
-        var mvc = AddPPPViewController(nibName: nil, bundle: nil)
+        var mvc = AddPPPViewController(nibName: "AddPPPViewController", bundle: NSBundle.mainBundle())
         mvc.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
         mvc.selectedSegment = selectedSegment //pass the selected segment to create the correct PPP instance
         self.navigationController.presentViewController(mvc, animated: true, completion: nil)
@@ -194,7 +198,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
             
         switch (state) {
         case .Began:
-            if(indexPath) {
+            if((indexPath) != nil) {
 
                 sourceIndexPath = indexPath
                 
@@ -207,7 +211,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
                 var center = cell.center
                 snapshot!.center = center
                 snapshot!.alpha = 0.0;
-                table.addSubview(snapshot)
+                table.addSubview(snapshot!)
                 
                 UIView.animateWithDuration(0.25, animations: {
                     
@@ -232,7 +236,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
             snapshot!.center = center;
             
             // Is destination valid and is it different from source?
-            if (indexPath && !indexPath!.isEqual(sourceIndexPath)) {
+            if ((indexPath != nil) && !indexPath!.isEqual(sourceIndexPath)) {
                 
                 // ... update data source.
                 switch (selectedSegment) {
@@ -420,7 +424,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!)  {
         
         println("Selected Index: \(indexPath)")
-        var mvc = AddPPPViewController(nibName: nil, bundle: nil)
+        var mvc = AddPPPViewController(nibName: "AddPPPViewController", bundle: NSBundle.mainBundle())
         mvc.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
         mvc.selectedSegment = selectedSegment //pass the selected segment to create the correct PPP instance
         mvc.selectedPPPElement = indexPath.row

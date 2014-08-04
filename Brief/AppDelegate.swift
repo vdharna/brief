@@ -17,9 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool {
         // Override point for customization after application launch.
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        
 
-        let bhvc = HomeViewController(nibName: nil, bundle: nil)
+        let bhvc = HomeViewController(nibName: "HomeViewController", bundle: NSBundle.mainBundle())
         let bnavc = UINavigationController(rootViewController: bhvc)
+        
+        //nav bar setup
+        bnavc.navigationBar.barTintColor = UIColor.blackColor()
+        bnavc.navigationBar.tintColor = UIColor.whiteColor()
+        bnavc.navigationBar.barStyle = UIBarStyle.BlackTranslucent
         
         self.window!.rootViewController = bnavc
         self.window!.backgroundColor = UIColor.whiteColor()

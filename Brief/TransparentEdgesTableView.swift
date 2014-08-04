@@ -19,17 +19,17 @@ class TransparentEdgesTableView: UITableView {
     // length = viewHeight * gradientFactor
     var gradientLengthFactor = 0.1
 
-    init(frame: CGRect, style: UITableViewStyle) {
+    override init(frame: CGRect, style: UITableViewStyle) {
         super.init(frame: frame, style: style)
         addObserver(self, forKeyPath: "contentOffset", options: nil, context: nil)
     }
-    
-    init(frame: CGRect) {
+
+    override init(frame: CGRect) {
         super.init(frame: frame)
         addObserver(self, forKeyPath: "contentOffset", options: nil, context: nil)
     }
 
-    init(coder aDecoder: NSCoder!)
+    required init(coder aDecoder: NSCoder!)
     {
         super.init(coder: aDecoder)
         addObserver(self, forKeyPath: "contentOffset", options: nil, context: nil)
@@ -38,8 +38,10 @@ class TransparentEdgesTableView: UITableView {
     deinit {
         removeObserver(self, forKeyPath: "contentOffset")
     }
-    override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: [NSObject : AnyObject]!, context: UnsafePointer<()>) {
+    
+    override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: [NSObject : AnyObject]!, context: UnsafeMutablePointer<()>) {
         refresh()
+
     }
     
     func refresh() {

@@ -19,12 +19,12 @@ class TransparentEdgesScrollView: UIScrollView {
     // length = viewHeight * gradientFactor
     var gradientLengthFactor = 0.1
     
-    init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         addObserver(self, forKeyPath: "contentOffset", options: nil, context: nil)
     }
     
-    init(coder aDecoder: NSCoder!)
+    required init(coder aDecoder: NSCoder!)
     {
         super.init(coder: aDecoder)
         addObserver(self, forKeyPath: "contentOffset", options: nil, context: nil)
@@ -33,8 +33,8 @@ class TransparentEdgesScrollView: UIScrollView {
     deinit {
         removeObserver(self, forKeyPath: "contentOffset")
     }
-    
-    override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: [NSObject : AnyObject]!, context: UnsafePointer<()>) {
+
+    override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: [NSObject : AnyObject]!, context: UnsafeMutablePointer<()>) {
         refresh()
     }
     

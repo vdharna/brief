@@ -20,8 +20,12 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     
     private var flagIsOn = false
     
-    init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    required init(coder aDecoder: NSCoder!) {
+        super.init(coder: aDecoder)
     }
     
     // ============================================
@@ -146,7 +150,7 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         
         cell.commentActionClosure = {
             
-            var briefItemDetailVC = BriefItemDetailViewController(nibName: nil, bundle: nil)
+            var briefItemDetailVC = BriefItemDetailViewController(nibName: "BriefItemDetailViewController", bundle: NSBundle.mainBundle())
             self.navigationController.pushViewController(briefItemDetailVC, animated: true)
         }
         

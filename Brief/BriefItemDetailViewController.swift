@@ -19,13 +19,17 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate {
     var textView: UITextView!
     var inputAccessoryTextView: UITextView!
     
-    init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
         setupTextViews()
         setupInputAccessoryToolbar()
         setupDockedToolbar()
 
+    }
+    
+    required init(coder aDecoder: NSCoder!) {
+        super.init(coder: aDecoder)
     }
     
     override func viewDidLoad() {

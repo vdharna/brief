@@ -12,11 +12,15 @@ class ComposeBriefButtonView: UIView {
 
     let lineWidth: CGFloat = 1
     
-    init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         // Initialization code
         self.backgroundColor = UIColor.clearColor()
         self.userInteractionEnabled = false
+    }
+    
+    required init(coder aDecoder: NSCoder!) {
+        super.init(coder: aDecoder)
     }
     
     override func drawRect(rect: CGRect) {

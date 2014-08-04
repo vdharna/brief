@@ -38,7 +38,7 @@ class TeamMember {
         
         // if this is set to 1, load the archive as a sample
         let dic = NSProcessInfo.processInfo().environment
-        if dic["debug"] {
+        if dic["debug"] != nil {
             //create user archive to test
             for var index = 0; index < 3; ++index {
                 var brief = BriefArchiveDebugLoadUtility.createSampleBrief()
