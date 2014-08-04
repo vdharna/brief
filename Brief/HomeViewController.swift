@@ -165,7 +165,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func showCompletedBriefs(sender: AnyObject) {
-        
+                
         //prevent duplicate tap
         composeButton.enabled = false
         completedButton.enabled = false

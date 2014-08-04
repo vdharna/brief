@@ -42,8 +42,6 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         //setup the tableview
         setupTableView()
         
-
-        
     }
 
     override func viewWillAppear(animated: Bool) {
