@@ -45,7 +45,6 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
         itemDescription.numberOfLines = 3
         itemDescription.textColor = UIColor.lightGrayColor()
         self.content.addSubview(itemDescription)
-        setupLabelDescription()
         
     }
     
@@ -129,6 +128,7 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
 
                 })
             
+            
             var saveAlertAction = UIAlertAction(title: "Save", style: .Destructive, handler: {
                 (value: UIAlertAction!) in
                 self.save(UIBarButtonItem())
@@ -136,8 +136,10 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
             
             alertVC.addAction(cancelAlertAction)
             alertVC.addAction(discardAlertAction)
-            alertVC.addAction(saveAlertAction)
-            
+            if(!content.text.isEmpty) {
+                // dont allow save if they empty content - it will create blank cell
+                alertVC.addAction(saveAlertAction)
+            }
             self.presentViewController(alertVC, animated: true, completion: {
                 () in
                 self.content.resignFirstResponder()
@@ -289,8 +291,8 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
     
     func textViewDidBeginEditing(textView: UITextView!) {
         println("textViewDidBeginEditing")
-        setupLabelDescription()
-        if(self.content.text.isEmpty) {
+        if (content.text.isEmpty) {
+            setupLabelDescription()
             content.selectedRange = NSMakeRange(0, 0)
         }
     }

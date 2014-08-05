@@ -432,13 +432,18 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!)  {
         
-        println("Selected Index: \(indexPath)")
-        var mvc = AddPPPViewController(nibName: "AddPPPViewController", bundle: NSBundle.mainBundle())
-        mvc.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+        let mvc = AddPPPViewController(nibName: "AddPPPViewController", bundle: NSBundle.mainBundle())
+        mvc.modalTransitionStyle = UIModalTransitionStyle.PartialCurl
         mvc.selectedSegment = selectedSegment //pass the selected segment to create the correct PPP instance
         mvc.selectedPPPElement = indexPath.row
-        self.navigationController.presentViewController(mvc, animated: true, completion: nil)
         
+        let nc = UINavigationController(rootViewController: mvc)
+        //nav bar setup
+        nc.navigationBar.barTintColor = UIColor.blackColor()
+        nc.navigationBar.tintColor = UIColor.whiteColor()
+        nc.navigationBar.barStyle = UIBarStyle.BlackTranslucent
+        
+        self.navigationController.presentViewController(nc, animated: true, completion: nil)
     }
 
 
