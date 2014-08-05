@@ -8,18 +8,6 @@
 
 import UIKit
 
-let progressDescription = "List your accomplishments, finished items and closed tasks for the current reporting period"
-let planDescription = "List your goals and objectives for the next reporting period"
-let problemDescription = "List items you can't finish and need escalation or help from someone else."
-
-let segmentedControl = UISegmentedControl(items: ["Progress", "Plans", "Problems"])
-
-let cellName = "ComposeBriefTableViewCell"
-let redCellImage = UIImage(named: "compose-table-cell-red.png")
-let greenCellImage = UIImage(named: "compose-table-cell-green.png")
-
-let tableCellHeight:CGFloat = 130
-
 let characterLimit = 140
 
 class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -29,6 +17,19 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var actionButton: UIBarButtonItem!
     @IBOutlet weak var table: UITableView!
     @IBOutlet weak var descriptionLabel: UILabel!
+    
+    let progressDescription = "List your accomplishments, finished items and closed tasks for the current reporting period"
+    let planDescription = "List your goals and objectives for the next reporting period"
+    let problemDescription = "List items you can't finish and need escalation or help from someone else."
+    
+    let segmentedControl = UISegmentedControl(items: ["Progress", "Plans", "Problems"])
+    
+    let cellName = "ComposeBriefTableViewCell"
+    let redCellImage = UIImage(named: "compose-table-cell-red.png")
+    let greenCellImage = UIImage(named: "compose-table-cell-green.png")
+    
+    let tableCellHeight:CGFloat = 130
+    
     
     var selectedSegment = 0 //remember which segment was selected
     
@@ -154,7 +155,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     func add() {
         
         let mvc = AddPPPViewController(nibName: "AddPPPViewController", bundle: NSBundle.mainBundle())
-        mvc.modalTransitionStyle = .CoverVertical
+        mvc.modalTransitionStyle = UIModalTransitionStyle.PartialCurl
         mvc.selectedSegment = selectedSegment //pass the selected segment to create the correct PPP instance
         
         let nc = UINavigationController(rootViewController: mvc)

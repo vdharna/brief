@@ -290,7 +290,9 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
     func textViewDidBeginEditing(textView: UITextView!) {
         println("textViewDidBeginEditing")
         setupLabelDescription()
-        content.selectedRange = NSMakeRange(0, 0)
+        if(self.content.text.isEmpty) {
+            content.selectedRange = NSMakeRange(0, 0)
+        }
     }
     
     func textViewShouldEndEditing(textView: UITextView!) -> Bool {
