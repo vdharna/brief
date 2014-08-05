@@ -16,7 +16,7 @@ class HomeViewController: UIViewController {
     
     @IBOutlet var completedButton: UIButton!
     @IBOutlet var completedLabel: UILabel!
-    
+        
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         //assign the constant

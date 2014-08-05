@@ -11,6 +11,8 @@ import UIKit
 class AddPPPViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet var content: UITextView!
+    var itemDescription: UILabel!
+    
     var saveButton: UIBarButtonItem!
     var cancelButton: UIBarButtonItem!
     
@@ -18,6 +20,10 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
     var selectedSegment: Int?
     var selectedPPPElement = -1 //default to indicate nothing is transitioned
     var snapshot:String?
+    
+    let progressDescription = "List an accomplishment, finished item or closed task for the current reporting period..."
+    let planDescription = "List a goal or objective for the next reporting period..."
+    let problemDescription = "List an item you can't finish and need escalation or help from someone else..."
     
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -32,16 +38,15 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
     // ==========================================
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        setupNavigationBar()
+        itemDescription = UILabel(frame: CGRectMake(3, 0, 320, 50))
+        itemDescription.font = UIFont(name: "Helvetica", size: 14)
+        itemDescription.numberOfLines = 3
+        itemDescription.textColor = UIColor.lightGrayColor()
+        self.content.addSubview(itemDescription)
+        setupLabelDescription()
         
-        saveButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: Selector("save:"))
-        
-        cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: Selector("dismissModal:"))
-        
-        self.navigationItem.leftBarButtonItem = cancelButton
-        self.navigationItem.rightBarButtonItem = saveButton
-        self.navigationItem.title = "Compose"
-        
-        self.automaticallyAdjustsScrollViewInsets = false
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -85,6 +90,18 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
         content.font = UIFont(name: "HelveticaNeue", size: 14)
         content.becomeFirstResponder()
         content.keyboardType = .ASCIICapable
+    }
+    
+    func setupNavigationBar() {
+        
+        saveButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: Selector("save:"))
+        cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: Selector("dismissModal:"))
+        
+        self.navigationItem.leftBarButtonItem = cancelButton
+        self.navigationItem.rightBarButtonItem = saveButton
+        self.navigationItem.title = "Compose"
+        
+        self.automaticallyAdjustsScrollViewInsets = false
     }
     
     
@@ -208,13 +225,6 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
     // MARK: Helper methods
     // ===========================================
     
-    func toggleSaveButton() {
-        if(!content.text.isEmpty) {
-            saveButton.enabled = true;
-        } else {
-            saveButton.enabled = false
-        }
-    }
     
     func setContentForEdit() {
         if (selectedPPPElement > -1) { //something was passed for edit
@@ -236,20 +246,85 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
     }
     
     
+    func setupLabelDescription() {
+        
+        switch (selectedSegment!) {
+            
+        case 0:
+            self.itemDescription.text = self.progressDescription
+            
+        case 1:
+            self.itemDescription.text = self.planDescription
+            
+        case 2:
+            self.itemDescription.text = self.problemDescription
+            
+        default:
+            content.text = ""
+        }
+    }
+    
     // ===========================================
     // MARK: TextView Delegate methods
     // ===========================================
     
     func textViewDidChange(textView: UITextView!) {
         
+        if (!self.itemDescription.hidden) {
+            self.itemDescription.hidden = true
+        }
+        if (content.text.utf16Count == 0) {
+            self.itemDescription.hidden = false
+        }
+        
         self.charCountView!.updateCharacterCount(content.text.utf16Count)
         toggleSaveButton()
+
     }
+    
+    func textViewShouldBeginEditing(textView: UITextView!) -> Bool {
+        println("textViewShouldBeginEditing")
+        return true
+    }
+    
+    func textViewDidBeginEditing(textView: UITextView!) {
+        println("textViewDidBeginEditing")
+        setupLabelDescription()
+        content.selectedRange = NSMakeRange(0, 0)
+    }
+    
+    func textViewShouldEndEditing(textView: UITextView!) -> Bool {
+        println("textViewShouldEndEditing")
+        return true
+    }
+    
+    func textViewDidEndEditing(textView: UITextView!) {
+        println("textViewDidEndEditing")
+    }
+    
+    
     
     
     // ===========================================
     // MARK: View methods
     // ===========================================
+    
+    func toggleSaveButton() {
+        if(!content.text.isEmpty) {
+            saveButton.enabled = true;
+        } else {
+            saveButton.enabled = false
+        }
+    }
+    
+    func toggleLabel() {
+        if(!content.text.isEmpty) {
+            saveButton.enabled = true;
+        } else {
+            saveButton.enabled = false
+        }
+    }
+    
     func setupCharacterCountLabel() {
         
         var bundle = NSBundle.mainBundle()
