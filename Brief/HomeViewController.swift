@@ -17,16 +17,6 @@ class HomeViewController: UIViewController {
     @IBOutlet var completedButton: UIButton!
     @IBOutlet var completedLabel: UILabel!
     
-    var composeButtonView:ComposeBriefButtonView!
-    var completedButtonView:CompletedBriefButtonView!
-    
-    var origComposeRect:CGRect?
-    
-    var circle = CALayer()
-    var linePath = UIBezierPath()
-    var hourLine = CAShapeLayer()
-    var minuteLine = CAShapeLayer()
-    
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         //assign the constant

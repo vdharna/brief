@@ -11,7 +11,7 @@
 		620097F5198C118B0058E83B /* BriefItemDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 620097F3198C118B0058E83B /* BriefItemDetailViewController.xib */; };
 		620097F9198C1ED00058E83B /* CharacterCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620097F8198C1ED00058E83B /* CharacterCountView.swift */; };
 		620097FB198C1EE70058E83B /* CharacterCountView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 620097FA198C1EE70058E83B /* CharacterCountView.xib */; };
-		622582F419802B3D000E4F27 /* CompletedBriefCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622582F219802B3D000E4F27 /* CompletedBriefCell.swift */; };
+		622582F419802B3D000E4F27 /* CompletedBriefTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622582F219802B3D000E4F27 /* CompletedBriefTableViewCell.swift */; };
 		622582F519802B3D000E4F27 /* CompletedBriefTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 622582F319802B3D000E4F27 /* CompletedBriefTableViewCell.xib */; };
 		623B21BA19744C4F00EC766F /* Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623B21B919744C4F00EC766F /* Progress.swift */; };
 		623B21BC19744C5B00EC766F /* Plan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623B21BB19744C5B00EC766F /* Plan.swift */; };
@@ -33,8 +33,6 @@
 		626FCD1E1985A8ED00946973 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626FCD1D1985A8ED00946973 /* Comment.swift */; };
 		626FCD221986B43900946973 /* Flag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626FCD211986B43900946973 /* Flag.swift */; };
 		626FCD241986B44700946973 /* Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626FCD231986B44700946973 /* Share.swift */; };
-		62888FE8197A1EB4002D0DD0 /* CompletedBriefButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62888FE7197A1EB4002D0DD0 /* CompletedBriefButtonView.swift */; };
-		62888FEA197B954E002D0DD0 /* ComposeBriefButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62888FE9197B954E002D0DD0 /* ComposeBriefButtonView.swift */; };
 		6295FAC619746D6500C338D3 /* Brief.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6295FAC519746D6500C338D3 /* Brief.swift */; };
 		62C032831981BDFD005AC29F /* share_icon.graffle in Resources */ = {isa = PBXBuildFile; fileRef = 62C032801981BDFD005AC29F /* share_icon.graffle */; };
 		62C032841981BDFD005AC29F /* flag_icon.graffle in Resources */ = {isa = PBXBuildFile; fileRef = 62C032811981BDFD005AC29F /* flag_icon.graffle */; };
@@ -62,7 +60,7 @@
 		620097F3198C118B0058E83B /* BriefItemDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BriefItemDetailViewController.xib; sourceTree = "<group>"; };
 		620097F8198C1ED00058E83B /* CharacterCountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterCountView.swift; sourceTree = "<group>"; };
 		620097FA198C1EE70058E83B /* CharacterCountView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CharacterCountView.xib; sourceTree = "<group>"; };
-		622582F219802B3D000E4F27 /* CompletedBriefCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedBriefCell.swift; sourceTree = "<group>"; };
+		622582F219802B3D000E4F27 /* CompletedBriefTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedBriefTableViewCell.swift; sourceTree = "<group>"; };
 		622582F319802B3D000E4F27 /* CompletedBriefTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompletedBriefTableViewCell.xib; sourceTree = "<group>"; };
 		623B21B919744C4F00EC766F /* Progress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Progress.swift; sourceTree = "<group>"; };
 		623B21BB19744C5B00EC766F /* Plan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Plan.swift; sourceTree = "<group>"; };
@@ -88,8 +86,6 @@
 		626FCD1D1985A8ED00946973 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		626FCD211986B43900946973 /* Flag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flag.swift; sourceTree = "<group>"; };
 		626FCD231986B44700946973 /* Share.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Share.swift; sourceTree = "<group>"; };
-		62888FE7197A1EB4002D0DD0 /* CompletedBriefButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedBriefButtonView.swift; sourceTree = "<group>"; };
-		62888FE9197B954E002D0DD0 /* ComposeBriefButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeBriefButtonView.swift; sourceTree = "<group>"; };
 		6295FAC519746D6500C338D3 /* Brief.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brief.swift; sourceTree = "<group>"; };
 		62C032801981BDFD005AC29F /* share_icon.graffle */ = {isa = PBXFileReference; lastKnownFileType = file; name = share_icon.graffle; path = ../../../../Desktop/share_icon.graffle; sourceTree = "<group>"; };
 		62C032811981BDFD005AC29F /* flag_icon.graffle */ = {isa = PBXFileReference; lastKnownFileType = file; name = flag_icon.graffle; path = ../../../../Desktop/flag_icon.graffle; sourceTree = "<group>"; };
@@ -279,10 +275,8 @@
 			children = (
 				62FC24DE1983060800372D14 /* TransparentEdgesScrollView.swift */,
 				62FC24DF1983060800372D14 /* TransparentEdgesTableView.swift */,
-				62888FE9197B954E002D0DD0 /* ComposeBriefButtonView.swift */,
-				62888FE7197A1EB4002D0DD0 /* CompletedBriefButtonView.swift */,
-				622582F219802B3D000E4F27 /* CompletedBriefCell.swift */,
 				62C032861981CE86005AC29F /* ComposeBriefTableViewCell.swift */,
+				622582F219802B3D000E4F27 /* CompletedBriefTableViewCell.swift */,
 				620097F8198C1ED00058E83B /* CharacterCountView.swift */,
 			);
 			name = Swift;
@@ -408,9 +402,7 @@
 				623B21BA19744C4F00EC766F /* Progress.swift in Sources */,
 				626FCD241986B44700946973 /* Share.swift in Sources */,
 				6295FAC619746D6500C338D3 /* Brief.swift in Sources */,
-				62888FE8197A1EB4002D0DD0 /* CompletedBriefButtonView.swift in Sources */,
 				620097F4198C118B0058E83B /* BriefItemDetailViewController.swift in Sources */,
-				62888FEA197B954E002D0DD0 /* ComposeBriefButtonView.swift in Sources */,
 				6247F76E1975B11B002FC8B4 /* PPPItem.swift in Sources */,
 				623B21BC19744C5B00EC766F /* Plan.swift in Sources */,
 				623B21C019744DB400EC766F /* Team.swift in Sources */,
@@ -420,7 +412,7 @@
 				626FCD1E1985A8ED00946973 /* Comment.swift in Sources */,
 				62474130196CB5A10043C7E5 /* HomeViewController.swift in Sources */,
 				6241FB64196F5BB50092B014 /* AddPPPViewController.swift in Sources */,
-				622582F419802B3D000E4F27 /* CompletedBriefCell.swift in Sources */,
+				622582F419802B3D000E4F27 /* CompletedBriefTableViewCell.swift in Sources */,
 				62FC24E519855A0600372D14 /* BriefArchiveDebugLoadUtility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
