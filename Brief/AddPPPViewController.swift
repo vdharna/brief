@@ -11,8 +11,9 @@ import UIKit
 class AddPPPViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet var content: UITextView!
-    @IBOutlet var saveButton: UIBarButtonItem!
-    @IBOutlet var cancelButton: UIBarButtonItem!
+    var saveButton: UIBarButtonItem!
+    var cancelButton: UIBarButtonItem!
+    
     var charCountView: CharacterCountView?
     var selectedSegment: Int?
     var selectedPPPElement = -1 //default to indicate nothing is transitioned
@@ -31,6 +32,16 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
     // ==========================================
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        saveButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: Selector("save:"))
+        
+        cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: Selector("dismissModal:"))
+        
+        self.navigationItem.leftBarButtonItem = cancelButton
+        self.navigationItem.rightBarButtonItem = saveButton
+        self.navigationItem.title = "Compose"
+        
+        self.automaticallyAdjustsScrollViewInsets = false
     }
     
     override func viewWillAppear(animated: Bool) {
