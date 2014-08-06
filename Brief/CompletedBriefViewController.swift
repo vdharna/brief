@@ -203,9 +203,9 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
        return false
     }
     
-    // ============================================
-    // MARK: UITableViewDelegate implementation
-    // ============================================
+    // MARK: --------------------------------
+    // MARK: TableView Delegate Methods
+    // MARK: --------------------------------
     
     // Asks the delegate for the height to use for a row in a specified location.
     func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
@@ -234,9 +234,10 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         println("\(indexPath)")
     }
     
-    // ============================================
+    
+    // MARK: --------------------------------
     // MARK: Utility Methods
-    // ============================================
+    // MARK: --------------------------------
     func loadBrief() {
         // pull the correct Brief based on some parameter
         let randomIndex = Int(arc4random_uniform(UInt32(completedBriefs.count)))
