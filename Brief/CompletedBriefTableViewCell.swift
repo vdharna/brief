@@ -43,7 +43,7 @@ class CompletedBriefTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
         cellLabel.numberOfLines = 5
-        //self.selectionStyle = UITableViewCellSelectionStyle.Default
+        self.selectionStyle = UITableViewCellSelectionStyle.None
 
     }
     

@@ -17,9 +17,7 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     
     private var completedBriefs = user.getCompletedBriefs()
     private var completedBrief: Brief?
-    
-    private var flagIsOn = false
-    
+        
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -89,77 +87,7 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         } else {
             cell.flagImage.image = UIImage(named: "flag_icon.png")
         }
-        
-        //load the comments label with the appropriate number of comments
-        //cell.commentsLabel.text = "0 Comments"
-        
-        // Stops a string reference cycle from happening
-        weak var weakCell = cell
-        
-        cell.flagActionClosure = {
-            let strongCell = weakCell
             
-            var alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
-            
-            // create flag action button
-            var flagActionTitle = "Flag"
-            if (item.isFlagged()) {
-                flagActionTitle = "Unflag"
-            }
-            
-            var flagAction = UIAlertAction(title: flagActionTitle, style: .Default, handler: {
-                (alertAction: UIAlertAction!) in
-                
-                // update the model to reflect the action
-                item.flag(!item.isFlagged()) //set the opposite
-                self.table.reloadData()
-                })
-            
-            var cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
-                (alertAction: UIAlertAction!) in
-                })
-            
-            var notifyAction = UIAlertAction(title: "Notify Me...", style: .Default, handler: {
-                (alertAction: UIAlertAction!) in
-                
-                // call a subsequent uiaction sheet for this
-                var alert = UIAlertController(title: "Receive notifications when anyone replies to his thread", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
-                
-                var cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
-                    (alertAction: UIAlertAction!) in
-                    })
-
-                var notifyAction = UIAlertAction(title: "Notify Me", style: .Default, handler: {
-                    (alertAction: UIAlertAction!) in
-                    })
-                
-                alert.addAction(cancelAction)
-                alert.addAction(notifyAction)
-                
-                self.presentViewController(alert, animated: true, completion: {})
-                
-                })
-            
-            alert.addAction(flagAction)
-            alert.addAction(cancelAction)
-            alert.addAction(notifyAction)
-            
-            self.presentViewController(alert, animated: true, completion: {})
-
-        }
-        
-        cell.commentActionClosure = {
-            
-            var briefItemDetailVC = BriefItemDetailViewController(nibName: "BriefItemDetailViewController", bundle: NSBundle.mainBundle())
-            self.navigationController.pushViewController(briefItemDetailVC, animated: true)
-        }
-        
-        cell.shareActionClosure = {
-            
-            var alert = UIAlertView(title: "Action", message: "Share Button Clicked", delegate: nil, cancelButtonTitle: "Cancel")
-            alert.show()
-        }
-  
         return cell
     }
     
@@ -221,17 +149,75 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) -> [AnyObject]! {
-        var moreRowAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Flag", handler:{action, indexpath in
-            println("MORE•ACTION");
+
+        var flagRowAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Flag", handler:{action, indexpath in
+            
+            println("FLAG•ACTION");
+            
+            var item: PPPItem = self.getPPPItem(indexPath)
+            
+            var alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+            
+            // create flag action button
+            var flagActionTitle = "Flag"
+            if (item.isFlagged()) {
+                flagActionTitle = "Unflag"
+            }
+            
+            var flagAction = UIAlertAction(title: flagActionTitle, style: .Default, handler: {
+                (alertAction: UIAlertAction!) in
+                
+                // update the model to reflect the action
+                item.flag(!item.isFlagged()) //set the opposite
+                self.table.reloadData()
+            })
+            
+            var cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+                (alertAction: UIAlertAction!) in
+                
+                self.table.reloadData()
+            })
+            
+            alert.addAction(flagAction)
+            alert.addAction(cancelAction)
+            
+            self.presentViewController(alert, animated: true, completion: {})
         });
-        moreRowAction.backgroundColor = UIColor.orangeColor()
+        flagRowAction.backgroundColor = UIColor.orangeColor()
         
+        // notify action
+        var notifyRowAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Notify", handler:{action, indexpath in
+            println("NOTIFY•ACTION");
+            
+            var alert = UIAlertController(title: "Receive notifications when anyone replies to his thread", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+            
+            
+            var cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+                (alertAction: UIAlertAction!) in
+                self.table.reloadData()
+            })
+            
+            var notifyAction = UIAlertAction(title: "Notify Me", style: .Default, handler: {
+                (alertAction: UIAlertAction!) in
+                self.table.reloadData()
+            })
+            
+            alert.addAction(cancelAction)
+            alert.addAction(notifyAction)
+            
+            self.presentViewController(alert, animated: true, completion: {})
+        });
+        notifyRowAction.backgroundColor = UIColor.blueColor();
+        
+        // share action
         var shareRowAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Share", handler:{action, indexpath in
-            println("DELETE•ACTION");
+            println("SHARE•ACTION");
+            var alert = UIAlertView(title: "Action", message: "Share Button Clicked", delegate: nil, cancelButtonTitle: "Cancel")
+            alert.show()
         });
         shareRowAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
         
-        return [shareRowAction, moreRowAction];
+        return [shareRowAction, notifyRowAction, flagRowAction];
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
