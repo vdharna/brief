@@ -8,9 +8,6 @@
 
 import UIKit
 
-let smallcontent = "Noticeably faster performance and graphics that feel more true to life. That’s the perennial goal when creating a new mobile chip."
-let largecontent = "iPhone 5 set a precedent. Apple engineers and designers managed to compress first-of-their-kind technologies inside a space that’s a mere 7.6 millimeters thin and 112 grams light. A feat like that required designing or redesigning multiple components. And it resulted in an incredibly thin, impressively light, extraordinarily powerful smartphone. After coming so far with iPhone 5, it was a perfect place to start with iPhone 5s. And while the engineering challenge was significant, we succeeded in adding more to it without making iPhone 5s bigger or heavier.iPhone 5 set a precedent. Apple engineers and designers managed to compress first-of-their-kind technologies inside a space that’s a mere 7.6 millimeters thin and 112 grams light. A feat like that required designing or redesigning multiple components. And it resulted in an incredibly thin, impressively light, extraordinarily powerful smartphone. After coming so far with iPhone 5, it was a perfect place to start with iPhone 5s. And while the engineering challenge was significant, we succeeded in adding more to it without making iPhone 5s bigger or heavier."
-
 class BriefItemDetailViewController: UIViewController, UITextViewDelegate, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var itemLabel: UILabel!
@@ -25,22 +22,13 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate, UITab
     let cellName = "BriefItemCommentTableViewCell"
     let offScreenCell: BriefItemCommentTableViewCell?
     
-    var brief: Brief?
+    var item: PPPItem?
     
     // MARK: --------------------------------
     // MARK: Init  Methods
     // MARK: --------------------------------
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        
-        setupTextViews()
-        setupInputAccessoryToolbar()
-        setupDockedToolbar()
-        
-        var bundle = NSBundle.mainBundle()
-        var headerView = (bundle.loadNibNamed("CommentHeaderView", owner: self, options: nil)[0] as UIView)
-        
-        self.table.tableHeaderView = headerView
 
     }
     
@@ -58,11 +46,10 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate, UITab
         // Do any additional setup after loading the view.
         self.navigationItem.title = "Comments"
         
-        // load the custom cell via NIB
-        var nib = UINib(nibName: cellName, bundle: nil)
-        
-        // Register this NIB, which contains the cell
-        self.table.registerNib(nib, forCellReuseIdentifier: cellName)
+        setupTableView()
+        setupTextViews()
+        setupInputAccessoryToolbar()
+        setupDockedToolbar()
         
     }
 
@@ -145,6 +132,22 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate, UITab
         self.view.addSubview(toolbar)
     }
     
+    func setupTableView() {
+        
+        // load the custom cell via NIB
+        var nib = UINib(nibName: cellName, bundle: nil)
+        
+        // Register this NIB, which contains the cell
+        self.table.registerNib(nib, forCellReuseIdentifier: cellName)
+        
+        var bundle = NSBundle.mainBundle()
+        var headerView = (bundle.loadNibNamed("CommentHeaderView", owner: self, options: nil)[0] as UIView)
+        
+        self.table.tableHeaderView = headerView
+        self.itemLabel.text = self.item!.getContent()
+        
+    }
+    
     // MARK: --------------------------------
     // MARK: UITextView Delegate Methods
     // MARK: --------------------------------
@@ -211,27 +214,19 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate, UITab
         
         //set the actual comment content
         cell.commentContent.numberOfLines = 0
-        if (indexPath.row % 2 == 0) {
-            cell.commentContent.text = smallcontent
-            var newFrame = cell.commentContent.frame;
-        } else {
-            cell.commentContent.text = largecontent
-            var newFrame = cell.commentContent.frame;
-        }
+        
+        cell.commentContent.text = item!.comments[indexPath.row].getContent()
 
         return cell
     }
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return item!.commentsCount()
     }
     
     func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
-        if (indexPath.row % 2 == 0) {
-            return heightForText(smallcontent)
-        } else {
-            return heightForText(largecontent)
-        }
+        
+        return heightForText(item!.comments[indexPath.row].getContent())
     }
     
     func heightForText(text: String) -> CGFloat {

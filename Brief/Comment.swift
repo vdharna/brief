@@ -38,5 +38,9 @@ class Comment: Equatable {
         return self.id
     }
     
+    func getContent() -> String {
+        return self.content
+    }
+    
     
 }

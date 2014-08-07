@@ -14,7 +14,7 @@ class PPPItem {
     private var id: Int
     private var content: String
     private var flag: Flag?
-    private var comments = Array<Comment>()
+    var comments = Array<Comment>()
     
     var description : String { return String(id) }
     

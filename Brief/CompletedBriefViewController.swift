@@ -236,8 +236,8 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         
         //get reference to the cell
         var cell = self.table.cellForRowAtIndexPath(indexPath)
-        briefItemDetailVC.itemLabel.text = completedBrief!.findItemById(cell.tag).getContent()
-        briefItemDetailVC.brief = completedBrief
+        var item = completedBrief!.findItemById(cell.tag)
+        briefItemDetailVC.item = item
         self.navigationController.pushViewController(briefItemDetailVC, animated: true)
     }
     
