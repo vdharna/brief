@@ -17,6 +17,7 @@ class TeamMember {
     
     var brief:Brief //current brief
     private var completedBriefs: Array<Brief>
+    private var notificationSubscriptions = Array<Int>()
     
     init() {
         firstName = "Dharminder"
@@ -47,6 +48,23 @@ class TeamMember {
             }
         }
 
+    }
+    
+    func addNotification(id: Int) {
+        self.notificationSubscriptions.append(id)
+    }
+    
+    func removeNotification(id: Int) {
+        
+        var index = find(self.notificationSubscriptions, id)
+        if (index != nil) {
+            self.notificationSubscriptions.removeAtIndex(index!)
+        }
+        
+    }
+    
+    func containsNotification(id: Int) -> Bool {
+        return find(self.notificationSubscriptions, id) != nil
     }
     
 }

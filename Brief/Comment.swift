@@ -8,7 +8,11 @@
 
 import Foundation
 
-class Comment {
+func ==(lhs: Comment, rhs: Comment) -> Bool {
+    return lhs.getId() == rhs.getId()
+}
+
+class Comment: Equatable {
     
     private var id: Int
     private var content: String
@@ -29,5 +33,10 @@ class Comment {
     func getCreatedBy() -> TeamMember {
         return self.createdBy
     }
+    
+    func getId() -> Int {
+        return self.id
+    }
+    
     
 }

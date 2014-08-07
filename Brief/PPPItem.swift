@@ -14,7 +14,7 @@ class PPPItem {
     private var id: Int
     private var content: String
     private var flag: Flag?
-    private var comments: Array<Comment>?
+    private var comments = Array<Comment>()
     
     var description : String { return String(id) }
     
@@ -49,6 +49,21 @@ class PPPItem {
     
     func flag(flag: Bool) {
         self.flag!.setFlag(flag)
+    }
+    
+    func addComment(comment: Comment) {
+        
+        self.comments.append(comment)
+    }
+    
+    func removeComment(comment: Comment) {
+        
+        var index = find(self.comments, comment)
+        
+    }
+    
+    func commentsCount() -> Int {
+        return self.comments.count
     }
     
 }

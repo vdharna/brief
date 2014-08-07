@@ -11,7 +11,10 @@ import UIKit
 class CompletedBriefTableViewCell: UITableViewCell {
     
     @IBOutlet weak var cellLabel: UILabel!
-    @IBOutlet weak var flagLabel: UILabel!
+    @IBOutlet weak var labelPlaceholder1: UILabel!
+    @IBOutlet weak var labelPlaceholder2: UILabel!
+    @IBOutlet weak var labelPlaceholder3: UILabel!
+    @IBOutlet weak var commentImage: UIImageView!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

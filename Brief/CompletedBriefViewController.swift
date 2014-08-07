@@ -81,11 +81,28 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         cell.cellLabel.text = item.getContent()
         cell.tag = item.getId()
         
-        // set flag as on or off
+        // show flag status
         if (item.isFlagged()) {
-            cell.flagLabel.text = "⚑"
+            cell.labelPlaceholder1.text = "⚑"
         } else {
-            cell.flagLabel.text = ""
+            cell.labelPlaceholder1.text = ""
+        }
+        
+        // show notification status
+        if (user.containsNotification(item.getId())) {
+            cell.labelPlaceholder2.text = "⌚︎"
+        } else {
+            cell.labelPlaceholder2.text = ""
+        }
+        
+        // show comment(s) if any are present
+        if (item.commentsCount() > 0) {
+            cell.labelPlaceholder3.text = item.commentsCount().description
+            cell.labelPlaceholder3.hidden = false
+            cell.commentImage.hidden = false
+        } else {
+            cell.labelPlaceholder3.hidden = true
+            cell.commentImage.hidden = true
         }
         
         return cell
@@ -149,7 +166,7 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) -> [AnyObject]! {
 
         var item: PPPItem = self.getPPPItem(indexPath)
-        var flagActionTitle = "Flag"
+        var flagActionTitle = " Flag "
         // create flag title
         if (item.isFlagged()) {
             flagActionTitle = "Unflag"
@@ -166,15 +183,30 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         // notify action
         var notifyRowAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Notify", handler:{action, indexpath in
             
-            var alert = UIAlertController(title: "Receive notifications when anyone replies to his thread", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+            var itemId = item.getId()
+            
+            var alertTitle = "Receive notifications when anyone replies to this thread"
+            var notifyTitle = "Notify Me"
+            if (user.containsNotification(itemId)) {
+                alertTitle = "Stop receiving notifications on this thread"
+                notifyTitle = "Stop Notifying"
+            }
+            
+            var alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
             
             var cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
                 (alertAction: UIAlertAction!) in
                 self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
             })
             
-            var notifyAction = UIAlertAction(title: "Notify Me", style: .Default, handler: {
+            var notifyAction = UIAlertAction(title: notifyTitle, style: .Default, handler: {
                 (alertAction: UIAlertAction!) in
+                if (user.containsNotification(itemId)){
+                    user.removeNotification(itemId)
+                } else {
+                    user.addNotification(itemId)
+                }
+                
                 self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
             })
             
