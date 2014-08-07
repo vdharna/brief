@@ -91,7 +91,7 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         }
         
         //load the comments label with the appropriate number of comments
-        cell.commentsLabel.text = "0 Comments"
+        //cell.commentsLabel.text = "0 Comments"
         
         // Stops a string reference cycle from happening
         weak var weakCell = cell
@@ -193,16 +193,6 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
     
-    // Asks the data source to verify that the given row is editable.
-    func tableView(tableView: UITableView!, canEditRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
-        return false
-    }
-    
-    // Asks the data source whether a given row can be moved to another location in the table view.
-    func tableView(tableView: UITableView!, canMoveRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
-       return false
-    }
-    
     // MARK: --------------------------------
     // MARK: TableView Delegate Methods
     // MARK: --------------------------------
@@ -210,7 +200,7 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     // Asks the delegate for the height to use for a row in a specified location.
     func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
         
-        return 100
+        return 90
     }
     
     func tableView(tableView: UITableView!, heightForHeaderInSection section: Int) -> CGFloat {
@@ -230,9 +220,35 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         
     }
     
-    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
-        println("\(indexPath)")
+    func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) -> [AnyObject]! {
+        var moreRowAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Flag", handler:{action, indexpath in
+            println("MORE•ACTION");
+        });
+        moreRowAction.backgroundColor = UIColor.orangeColor()
+        
+        var shareRowAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Share", handler:{action, indexpath in
+            println("DELETE•ACTION");
+        });
+        shareRowAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
+        
+        return [shareRowAction, moreRowAction];
     }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    }
+    
+    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+        var briefItemDetailVC = BriefItemDetailViewController(nibName: "BriefItemDetailViewController", bundle: NSBundle.mainBundle())
+        
+        //get reference to the cell
+        var cell = self.table.cellForRowAtIndexPath(indexPath)
+        briefItemDetailVC.itemLabel.text = completedBrief!.findItemById(cell.tag).getContent()
+        briefItemDetailVC.brief = completedBrief
+        self.navigationController.pushViewController(briefItemDetailVC, animated: true)
+    }
+    
+    
+
     
     
     // MARK: --------------------------------

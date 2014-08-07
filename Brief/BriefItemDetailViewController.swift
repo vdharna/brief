@@ -25,6 +25,8 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate, UITab
     let cellName = "BriefItemCommentTableViewCell"
     let offScreenCell: BriefItemCommentTableViewCell?
     
+    var brief: Brief?
+    
     // MARK: --------------------------------
     // MARK: Init  Methods
     // MARK: --------------------------------
@@ -34,6 +36,11 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate, UITab
         setupTextViews()
         setupInputAccessoryToolbar()
         setupDockedToolbar()
+        
+        var bundle = NSBundle.mainBundle()
+        var headerView = (bundle.loadNibNamed("CommentHeaderView", owner: self, options: nil)[0] as UIView)
+        
+        self.table.tableHeaderView = headerView
 
     }
     
@@ -56,6 +63,7 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate, UITab
         
         // Register this NIB, which contains the cell
         self.table.registerNib(nib, forCellReuseIdentifier: cellName)
+        
     }
 
     override func didReceiveMemoryWarning() {
