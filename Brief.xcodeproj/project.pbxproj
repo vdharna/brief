@@ -270,10 +270,10 @@
 			isa = PBXGroup;
 			children = (
 				620097FA198C1EE70058E83B /* CharacterCountView.xib */,
+				62E655931992EF19001CE289 /* CommentHeaderView.xib */,
 				62C032871981CE86005AC29F /* ComposeBriefTableViewCell.xib */,
 				622582F319802B3D000E4F27 /* CompletedBriefTableViewCell.xib */,
 				62E655901992A6A8001CE289 /* BriefItemCommentTableViewCell.xib */,
-				62E655931992EF19001CE289 /* CommentHeaderView.xib */,
 			);
 			name = "Interface Builder";
 			sourceTree = "<group>";

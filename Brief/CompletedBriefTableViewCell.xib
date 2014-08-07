@@ -13,56 +13,22 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nhb-5N-b7y">
-                        <rect key="frame" x="15" y="75" width="306" height="25"/>
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dLb-fB-ByK">
+                        <rect key="frame" x="0.0" y="0.0" width="27" height="90"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="comment_icon" translatesAutoresizingMaskIntoConstraints="NO" id="WIr-Nz-wgj" userLabel="Comment Image">
-                                <rect key="frame" x="100" y="9" width="11" height="11"/>
+                                <rect key="frame" x="3" y="58" width="11" height="11"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="share_icon" translatesAutoresizingMaskIntoConstraints="NO" id="cvT-Xm-fG0" userLabel="Share Image">
-                                <rect key="frame" x="228" y="6" width="15" height="15"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nJq-Op-JaB" userLabel="Share Button">
-                                <rect key="frame" x="221" y="0.0" width="70" height="25"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
-                                <state key="normal">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="sharePressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="NjI-1C-5Ox"/>
-                                </connections>
-                            </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="flag_icon" translatesAutoresizingMaskIntoConstraints="NO" id="df9-9d-im8" userLabel="Flag Image">
-                                <rect key="frame" x="10" y="9" width="12" height="12"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cCL-8Y-7ym" userLabel="Flag Button">
-                                <rect key="frame" x="2" y="0.0" width="58" height="25"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
-                                <state key="normal">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="flagPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Tvi-UM-Fu0"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wM9-1L-oIj" userLabel="Comment Button">
-                                <rect key="frame" x="94" y="1" width="87" height="25"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
-                                <state key="normal">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="commentPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="9xu-zH-p7W"/>
-                                </connections>
-                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="97A-yO-Pk7" userLabel="Flag Label">
+                                <rect key="frame" x="3" y="8" width="20" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="0.35000000000000003" colorSpace="calibratedRGB"/>
-                    </view>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dLb-fB-ByK">
-                        <rect key="frame" x="0.0" y="0.0" width="27" height="100"/>
                     </view>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8y6-lT-qzs">
-                        <rect key="frame" x="27" y="0.0" width="257" height="90"/>
+                        <rect key="frame" x="27" y="0.0" width="266" height="90"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
@@ -71,17 +37,12 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="cellLabel" destination="8y6-lT-qzs" id="oXT-ax-FWA"/>
-                <outlet property="commentButton" destination="wM9-1L-oIj" id="0r0-CJ-tWh"/>
-                <outlet property="flagButton" destination="cCL-8Y-7ym" id="KnH-kq-ywH"/>
-                <outlet property="flagImage" destination="df9-9d-im8" id="os9-jz-zfI"/>
-                <outlet property="shareButton" destination="nJq-Op-JaB" id="lHR-Mu-k9B"/>
+                <outlet property="flagLabel" destination="97A-yO-Pk7" id="ZW2-y8-tEL"/>
             </connections>
             <point key="canvasLocation" x="64" y="482"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="comment_icon" width="13" height="13"/>
-        <image name="flag_icon" width="13" height="13"/>
-        <image name="share_icon" width="69" height="69"/>
     </resources>
 </document>

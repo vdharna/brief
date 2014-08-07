@@ -198,6 +198,18 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate, UITab
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         
         var cell = self.table.dequeueReusableCellWithIdentifier(cellName, forIndexPath: indexPath) as BriefItemCommentTableViewCell
+
+        
+        // set the author picture
+        cell.authorImage.image = UIImage(named: "avatar")
+        
+        // set the author name
+        cell.commentAuthor.text = "Dharminder Dharna"
+        
+        // set the number of days elapsed since posting
+        cell.commentTimestamp.text = "🕗 1d"
+        
+        //set the actual comment content
         cell.commentContent.numberOfLines = 0
         if (indexPath.row % 2 == 0) {
             cell.commentContent.text = smallcontent

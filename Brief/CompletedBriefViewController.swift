@@ -83,11 +83,11 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         
         // set flag as on or off
         if (item.isFlagged()) {
-            cell.flagImage.image = UIImage(named: "flag_icon_selected.png")
+            cell.flagLabel.text = "⚑"
         } else {
-            cell.flagImage.image = UIImage(named: "flag_icon.png")
+            cell.flagLabel.text = ""
         }
-            
+        
         return cell
     }
     
@@ -144,62 +144,38 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         //text color
         var header = view as UITableViewHeaderFooterView
         header.textLabel.textColor = UIColor.whiteColor()
-        
-        
     }
     
     func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) -> [AnyObject]! {
 
-        var flagRowAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Flag", handler:{action, indexpath in
-            
-            println("FLAG•ACTION");
-            
-            var item: PPPItem = self.getPPPItem(indexPath)
-            
-            var alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
-            
-            // create flag action button
-            var flagActionTitle = "Flag"
-            if (item.isFlagged()) {
-                flagActionTitle = "Unflag"
-            }
-            
-            var flagAction = UIAlertAction(title: flagActionTitle, style: .Default, handler: {
-                (alertAction: UIAlertAction!) in
+        var item: PPPItem = self.getPPPItem(indexPath)
+        var flagActionTitle = "Flag"
+        // create flag title
+        if (item.isFlagged()) {
+            flagActionTitle = "Unflag"
+        }
+       
+        var flagRowAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: flagActionTitle, handler:{action, indexpath in
                 
-                // update the model to reflect the action
-                item.flag(!item.isFlagged()) //set the opposite
-                self.table.reloadData()
-            })
-            
-            var cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
-                (alertAction: UIAlertAction!) in
-                
-                self.table.reloadData()
-            })
-            
-            alert.addAction(flagAction)
-            alert.addAction(cancelAction)
-            
-            self.presentViewController(alert, animated: true, completion: {})
+            // update the model to reflect the action
+            item.flag(!item.isFlagged()) //set the opposite
+            self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
         });
         flagRowAction.backgroundColor = UIColor.orangeColor()
         
         // notify action
         var notifyRowAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Notify", handler:{action, indexpath in
-            println("NOTIFY•ACTION");
             
             var alert = UIAlertController(title: "Receive notifications when anyone replies to his thread", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
             
-            
             var cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
                 (alertAction: UIAlertAction!) in
-                self.table.reloadData()
+                self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
             })
             
             var notifyAction = UIAlertAction(title: "Notify Me", style: .Default, handler: {
                 (alertAction: UIAlertAction!) in
-                self.table.reloadData()
+                self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
             })
             
             alert.addAction(cancelAction)
