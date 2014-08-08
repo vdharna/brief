@@ -16,27 +16,18 @@
                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dLb-fB-ByK">
                         <rect key="frame" x="0.0" y="0.0" width="27" height="90"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="97A-yO-Pk7" userLabel="Placeholder Label 1">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6AG-WY-bKk" userLabel="View 1">
                                 <rect key="frame" x="3" y="15" width="20" height="20"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="257-tG-ike" userLabel="Placeholder Label 2">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qQs-TX-d6P" userLabel="View 2">
                                 <rect key="frame" x="3" y="35" width="20" height="20"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.60000002384185791" green="0.60000002384185791" blue="0.60000002384185791" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="comment_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Nyq-H8-BiJ">
-                                <rect key="frame" x="5" y="59" width="11" height="12"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vzs-Jg-Blj" userLabel="Placeholder Label 3">
-                                <rect key="frame" x="5" y="58" width="11" height="11"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="7"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7BD-pL-1eN" userLabel="View 3">
+                                <rect key="frame" x="3" y="60" width="20" height="20"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                     </view>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8y6-lT-qzs" userLabel="Content Label">
@@ -49,15 +40,11 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="cellLabel" destination="8y6-lT-qzs" id="oXT-ax-FWA"/>
-                <outlet property="commentImage" destination="Nyq-H8-BiJ" id="Ws9-9W-OTG"/>
-                <outlet property="labelPlaceholder1" destination="97A-yO-Pk7" id="O2d-JK-zUJ"/>
-                <outlet property="labelPlaceholder2" destination="257-tG-ike" id="QMG-zw-vgR"/>
-                <outlet property="labelPlaceholder3" destination="Vzs-Jg-Blj" id="BZd-y4-GBC"/>
+                <outlet property="view1" destination="6AG-WY-bKk" id="jrW-ki-Sgm"/>
+                <outlet property="view2" destination="qQs-TX-d6P" id="Qzc-pN-N9T"/>
+                <outlet property="view3" destination="7BD-pL-1eN" id="daF-IC-jTt"/>
             </connections>
             <point key="canvasLocation" x="64" y="482"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="comment_icon" width="13" height="13"/>
-    </resources>
 </document>

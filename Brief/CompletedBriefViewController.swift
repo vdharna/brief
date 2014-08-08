@@ -83,34 +83,65 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         
         // show flag status
         if (item.isFlagged()) {
-            cell.labelPlaceholder1.text = "⚑"
+            var flagLabel = UILabel(frame: CGRectMake(0, 0, 20, 20))
+            flagLabel.tag = 1
+            flagLabel.text = "⚑"
+            flagLabel.textColor = UIColor.grayColor()
+            cell.view1.addSubview(flagLabel)
+            cell.view1.viewWithTag(3)?.removeFromSuperview()
         } else {
-            cell.labelPlaceholder1.text = ""
+            cell.view1.viewWithTag(1)?.removeFromSuperview()
         }
         
-        // show notification status
         if (user.containsNotification(item.getId())) {
-            if(cell.labelPlaceholder1.text.isEmpty) {
-                cell.labelPlaceholder1.text = "⌚︎"
+            var notificationLabel = UILabel(frame: CGRectMake(0, 0, 20, 20))
+            notificationLabel.tag = 2
+            notificationLabel.text = "⌚︎"
+            notificationLabel.textColor = UIColor.grayColor()
+            
+            if (cell.view1.viewWithTag(1) == nil) { //no flag icon is set
+                cell.view1.addSubview(notificationLabel)
             } else {
-                cell.labelPlaceholder2.text = "⌚︎"
+                cell.view2.addSubview(notificationLabel)
+                cell.view2.viewWithTag(3)?.removeFromSuperview()
             }
+            
         } else {
-            if(cell.labelPlaceholder1.text.isEmpty) {
-                cell.labelPlaceholder1.text = ""
-            } else {
-                cell.labelPlaceholder2.text = ""
-            }
+            cell.view1.viewWithTag(2)?.removeFromSuperview()
+            cell.view2.viewWithTag(2)?.removeFromSuperview()
         }
         
         // show comment(s) if any are present
         if (item.commentsCount() > 0) {
-            cell.labelPlaceholder3.text = item.commentsCount().description
-            cell.labelPlaceholder3.hidden = false
-            cell.commentImage.hidden = false
-        } else {
-            cell.labelPlaceholder3.hidden = true
-            cell.commentImage.hidden = true
+            //create the uiimage and the count label
+            var commentImage = UIImage(named: "comment_icon.png")
+            
+            var commentImageView = UIImageView(frame: CGRectMake(0, 0, 11, 12))
+            commentImageView.image = commentImage
+            commentImageView.tag = 3
+            
+            var x: CGFloat = 1
+            if (item.comments.count < 10) {
+                x = 3;
+            }
+            var commentCountLabel = UILabel(frame: CGRectMake(x, -1, 11, 12))
+            commentCountLabel.textColor = UIColor.whiteColor()
+            commentCountLabel.font = UIFont(name: "HelveticaNeue", size: 7)
+            commentCountLabel.text = item.comments.count.description
+        
+            commentImageView.addSubview(commentCountLabel)
+            
+            if (cell.view1.viewWithTag(1) == nil &&
+                cell.view1.viewWithTag(2) == nil) { //no flag or notify icon is set
+                    cell.view1.addSubview(commentImageView)
+                    cell.view3.viewWithTag(3)?.removeFromSuperview()
+            } else if (cell.view2.viewWithTag(2) == nil) {
+                cell.view2.addSubview(commentImageView)
+                cell.view3.viewWithTag(3)?.removeFromSuperview()
+            } else {
+                cell.view3.addSubview(commentImageView)
+            }
+
         }
         
         return cell
