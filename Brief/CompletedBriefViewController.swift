@@ -66,6 +66,11 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         var footer = UIView(frame: CGRectMake(0, 0, self.table.frame.width, 25))
         footer.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.92)
         self.table.tableFooterView = footer
+        
+        // add refresh control
+        var refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: Selector("refresh:"), forControlEvents: UIControlEvents.ValueChanged)
+        self.table.addSubview(refreshControl)
     }
     
     // ============================================
@@ -312,11 +317,7 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         briefItemDetailVC.item = item
         self.navigationController.pushViewController(briefItemDetailVC, animated: true)
     }
-    
-    
 
-    
-    
     // MARK: --------------------------------
     // MARK: Utility Methods
     // MARK: --------------------------------
@@ -344,6 +345,15 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
             
         }
         
+    }
+    
+    // MARK: --------------------------------
+    // MARK: Action Methods
+    // MARK: --------------------------------
+    
+    func refresh(refreshControl:UIRefreshControl) {
+        self.table.reloadData()
+        refreshControl.endRefreshing()
     }
     
 }
