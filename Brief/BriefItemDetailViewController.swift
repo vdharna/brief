@@ -104,6 +104,7 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate, UITab
 
         // post button
         var postButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: Selector("post"))
+        postButton.enabled = false
 
         postButton.tintColor = UIColor.whiteColor()
 
@@ -153,12 +154,16 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate, UITab
     // MARK: --------------------------------
     
     func textViewDidBeginEditing(textView: UITextView!) {
+        
+        scrollToLastVisibleRow()
+        
         if (textView == self.textView) {
             dispatch_async(dispatch_get_main_queue(), {
                 self.inputAccessoryTextView.text = ""
                 self.inputAccessoryTextView.becomeFirstResponder()
                 })
         }
+
     }
     
     func textViewShouldBeginEditing(textView: UITextView!) -> Bool {
@@ -190,6 +195,14 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate, UITab
             //adjust the y value
             self.inputAccessoryToolbar.frame.origin.y -= heightIncrement
             
+        }
+        
+        var button = self.inputAccessoryToolbar.items[2] as UIBarButtonItem
+        if (!textView.text.isEmpty) {
+            button.enabled = true
+        } else {
+            button.enabled = false
+
         }
         
     }
@@ -225,7 +238,6 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate, UITab
     }
     
     func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
-        
         return heightForText(item!.comments[indexPath.row].getContent())
     }
     
@@ -243,23 +255,48 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate, UITab
     // MARK: --------------------------------
     
     @IBAction func post() {
-        // add the comment to the brief item
-        var index = self.item!.commentsCount()
-        var comment = Comment(content: self.inputAccessoryTextView.text, createdDate: NSDate(), createdBy: user)
-        self.item!.addComment(comment)
         
-        // add a new cell into the table
-        var indexPath = NSIndexPath(forRow: index, inSection: 0)
-        self.table.insertRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
-
-        self.inputAccessoryTextView.text = ""
-        self.inputAccessoryTextView.frame.size.height = 30
-        self.inputAccessoryTextView.resignFirstResponder()
-        
-        self.textView.text = "Enter Comment..."
-        self.textView.textColor = UIColor.lightGrayColor()
+        if (!self.inputAccessoryTextView.text.isEmpty) {
+            // add the comment to the brief item
+            var index = self.item!.commentsCount()
+            var indexPath = NSIndexPath(forRow: index, inSection: 0)
+            
+            // create the comment
+            var comment = Comment(content: self.inputAccessoryTextView.text, createdDate: NSDate(), createdBy: user)
+            self.item!.addComment(comment)
+            
+            // add a new cell into the table
+            self.table.insertRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+            
+            // reset the text fields and clean-up for the next entry
+            self.inputAccessoryTextView.text = ""
+            var button = self.inputAccessoryToolbar.items[2] as UIBarButtonItem
+            button.enabled = false
+            self.inputAccessoryTextView.frame.size.height = 30
+            self.inputAccessoryTextView.resignFirstResponder()
+            
+            self.textView.text = "Enter Comment..."
+            self.textView.textColor = UIColor.lightGrayColor()
+            
+            scrollToBottom()
+        }
         
     }
+    
+    
+    func scrollToBottom() {
+
+        self.table.scrollToRowAtIndexPath(NSIndexPath(forRow: self.item!.commentsCount() - 1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
+
+    }
+    
+    func scrollToLastVisibleRow() {
+        println("\(self.table.contentSize.height)")
+        
+        var keyboardHeight = 300.0
+        self.table.setContentOffset(CGPointMake(0, self.table.contentSize.height - 230), animated: true)
+    }
+
 
 }
 
