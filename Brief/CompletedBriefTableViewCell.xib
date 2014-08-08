@@ -13,30 +13,33 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dLb-fB-ByK">
-                        <rect key="frame" x="0.0" y="0.0" width="27" height="90"/>
+                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dLb-fB-ByK">
+                        <rect key="frame" x="0.0" y="8" width="27" height="74"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6AG-WY-bKk" userLabel="View 1">
-                                <rect key="frame" x="3" y="15" width="20" height="20"/>
+                                <rect key="frame" x="3" y="0.0" width="20" height="20"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qQs-TX-d6P" userLabel="View 2">
-                                <rect key="frame" x="3" y="35" width="20" height="20"/>
+                                <rect key="frame" x="3" y="20" width="20" height="20"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7BD-pL-1eN" userLabel="View 3">
-                                <rect key="frame" x="3" y="55" width="20" height="20"/>
+                                <rect key="frame" x="3" y="40" width="20" height="20"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                     </view>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8y6-lT-qzs" userLabel="Content Label">
-                        <rect key="frame" x="27" y="0.0" width="266" height="90"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="257" translatesAutoresizingMaskIntoConstraints="NO" id="8y6-lT-qzs" userLabel="Content Label">
+                        <rect key="frame" x="27" y="8" width="257" height="74"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="dLb-fB-ByK" firstAttribute="top" secondItem="8y6-lT-qzs" secondAttribute="top" id="vWh-tf-lHq"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="cellLabel" destination="8y6-lT-qzs" id="oXT-ax-FWA"/>

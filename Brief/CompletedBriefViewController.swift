@@ -49,6 +49,7 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     override func viewWillAppear(animated: Bool) {
         // Do any additional setup after loading the view.
         self.navigationItem.title = "Completed Briefs"
+        self.table.reloadData()
     }
     
     override func viewWillDisappear(animated: Bool) {
