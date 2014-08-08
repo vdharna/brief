@@ -136,6 +136,10 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         }
         
         // show comment(s) if any are present
+        cell.view1.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
+        cell.view2.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
+        cell.view3.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
+        
         if (item.commentsCount() > 0) {
             //create the uiimage and the count label
             var commentLabel = UILabel(frame: CGRectMake(0, 0, 20, 20))
@@ -146,55 +150,29 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
             
             if (cell.view1.viewWithTag(1) == nil
                 && cell.view1.viewWithTag(2) == nil) { //no flag or notify icon is set
-                    
-                    cell.view1.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
-                    cell.view2.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
-                    cell.view3.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
                 
                     cell.view1.addSubview(commentLabel)
                     
             }  else if (cell.view1.viewWithTag(1) != nil &&
                 cell.view2.viewWithTag(2) != nil) {
                     
-                    cell.view1.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
-                    cell.view2.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
-                    cell.view3.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
-                    
                     cell.view3.addSubview(commentLabel)
             
             } else if (cell.view1.viewWithTag(1) != nil &&
                 cell.view1.viewWithTag(2) == nil) {
-                    
-                    cell.view1.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
-                    cell.view2.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
-                    cell.view3.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
 
                     cell.view2.addSubview(commentLabel)
                 
             } else if (cell.view1.viewWithTag(1) == nil &&
                 cell.view1.viewWithTag(2) != nil) {
                     
-                    cell.view1.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
-                    cell.view2.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
-                    cell.view3.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
-                    
                     cell.view2.addSubview(commentLabel)
                 
             } else {
-            
-            cell.view1.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
-            cell.view2.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
-            cell.view3.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
-            
-            cell.view3.addSubview(commentLabel)
+                
+                cell.view3.addSubview(commentLabel)
             
             }
-
-        } else {
-            
-            cell.view1.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
-            cell.view2.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
-            cell.view3.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
 
         }
         
