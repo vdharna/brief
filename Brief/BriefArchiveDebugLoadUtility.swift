@@ -58,7 +58,7 @@ class BriefArchiveDebugLoadUtility {
         
         for var index = 0; index < 3; ++index {
             let randomIndex = Int(arc4random_uniform(UInt32(comments.count)))
-            var c = Comment(id: NSUUID.UUID().hash, content: comments[randomIndex], createdDate: NSDate(), createdBy: user )
+            var c = Comment(content: comments[randomIndex], createdDate: NSDate(), createdBy: user )
             item.addComment(c)
         }
     }

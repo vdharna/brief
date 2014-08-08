@@ -243,6 +243,15 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate, UITab
     // MARK: --------------------------------
     
     @IBAction func post() {
+        // add the comment to the brief item
+        var index = self.item!.commentsCount()
+        var comment = Comment(content: self.inputAccessoryTextView.text, createdDate: NSDate(), createdBy: user)
+        self.item!.addComment(comment)
+        
+        // add a new cell into the table
+        var indexPath = NSIndexPath(forRow: index, inSection: 0)
+        self.table.insertRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+
         self.inputAccessoryTextView.text = ""
         self.inputAccessoryTextView.frame.size.height = 30
         self.inputAccessoryTextView.resignFirstResponder()

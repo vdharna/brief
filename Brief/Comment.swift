@@ -19,8 +19,8 @@ class Comment: Equatable {
     private var createdDate: NSDate
     private var createdBy: TeamMember
     
-    init(id: Int, content: String, createdDate: NSDate, createdBy: TeamMember) {
-        self.id = id
+    init(content: String, createdDate: NSDate, createdBy: TeamMember) {
+        self.id = NSUUID.UUID().hash
         self.content = content
         self.createdDate = createdDate
         self.createdBy = createdBy
