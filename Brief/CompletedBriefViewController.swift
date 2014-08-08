@@ -90,9 +90,17 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         
         // show notification status
         if (user.containsNotification(item.getId())) {
-            cell.labelPlaceholder2.text = "⌚︎"
+            if(cell.labelPlaceholder1.text.isEmpty) {
+                cell.labelPlaceholder1.text = "⌚︎"
+            } else {
+                cell.labelPlaceholder2.text = "⌚︎"
+            }
         } else {
-            cell.labelPlaceholder2.text = ""
+            if(cell.labelPlaceholder1.text.isEmpty) {
+                cell.labelPlaceholder1.text = ""
+            } else {
+                cell.labelPlaceholder2.text = ""
+            }
         }
         
         // show comment(s) if any are present
