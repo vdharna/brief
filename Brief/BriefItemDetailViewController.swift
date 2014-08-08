@@ -155,7 +155,9 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate, UITab
     
     func textViewDidBeginEditing(textView: UITextView!) {
         
-        scrollToLastVisibleRow()
+        if (table.numberOfRowsInSection(0) > 0) {
+            scrollToLastVisibleRow()
+        }
         
         if (textView == self.textView) {
             dispatch_async(dispatch_get_main_queue(), {
@@ -217,7 +219,7 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate, UITab
 
         
         // set the author picture
-        cell.authorImage.image = UIImage(named: "avatar")
+        cell.authorImage.image = UIImage(named: "avatar.png")
         
         // set the author name
         cell.commentAuthor.text = "Dharminder Dharna"
@@ -291,7 +293,6 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate, UITab
     }
     
     func scrollToLastVisibleRow() {
-        println("\(self.table.contentSize.height)")
         
         var keyboardHeight = 300.0
         self.table.setContentOffset(CGPointMake(0, self.table.contentSize.height - 230), animated: true)

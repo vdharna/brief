@@ -184,7 +184,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         var deleteActionButton = UIAlertAction(title: "Delete", style: .Destructive, handler: {
             (alertAction: UIAlertAction!) in
-            user.brief.delete()
+            user.getBrief().delete()
             self.selectedSegment = 0
             self.table.reloadData()
             self.animateBriefDelete()
@@ -251,13 +251,13 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
                 switch (selectedSegment) {
                     
                 case 0:
-                    user.brief.moveProgress(sourceIndexPath!.row, to: indexPath!.row)
+                    user.getBrief().moveProgress(sourceIndexPath!.row, to: indexPath!.row)
                 
                 case 1:
-                    user.brief.movePlan(sourceIndexPath!.row, to: indexPath!.row)
+                    user.getBrief().movePlan(sourceIndexPath!.row, to: indexPath!.row)
                     
                 case 2:
-                    user.brief.moveProblem(sourceIndexPath!.row, to: indexPath!.row)
+                    user.getBrief().moveProblem(sourceIndexPath!.row, to: indexPath!.row)
                     
                 default:
                     println("Nothing Selected")
@@ -339,13 +339,13 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         switch (selectedSegment) {
             
         case 0:
-            return user.brief.progress.count
+            return user.getBrief().progress.count
             
         case 1:
-            return user.brief.plans.count
+            return user.getBrief().plans.count
        
         case 2:
-            return user.brief.problems.count
+            return user.getBrief().problems.count
             
         default:
             return 0
@@ -362,16 +362,16 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         switch (selectedSegment) {
             
         case 0:
-            text = user.brief.progress[indexPath.row].getContent()
-            id = user.brief.progress[indexPath.row].getId()
+            text = user.getBrief().progress[indexPath.row].getContent()
+            id = user.getBrief().progress[indexPath.row].getId()
             
         case 1:
-            text = user.brief.plans[indexPath.row].getContent()
-            id = user.brief.plans[indexPath.row].getId()
+            text = user.getBrief().plans[indexPath.row].getContent()
+            id = user.getBrief().plans[indexPath.row].getId()
             
         case 2:
-            text = user.brief.problems[indexPath.row].getContent()
-            id = user.brief.problems[indexPath.row].getId()
+            text = user.getBrief().problems[indexPath.row].getContent()
+            id = user.getBrief().problems[indexPath.row].getId()
             
         default:
             text = ""
@@ -403,13 +403,13 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
             switch (selectedSegment) {
                 
             case 0:
-                user.brief.deleteProgress(indexPath.row)
+                user.getBrief().deleteProgress(indexPath.row)
                 
             case 1:
-                user.brief.deletePlan(indexPath.row)
+                user.getBrief().deletePlan(indexPath.row)
                 
             case 2:
-                user.brief.deleteProblem(indexPath.row)
+                user.getBrief().deleteProblem(indexPath.row)
                 
             default:
                 table.reloadData()
@@ -460,7 +460,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func refreshToolbarItems() {
         
-        if (!user.brief.isEmpty()) {
+        if (!user.getBrief().isEmpty()) {
             deleteButton.enabled = true
             actionButton.enabled = true
         } else {

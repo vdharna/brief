@@ -16,7 +16,7 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
     var saveButton: UIBarButtonItem!
     var cancelButton: UIBarButtonItem!
     
-    var charCountView: CharacterCountView?
+    var charCountView: CharacterCountView!
     var selectedSegment: Int?
     var selectedPPPElement = -1 //default to indicate nothing is transitioned
     var snapshot:String?
@@ -46,6 +46,9 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
         itemDescription.textColor = UIColor.lightGrayColor()
         self.content.addSubview(itemDescription)
         
+        //configure the character count view
+        setupCharacterCountLabel()
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -53,10 +56,9 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
         
         //setup the content
         setupContent()
-        //configure the character count view
-        setupCharacterCountLabel()
+
         setContentForEdit()
-        self.charCountView!.updateCharacterCount(content.text.utf16Count)
+        self.charCountView.updateCharacterCount(content.text.utf16Count)
         //take snapshot for comparison
         snapshot = content.text
     
@@ -193,25 +195,25 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
         case 0:
             var progress = Progress(content: content.text)
             if (editMode) {
-                user.brief.updateProgress(selectedPPPElement, p: progress)
+                user.getBrief().updateProgress(selectedPPPElement, p: progress)
             } else {
-                user.brief.addProgress(progress)
+                user.getBrief().addProgress(progress)
             }
             
         case 1:
             var plan = Plan(content: content.text)
             if (editMode) {
-                user.brief.updatePlan(selectedPPPElement, p: plan)
+                user.getBrief().updatePlan(selectedPPPElement, p: plan)
             } else {
-                user.brief.addPlan(plan)
+                user.getBrief().addPlan(plan)
             }
             
         case 2:
             var problem = Problem(content: content.text)
             if (editMode) {
-                user.brief.updateProblem(selectedPPPElement, p: problem)
+                user.getBrief().updateProblem(selectedPPPElement, p: problem)
             } else {
-                user.brief.addProblem(problem)
+                user.getBrief().addProblem(problem)
             }
             
         default:
@@ -233,13 +235,13 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
             switch (selectedSegment!) {
                 
             case 0:
-                content.text = user.brief.progress[selectedPPPElement].getContent()
+                content.text = user.getBrief().progress[selectedPPPElement].getContent()
 
             case 1:
-                content.text = user.brief.plans[selectedPPPElement].getContent()
+                content.text = user.getBrief().plans[selectedPPPElement].getContent()
                 
             case 2:
-                content.text = user.brief.problems[selectedPPPElement].getContent()
+                content.text = user.getBrief().problems[selectedPPPElement].getContent()
                 
             default:
                 content.text = ""
@@ -279,7 +281,7 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
             self.itemDescription.hidden = false
         }
         
-        self.charCountView!.updateCharacterCount(content.text.utf16Count)
+        self.charCountView.updateCharacterCount(content.text.utf16Count)
         toggleSaveButton()
 
     }

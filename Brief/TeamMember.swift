@@ -12,10 +12,10 @@ let user = TeamMember()
 
 class TeamMember {
     
-    var firstName: String
-    var lastName: String
+    private var firstName: String
+    private var lastName: String
     
-    var brief:Brief //current brief
+    private var brief:Brief //current brief
     private var completedBriefs: Array<Brief>
     private var notificationSubscriptions = Array<Int>()
     
@@ -24,6 +24,10 @@ class TeamMember {
         lastName = "Dharna"
         brief = Brief()
         completedBriefs = Array()
+    }
+    
+    func getBrief() -> Brief {
+        return self.brief
     }
     
     func getCompletedBriefs() -> Array<Brief> {
