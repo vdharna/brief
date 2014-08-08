@@ -27,9 +27,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         bnavc.navigationBar.tintColor = UIColor.whiteColor()
         bnavc.navigationBar.barStyle = UIBarStyle.BlackTranslucent
         
-        self.window!.rootViewController = bnavc
-        self.window!.backgroundColor = UIColor.whiteColor()
-        self.window!.makeKeyAndVisible()
+        self.window?.rootViewController = bnavc
+        self.window?.backgroundColor = UIColor.whiteColor()
+        self.window?.makeKeyAndVisible()
         
         return true
     }

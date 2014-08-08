@@ -15,14 +15,6 @@ class CompletedBriefTableViewCell: UITableViewCell {
     @IBOutlet weak var view2: UIView!
     @IBOutlet weak var view3: UIView!
     
-    
-    
-    
-    @IBOutlet weak var labelPlaceholder1: UILabel!
-    @IBOutlet weak var labelPlaceholder2: UILabel!
-    @IBOutlet weak var labelPlaceholder3: UILabel!
-    @IBOutlet weak var commentImage: UIImageView!
-    
     override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -44,7 +36,6 @@ class CompletedBriefTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
         cellLabel.numberOfLines = 0
-        //cellLabel.sizeToFit()
         self.selectionStyle = UITableViewCellSelectionStyle.None
 
     }
