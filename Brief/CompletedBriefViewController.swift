@@ -83,64 +83,118 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         
         // show flag status
         if (item.isFlagged()) {
+            
             var flagLabel = UILabel(frame: CGRectMake(0, 0, 20, 20))
             flagLabel.tag = 1
             flagLabel.text = "⚑"
+            flagLabel.font = UIFont(name: "HelveticaNeue-Light", size: 14)
             flagLabel.textColor = UIColor.grayColor()
-            cell.view1.addSubview(flagLabel)
-            cell.view1.viewWithTag(3)?.removeFromSuperview()
-        } else {
+            
+            // unset all images that CAN render in view 1 so you don't have many instances layered on each other
             cell.view1.viewWithTag(1)?.removeFromSuperview()
+            cell.view1.viewWithTag(2)?.removeFromSuperview()
+            cell.view1.viewWithTag(3)?.removeFromSuperview()
+            
+            cell.view1.addSubview(flagLabel)
+            
+        } else {
+            
+            cell.view1.viewWithTag(1)?.removeFromSuperview() // unset the flag if it exists
+            cell.view1.viewWithTag(2)?.removeFromSuperview() // remove the notification icon
+            cell.view1.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
         }
         
         if (user.containsNotification(item.getId())) {
             var notificationLabel = UILabel(frame: CGRectMake(0, 0, 20, 20))
             notificationLabel.tag = 2
             notificationLabel.text = "⌚︎"
+            notificationLabel.font = UIFont(name: "HelveticaNeue-Light", size: 17)
             notificationLabel.textColor = UIColor.grayColor()
             
             if (cell.view1.viewWithTag(1) == nil) { //no flag icon is set
+                
+                // unset all images that CAN render in view 2 so you don't have many instances layered on each other
+                cell.view2.viewWithTag(2)?.removeFromSuperview() // remove the notification icon
+                cell.view2.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
+                
                 cell.view1.addSubview(notificationLabel)
+                
             } else {
-                cell.view2.addSubview(notificationLabel)
-                cell.view2.viewWithTag(3)?.removeFromSuperview()
+                
+                // unset all images that CAN render in view 2 so you don't have many instances layered on each other
+                cell.view2.viewWithTag(2)?.removeFromSuperview() // remove the notification icon
+                cell.view2.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
+            
+                cell.view2.addSubview(notificationLabel) // add the notification icon
             }
             
         } else {
-            cell.view1.viewWithTag(2)?.removeFromSuperview()
-            cell.view2.viewWithTag(2)?.removeFromSuperview()
+            
+            cell.view2.viewWithTag(2)?.removeFromSuperview() // remove if it's there already
+            cell.view2.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
+            
         }
         
         // show comment(s) if any are present
         if (item.commentsCount() > 0) {
             //create the uiimage and the count label
-            var commentImage = UIImage(named: "comment_icon.png")
+            var commentLabel = UILabel(frame: CGRectMake(0, 0, 20, 20))
+            commentLabel.text = "\u{1F4AC}"
+            commentLabel.font = UIFont(name: "HelveticaNeue-Light", size: 8)
+            commentLabel.textColor = UIColor.grayColor()
+            commentLabel.tag = 3
             
-            var commentImageView = UIImageView(frame: CGRectMake(0, 0, 11, 12))
-            commentImageView.image = commentImage
-            commentImageView.tag = 3
+            if (cell.view1.viewWithTag(1) == nil
+                && cell.view1.viewWithTag(2) == nil) { //no flag or notify icon is set
+                    
+                    cell.view1.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
+                    cell.view2.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
+                    cell.view3.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
+                
+                    cell.view1.addSubview(commentLabel)
+                    
+            }  else if (cell.view1.viewWithTag(1) != nil &&
+                cell.view2.viewWithTag(2) != nil) {
+                    
+                    cell.view1.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
+                    cell.view2.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
+                    cell.view3.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
+                    
+                    cell.view3.addSubview(commentLabel)
             
-            var x: CGFloat = 1
-            if (item.comments.count < 10) {
-                x = 3;
-            }
-            var commentCountLabel = UILabel(frame: CGRectMake(x, -1, 11, 12))
-            commentCountLabel.textColor = UIColor.whiteColor()
-            commentCountLabel.font = UIFont(name: "HelveticaNeue", size: 7)
-            commentCountLabel.text = item.comments.count.description
-        
-            commentImageView.addSubview(commentCountLabel)
-            
-            if (cell.view1.viewWithTag(1) == nil &&
-                cell.view1.viewWithTag(2) == nil) { //no flag or notify icon is set
-                    cell.view1.addSubview(commentImageView)
-                    cell.view3.viewWithTag(3)?.removeFromSuperview()
-            } else if (cell.view2.viewWithTag(2) == nil) {
-                cell.view2.addSubview(commentImageView)
-                cell.view3.viewWithTag(3)?.removeFromSuperview()
+            } else if (cell.view1.viewWithTag(1) != nil &&
+                cell.view1.viewWithTag(2) == nil) {
+                    
+                    cell.view1.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
+                    cell.view2.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
+                    cell.view3.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
+
+                    cell.view2.addSubview(commentLabel)
+                
+            } else if (cell.view1.viewWithTag(1) == nil &&
+                cell.view1.viewWithTag(2) != nil) {
+                    
+                    cell.view1.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
+                    cell.view2.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
+                    cell.view3.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
+                    
+                    cell.view2.addSubview(commentLabel)
+                
             } else {
-                cell.view3.addSubview(commentImageView)
+            
+            cell.view1.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
+            cell.view2.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
+            cell.view3.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
+            
+            cell.view3.addSubview(commentLabel)
+            
             }
+
+        } else {
+            
+            cell.view1.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
+            cell.view2.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
+            cell.view3.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
 
         }
         
