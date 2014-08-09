@@ -80,7 +80,6 @@ class Brief {
         self.problems.removeAtIndex(index)
     }
     
-    
     func delete() {
         self.problems.removeAll(keepCapacity: false)
         self.plans.removeAll(keepCapacity: false)

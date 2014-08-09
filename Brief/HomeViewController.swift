@@ -33,7 +33,6 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-
         setupNavBar()
     }
     
@@ -53,7 +52,6 @@ class HomeViewController: UIViewController {
         label.sizeToFit()
     
         //setup the gear
-        
         var gearImage = UIImage(named: "gear.png")
         var gearButton = UIBarButtonItem(image: gearImage, style: .Plain, target: self, action: "settings")
         self.navigationItem.rightBarButtonItem = gearButton;

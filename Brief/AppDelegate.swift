@@ -19,15 +19,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
 
-        let bhvc = HomeViewController(nibName: "HomeViewController", bundle: NSBundle.mainBundle())
-        let bnavc = UINavigationController(rootViewController: bhvc)
+        let homeVC = HomeViewController(nibName: "HomeViewController", bundle: NSBundle.mainBundle())
+        let briefNavVC = UINavigationController(rootViewController: homeVC)
         
         //nav bar setup
-        bnavc.navigationBar.barTintColor = UIColor.blackColor()
-        bnavc.navigationBar.tintColor = UIColor.whiteColor()
-        bnavc.navigationBar.barStyle = UIBarStyle.BlackTranslucent
+        briefNavVC.navigationBar.barTintColor = UIColor.blackColor()
+        briefNavVC.navigationBar.tintColor = UIColor.whiteColor()
+        briefNavVC.navigationBar.barStyle = UIBarStyle.BlackTranslucent
         
-        self.window?.rootViewController = bnavc
+        self.window?.rootViewController = briefNavVC
         self.window?.backgroundColor = UIColor.whiteColor()
         self.window?.makeKeyAndVisible()
         
