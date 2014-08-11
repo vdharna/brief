@@ -9,6 +9,7 @@
                 <outlet property="actionButton" destination="D7u-rM-j7t" id="DRY-3g-uxR"/>
                 <outlet property="deleteButton" destination="qyS-dT-7vb" id="g3h-jB-28L"/>
                 <outlet property="descriptionLabel" destination="T48-ew-xly" id="CNv-7e-u2a"/>
+                <outlet property="noItemLabel" destination="4td-eo-RRH" id="PuD-ZA-5rn"/>
                 <outlet property="table" destination="PnK-ve-qTC" id="cKe-ea-ReI"/>
                 <outlet property="toolbar" destination="1n5-if-skg" id="2ii-6G-nVh"/>
                 <outlet property="view" destination="GrQ-cF-UqD" id="ZyC-KS-K6r"/>
@@ -54,6 +55,12 @@
                     </subviews>
                     <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="0.33000000000000002" colorSpace="calibratedRGB"/>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="This label will notify the user if there are no PPP Items" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="304" translatesAutoresizingMaskIntoConstraints="NO" id="4td-eo-RRH">
+                    <rect key="frame" x="8" y="229" width="304" height="110"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <gestureRecognizers/>

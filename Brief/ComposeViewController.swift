@@ -12,11 +12,23 @@ let characterLimit = 140
 
 class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var toolbar: UIToolbar!
-    @IBOutlet weak var deleteButton: UIBarButtonItem!
-    @IBOutlet weak var actionButton: UIBarButtonItem!
-    @IBOutlet weak var table: UITableView!
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet
+    weak var toolbar: UIToolbar!
+    
+    @IBOutlet
+    weak var deleteButton: UIBarButtonItem!
+    
+    @IBOutlet
+    weak var actionButton: UIBarButtonItem!
+    
+    @IBOutlet
+    weak var table: UITableView!
+    
+    @IBOutlet
+    weak var descriptionLabel: UILabel!
+    
+    @IBOutlet
+    weak var noItemLabel: UILabel!
     
     let progressDescription = "List your accomplishments, finished items and closed tasks for the current reporting period"
     let planDescription = "List your goals and objectives for the next reporting period"
@@ -119,6 +131,8 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         table.reloadData()
         
+        determineNoPPPItemLabelVisibility()
+        
     }
     
     override func viewWillDisappear(animated: Bool)  {
@@ -148,6 +162,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
             descriptionLabel.text = ""
         }
         
+        self.determineNoPPPItemLabelVisibility()
         table.reloadData()
         
     }
@@ -468,6 +483,52 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
             actionButton.enabled = false
         }
         
+    }
+    
+    func determineNoPPPItemLabelVisibility() {
+        
+        // if the comment count is 0 then hide the table and show the label
+        switch (selectedSegment) {
+            
+        case 0:
+            if (user.getBrief().progress.count == 0) {
+                self.noItemLabel.text = "There are no Progress items in this brief. Click the '+' button to add a new Progress item."
+                self.noItemLabel.hidden = false
+                
+            } else {
+                
+                self.noItemLabel.hidden = true
+                
+            }
+            
+        case 1:
+            if (user.getBrief().plans.count == 0) {
+                self.noItemLabel.text = "There are no Plans in this brief. Click the '+' button to add a new Plan."
+                self.noItemLabel.hidden = false
+                
+            } else {
+                
+                self.noItemLabel.hidden = true
+                
+            }
+            
+        case 2:
+            if (user.getBrief().problems.count == 0) {
+                self.noItemLabel.text = "There are no Problems in this brief. Click the '+' button to add a new Problem."
+                self.noItemLabel.hidden = false
+                
+            } else {
+                
+                self.noItemLabel.hidden = true
+                
+            }
+            
+        default:
+            self.noItemLabel.text = ""
+            self.noItemLabel.hidden = true
+
+            
+        }
     }
 }
 

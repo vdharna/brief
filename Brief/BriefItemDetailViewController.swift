@@ -9,9 +9,19 @@
 import UIKit
 
 class BriefItemDetailViewController: UIViewController, UITextViewDelegate, UITableViewDelegate, UITableViewDataSource {
+    
+    // MARK: --------------------------------
+    // MARK: Properties
+    // MARK: --------------------------------
 
-    @IBOutlet weak var itemLabel: UILabel!
-    @IBOutlet weak var table: UITableView!
+    @IBOutlet
+    weak var itemLabel: UILabel!
+    
+    @IBOutlet
+    weak var table: UITableView!
+    
+    @IBOutlet
+    weak var noCommentLabel: UILabel!
 
     var toolbar: UIToolbar!
     var inputAccessoryToolbar: UIToolbar!
@@ -47,7 +57,7 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate, UITab
         self.navigationItem.title = "Comments"
         
         setupTableView()
-        setupTextViews()
+        configureTextViews()
         setupInputAccessoryToolbar()
         setupDockedToolbar()
         
@@ -60,6 +70,9 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate, UITab
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.determineNoCommentLabelVisibility()
+        
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -70,7 +83,7 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate, UITab
     // MARK: View setup Methods
     // MARK: --------------------------------
     
-    func setupTextViews() {
+    func configureTextViews() {
         
         textView = UITextView(frame: CGRectMake(0, 0, 290, 30))
         inputAccessoryTextView = UITextView(frame: CGRectMake(0, 0, 215, 30))
@@ -267,6 +280,8 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate, UITab
             var comment = Comment(content: self.inputAccessoryTextView.text, createdDate: NSDate(), createdBy: user)
             self.item!.addComment(comment)
             
+            self.determineNoCommentLabelVisibility()
+            
             // add a new cell into the table
             self.table.insertRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
             
@@ -296,6 +311,22 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate, UITab
         
         var keyboardHeight = 300.0
         self.table.setContentOffset(CGPointMake(0, self.table.contentSize.height - 230), animated: true)
+    }
+    
+    func determineNoCommentLabelVisibility() {
+        
+        // if the comment count is 0 then hide the table and show the label
+        if (self.item?.commentsCount() == 0) {
+            
+            self.noCommentLabel.hidden = false
+            self.table.hidden = true
+            
+        } else {
+            
+            self.noCommentLabel.hidden = true
+            self.table.hidden = false
+            
+        }
     }
 
 
