@@ -11,6 +11,10 @@ import UIKit
 let characterLimit = 140
 
 class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+   
+    // MARK: --------------------------------
+    // MARK: Properties
+    // MARK: --------------------------------
     
     @IBOutlet
     weak var toolbar: UIToolbar!
@@ -56,66 +60,18 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.init(coder: aDecoder)
     }
     
-    // ==========================================
-    // MARK: lifecycle methods
-    // ==========================================
+    // MARK: --------------------------------
+    // MARK: Lifecycle Methods
+    // MARK: --------------------------------
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupSegmentView()
-        setupDescriptionLabel()
-        setupTableView()
-        setupToolbarView()
+        configureSegmentView()
+        configureDescriptionLabel()
+        configureTableView()
+        configureToolbarView()
  
-    }
-    
-    func setupSegmentView() {
-        //set the segment in the navigation bar
-        segmentedControl.addTarget(self, action: Selector("segmentChanged"), forControlEvents: .ValueChanged)
-        segmentedControl.selectedSegmentIndex = selectedSegment //defaults to the first segment
-        segmentedControl.sizeToFit()
-        self.navigationItem.titleView = segmentedControl
-        //add the + button
-        var addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: Selector("add"))
-        self.navigationItem.rightBarButtonItem = addButton;
-    }
-    
-    func setupDescriptionLabel() {
-
-        var formattedText = formatDescLabelText(progressDescription)
-        descriptionLabel.attributedText = formattedText
-        
-        //use this to align the text to the top
-        descriptionLabel.numberOfLines = 0;
-        descriptionLabel.sizeToFit()
-    }
-    
-    func setupTableView() {
-        table.separatorStyle = UITableViewCellSeparatorStyle.None
-        table.delegate = self
-        table.dataSource = self
-        
-        //for reusable cells
-        // load the custom cell via NIB
-        var nib = UINib(nibName: cellName, bundle: NSBundle.mainBundle())
-        
-        // Register this NIB, which contains the cell
-        table.registerNib(nib, forCellReuseIdentifier: cellName)
-        
-       // self.pppTable!.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: "UITableViewCell")
-        table.allowsMultipleSelectionDuringEditing = false
-        
-        //add long tap gesture recognizer
-        var longPress = UILongPressGestureRecognizer(target: self, action: "longPressGestureRecognized:")
-        table.addGestureRecognizer(longPress)
-                
-    }
-    
-    func setupToolbarView() {
-        
-        refreshToolbarItems()
-
     }
     
     override func didReceiveMemoryWarning() {
@@ -139,9 +95,64 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
-    // ==========================================
-    // MARK: action methods
-    // ==========================================
+    // MARK: --------------------------------
+    // MARK: View Configuration Methods
+    // MARK: --------------------------------
+    
+    func configureSegmentView() {
+        
+        //set the segment in the navigation bar
+        segmentedControl.addTarget(self, action: Selector("segmentChanged"), forControlEvents: .ValueChanged)
+        segmentedControl.selectedSegmentIndex = selectedSegment //defaults to the first segment
+        segmentedControl.sizeToFit()
+        self.navigationItem.titleView = segmentedControl
+       
+        //add the + button
+        var addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: Selector("add"))
+        self.navigationItem.rightBarButtonItem = addButton;
+    }
+    
+    func configureDescriptionLabel() {
+
+        var formattedText = formatDescLabelText(progressDescription)
+        descriptionLabel.attributedText = formattedText
+        
+        //use this to align the text to the top
+        descriptionLabel.numberOfLines = 0;
+        descriptionLabel.sizeToFit()
+    }
+    
+    func configureTableView() {
+        table.separatorStyle = UITableViewCellSeparatorStyle.None
+        table.delegate = self
+        table.dataSource = self
+        
+        //for reusable cells
+        // load the custom cell via NIB
+        var nib = UINib(nibName: cellName, bundle: NSBundle.mainBundle())
+        
+        // Register this NIB, which contains the cell
+        table.registerNib(nib, forCellReuseIdentifier: cellName)
+        
+       // self.pppTable!.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: "UITableViewCell")
+        table.allowsMultipleSelectionDuringEditing = false
+        
+        //add long tap gesture recognizer
+        var longPress = UILongPressGestureRecognizer(target: self, action: "longPressGestureRecognized:")
+        table.addGestureRecognizer(longPress)
+                
+    }
+    
+    func configureToolbarView() {
+        
+        refreshToolbarItems()
+
+    }
+    
+    
+    // MARK: --------------------------------
+    // MARK: Action Configuration Methods
+    // MARK: --------------------------------
     
     func segmentChanged() {
         
@@ -174,7 +185,8 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         mvc.selectedSegment = selectedSegment //pass the selected segment to create the correct PPP instance
         
         let nc = UINavigationController(rootViewController: mvc)
-        //nav bar setup
+        
+        //nav bar setup for the modal - required to unify the look and feel
         nc.navigationBar.barTintColor = UIColor.blackColor()
         nc.navigationBar.tintColor = UIColor.whiteColor()
         nc.navigationBar.barStyle = UIBarStyle.BlackTranslucent
@@ -346,9 +358,9 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     
-    // ============================================
-    // MARK: UITableViewDataSource implementation
-    // ============================================
+    // MARK: --------------------------------
+    // MARK: UITableViewDatasource methods
+    // MARK: --------------------------------
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
         
         switch (selectedSegment) {
@@ -437,9 +449,9 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    // ============================================
-    // MARK: UITableViewDelegate implementation
-    // ============================================
+    // MARK: --------------------------------
+    // MARK: UITableViewDelegate Methods
+    // MARK: --------------------------------
     
     func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
         return tableCellHeight
@@ -462,9 +474,9 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
 
-    // ==========================================
-    // MARK: helper methods
-    // ==========================================
+    // MARK: --------------------------------
+    // MARK: Helper methods
+    // MARK: --------------------------------
     
     func formatDescLabelText(description: String) -> NSAttributedString {
         var attributedText = NSMutableAttributedString(string: description)
