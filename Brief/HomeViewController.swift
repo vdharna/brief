@@ -116,5 +116,12 @@ class HomeViewController: UIViewController {
         println("settings")
     }
     
+    @IBAction func test(sender: AnyObject) {
+        
+        var cvc = MasterCompletedBriefViewController(nibName: "MasterCompletedBriefViewController", bundle: NSBundle.mainBundle())
+        
+        self.navigationController.pushViewController(cvc, animated: true)
+        
+    }
 }
 

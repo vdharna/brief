@@ -14,6 +14,7 @@ class Brief {
     var progress: Array<Progress>
     var plans: Array<Plan>
     var problems: Array<Problem>
+    var submittedDate: NSDate?
     
     init() {
         id = NSUUID.UUID().hashValue
@@ -118,6 +119,10 @@ class Brief {
         }
         
         return PPPItem(content: "")
+    }
+    
+    func submit() {
+        self.submittedDate = NSDate()
     }
 
 }
