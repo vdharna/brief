@@ -32,13 +32,10 @@ class TeamMember {
     
     func getCompletedBriefs() -> Array<Brief> {
         
-        //load archived briefs
-        loadArchivedBriefs()
-        
         return self.completedBriefs
     }
     
-    private func loadArchivedBriefs() {
+    func loadArchivedBriefs() {
         //load via server-side archive (e.g. Rest Service or Cloud-Kit)
         
         // if this is set to 1, load the archive as a sample
@@ -65,7 +62,6 @@ class TeamMember {
             for var index = 0; index < 10; ++index {
                 var brief = BriefArchiveDebugLoadUtility.createSampleBrief()
                 brief.submittedDate = dates[index]
-                var id = brief.getId()
                 completedBriefs.append(brief)
             }
         }
@@ -89,4 +85,19 @@ class TeamMember {
         return find(self.notificationSubscriptions, id) != nil
     }
     
+    func findBriefById(id: Int) -> Brief {
+        
+        var brief: Brief?
+        // loop through each array
+        for i in (0 ..< completedBriefs.count) {
+            if completedBriefs[i].getId() == id {
+                brief = completedBriefs[i]
+            }
+        }
+        return brief!
+    }
+    
+    func getMostRecentBrief() -> Brief {
+        return self.completedBriefs[0]
+    }
 }

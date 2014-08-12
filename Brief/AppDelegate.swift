@@ -27,6 +27,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         briefNavVC.navigationBar.tintColor = UIColor.whiteColor()
         briefNavVC.navigationBar.barStyle = UIBarStyle.BlackTranslucent
         
+        //load archived briefs
+        user.loadArchivedBriefs()
+        
         self.window?.rootViewController = briefNavVC
         self.window?.backgroundColor = UIColor.whiteColor()
         self.window?.makeKeyAndVisible()

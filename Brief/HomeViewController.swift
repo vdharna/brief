@@ -16,7 +16,9 @@ class HomeViewController: UIViewController {
     
     @IBOutlet var completedButton: UIButton!
     @IBOutlet var completedLabel: UILabel!
-        
+    
+    var cbvc: CompletedBriefViewController?
+    
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         //assign the constant
@@ -101,15 +103,12 @@ class HomeViewController: UIViewController {
         //prevent duplicate tap
         composeButton.enabled = false
         completedButton.enabled = false
-        
-      
-        var cbvc = CompletedBriefViewController(nibName: "CompletedBriefViewController", bundle: NSBundle.mainBundle())
+        if (cbvc == nil) {
+            cbvc = CompletedBriefViewController(nibName: "CompletedBriefViewController", bundle: NSBundle.mainBundle())
+        }
         self.navigationController.pushViewController(cbvc, animated: true)
         self.composeButton.enabled = true
         self.completedButton.enabled = true
-        
-        
-  
     }
     
     func settings() {

@@ -17,9 +17,7 @@ class MasterCompletedBriefViewController: UIViewController, UICollectionViewData
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        "CustomCollectionViewCell"
-        
+        // Do any additional setup after loading the view.        
         
         // load the custom cell via NIB
         var nib = UINib(nibName: cellName, bundle: nil)

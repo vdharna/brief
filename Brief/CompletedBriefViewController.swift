@@ -8,15 +8,21 @@
 
 import UIKit
 
-class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var table: UITableView!
+    @IBOutlet
+    weak var table: UITableView!
     
-    let cellName = "CompletedBriefTableViewCell"
+    @IBOutlet
+    weak var collectionView: UICollectionView!
+    
+    let tableViewCellName = "CompletedBriefTableViewCell"
+    let collectionViewCellName = "CompletedBriefCollectionViewCell"
     
     private var completedBriefs = user.getCompletedBriefs()
-    private var completedBrief: Brief?
+    private var selectedBrief: Brief?
+    
+    private var selectedIndexPath:NSIndexPath?
         
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -34,15 +40,25 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         super.viewDidLoad()
         
         // load the custom cell via NIB
-        var nib = UINib(nibName: cellName, bundle: nil)
+        var nib = UINib(nibName: tableViewCellName, bundle: nil)
         
         // Register this NIB, which contains the cell
-        self.table.registerNib(nib, forCellReuseIdentifier: cellName)
+        self.table.registerNib(nib, forCellReuseIdentifier: tableViewCellName)
         
-        loadBrief()
+        loadInitialBrief()
         
         //setup the tableview
         setupTableView()
+        
+        // Register this NIB, which contains the cell
+        self.collectionView.registerNib(UINib(nibName: collectionViewCellName, bundle: nil), forCellWithReuseIdentifier: collectionViewCellName)
+        
+        var cvfl = UICollectionViewFlowLayout()
+        cvfl.scrollDirection = UICollectionViewScrollDirection.Horizontal
+        cvfl.minimumInteritemSpacing = 0
+        cvfl.minimumLineSpacing = 1
+        
+        self.collectionView.setCollectionViewLayout(cvfl, animated: true)
         
     }
 
@@ -50,6 +66,8 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         // Do any additional setup after loading the view.
         self.navigationItem.title = "Completed Briefs"
         self.table.reloadData()
+
+        loadBrief()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -81,7 +99,7 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         
         // Get a new or recycled cell
-        let cell = self.table.dequeueReusableCellWithIdentifier(cellName, forIndexPath: indexPath) as CompletedBriefTableViewCell
+        let cell = self.table.dequeueReusableCellWithIdentifier(tableViewCellName, forIndexPath: indexPath) as CompletedBriefTableViewCell
         var item: PPPItem = getPPPItem(indexPath)
         
         cell.cellLabel.text = item.getContent()
@@ -196,9 +214,9 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
         
         switch(section) {
-        case 0: return completedBrief!.progress.count
-        case 1: return completedBrief!.plans.count
-        case 2: return completedBrief!.problems.count
+        case 0: return selectedBrief!.progress.count
+        case 1: return selectedBrief!.plans.count
+        case 2: return selectedBrief!.problems.count
         default: return 0
         }
         
@@ -313,7 +331,7 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         
         //get reference to the cell
         var cell = self.table.cellForRowAtIndexPath(indexPath)
-        var item = completedBrief!.findItemById(cell.tag)
+        var item = selectedBrief!.findItemById(cell.tag)
         briefItemDetailVC.item = item
         self.navigationController.pushViewController(briefItemDetailVC, animated: true)
     }
@@ -323,8 +341,18 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     // MARK: --------------------------------
     func loadBrief() {
         // pull the correct Brief based on some parameter
-        let randomIndex = Int(arc4random_uniform(UInt32(completedBriefs.count)))
-        self.completedBrief = completedBriefs[randomIndex]
+        if (selectedIndexPath != nil) {
+            
+            var id = self.collectionView.cellForItemAtIndexPath(selectedIndexPath).tag
+            self.selectedBrief = user.findBriefById(id)
+            
+        }
+    }
+    
+    func loadInitialBrief() {
+        
+        self.selectedBrief = user.getMostRecentBrief()
+        
     }
     
     private func getPPPItem(indexPath: NSIndexPath) -> PPPItem {
@@ -332,19 +360,113 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         switch(indexPath.section) {
             
         case 0:
-            return completedBrief!.progress[indexPath.row]
+            return selectedBrief!.progress[indexPath.row]
             
         case 1:
-            return completedBrief!.plans[indexPath.row]
+            return selectedBrief!.plans[indexPath.row]
             
         case 2:
-            return completedBrief!.problems[indexPath.row]
+            return selectedBrief!.problems[indexPath.row]
             
         default:
             return PPPItem(content: "")
             
         }
         
+    }
+    
+    // MARK: --------------------------------
+    // MARK: CollectionView Delegate Methods
+    // MARK: --------------------------------
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView!) -> Int {
+        return 1
+    }
+    
+    func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
+        println("\(self.completedBriefs.count)")
+        return self.completedBriefs.count
+    }
+    
+    func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
+        
+        var cell = self.collectionView.dequeueReusableCellWithReuseIdentifier(collectionViewCellName, forIndexPath: indexPath) as CompletedBriefCollectionViewCell
+        
+        var brief = user.getCompletedBriefs()[indexPath.row]
+        cell.tag = brief.getId()
+        
+        println("\(cell.tag)")
+        
+        var df = NSDateFormatter()
+        
+        df.dateFormat = "dd"
+        var myDayString = df.stringFromDate(brief.submittedDate)
+        
+        df.dateFormat = "MMM"
+        var myMonthString = df.stringFromDate(brief.submittedDate)
+        
+        df.dateFormat = "yy"
+        var myYearString = df.stringFromDate(brief.submittedDate)
+        
+        cell.dateLabel.text = "\(myMonthString) \(myDayString)"
+        
+        if (self.selectedIndexPath? != nil && self.selectedIndexPath!.isEqual(indexPath)) {
+            
+            cell.backgroundColor = UIColor.lightGrayColor()
+            cell.dateLabel.textColor = UIColor.whiteColor()
+
+        } else {
+            
+            cell.backgroundColor = UIColor.whiteColor()
+            cell.dateLabel.textColor = UIColor.blackColor()
+
+        }
+
+        
+        return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView!, didSelectItemAtIndexPath indexPath: NSIndexPath!) {
+        
+        if (self.selectedIndexPath != nil) {
+            // deselect previously selected cell
+            var cell = self.collectionView.cellForItemAtIndexPath(self.selectedIndexPath)
+            if (cell != nil) {
+                var c = cell as CompletedBriefCollectionViewCell
+                c.backgroundColor = UIColor.whiteColor()
+                c.dateLabel.textColor = UIColor.blackColor()
+            }
+        } else {
+            // remove the color from the first cell since this is the first time it's rendering
+            var cell = self.collectionView.cellForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0) )
+            if (cell != nil) {
+                var c = cell as CompletedBriefCollectionViewCell
+                c.backgroundColor = UIColor.whiteColor()
+                c.dateLabel.textColor = UIColor.blackColor()
+            }
+        }
+        
+        var cell = self.collectionView.cellForItemAtIndexPath(indexPath) as CompletedBriefCollectionViewCell
+        if (cell != nil) {
+            cell.backgroundColor = UIColor.lightGrayColor()
+            cell.dateLabel.textColor = UIColor.whiteColor()
+        }
+        
+        // Remember selection:
+        self.selectedIndexPath = indexPath
+        
+        self.selectedBrief = user.findBriefById(cell.tag)
+        self.table.reloadData()
+        
+    }
+    
+    
+    func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: UICollectionViewLayout!, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 1
+    }
+    
+    func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: UICollectionViewLayout!, sizeForItemAtIndexPath indexPath: NSIndexPath!) -> CGSize {
+        return CGSizeMake(70, 25)
     }
     
     // MARK: --------------------------------
