@@ -319,12 +319,12 @@ class BriefItemDetailViewController: UIViewController, UITextViewDelegate, UITab
         if (self.item?.commentsCount() == 0) {
             
             self.noCommentLabel.hidden = false
-            self.table.hidden = true
+            self.table.separatorStyle = UITableViewCellSeparatorStyle.None
             
         } else {
             
             self.noCommentLabel.hidden = true
-            self.table.hidden = false
+            self.table.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
             
         }
     }
