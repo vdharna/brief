@@ -21,7 +21,7 @@
                     </label>
                     <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="02" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kJY-BR-03t" userLabel="Date Label">
                         <rect key="frame" x="0.0" y="14" width="55" height="25"/>
-                        <color key="backgroundColor" red="1" green="0.18199124136929545" blue="0.10107887008256344" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>

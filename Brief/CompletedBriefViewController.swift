@@ -414,13 +414,13 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         
         if (self.selectedIndexPath? != nil && self.selectedIndexPath!.isEqual(indexPath)) {
             
-            cell.backgroundColor = UIColor.lightGrayColor()
-            cell.dateLabel.textColor = UIColor.whiteColor()
+            cell.applySelectedColorScheme()
+
 
         } else {
             
-            cell.backgroundColor = UIColor.whiteColor()
-            cell.dateLabel.textColor = UIColor.blackColor()
+            cell.applyUnselectedColorScheme()
+
 
         }
 
@@ -434,24 +434,28 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
             // deselect previously selected cell
             var cell = self.collectionView.cellForItemAtIndexPath(self.selectedIndexPath)
             if (cell != nil) {
+                
                 var c = cell as CompletedBriefCollectionViewCell
-                c.backgroundColor = UIColor.whiteColor()
-                c.dateLabel.textColor = UIColor.blackColor()
+                c.applyUnselectedColorScheme()
+
             }
         } else {
             // remove the color from the first cell since this is the first time it's rendering
             var cell = self.collectionView.cellForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0) )
+            
             if (cell != nil) {
                 var c = cell as CompletedBriefCollectionViewCell
-                c.backgroundColor = UIColor.whiteColor()
-                c.dateLabel.textColor = UIColor.blackColor()
+                
+                c.applyUnselectedColorScheme()
+
             }
         }
         
         var cell = self.collectionView.cellForItemAtIndexPath(indexPath) as CompletedBriefCollectionViewCell
         if (cell != nil) {
-            cell.backgroundColor = UIColor.lightGrayColor()
-            cell.dateLabel.textColor = UIColor.whiteColor()
+            
+            cell.applySelectedColorScheme()
+
         }
         
         // Remember selection:
