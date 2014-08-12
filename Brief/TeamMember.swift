@@ -98,6 +98,7 @@ class TeamMember {
     }
     
     func getMostRecentBrief() -> Brief {
+        // need to make this smarter by latest submitted date
         return self.completedBriefs[0]
     }
 }
