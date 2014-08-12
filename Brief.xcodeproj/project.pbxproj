@@ -36,9 +36,6 @@
 		62727F9E199946350063EA0C /* CompletedBriefCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62727F9C199946350063EA0C /* CompletedBriefCollectionViewCell.swift */; };
 		62727F9F199946350063EA0C /* CompletedBriefCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62727F9D199946350063EA0C /* CompletedBriefCollectionViewCell.xib */; };
 		6295FAC619746D6500C338D3 /* Brief.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6295FAC519746D6500C338D3 /* Brief.swift */; };
-		62C032831981BDFD005AC29F /* share_icon.graffle in Resources */ = {isa = PBXBuildFile; fileRef = 62C032801981BDFD005AC29F /* share_icon.graffle */; };
-		62C032841981BDFD005AC29F /* flag_icon.graffle in Resources */ = {isa = PBXBuildFile; fileRef = 62C032811981BDFD005AC29F /* flag_icon.graffle */; };
-		62C032851981BDFD005AC29F /* comment_icon.graffle in Resources */ = {isa = PBXBuildFile; fileRef = 62C032821981BDFD005AC29F /* comment_icon.graffle */; };
 		62C032881981CE86005AC29F /* ComposeBriefTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C032861981CE86005AC29F /* ComposeBriefTableViewCell.swift */; };
 		62C032891981CE86005AC29F /* ComposeBriefTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62C032871981CE86005AC29F /* ComposeBriefTableViewCell.xib */; };
 		62C0328B1981D260005AC29F /* compose-table-cell.graffle in Resources */ = {isa = PBXBuildFile; fileRef = 62C0328A1981D260005AC29F /* compose-table-cell.graffle */; };
@@ -94,9 +91,6 @@
 		62727F9C199946350063EA0C /* CompletedBriefCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedBriefCollectionViewCell.swift; sourceTree = "<group>"; };
 		62727F9D199946350063EA0C /* CompletedBriefCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompletedBriefCollectionViewCell.xib; sourceTree = "<group>"; };
 		6295FAC519746D6500C338D3 /* Brief.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brief.swift; sourceTree = "<group>"; };
-		62C032801981BDFD005AC29F /* share_icon.graffle */ = {isa = PBXFileReference; lastKnownFileType = file; name = share_icon.graffle; path = ../../../../Desktop/share_icon.graffle; sourceTree = "<group>"; };
-		62C032811981BDFD005AC29F /* flag_icon.graffle */ = {isa = PBXFileReference; lastKnownFileType = file; name = flag_icon.graffle; path = ../../../../Desktop/flag_icon.graffle; sourceTree = "<group>"; };
-		62C032821981BDFD005AC29F /* comment_icon.graffle */ = {isa = PBXFileReference; lastKnownFileType = file; name = comment_icon.graffle; path = ../../../../Desktop/comment_icon.graffle; sourceTree = "<group>"; };
 		62C032861981CE86005AC29F /* ComposeBriefTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeBriefTableViewCell.swift; sourceTree = "<group>"; };
 		62C032871981CE86005AC29F /* ComposeBriefTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ComposeBriefTableViewCell.xib; sourceTree = "<group>"; };
 		62C0328A1981D260005AC29F /* compose-table-cell.graffle */ = {isa = PBXFileReference; lastKnownFileType = file; path = "compose-table-cell.graffle"; sourceTree = "<group>"; };
@@ -161,9 +155,6 @@
 			isa = PBXGroup;
 			children = (
 				62C0328A1981D260005AC29F /* compose-table-cell.graffle */,
-				62C032801981BDFD005AC29F /* share_icon.graffle */,
-				62C032811981BDFD005AC29F /* flag_icon.graffle */,
-				62C032821981BDFD005AC29F /* comment_icon.graffle */,
 				6247412C196CB5A10043C7E5 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -382,15 +373,12 @@
 				620097FB198C1EE70058E83B /* CharacterCountView.xib in Resources */,
 				6241FB57196F137F0092B014 /* HomeViewController.xib in Resources */,
 				62727F9F199946350063EA0C /* CompletedBriefCollectionViewCell.xib in Resources */,
-				62C032831981BDFD005AC29F /* share_icon.graffle in Resources */,
 				62474137196CB5A10043C7E5 /* Images.xcassets in Resources */,
 				620097F5198C118B0058E83B /* BriefItemDetailViewController.xib in Resources */,
-				62C032841981BDFD005AC29F /* flag_icon.graffle in Resources */,
 				6241FB59196F2C020092B014 /* ComposeViewController.xib in Resources */,
 				62E655941992EF19001CE289 /* CommentHeaderView.xib in Resources */,
 				62E655921992A6A8001CE289 /* BriefItemCommentTableViewCell.xib in Resources */,
 				6241FB65196F5BB50092B014 /* AddPPPViewController.xib in Resources */,
-				62C032851981BDFD005AC29F /* comment_icon.graffle in Resources */,
 				6261D5FC197EE3EB007B8AA3 /* CompletedBriefViewController.xib in Resources */,
 				62C032891981CE86005AC29F /* ComposeBriefTableViewCell.xib in Resources */,
 			);

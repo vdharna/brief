@@ -45,17 +45,19 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
     }
 
     override func viewWillAppear(animated: Bool) {
         
         // Do any additional setup after loading the view.
-        self.navigationItem.title = "Completed Briefs"
-                loadBrief()
-        
-        //setup the tableview
+        configureNavBar()
         configureTableView()
         configureCollectionView()
+        
+        //reload the table to capture any comments that may have been added
+        self.table.reloadData()
 
     }
     
@@ -70,6 +72,11 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func configureNavBar() {
+        self.navigationItem.title = "Completed Briefs"
+        loadBrief()
     }
     
     func configureTableView() {
@@ -439,21 +446,9 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         self.table.reloadData()
         
     }
-
-    func collectionView(collectionView: UICollectionView!, didDeselectItemAtIndexPath indexPath: NSIndexPath!) {
-            println("didDeselectItemAtIndexPath: \(indexPath)")
-    }
-    
-    func collectionView(collectionView: UICollectionView!, didHighlightItemAtIndexPath indexPath: NSIndexPath!) {
-        println("didHighlightItemAtIndexPath: \(indexPath)")
-    }
-    
-    func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: UICollectionViewLayout!, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return 1
-    }
     
     func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: UICollectionViewLayout!, sizeForItemAtIndexPath indexPath: NSIndexPath!) -> CGSize {
-        return CGSizeMake(56, 39)
+        return CGSizeMake(60, 40)
     }
     
     // MARK: --------------------------------
@@ -482,12 +477,6 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
             self.collectionView.scrollToItemAtIndexPath(selectedIndexPath, atScrollPosition: UICollectionViewScrollPosition.None, animated: true)
         }
     }
-    
-//    func loadInitialBrief() {
-//        
-//        self.selectedBrief = user.getMostRecentBrief()
-//        
-//    }
     
     private func getPPPItem(indexPath: NSIndexPath) -> PPPItem {
         

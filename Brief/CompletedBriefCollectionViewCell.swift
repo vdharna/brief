@@ -22,13 +22,13 @@ class CompletedBriefCollectionViewCell: UICollectionViewCell {
     }
     
     func applySelectedColorScheme() {
-        self.dateLabel.backgroundColor = UIColor.redColor()
+        self.dateLabel.backgroundColor = UIColor(red: 255/255, green: 99/255, blue: 71/255, alpha: 1.0)
         self.dateLabel.textColor = UIColor.blackColor()
     }
     
     func applyUnselectedColorScheme() {
-        self.dateLabel.backgroundColor = UIColor(red: 0.192, green: 0.192, blue: 0.192, alpha: 0.08)
-        self.dateLabel.textColor = UIColor.grayColor()
+        self.dateLabel.backgroundColor = UIColor(red: 192/255, green: 192/255, blue: 192/255, alpha: 1.0)
+        self.dateLabel.textColor = UIColor.whiteColor()
     }
 
 }
