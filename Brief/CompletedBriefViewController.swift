@@ -46,15 +46,14 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-    }
-
-    override func viewWillAppear(animated: Bool) {
-        
         // Do any additional setup after loading the view.
         configureNavBar()
         configureTableView()
         configureCollectionView()
+        
+    }
+
+    override func viewWillAppear(animated: Bool) {
         
         //reload the table to capture any comments that may have been added
         self.table.reloadData()
