@@ -73,6 +73,9 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     override func viewWillDisappear(animated: Bool) {
         // Do any additional setup after loading the view.
         self.navigationItem.title = ""
+        if (self.selectedIndexPath != nil) {
+            self.collectionView.scrollToItemAtIndexPath(self.selectedIndexPath, atScrollPosition: UICollectionViewScrollPosition.None, animated: true)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -462,7 +465,18 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         self.table.reloadData()
         
     }
+
+    func collectionView(collectionView: UICollectionView!, didDeselectItemAtIndexPath indexPath: NSIndexPath!) {
+            println("didDeselectItemAtIndexPath: \(indexPath)")
+    }
     
+    func collectionView(collectionView: UICollectionView!, didHighlightItemAtIndexPath indexPath: NSIndexPath!) {
+        println("didHighlightItemAtIndexPath: \(indexPath)")
+    }
+    
+    func collectionView(collectionView: UICollectionView!, didUnhighlightItemAtIndexPath indexPath: NSIndexPath!) {
+        println("didUnhighlightItemAtIndexPath: \(indexPath)")
+    }
     
     func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: UICollectionViewLayout!, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 1
