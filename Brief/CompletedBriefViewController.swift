@@ -416,15 +416,12 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
             
             cell.applySelectedColorScheme()
 
-
         } else {
             
             cell.applyUnselectedColorScheme()
 
-
         }
 
-        
         return cell
     }
     
