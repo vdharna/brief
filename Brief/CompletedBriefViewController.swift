@@ -10,6 +10,10 @@ import UIKit
 
 class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    // MARK: --------------------------------
+    // MARK: Properties
+    // MARK: --------------------------------
+    
     @IBOutlet
     weak var table: UITableView!
     
@@ -23,7 +27,10 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     private var selectedBrief: Brief?
     
     private var selectedIndexPath:NSIndexPath?
-        
+    
+    // MARK: --------------------------------
+    // MARK: Initializers
+    // MARK: --------------------------------
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -32,42 +39,24 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         super.init(coder: aDecoder)
     }
     
-    // ============================================
-    // MARK: UIViewController Lifecycle Methods
-    // ============================================
+    // MARK: --------------------------------
+    // MARK: UIViewController Lifecycle
+    // MARK: --------------------------------
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // load the custom cell via NIB
-        var nib = UINib(nibName: tableViewCellName, bundle: nil)
-        
-        // Register this NIB, which contains the cell
-        self.table.registerNib(nib, forCellReuseIdentifier: tableViewCellName)
-        
-        loadInitialBrief()
-        
-        //setup the tableview
-        setupTableView()
-        
-        // Register this NIB, which contains the cell
-        self.collectionView.registerNib(UINib(nibName: collectionViewCellName, bundle: nil), forCellWithReuseIdentifier: collectionViewCellName)
-        
-        var cvfl = UICollectionViewFlowLayout()
-        cvfl.scrollDirection = UICollectionViewScrollDirection.Horizontal
-        cvfl.minimumInteritemSpacing = 0
-        cvfl.minimumLineSpacing = 1
-        
-        self.collectionView.setCollectionViewLayout(cvfl, animated: true)
-        
     }
 
     override func viewWillAppear(animated: Bool) {
+        
         // Do any additional setup after loading the view.
         self.navigationItem.title = "Completed Briefs"
-        self.table.reloadData()
+                loadBrief()
+        
+        //setup the tableview
+        configureTableView()
+        configureCollectionView()
 
-        loadBrief()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -83,7 +72,14 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         // Dispose of any resources that can be recreated.
     }
     
-    func setupTableView() {
+    func configureTableView() {
+        
+        // load the custom cell via NIB
+        var nib = UINib(nibName: tableViewCellName, bundle: nil)
+        
+        // Register this NIB, which contains the cell
+        self.table.registerNib(nib, forCellReuseIdentifier: tableViewCellName)
+
         var footer = UIView(frame: CGRectMake(0, 0, self.table.frame.width, 25))
         footer.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.92)
         self.table.tableFooterView = footer
@@ -94,9 +90,25 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         self.table.addSubview(refreshControl)
     }
     
-    // ============================================
+    func configureCollectionView() {
+        
+        // load the custom cell via NIB
+        var nib = UINib(nibName: collectionViewCellName, bundle: nil)
+        
+        // Register this NIB, which contains the cell
+        self.collectionView.registerNib(UINib(nibName: collectionViewCellName, bundle: nil), forCellWithReuseIdentifier: collectionViewCellName)
+        
+        var cvfl = UICollectionViewFlowLayout()
+        cvfl.scrollDirection = UICollectionViewScrollDirection.Horizontal
+        cvfl.minimumInteritemSpacing = 0
+        cvfl.minimumLineSpacing = 1
+        
+        self.collectionView.setCollectionViewLayout(cvfl, animated: true)
+    }
+    
+    // MARK: ------------------------------------
     // MARK: UITableViewDataSource implementation
-    // ============================================
+    // MARK: ------------------------------------
     
     // Asks the data source for a cell to insert in a particular location of the table view. (required)
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
@@ -339,44 +351,6 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         self.navigationController.pushViewController(briefItemDetailVC, animated: true)
     }
 
-    // MARK: --------------------------------
-    // MARK: Utility Methods
-    // MARK: --------------------------------
-    func loadBrief() {
-        // pull the correct Brief based on some parameter
-        if (selectedIndexPath != nil) {
-            
-            var id = self.collectionView.cellForItemAtIndexPath(selectedIndexPath).tag
-            self.selectedBrief = user.findBriefById(id)
-            
-        }
-    }
-    
-    func loadInitialBrief() {
-        
-        self.selectedBrief = user.getMostRecentBrief()
-        
-    }
-    
-    private func getPPPItem(indexPath: NSIndexPath) -> PPPItem {
-        
-        switch(indexPath.section) {
-            
-        case 0:
-            return selectedBrief!.progress[indexPath.row]
-            
-        case 1:
-            return selectedBrief!.plans[indexPath.row]
-            
-        case 2:
-            return selectedBrief!.problems[indexPath.row]
-            
-        default:
-            return PPPItem(content: "")
-            
-        }
-        
-    }
     
     // MARK: --------------------------------
     // MARK: CollectionView Delegate Methods
@@ -474,10 +448,6 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         println("didHighlightItemAtIndexPath: \(indexPath)")
     }
     
-    func collectionView(collectionView: UICollectionView!, didUnhighlightItemAtIndexPath indexPath: NSIndexPath!) {
-        println("didUnhighlightItemAtIndexPath: \(indexPath)")
-    }
-    
     func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: UICollectionViewLayout!, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 1
     }
@@ -493,6 +463,50 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     func refresh(refreshControl:UIRefreshControl) {
         self.table.reloadData()
         refreshControl.endRefreshing()
+    }
+    
+    // MARK: --------------------------------
+    // MARK: Utility Methods
+    // MARK: --------------------------------
+    func loadBrief() {
+        // pull the correct Brief based on some parameter
+        if (selectedIndexPath != nil) {
+            
+            var id = self.collectionView.cellForItemAtIndexPath(selectedIndexPath).tag
+            self.selectedBrief = user.findBriefById(id)
+            
+        } else {
+            
+            self.selectedIndexPath = NSIndexPath(forItem: 0, inSection: 0)
+            self.selectedBrief = user.getMostRecentBrief()
+            self.collectionView.scrollToItemAtIndexPath(selectedIndexPath, atScrollPosition: UICollectionViewScrollPosition.None, animated: true)
+        }
+    }
+    
+//    func loadInitialBrief() {
+//        
+//        self.selectedBrief = user.getMostRecentBrief()
+//        
+//    }
+    
+    private func getPPPItem(indexPath: NSIndexPath) -> PPPItem {
+        
+        switch(indexPath.section) {
+            
+        case 0:
+            return selectedBrief!.progress[indexPath.row]
+            
+        case 1:
+            return selectedBrief!.plans[indexPath.row]
+            
+        case 2:
+            return selectedBrief!.problems[indexPath.row]
+            
+        default:
+            return PPPItem(content: "")
+            
+        }
+        
     }
     
 }
