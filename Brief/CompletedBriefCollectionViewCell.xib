@@ -6,15 +6,23 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="CompletedBriefCollectionViewCell" customModule="Brief" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="70" height="30"/>
+        <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="CompletedBriefCollectionViewCell" customModule="Brief" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="56" height="39"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="70" height="30"/>
+                <rect key="frame" x="0.0" y="0.0" width="56" height="39"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Feb 02" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fPG-ZY-qvk" userLabel="Date Label">
-                        <rect key="frame" x="0.0" y="2" width="70" height="24.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="November" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fPG-ZY-qvk" userLabel="Month Label">
+                        <rect key="frame" x="0.0" y="0.0" width="55.5" height="13.5"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="02" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kJY-BR-03t" userLabel="Date Label">
+                        <rect key="frame" x="0.0" y="14" width="55" height="25"/>
+                        <color key="backgroundColor" red="1" green="0.18199124136929545" blue="0.10107887008256344" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -24,11 +32,12 @@
                 <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             </view>
             <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="0.5" colorSpace="calibratedRGB"/>
-            <size key="customSize" width="70" height="25"/>
+            <size key="customSize" width="59" height="34"/>
             <connections>
-                <outlet property="dateLabel" destination="fPG-ZY-qvk" id="6lB-7u-Ned"/>
+                <outlet property="dateLabel" destination="kJY-BR-03t" id="kKt-k8-0ki"/>
+                <outlet property="monthLabel" destination="fPG-ZY-qvk" id="aCh-WV-LbN"/>
             </connections>
-            <point key="canvasLocation" x="303" y="290.5"/>
+            <point key="canvasLocation" x="51" y="281.5"/>
         </collectionViewCell>
     </objects>
 </document>

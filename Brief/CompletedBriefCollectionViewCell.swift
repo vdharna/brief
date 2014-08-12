@@ -11,6 +11,9 @@ import UIKit
 class CompletedBriefCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet
+    weak var monthLabel: UILabel!
+    
+    @IBOutlet
     weak var dateLabel: UILabel!
     
     override func awakeFromNib() {

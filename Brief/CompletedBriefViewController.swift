@@ -380,12 +380,15 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     // MARK: --------------------------------
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView!) -> Int {
+        
         return 1
+    
     }
     
     func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
-        println("\(self.completedBriefs.count)")
+        
         return self.completedBriefs.count
+        
     }
     
     func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
@@ -394,21 +397,20 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         
         var brief = user.getCompletedBriefs()[indexPath.row]
         cell.tag = brief.getId()
-        
-        println("\(cell.tag)")
-        
+                
         var df = NSDateFormatter()
         
         df.dateFormat = "dd"
         var myDayString = df.stringFromDate(brief.submittedDate)
         
-        df.dateFormat = "MMM"
+        df.dateFormat = "MMMM"
         var myMonthString = df.stringFromDate(brief.submittedDate)
         
         df.dateFormat = "yy"
         var myYearString = df.stringFromDate(brief.submittedDate)
         
-        cell.dateLabel.text = "\(myMonthString) \(myDayString)"
+        cell.monthLabel.text = "\(myMonthString)"
+        cell.dateLabel.text = "\(myDayString)"
         
         if (self.selectedIndexPath? != nil && self.selectedIndexPath!.isEqual(indexPath)) {
             
@@ -466,7 +468,7 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: UICollectionViewLayout!, sizeForItemAtIndexPath indexPath: NSIndexPath!) -> CGSize {
-        return CGSizeMake(70, 25)
+        return CGSizeMake(56, 39)
     }
     
     // MARK: --------------------------------
