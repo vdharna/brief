@@ -272,7 +272,7 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     func tableView(tableView: UITableView!, willDisplayHeaderView view: UIView!, forSection section: Int) {
         
         //background color
-        view.tintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.92)
+        view.tintColor = UIColor.darkTextColor()
         
         //text color
         var header = view as UITableViewHeaderFooterView
@@ -449,6 +449,7 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: UICollectionViewLayout!, sizeForItemAtIndexPath indexPath: NSIndexPath!) -> CGSize {
         return CGSizeMake(60, 40)
     }
+
     
     // MARK: --------------------------------
     // MARK: Action Methods
