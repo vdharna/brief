@@ -47,7 +47,7 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        configureNavBar()
+        loadBrief()
         configureTableView()
         configureCollectionView()
         
@@ -55,6 +55,7 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
 
     override func viewWillAppear(animated: Bool) {
         
+        configureNavBar()
         //reload the table to capture any comments that may have been added
         self.table.reloadData()
 
@@ -75,7 +76,7 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     
     func configureNavBar() {
         self.navigationItem.title = "Completed Briefs"
-        loadBrief()
+        
     }
     
     func configureTableView() {
