@@ -27,7 +27,7 @@ class CompletedBriefCollectionViewCell: UICollectionViewCell {
     }
     
     func applyUnselectedColorScheme() {
-        self.dateLabel.backgroundColor = UIColor(red: 192/255, green: 192/255, blue: 192/255, alpha: 1.0)
+        self.dateLabel.backgroundColor = UIColor(red: 202/255, green: 202/255, blue: 202/255, alpha: 1.0)
         self.dateLabel.textColor = UIColor.whiteColor()
     }
 
