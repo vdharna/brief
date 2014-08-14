@@ -15,19 +15,19 @@ class TeamMember {
     private var firstName: String
     private var lastName: String
     
-    private var brief:Brief //current brief
+    private var draftBrief:Brief //current brief
     private var completedBriefs: Array<Brief>
     private var notificationSubscriptions = Array<Int>()
     
     init() {
         firstName = "Dharminder"
         lastName = "Dharna"
-        brief = Brief()
+        draftBrief = Brief()
         completedBriefs = Array()
     }
     
-    func getBrief() -> Brief {
-        return self.brief
+    func getDraftBrief() -> Brief {
+        return self.draftBrief
     }
     
     func getCompletedBriefs() -> Array<Brief> {
@@ -110,5 +110,9 @@ class TeamMember {
     func getMostRecentBrief() -> Brief {
         // need to make this smarter by latest submitted date
         return self.completedBriefs[0]
+    }
+    
+    func deleteBrief() {
+        self.draftBrief = Brief()
     }
 }

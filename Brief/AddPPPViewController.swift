@@ -195,25 +195,25 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
         case 0:
             var progress = Progress(content: content.text)
             if (editMode) {
-                user.getBrief().updateProgress(selectedPPPElement, p: progress)
+                user.getDraftBrief().updateProgress(selectedPPPElement, p: progress)
             } else {
-                user.getBrief().addProgress(progress)
+                user.getDraftBrief().addProgress(progress)
             }
             
         case 1:
             var plan = Plan(content: content.text)
             if (editMode) {
-                user.getBrief().updatePlan(selectedPPPElement, p: plan)
+                user.getDraftBrief().updatePlan(selectedPPPElement, p: plan)
             } else {
-                user.getBrief().addPlan(plan)
+                user.getDraftBrief().addPlan(plan)
             }
             
         case 2:
             var problem = Problem(content: content.text)
             if (editMode) {
-                user.getBrief().updateProblem(selectedPPPElement, p: problem)
+                user.getDraftBrief().updateProblem(selectedPPPElement, p: problem)
             } else {
-                user.getBrief().addProblem(problem)
+                user.getDraftBrief().addProblem(problem)
             }
             
         default:
@@ -235,13 +235,13 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
             switch (selectedSegment!) {
                 
             case 0:
-                content.text = user.getBrief().progress[selectedPPPElement].getContent()
+                content.text = user.getDraftBrief().progress[selectedPPPElement].getContent()
 
             case 1:
-                content.text = user.getBrief().plans[selectedPPPElement].getContent()
+                content.text = user.getDraftBrief().plans[selectedPPPElement].getContent()
                 
             case 2:
-                content.text = user.getBrief().problems[selectedPPPElement].getContent()
+                content.text = user.getDraftBrief().problems[selectedPPPElement].getContent()
                 
             default:
                 content.text = ""

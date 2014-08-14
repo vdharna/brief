@@ -20,6 +20,9 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet
     weak var collectionView: UICollectionView!
     
+    @IBOutlet
+    weak var noBriefLabel: UILabel!
+    
     let tableViewCellName = "CompletedBriefTableViewCell"
     let collectionViewCellName = "CompletedBriefCollectionViewCell"
     
@@ -46,10 +49,27 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
-        loadBrief()
-        configureTableView()
-        configureCollectionView()
+        if (!user.getCompletedBriefs().isEmpty) {
+            
+            // Do any additional setup after loading the view.
+            self.noBriefLabel.hidden = true
+            self.table.hidden = false
+            self.collectionView.hidden = false
+            
+            loadBrief()
+            configureTableView()
+            configureCollectionView()
+            
+        } else {
+            
+            self.noBriefLabel.hidden = false
+            self.table.hidden = true
+            self.collectionView.hidden = true
+            
+            self.noBriefLabel.text = "There are no completed Briefs to show"
+            
+        }
+
         
     }
 
@@ -57,7 +77,9 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         
         configureNavBar()
         //reload the table to capture any comments that may have been added
-        self.table.reloadData()
+        if (!user.getCompletedBriefs().isEmpty) {
+            self.table.reloadData()
+        }
 
     }
     
@@ -235,13 +257,19 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     // Tells the data source to return the number of rows in a given section of a table view. (required)
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
         
-        switch(section) {
-        case 0: return selectedBrief!.progress.count
-        case 1: return selectedBrief!.plans.count
-        case 2: return selectedBrief!.problems.count
-        default: return 0
+        if (!user.getCompletedBriefs().isEmpty) {
+            switch(section) {
+            
+                case 0: return selectedBrief!.progress.count
+                case 1: return selectedBrief!.plans.count
+                case 2: return selectedBrief!.problems.count
+                default: return 0
+            }
+        } else {
+            
+            return 0
         }
-        
+    
     }
 
     // Asks the data source for the title of the header of the specified section of the table view.

@@ -70,7 +70,6 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "debug"
-            value = "1"
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>

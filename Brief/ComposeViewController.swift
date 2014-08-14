@@ -211,7 +211,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         var deleteActionButton = UIAlertAction(title: "Delete", style: .Destructive, handler: {
             (alertAction: UIAlertAction!) in
-            user.getBrief().delete()
+            user.deleteBrief()
             self.selectedSegment = 0
             self.table.reloadData()
             self.animateBriefDelete()
@@ -278,13 +278,13 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
                 switch (selectedSegment) {
                     
                 case 0:
-                    user.getBrief().moveProgress(sourceIndexPath!.row, to: indexPath!.row)
+                    user.getDraftBrief().moveProgress(sourceIndexPath!.row, to: indexPath!.row)
                 
                 case 1:
-                    user.getBrief().movePlan(sourceIndexPath!.row, to: indexPath!.row)
+                    user.getDraftBrief().movePlan(sourceIndexPath!.row, to: indexPath!.row)
                     
                 case 2:
-                    user.getBrief().moveProblem(sourceIndexPath!.row, to: indexPath!.row)
+                    user.getDraftBrief().moveProblem(sourceIndexPath!.row, to: indexPath!.row)
                     
                 default:
                     println("Nothing Selected")
@@ -366,13 +366,13 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         switch (selectedSegment) {
             
         case 0:
-            return user.getBrief().progress.count
+            return user.getDraftBrief().progress.count
             
         case 1:
-            return user.getBrief().plans.count
+            return user.getDraftBrief().plans.count
        
         case 2:
-            return user.getBrief().problems.count
+            return user.getDraftBrief().problems.count
             
         default:
             return 0
@@ -389,16 +389,16 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         switch (selectedSegment) {
             
         case 0:
-            text = user.getBrief().progress[indexPath.row].getContent()
-            id = user.getBrief().progress[indexPath.row].getId()
+            text = user.getDraftBrief().progress[indexPath.row].getContent()
+            id = user.getDraftBrief().progress[indexPath.row].getId()
             
         case 1:
-            text = user.getBrief().plans[indexPath.row].getContent()
-            id = user.getBrief().plans[indexPath.row].getId()
+            text = user.getDraftBrief().plans[indexPath.row].getContent()
+            id = user.getDraftBrief().plans[indexPath.row].getId()
             
         case 2:
-            text = user.getBrief().problems[indexPath.row].getContent()
-            id = user.getBrief().problems[indexPath.row].getId()
+            text = user.getDraftBrief().problems[indexPath.row].getContent()
+            id = user.getDraftBrief().problems[indexPath.row].getId()
             
         default:
             text = ""
@@ -430,13 +430,13 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
             switch (selectedSegment) {
                 
             case 0:
-                user.getBrief().deleteProgress(indexPath.row)
+                user.getDraftBrief().deleteProgress(indexPath.row)
                 
             case 1:
-                user.getBrief().deletePlan(indexPath.row)
+                user.getDraftBrief().deletePlan(indexPath.row)
                 
             case 2:
-                user.getBrief().deleteProblem(indexPath.row)
+                user.getDraftBrief().deleteProblem(indexPath.row)
                 
             default:
                 table.reloadData()
@@ -488,7 +488,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func refreshToolbarItems() {
         
-        if (!user.getBrief().isEmpty()) {
+        if (!user.getDraftBrief().isEmpty()) {
             deleteButton.enabled = true
             actionButton.enabled = true
         } else {
@@ -504,7 +504,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         switch (selectedSegment) {
             
         case 0:
-            if (user.getBrief().progress.count == 0) {
+            if (user.getDraftBrief().progress.count == 0) {
                 self.noItemLabel.text = "There are no Progress items in this brief. Click the '+' button to add a new Progress item."
                 self.noItemLabel.hidden = false
                 
@@ -515,7 +515,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             
         case 1:
-            if (user.getBrief().plans.count == 0) {
+            if (user.getDraftBrief().plans.count == 0) {
                 self.noItemLabel.text = "There are no Plans in this brief. Click the '+' button to add a new Plan."
                 self.noItemLabel.hidden = false
                 
@@ -526,7 +526,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             
         case 2:
-            if (user.getBrief().problems.count == 0) {
+            if (user.getDraftBrief().problems.count == 0) {
                 self.noItemLabel.text = "There are no Problems in this brief. Click the '+' button to add a new Problem."
                 self.noItemLabel.hidden = false
                 

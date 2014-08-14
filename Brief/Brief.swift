@@ -15,12 +15,14 @@ class Brief {
     var plans: Array<Plan>
     var problems: Array<Problem>
     var submittedDate: NSDate?
+    var status: Status
     
     init() {
         id = NSUUID.UUID().hashValue
         progress = []
         plans = []
         problems = []
+        status = Status.New
     }
     
     func getId() -> Int {
@@ -29,14 +31,17 @@ class Brief {
     
     func addProgress(p: Progress) {
         self.progress.append(p)
+        status = Status.InProgress
     }
     
     func addPlan(p: Plan) {
         self.plans.append(p)
+        status = Status.InProgress
     }
     
     func addProblem(p: Problem) {
         self.problems.append(p)
+        status = Status.InProgress
     }
     
     func updateProgress(index: Int, p: Progress) {
@@ -81,12 +86,6 @@ class Brief {
         self.problems.removeAtIndex(index)
     }
     
-    func delete() {
-        self.problems.removeAll(keepCapacity: false)
-        self.plans.removeAll(keepCapacity: false)
-        self.progress.removeAll(keepCapacity: false)
-    }
-    
     func isEmpty() -> Bool {
         if ((self.progress.isEmpty) && (self.plans.isEmpty) && (self.problems.isEmpty)) {
             return true
@@ -123,6 +122,12 @@ class Brief {
     
     func submit() {
         self.submittedDate = NSDate()
+    }
+    
+    enum Status {
+        case New
+        case InProgress
+        case Completed
     }
 
 }

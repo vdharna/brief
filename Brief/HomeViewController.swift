@@ -58,7 +58,6 @@ class HomeViewController: UIViewController {
         var gearButton = UIBarButtonItem(image: gearImage, style: .Plain, target: self, action: "settings")
         self.navigationItem.rightBarButtonItem = gearButton;
         
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,6 +67,21 @@ class HomeViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        switch (user.getDraftBrief().status) {
+            
+        case .New:
+            self.composeButton.imageView.image = UIImage(named: "compose.png")
+            self.composeLabel.text = "COMPOSE"
+            
+        case .InProgress:
+            self.composeButton.imageView.image = UIImage(named: "continue.png")
+            self.composeLabel.text = "CONTINUE"
+            
+        default:
+            self.composeButton.imageView.image = UIImage(named: "compose.png")
+            self.composeLabel.text = "COMPOSE"
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -76,8 +90,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        //reset the button size
-        //self.composeButtonView!.bounds = origComposeRect!
+
     }
     
     // ==========================================
@@ -89,7 +102,6 @@ class HomeViewController: UIViewController {
         //prevent duplicate tap
         composeButton.enabled = false
         completedButton.enabled = false
-        
 
         var cvc = ComposeViewController(nibName: "ComposeViewController", bundle: NSBundle.mainBundle())
         self.navigationController.pushViewController(cvc, animated: true)

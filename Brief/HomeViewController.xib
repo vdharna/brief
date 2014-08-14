@@ -59,6 +59,6 @@
     </objects>
     <resources>
         <image name="completed" width="125" height="125"/>
-        <image name="compose" width="625" height="625"/>
+        <image name="compose" width="90" height="90"/>
     </resources>
 </document>
