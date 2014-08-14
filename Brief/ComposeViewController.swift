@@ -446,6 +446,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             var cellToDelete = NSIndexPath(index: indexPath.row)
             table.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            determineNoPPPItemLabelVisibility()
         }
     }
     
