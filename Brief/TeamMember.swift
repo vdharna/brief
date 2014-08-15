@@ -16,25 +16,43 @@ class TeamMember: NSObject, NSCoding {
     private var firstName: String
     private var lastName: String
     
-    private var draftBrief:Brief 
-    private var completedBriefs: Array<Brief>
+    private var draftBrief:Brief?
+    private var completedBriefs: Array<Brief>?
     private var notificationSubscriptions = Array<NSUUID>()
     
     override init() {
         self.id = "1"
         self.firstName = "Dharminder"
         self.lastName = "Dharna"
-        self.draftBrief = Brief(status: Brief.Status.New)
-        self.completedBriefs = Array()
     }
     
     func getDraftBrief() -> Brief {
-        return self.draftBrief
+        
+        if (self.draftBrief == nil) {
+            
+            // check to see if there's a brief stored in the local filesystem
+            var brief = BriefRepository().loadDraftBrief()
+            
+            if (brief != nil) {
+                
+                self.draftBrief = brief
+                
+            } else {
+                
+                self.draftBrief = Brief(status: .New)
+
+            }
+        }
+        return self.draftBrief!
     }
     
     func getCompletedBriefs() -> Array<Brief> {
         
-        return self.completedBriefs
+        if (completedBriefs == nil) {
+            self.completedBriefs = Array<Brief>()
+            self.loadArchivedBriefs()
+        }
+        return self.completedBriefs!
     }
     
     func loadArchivedBriefs() {
@@ -74,7 +92,7 @@ class TeamMember: NSObject, NSCoding {
             for var index = 0; index < 20; ++index {
                 var brief = BriefArchiveDebugLoadUtility.createSampleBrief()
                 brief.submittedDate = dates[index]
-                completedBriefs.append(brief)
+                completedBriefs!.append(brief)
             }
         }
 
@@ -90,7 +108,6 @@ class TeamMember: NSObject, NSCoding {
         if (index != nil) {
             self.notificationSubscriptions.removeAtIndex(index!)
         }
-        
     }
     
     func containsNotification(id: NSUUID) -> Bool {
@@ -101,9 +118,9 @@ class TeamMember: NSObject, NSCoding {
         
         var brief: Brief?
         // loop through each array
-        for i in (0 ..< completedBriefs.count) {
-            if completedBriefs[i].getId().isEqual(id) {
-                brief = completedBriefs[i]
+        for i in (0 ..< completedBriefs!.count) {
+            if completedBriefs![i].getId().isEqual(id) {
+                brief = completedBriefs![i]
             }
         }
         return brief
@@ -111,11 +128,11 @@ class TeamMember: NSObject, NSCoding {
     
     func getMostRecentBrief() -> Brief {
         // need to make this smarter by latest submitted date
-        return self.completedBriefs[0]
+        return self.completedBriefs![0]
     }
     
     func deleteBrief() {
-        self.draftBrief = Brief(status: Brief.Status.New)
+        self.draftBrief = Brief(status: .New)
     }
     
     
@@ -125,7 +142,6 @@ class TeamMember: NSObject, NSCoding {
         aCoder.encodeObject(self.firstName, forKey: "firstName")
         aCoder.encodeObject(self.lastName, forKey: "lastName")
         aCoder.encodeObject(self.draftBrief, forKey: "draftBrief")
-        aCoder.encodeObject(self.completedBriefs, forKey: "completedBriefs")
         aCoder.encodeObject(self.notificationSubscriptions, forKey: "notificationSubscriptions")
         
     }
@@ -135,8 +151,7 @@ class TeamMember: NSObject, NSCoding {
         self.id = aDecoder.decodeObjectForKey("id") as String
         self.firstName = aDecoder.decodeObjectForKey("firstName") as String
         self.lastName = aDecoder.decodeObjectForKey("lastName") as String
-        self.draftBrief = aDecoder.decodeObjectForKey("draftBrief") as Brief
-        self.completedBriefs = aDecoder.decodeObjectForKey("completedBriefs") as Array<Brief>
+        self.draftBrief = aDecoder.decodeObjectForKey("draftBrief") as? Brief
         self.notificationSubscriptions = aDecoder.decodeObjectForKey("notificationSubscriptions") as Array<NSUUID>
         
     }

@@ -73,7 +73,7 @@ class PPPItem: NSObject, NSCoding {
         self.id = aDecoder.decodeObjectForKey("id") as NSUUID
         self.content = aDecoder.decodeObjectForKey("content") as String
         self.flag = aDecoder.decodeObjectForKey("flag") as Flag
-        self.comments = aDecoder.decodeObjectForKey("problems") as Array<Comment>
+        self.comments = aDecoder.decodeObjectForKey("comments") as Array<Comment>
 
     }
     

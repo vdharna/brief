@@ -125,11 +125,7 @@ class Brief: NSObject, NSCoding {
         self.submittedDate = NSDate()
     }
     
-    enum Status {
-        case New
-        case InProgress
-        case Completed
-    }
+
     
     
     func encodeWithCoder(aCoder: NSCoder!) {

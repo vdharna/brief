@@ -471,7 +471,7 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         // Remember selection:
         self.selectedIndexPath = indexPath
         
-        self.selectedBrief = user.findBriefById(cell.briefId!)
+        self.selectedBrief = user.findBriefById(cell.briefId)
         self.table.reloadData()
         
     }

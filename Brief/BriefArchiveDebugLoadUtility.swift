@@ -12,7 +12,7 @@ class BriefArchiveDebugLoadUtility {
     
     class func createSampleBrief() -> Brief {
         
-        var brief = Brief(status: Brief.Status.Completed)
+        var brief = Brief(status: .Completed)
         
         populateProgress(brief)
         populatePlans(brief)

@@ -27,9 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         briefNavVC.navigationBar.tintColor = UIColor.whiteColor()
         briefNavVC.navigationBar.barStyle = UIBarStyle.BlackTranslucent
         
-        //load archived briefs
-        user.loadArchivedBriefs()
-        
         self.window?.rootViewController = briefNavVC
         self.window?.backgroundColor = UIColor.whiteColor()
         self.window?.makeKeyAndVisible()
@@ -45,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication!) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        if (user.getDraftBrief().status == Brief.Status.InProgress) {
+        if (user.getDraftBrief().status == Status.InProgress) {
             
             var success = BriefRepository().saveChanges(user.getDraftBrief())
             if (success) {
@@ -59,7 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(application: UIApplication!) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-        BriefRepository().loadDraftBrief()
     }
 
     func applicationDidBecomeActive(application: UIApplication!) {
