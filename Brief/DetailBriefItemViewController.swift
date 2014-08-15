@@ -256,18 +256,6 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
         return item!.commentsCount()
     }
     
-//    func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
-//        return heightForText(item!.comments[indexPath.row].getContent())
-//    }
-//    
-//    func heightForText(text: String) -> CGFloat {
-//        var textView = UITextView(frame: CGRectMake(0, 0, 256, 2000))
-//        textView.text = text
-//        textView.font = UIFont(name: "HelveticaNeue-Light ", size: 12)
-//        textView.sizeToFit()
-//        return textView.frame.size.height + 35
-//    }
-    
     
     // MARK: --------------------------------
     // MARK: IB Target/Action Methods

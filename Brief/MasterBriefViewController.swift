@@ -290,17 +290,6 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
     // MARK: TableView Delegate Methods
     // MARK: --------------------------------
     
-    // Asks the delegate for the height to use for a row in a specified location.
-//    func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
-//        
-//        return 90
-//    }
-    
-//    func tableView(tableView: UITableView!, heightForHeaderInSection section: Int) -> CGFloat {
-//        
-//        return 25
-//    }
-    
     func tableView(tableView: UITableView!, willDisplayHeaderView view: UIView!, forSection section: Int) {
         
         //background color
