@@ -56,10 +56,10 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
         // Do any additional setup after loading the view.
         self.navigationItem.title = "Comments"
         
-        setupTableView()
+        configureTableView()
         configureTextViews()
-        setupInputAccessoryToolbar()
-        setupDockedToolbar()
+        configureInputAccessoryToolbar()
+        configureDockedToolbar()
         
     }
 
@@ -102,7 +102,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
 
     }
     
-    func setupInputAccessoryToolbar() {
+    func configureInputAccessoryToolbar() {
         
         // docked toolbar
         inputAccessoryToolbar = UIToolbar(frame: CGRectMake(0, 524, 320, 44))
@@ -127,7 +127,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
         
     }
     
-    func setupDockedToolbar() {
+    func configureDockedToolbar() {
         
         // docked toolbar
         toolbar = UIToolbar(frame: CGRectMake(0, 524, 320, 44))
@@ -146,7 +146,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
         self.view.addSubview(toolbar)
     }
     
-    func setupTableView() {
+    func configureTableView() {
         
         // load the custom cell via NIB
         var nib = UINib(nibName: cellName, bundle: nil)
@@ -158,6 +158,8 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
         var headerView = (bundle.loadNibNamed("CommentHeaderView", owner: self, options: nil)[0] as UIView)
         
         self.table.tableHeaderView = headerView
+        self.table.estimatedRowHeight = 44.0
+        self.table.rowHeight = UITableViewAutomaticDimension
         self.itemLabel.text = self.item!.getContent()
         
     }
@@ -252,17 +254,17 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
         return item!.commentsCount()
     }
     
-    func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
-        return heightForText(item!.comments[indexPath.row].getContent())
-    }
-    
-    func heightForText(text: String) -> CGFloat {
-        var textView = UITextView(frame: CGRectMake(0, 0, 256, 2000))
-        textView.text = text
-        textView.font = UIFont(name: "HelveticaNeue-Light ", size: 12)
-        textView.sizeToFit()
-        return textView.frame.size.height + 35
-    }
+//    func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+//        return heightForText(item!.comments[indexPath.row].getContent())
+//    }
+//    
+//    func heightForText(text: String) -> CGFloat {
+//        var textView = UITextView(frame: CGRectMake(0, 0, 256, 2000))
+//        textView.text = text
+//        textView.font = UIFont(name: "HelveticaNeue-Light ", size: 12)
+//        textView.sizeToFit()
+//        return textView.frame.size.height + 35
+//    }
     
     
     // MARK: --------------------------------
