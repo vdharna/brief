@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     // MARK: --------------------------------
     // MARK: Properties
@@ -378,7 +378,7 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
         
-        var briefItemDetailVC = BriefItemDetailViewController(nibName: "BriefItemDetailViewController", bundle: NSBundle.mainBundle())
+        var briefItemDetailVC = DetailBriefItemViewController(nibName: "DetailBriefItemViewController", bundle: NSBundle.mainBundle())
         
         //get reference to the cell
         var cell = self.table.cellForRowAtIndexPath(indexPath) as CompletedBriefTableViewCell

@@ -17,7 +17,7 @@ class HomeViewController: UIViewController {
     @IBOutlet var completedButton: UIButton!
     @IBOutlet var completedLabel: UILabel!
     
-    var cbvc: CompletedBriefViewController?
+    var cbvc: MasterBriefViewController?
     
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -116,7 +116,7 @@ class HomeViewController: UIViewController {
         composeButton.enabled = false
         completedButton.enabled = false
         if (cbvc == nil) {
-            cbvc = CompletedBriefViewController(nibName: "CompletedBriefViewController", bundle: NSBundle.mainBundle())
+            cbvc = MasterBriefViewController(nibName: "MasterBriefViewController", bundle: NSBundle.mainBundle())
         }
         self.navigationController.pushViewController(cbvc, animated: true)
         self.composeButton.enabled = true

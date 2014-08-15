@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BriefItemDetailViewController: UIViewController, UITextViewDelegate, UITableViewDelegate, UITableViewDataSource {
+class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITableViewDelegate, UITableViewDataSource {
     
     // MARK: --------------------------------
     // MARK: Properties

@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6198"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CompletedBriefViewController" customModule="Brief" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MasterBriefViewController" customModule="Brief" customModuleProvider="target">
             <connections>
                 <outlet property="collectionView" destination="xAz-4s-C2D" id="zir-RX-tt0"/>
                 <outlet property="noBriefLabel" destination="75H-Lu-OEb" id="8Cy-PI-FNE"/>
