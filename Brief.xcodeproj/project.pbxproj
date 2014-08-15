@@ -11,6 +11,7 @@
 		620097F5198C118B0058E83B /* BriefItemDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 620097F3198C118B0058E83B /* BriefItemDetailViewController.xib */; };
 		620097F9198C1ED00058E83B /* CharacterCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620097F8198C1ED00058E83B /* CharacterCountView.swift */; };
 		620097FB198C1EE70058E83B /* CharacterCountView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 620097FA198C1EE70058E83B /* CharacterCountView.xib */; };
+		6215FC41199D2C4200F5BD2B /* BriefRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6215FC40199D2C4200F5BD2B /* BriefRepository.swift */; };
 		622582F419802B3D000E4F27 /* CompletedBriefTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622582F219802B3D000E4F27 /* CompletedBriefTableViewCell.swift */; };
 		622582F519802B3D000E4F27 /* CompletedBriefTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 622582F319802B3D000E4F27 /* CompletedBriefTableViewCell.xib */; };
 		623B21BA19744C4F00EC766F /* Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623B21B919744C4F00EC766F /* Progress.swift */; };
@@ -62,6 +63,7 @@
 		620097F3198C118B0058E83B /* BriefItemDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BriefItemDetailViewController.xib; sourceTree = "<group>"; };
 		620097F8198C1ED00058E83B /* CharacterCountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterCountView.swift; sourceTree = "<group>"; };
 		620097FA198C1EE70058E83B /* CharacterCountView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CharacterCountView.xib; sourceTree = "<group>"; };
+		6215FC40199D2C4200F5BD2B /* BriefRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BriefRepository.swift; sourceTree = "<group>"; };
 		622582F219802B3D000E4F27 /* CompletedBriefTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedBriefTableViewCell.swift; sourceTree = "<group>"; };
 		622582F319802B3D000E4F27 /* CompletedBriefTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompletedBriefTableViewCell.xib; sourceTree = "<group>"; };
 		623B21B919744C4F00EC766F /* Progress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Progress.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 				626FCD211986B43900946973 /* Flag.swift */,
 				626FCD1D1985A8ED00946973 /* Comment.swift */,
 				626FCD231986B44700946973 /* Share.swift */,
+				6215FC40199D2C4200F5BD2B /* BriefRepository.swift */,
 				62FC24E419855A0600372D14 /* BriefArchiveDebugLoadUtility.swift */,
 			);
 			name = Brief;
@@ -416,6 +419,7 @@
 				623B21C019744DB400EC766F /* Team.swift in Sources */,
 				6247412E196CB5A10043C7E5 /* AppDelegate.swift in Sources */,
 				62C032881981CE86005AC29F /* ComposeBriefTableViewCell.swift in Sources */,
+				6215FC41199D2C4200F5BD2B /* BriefRepository.swift in Sources */,
 				6261D5FB197EE3EB007B8AA3 /* CompletedBriefViewController.swift in Sources */,
 				626FCD1E1985A8ED00946973 /* Comment.swift in Sources */,
 				62474130196CB5A10043C7E5 /* HomeViewController.swift in Sources */,

@@ -9,27 +9,20 @@
 import Foundation
 
 
-class PPPItem {
+class PPPItem: NSObject, NSCoding {
     
-    private var id: Int
+    private var id: NSUUID
     private var content: String
-    private var flag: Flag?
+    private var flag: Flag
     var comments = Array<Comment>()
-    
-    var description : String { return String(id) }
-    
+        
     init(content: String) {
-        self.id = NSUUID.UUID().hashValue
+        self.id = NSUUID.UUID()
         self.content = content
+        self.flag = Flag()
     }
     
-    init(content: String, flag: Flag) {
-        self.id = NSUUID.UUID().hashValue
-        self.content = content
-        self.flag = flag
-    }
-    
-    func getId() -> Int {
+    func getId() -> NSUUID {
         return self.id
     }
     
@@ -43,12 +36,12 @@ class PPPItem {
     
     func isFlagged() -> Bool {
         
-        return flag!.isFlagged()
+        return flag.isFlagged()
         
     }
     
     func flag(flag: Bool) {
-        self.flag!.setFlag(flag)
+        self.flag.setFlag(flag)
     }
     
     func addComment(comment: Comment) {
@@ -64,6 +57,24 @@ class PPPItem {
     
     func commentsCount() -> Int {
         return self.comments.count
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder!) {
+        
+        aCoder.encodeObject(self.id, forKey: "id")
+        aCoder.encodeObject(self.content, forKey: "content")
+        aCoder.encodeObject(self.flag, forKey: "flag")
+        aCoder.encodeObject(self.comments, forKey: "comments")
+        
+    }
+    
+    required init(coder aDecoder: NSCoder!) {
+        
+        self.id = aDecoder.decodeObjectForKey("id") as NSUUID
+        self.content = aDecoder.decodeObjectForKey("content") as String
+        self.flag = aDecoder.decodeObjectForKey("flag") as Flag
+        self.comments = aDecoder.decodeObjectForKey("problems") as Array<Comment>
+
     }
     
 }

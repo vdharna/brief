@@ -147,7 +147,7 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         var item: PPPItem = getPPPItem(indexPath)
         
         cell.cellLabel.text = item.getContent()
-        cell.tag = item.getId()
+        cell.briefId = item.getId()
         
         // show flag status
         if (item.isFlagged()) {
@@ -377,11 +377,12 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+        
         var briefItemDetailVC = BriefItemDetailViewController(nibName: "BriefItemDetailViewController", bundle: NSBundle.mainBundle())
         
         //get reference to the cell
-        var cell = self.table.cellForRowAtIndexPath(indexPath)
-        var item = selectedBrief!.findItemById(cell.tag)
+        var cell = self.table.cellForRowAtIndexPath(indexPath) as CompletedBriefTableViewCell
+        var item = selectedBrief!.findItemById(cell.briefId)
         briefItemDetailVC.item = item
         self.navigationController.pushViewController(briefItemDetailVC, animated: true)
     }
@@ -408,7 +409,7 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         var cell = self.collectionView.dequeueReusableCellWithReuseIdentifier(collectionViewCellName, forIndexPath: indexPath) as CompletedBriefCollectionViewCell
         
         var brief = user.getCompletedBriefs()[indexPath.row]
-        cell.tag = brief.getId()
+        cell.briefId = brief.getId()
                 
         var df = NSDateFormatter()
         
@@ -470,7 +471,7 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         // Remember selection:
         self.selectedIndexPath = indexPath
         
-        self.selectedBrief = user.findBriefById(cell.tag)
+        self.selectedBrief = user.findBriefById(cell.briefId!)
         self.table.reloadData()
         
     }
@@ -496,8 +497,9 @@ class CompletedBriefViewController: UIViewController, UITableViewDelegate, UITab
         // pull the correct Brief based on some parameter
         if (selectedIndexPath != nil) {
             
-            var id = self.collectionView.cellForItemAtIndexPath(selectedIndexPath).tag
-            self.selectedBrief = user.findBriefById(id)
+            var cell = self.collectionView.cellForItemAtIndexPath(selectedIndexPath) as CompletedBriefCollectionViewCell
+            var briefId = cell.briefId
+            self.selectedBrief = user.findBriefById(briefId!)
             
         } else {
             

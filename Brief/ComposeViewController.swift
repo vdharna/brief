@@ -384,7 +384,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         var cell = table.dequeueReusableCellWithIdentifier(cellName, forIndexPath: indexPath) as ComposeBriefTableViewCell
        
         var text:String
-        var id: Int
+        var id: NSUUID
         
         switch (selectedSegment) {
             
@@ -402,10 +402,10 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
             
         default:
             text = ""
-            id = 0
+            id = NSUUID.UUID()
         }
         
-        cell.tag = id
+        cell.briefId = id
         cell.cellLabel.text = text
         cell.cellLabel.font = UIFont(name: "HelveticaNeue-Light", size: 14)
         cell.cellLabel.numberOfLines = 6

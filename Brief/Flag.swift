@@ -8,11 +8,11 @@
 
 import Foundation
 
-class Flag {
+class Flag: NSObject, NSCoding {
     
     private var flagged: Bool
     
-    init() {
+    override init() {
         self.flagged = false
     }
     
@@ -22,6 +22,18 @@ class Flag {
     
     func setFlag(flag: Bool) {
         self.flagged = flag
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder!) {
+        
+        aCoder.encodeBool(self.flagged, forKey: "flagged")
+        
+    }
+    
+    required init(coder aDecoder: NSCoder!) {
+        
+        self.flagged = aDecoder.decodeBoolForKey("flagged")
+        
     }
     
 }

@@ -10,20 +10,22 @@ import Foundation
 
 let user = TeamMember()
 
-class TeamMember {
+class TeamMember: NSObject, NSCoding {
     
+    private var id: String
     private var firstName: String
     private var lastName: String
     
-    private var draftBrief:Brief //current brief
+    private var draftBrief:Brief 
     private var completedBriefs: Array<Brief>
-    private var notificationSubscriptions = Array<Int>()
+    private var notificationSubscriptions = Array<NSUUID>()
     
-    init() {
-        firstName = "Dharminder"
-        lastName = "Dharna"
-        draftBrief = Brief()
-        completedBriefs = Array()
+    override init() {
+        self.id = "1"
+        self.firstName = "Dharminder"
+        self.lastName = "Dharna"
+        self.draftBrief = Brief(status: Brief.Status.New)
+        self.completedBriefs = Array()
     }
     
     func getDraftBrief() -> Brief {
@@ -78,11 +80,11 @@ class TeamMember {
 
     }
     
-    func addNotification(id: Int) {
+    func addNotification(id: NSUUID) {
         self.notificationSubscriptions.append(id)
     }
     
-    func removeNotification(id: Int) {
+    func removeNotification(id: NSUUID) {
         
         var index = find(self.notificationSubscriptions, id)
         if (index != nil) {
@@ -91,20 +93,20 @@ class TeamMember {
         
     }
     
-    func containsNotification(id: Int) -> Bool {
+    func containsNotification(id: NSUUID) -> Bool {
         return find(self.notificationSubscriptions, id) != nil
     }
     
-    func findBriefById(id: Int) -> Brief {
+    func findBriefById(id: NSUUID) -> Brief? {
         
         var brief: Brief?
         // loop through each array
         for i in (0 ..< completedBriefs.count) {
-            if completedBriefs[i].getId() == id {
+            if completedBriefs[i].getId().isEqual(id) {
                 brief = completedBriefs[i]
             }
         }
-        return brief!
+        return brief
     }
     
     func getMostRecentBrief() -> Brief {
@@ -113,6 +115,29 @@ class TeamMember {
     }
     
     func deleteBrief() {
-        self.draftBrief = Brief()
+        self.draftBrief = Brief(status: Brief.Status.New)
+    }
+    
+    
+    func encodeWithCoder(aCoder: NSCoder!) {
+        
+        aCoder.encodeObject(self.id, forKey: "id")
+        aCoder.encodeObject(self.firstName, forKey: "firstName")
+        aCoder.encodeObject(self.lastName, forKey: "lastName")
+        aCoder.encodeObject(self.draftBrief, forKey: "draftBrief")
+        aCoder.encodeObject(self.completedBriefs, forKey: "completedBriefs")
+        aCoder.encodeObject(self.notificationSubscriptions, forKey: "notificationSubscriptions")
+        
+    }
+    
+    required init(coder aDecoder: NSCoder!) {
+        
+        self.id = aDecoder.decodeObjectForKey("id") as String
+        self.firstName = aDecoder.decodeObjectForKey("firstName") as String
+        self.lastName = aDecoder.decodeObjectForKey("lastName") as String
+        self.draftBrief = aDecoder.decodeObjectForKey("draftBrief") as Brief
+        self.completedBriefs = aDecoder.decodeObjectForKey("completedBriefs") as Array<Brief>
+        self.notificationSubscriptions = aDecoder.decodeObjectForKey("notificationSubscriptions") as Array<NSUUID>
+        
     }
 }

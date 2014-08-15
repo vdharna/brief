@@ -8,6 +8,13 @@
 
 import Foundation
 
-class Share {
+class Share: NSObject, NSCoding {
     
+    func encodeWithCoder(aCoder: NSCoder!) {
+
+    }
+    
+    required init(coder aDecoder: NSCoder!) {
+        
+    }
 }

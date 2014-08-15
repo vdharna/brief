@@ -12,7 +12,7 @@ class BriefArchiveDebugLoadUtility {
     
     class func createSampleBrief() -> Brief {
         
-        var brief = Brief()
+        var brief = Brief(status: Brief.Status.Completed)
         
         populateProgress(brief)
         populatePlans(brief)
@@ -25,7 +25,7 @@ class BriefArchiveDebugLoadUtility {
         
         for var index = 0; index < 3; ++index {
             let randomIndex = Int(arc4random_uniform(UInt32(samples.count)))
-            var p = Progress(content: "Progress: " + samples[randomIndex], flag: Flag())
+            var p = Progress(content: "Progress: " + samples[randomIndex])
             populateComments(p);
             brief.addProgress(p)
         }
@@ -36,7 +36,7 @@ class BriefArchiveDebugLoadUtility {
         
         for var index = 0; index < 3; ++index {
             let randomIndex = Int(arc4random_uniform(UInt32(samples.count)))
-            var p = Plan(content: "Plan: " + samples[randomIndex], flag: Flag())
+            var p = Plan(content: "Plan: " + samples[randomIndex])
             populateComments(p);
             brief.addPlan(p)
 
@@ -48,7 +48,7 @@ class BriefArchiveDebugLoadUtility {
         
         for var index = 0; index < 3; ++index {
             let randomIndex = Int(arc4random_uniform(UInt32(samples.count)))
-            var p = Problem(content: "Problem: " + samples[randomIndex], flag: Flag())
+            var p = Problem(content: "Problem: " + samples[randomIndex])
             populateComments(p);
             brief.addProblem(p)
         }
