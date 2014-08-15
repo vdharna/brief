@@ -69,7 +69,6 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
             self.noBriefLabel.text = "There are no completed Briefs to show"
             
         }
-
         
     }
 
@@ -117,6 +116,10 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         var refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: Selector("refresh:"), forControlEvents: UIControlEvents.ValueChanged)
         self.table.addSubview(refreshControl)
+        
+        self.table.estimatedRowHeight = 44.0
+        self.table.rowHeight = UITableViewAutomaticDimension
+        self.table.sectionHeaderHeight = UITableViewAutomaticDimension
     }
     
     func configureCollectionView() {
@@ -288,15 +291,15 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
     // MARK: --------------------------------
     
     // Asks the delegate for the height to use for a row in a specified location.
-    func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
-        
-        return 90
-    }
+//    func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+//        
+//        return 90
+//    }
     
-    func tableView(tableView: UITableView!, heightForHeaderInSection section: Int) -> CGFloat {
-        
-        return 25
-    }
+//    func tableView(tableView: UITableView!, heightForHeaderInSection section: Int) -> CGFloat {
+//        
+//        return 25
+//    }
     
     func tableView(tableView: UITableView!, willDisplayHeaderView view: UIView!, forSection section: Int) {
         

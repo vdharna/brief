@@ -33,6 +33,7 @@ class ComposeBriefTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
         cellLabel.numberOfLines = 7
+        cellLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
 
     }
     

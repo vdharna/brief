@@ -24,6 +24,10 @@ class BriefItemCommentTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+        self.commentContent.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+        self.commentAuthor.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        self.commentTimestamp.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
+        
     }
     
 }

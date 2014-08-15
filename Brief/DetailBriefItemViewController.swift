@@ -157,6 +157,8 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
         var bundle = NSBundle.mainBundle()
         var headerView = (bundle.loadNibNamed("CommentHeaderView", owner: self, options: nil)[0] as UIView)
         
+        headerView.sizeToFit()
+        
         self.table.tableHeaderView = headerView
         self.table.estimatedRowHeight = 44.0
         self.table.rowHeight = UITableViewAutomaticDimension

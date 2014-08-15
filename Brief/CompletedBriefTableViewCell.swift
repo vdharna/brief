@@ -37,8 +37,8 @@ class CompletedBriefTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
-        cellLabel.numberOfLines = 0
         self.selectionStyle = UITableViewCellSelectionStyle.None
+        self.cellLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
 
     }
     
