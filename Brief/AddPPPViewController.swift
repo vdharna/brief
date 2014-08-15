@@ -10,7 +10,10 @@ import UIKit
 
 class AddPPPViewController: UIViewController, UITextViewDelegate {
 
-    @IBOutlet var content: UITextView!
+    @IBOutlet
+    var content: UITextView!
+    
+    @IBOutlet
     var itemDescription: UILabel!
     
     var saveButton: UIBarButtonItem!
@@ -39,12 +42,8 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupNavigationBar()
-        itemDescription = UILabel(frame: CGRectMake(3, 0, 320, 50))
-        itemDescription.font = UIFont(name: "Helvetica", size: 14)
-        itemDescription.numberOfLines = 3
-        itemDescription.textColor = UIColor.lightGrayColor()
-        self.content.addSubview(itemDescription)
+        configureNavigationBar()
+        itemDescription.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
         
         //configure the character count view
         setupCharacterCountLabel()
@@ -55,7 +54,7 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
         super.viewWillAppear(animated)
         
         //setup the content
-        setupContent()
+        configureContent()
 
         setContentForEdit()
         self.charCountView.updateCharacterCount(content.text.utf16Count)
@@ -83,17 +82,17 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func setupContent() {
+    func configureContent() {
         // Do any additional setup after loading the view.
         content.delegate = self;
         content.returnKeyType = .Default
         content.keyboardAppearance = .Dark
-        content.font = UIFont(name: "HelveticaNeue", size: 14)
+        content.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
         content.becomeFirstResponder()
         content.keyboardType = .ASCIICapable
     }
     
-    func setupNavigationBar() {
+    func configureNavigationBar() {
         
         saveButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: Selector("save:"))
         cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: Selector("dismissModal:"))
@@ -250,7 +249,7 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
     }
     
     
-    func setupLabelDescription() {
+    func configureLabelDescription() {
         
         switch (selectedSegment!) {
             
@@ -294,7 +293,7 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
     func textViewDidBeginEditing(textView: UITextView!) {
         println("textViewDidBeginEditing")
         if (content.text.isEmpty) {
-            setupLabelDescription()
+            configureLabelDescription()
             content.selectedRange = NSMakeRange(0, 0)
         }
     }
