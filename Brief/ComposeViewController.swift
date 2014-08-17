@@ -386,19 +386,22 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         var text:String
         var id: NSUUID
         
+        var draftBrief = user.getDraftBrief()
+        
         switch (selectedSegment) {
             
+            
         case 0:
-            text = user.getDraftBrief().progress[indexPath.row].getContent()
-            id = user.getDraftBrief().progress[indexPath.row].getId()
+            text = draftBrief.progress[indexPath.row].getContent()
+            id = draftBrief.progress[indexPath.row].getId()
             
         case 1:
-            text = user.getDraftBrief().plans[indexPath.row].getContent()
-            id = user.getDraftBrief().plans[indexPath.row].getId()
+            text = draftBrief.plans[indexPath.row].getContent()
+            id = draftBrief.plans[indexPath.row].getId()
             
         case 2:
-            text = user.getDraftBrief().problems[indexPath.row].getContent()
-            id = user.getDraftBrief().problems[indexPath.row].getId()
+            text = draftBrief.problems[indexPath.row].getContent()
+            id = draftBrief.problems[indexPath.row].getId()
             
         default:
             text = ""
@@ -427,20 +430,24 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
         if (editingStyle == .Delete) {
             
+            var draftBrief = user.getDraftBrief()
+            
             switch (selectedSegment) {
                 
             case 0:
-                user.getDraftBrief().deleteProgress(indexPath.row)
+                draftBrief.deleteProgress(indexPath.row)
                 
             case 1:
-                user.getDraftBrief().deletePlan(indexPath.row)
+                draftBrief.deletePlan(indexPath.row)
                 
             case 2:
-                user.getDraftBrief().deleteProblem(indexPath.row)
+                draftBrief.deleteProblem(indexPath.row)
                 
             default:
                 table.reloadData()
             }
+            
+            BriefRepository().saveDraftBrief(draftBrief)
             
             refreshToolbarItems()
             
