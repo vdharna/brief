@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CloudKit
 
 class BriefRepository {
     
@@ -37,4 +38,57 @@ class BriefRepository {
         return documentDirectory?.stringByAppendingPathComponent("briefs.archive")
         
     }
+    
+    func saveDraftBrief(brief: Brief) {
+        
+        //query for the brief object first
+        
+        var privateDatabase = CKContainer.defaultContainer().privateCloudDatabase
+        var briefRecordID = CKRecordID(recordName: brief.getId().UUIDString)
+        var briefRecord: CKRecord = CKRecord(recordType: "Brief", recordID: briefRecordID)
+        
+        //check to see if it exists already
+        privateDatabase.fetchRecordWithID(briefRecordID, completionHandler: ({record, error in
+            
+            if (record != nil) {
+                
+                briefRecord = record
+                
+            }
+            
+            // 1. Persist Progress list
+            var progressList = Array<String>()
+            for i in (0 ..< brief.progress.count) {
+                progressList.append(brief.progress[i].getContent())
+            }
+            if (!progressList.isEmpty) {
+                briefRecord.setObject(progressList, forKey: "progress")
+            }
+            
+            // 2. Persist Plan list
+            var planList = Array<String>()
+            for i in (0 ..< brief.plans.count) {
+                planList.append(brief.plans[i].getContent())
+            }
+            if (!planList.isEmpty) {
+                briefRecord.setObject(planList, forKey: "plans")
+            }
+            
+            // 2. Persist Problem list
+            var problemList = Array<String>()
+            for i in (0 ..< brief.problems.count) {
+                problemList.append(brief.problems[i].getContent())
+            }
+            if (!problemList.isEmpty) {
+                briefRecord.setObject(problemList, forKey: "problems")
+            }
+            
+            privateDatabase.saveRecord(briefRecord, completionHandler: ({record, error in
+                println("\(record)")
+            }));
+            
+        }));
+
+    }
+    
 }

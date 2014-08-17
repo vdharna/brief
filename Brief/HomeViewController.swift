@@ -8,6 +8,7 @@
 
 import UIKit
 import QuartzCore
+import CloudKit
 
 class HomeViewController: UIViewController {
     
@@ -127,5 +128,25 @@ class HomeViewController: UIViewController {
         println("settings")
     }
 
+    @IBAction func cloudKitPressed(sender: AnyObject) {
+        
+        var defaultContainer = CKContainer.defaultContainer()
+        defaultContainer.requestApplicationPermission(CKApplicationPermissions.PermissionUserDiscoverability, completionHandler: nil)
+        
+        // get user information
+        defaultContainer.fetchUserRecordIDWithCompletionHandler({recordID, error in
+            
+            defaultContainer.discoverUserInfoWithUserRecordID(recordID, completionHandler: {userInfo, error in
+                
+                println("\(error)")
+                println("\(userInfo)")
+            
+                
+            });
+                
+
+        });
+        
+    }
 }
 

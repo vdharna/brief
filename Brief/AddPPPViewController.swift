@@ -189,36 +189,40 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
         
         //create the correct model object
         var editMode = selectedPPPElement > -1
+        var draftBrief = user.getDraftBrief()
+        
         switch (selectedSegment!) {
             
         case 0:
             var progress = Progress(content: content.text)
             if (editMode) {
-                user.getDraftBrief().updateProgress(selectedPPPElement, p: progress)
+                draftBrief.updateProgress(selectedPPPElement, p: progress)
             } else {
-                user.getDraftBrief().addProgress(progress)
+                draftBrief.addProgress(progress)
             }
             
         case 1:
             var plan = Plan(content: content.text)
             if (editMode) {
-                user.getDraftBrief().updatePlan(selectedPPPElement, p: plan)
+                draftBrief.updatePlan(selectedPPPElement, p: plan)
             } else {
-                user.getDraftBrief().addPlan(plan)
+                draftBrief.addPlan(plan)
             }
             
         case 2:
             var problem = Problem(content: content.text)
             if (editMode) {
-                user.getDraftBrief().updateProblem(selectedPPPElement, p: problem)
+                draftBrief.updateProblem(selectedPPPElement, p: problem)
             } else {
-                user.getDraftBrief().addProblem(problem)
+                draftBrief.addProblem(problem)
             }
             
         default:
             self.presentingViewController.dismissViewControllerAnimated(true, completion: {})
 
         }
+        
+        BriefRepository().saveDraftBrief(draftBrief) //save the draft
         
         self.presentingViewController.dismissViewControllerAnimated(true, completion: {})
 

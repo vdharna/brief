@@ -37,6 +37,7 @@
 		626FCD241986B44700946973 /* Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626FCD231986B44700946973 /* Share.swift */; };
 		62727F9E199946350063EA0C /* CompletedBriefCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62727F9C199946350063EA0C /* CompletedBriefCollectionViewCell.swift */; };
 		62727F9F199946350063EA0C /* CompletedBriefCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62727F9D199946350063EA0C /* CompletedBriefCollectionViewCell.xib */; };
+		6276E47E199F2268004D7326 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6276E47D199F2268004D7326 /* CloudKit.framework */; };
 		6295FAC619746D6500C338D3 /* Brief.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6295FAC519746D6500C338D3 /* Brief.swift */; };
 		62C032881981CE86005AC29F /* ComposeBriefTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C032861981CE86005AC29F /* ComposeBriefTableViewCell.swift */; };
 		62C032891981CE86005AC29F /* ComposeBriefTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62C032871981CE86005AC29F /* ComposeBriefTableViewCell.xib */; };
@@ -94,7 +95,9 @@
 		626FCD231986B44700946973 /* Share.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Share.swift; sourceTree = "<group>"; };
 		62727F9C199946350063EA0C /* CompletedBriefCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedBriefCollectionViewCell.swift; sourceTree = "<group>"; };
 		62727F9D199946350063EA0C /* CompletedBriefCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompletedBriefCollectionViewCell.xib; sourceTree = "<group>"; };
+		6276E47D199F2268004D7326 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		6295FAC519746D6500C338D3 /* Brief.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brief.swift; sourceTree = "<group>"; };
+		62ABE282199EC25200CD6430 /* Brief.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Brief.entitlements; sourceTree = "<group>"; };
 		62C032861981CE86005AC29F /* ComposeBriefTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeBriefTableViewCell.swift; sourceTree = "<group>"; };
 		62C032871981CE86005AC29F /* ComposeBriefTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ComposeBriefTableViewCell.xib; sourceTree = "<group>"; };
 		62C0328A1981D260005AC29F /* compose-table-cell.graffle */ = {isa = PBXFileReference; lastKnownFileType = file; path = "compose-table-cell.graffle"; sourceTree = "<group>"; };
@@ -111,6 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6276E47E199F2268004D7326 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,6 +131,7 @@
 		6247411F196CB5A10043C7E5 = {
 			isa = PBXGroup;
 			children = (
+				6276E47D199F2268004D7326 /* CloudKit.framework */,
 				6247412A196CB5A10043C7E5 /* Brief */,
 				6247413F196CB5A10043C7E5 /* BriefTests */,
 				62474129196CB5A10043C7E5 /* Products */,
@@ -145,6 +150,7 @@
 		6247412A196CB5A10043C7E5 /* Brief */ = {
 			isa = PBXGroup;
 			children = (
+				62ABE282199EC25200CD6430 /* Brief.entitlements */,
 				624741A7196DB0930043C7E5 /* Application */,
 				62888FE6197A1E67002D0DD0 /* Views */,
 				624741A6196DB0840043C7E5 /* View Controllers */,
@@ -343,6 +349,12 @@
 				TargetAttributes = {
 					62474127196CB5A10043C7E5 = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = NRG444WHB2;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					6247413B196CB5A10043C7E5 = {
 						CreatedOnToolsVersion = 6.0;
@@ -534,10 +546,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = Brief/Brief.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Brief/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -546,10 +562,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = Brief/Brief.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Brief/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

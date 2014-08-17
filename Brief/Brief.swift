@@ -125,9 +125,6 @@ class Brief: NSObject, NSCoding {
         self.submittedDate = NSDate()
     }
     
-
-    
-    
     func encodeWithCoder(aCoder: NSCoder!) {
         
         aCoder.encodeObject(self.id, forKey: "id")

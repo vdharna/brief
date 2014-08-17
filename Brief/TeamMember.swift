@@ -7,23 +7,47 @@
 //
 
 import Foundation
+import CloudKit
 
 let user = TeamMember()
 
 class TeamMember: NSObject, NSCoding {
     
-    private var id: String
-    private var firstName: String
-    private var lastName: String
+    private var id: CKRecordID?
+    private var firstName: String?
+    private var lastName: String?
     
     private var draftBrief:Brief?
     private var completedBriefs: Array<Brief>?
     private var notificationSubscriptions = Array<NSUUID>()
     
     override init() {
-        self.id = "1"
-        self.firstName = "Dharminder"
-        self.lastName = "Dharna"
+        super.init()
+        //check to see if the iCloud token is the same. If so, set the values from NSDefaults.
+        
+        var defaultContainer = CKContainer.defaultContainer()
+        defaultContainer.requestApplicationPermission(CKApplicationPermissions.PermissionUserDiscoverability, completionHandler: nil)
+        
+        // get user information
+        defaultContainer.fetchUserRecordIDWithCompletionHandler({recordID, error in
+            
+            if (error != nil) {
+            defaultContainer.discoverUserInfoWithUserRecordID(recordID, completionHandler: {userInfo, error in
+                
+                if(error != nil) {
+                    
+                } else {
+                    
+                    self.id = userInfo.userRecordID
+                    self.firstName = userInfo.firstName
+                    self.lastName = userInfo.lastName
+                }
+                
+            });
+            
+            }
+        });
+
     }
     
     func getDraftBrief() -> Brief {
@@ -43,6 +67,7 @@ class TeamMember: NSObject, NSCoding {
 
             }
         }
+                
         return self.draftBrief!
     }
     
@@ -87,14 +112,13 @@ class TeamMember: NSObject, NSCoding {
         
         var dates = [date20, date19, date18, date17, date16, date15, date14, date13, date12, date11, date10, date9, date8, date7, date6, date5, date4, date3, date2, date1]
 
-        if dic["debug"] != nil {
-            //create user archive to test
-            for var index = 0; index < 20; ++index {
-                var brief = BriefArchiveDebugLoadUtility.createSampleBrief()
-                brief.submittedDate = dates[index]
-                completedBriefs!.append(brief)
-            }
+        //create user archive to test
+        for var index = 0; index < 20; ++index {
+            var brief = BriefArchiveDebugLoadUtility.createSampleBrief()
+            brief.submittedDate = dates[index]
+            completedBriefs!.append(brief)
         }
+        
 
     }
     
@@ -148,9 +172,9 @@ class TeamMember: NSObject, NSCoding {
     
     required init(coder aDecoder: NSCoder!) {
         
-        self.id = aDecoder.decodeObjectForKey("id") as String
-        self.firstName = aDecoder.decodeObjectForKey("firstName") as String
-        self.lastName = aDecoder.decodeObjectForKey("lastName") as String
+        self.id = aDecoder.decodeObjectForKey("id") as? CKRecordID
+        self.firstName = aDecoder.decodeObjectForKey("first?Name") as? String
+        self.lastName = aDecoder.decodeObjectForKey("last?Name") as? String
         self.draftBrief = aDecoder.decodeObjectForKey("draftBrief") as? Brief
         self.notificationSubscriptions = aDecoder.decodeObjectForKey("notificationSubscriptions") as Array<NSUUID>
         
