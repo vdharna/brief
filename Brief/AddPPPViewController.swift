@@ -221,9 +221,7 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
             self.presentingViewController.dismissViewControllerAnimated(true, completion: {})
 
         }
-        
-        BriefRepository().saveDraftBrief(draftBrief) //save the draft
-        
+                
         self.presentingViewController.dismissViewControllerAnimated(true, completion: {})
 
     }
@@ -290,12 +288,10 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
     }
     
     func textViewShouldBeginEditing(textView: UITextView!) -> Bool {
-        println("textViewShouldBeginEditing")
         return true
     }
     
     func textViewDidBeginEditing(textView: UITextView!) {
-        println("textViewDidBeginEditing")
         if (content.text.isEmpty) {
             configureLabelDescription()
             content.selectedRange = NSMakeRange(0, 0)
@@ -303,12 +299,10 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
     }
     
     func textViewShouldEndEditing(textView: UITextView!) -> Bool {
-        println("textViewShouldEndEditing")
         return true
     }
     
     func textViewDidEndEditing(textView: UITextView!) {
-        println("textViewDidEndEditing")
     }
     
     

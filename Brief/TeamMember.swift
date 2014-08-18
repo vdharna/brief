@@ -31,41 +31,29 @@ class TeamMember: NSObject, NSCoding {
         // get user information
         defaultContainer.fetchUserRecordIDWithCompletionHandler({recordID, error in
             
-            if (error != nil) {
             defaultContainer.discoverUserInfoWithUserRecordID(recordID, completionHandler: {userInfo, error in
                 
-                if(error != nil) {
-                    
-                } else {
-                    
-                    self.id = userInfo.userRecordID
-                    self.firstName = userInfo.firstName
-                    self.lastName = userInfo.lastName
-                }
+                self.id = userInfo.userRecordID
+                println("\(self.id)")
+                self.firstName = userInfo.firstName
+                self.lastName = userInfo.lastName
                 
             });
             
-            }
         });
 
+    }
+    
+    func getID() -> CKRecordID {
+        return self.id!
     }
     
     func getDraftBrief() -> Brief {
         
         if (self.draftBrief == nil) {
+                
+            self.draftBrief = Brief(status: .New)
             
-            // check to see if there's a brief stored in the local filesystem
-            var brief = BriefRepository().loadDraftBrief()
-            
-            if (brief != nil) {
-                
-                self.draftBrief = brief
-                
-            } else {
-                
-                self.draftBrief = Brief(status: .New)
-
-            }
         }
                 
         return self.draftBrief!

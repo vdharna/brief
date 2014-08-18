@@ -136,9 +136,9 @@ class HomeViewController: UIViewController {
         // get user information
         defaultContainer.fetchUserRecordIDWithCompletionHandler({recordID, error in
             
+            println("\(recordID)")
             defaultContainer.discoverUserInfoWithUserRecordID(recordID, completionHandler: {userInfo, error in
                 
-                println("\(error)")
                 println("\(userInfo)")
             
                 

@@ -446,9 +446,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
             default:
                 table.reloadData()
             }
-            
-            BriefRepository().saveDraftBrief(draftBrief)
-            
+                        
             refreshToolbarItems()
             
             var cellToDelete = NSIndexPath(index: indexPath.row)

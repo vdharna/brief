@@ -39,7 +39,7 @@ class BriefRepository {
         
     }
     
-    func saveDraftBrief(brief: Brief) {
+    class func saveDraftBrief(brief: Brief) {
         
         //query for the brief object first
         
@@ -53,7 +53,6 @@ class BriefRepository {
             if (record != nil) {
                 
                 briefRecord = record
-                println("\(record.recordChangeTag)")
                 
             }
             
@@ -82,11 +81,22 @@ class BriefRepository {
             briefRecord.setObject(problemList, forKey: "problems")
             
             privateDatabase.saveRecord(briefRecord, completionHandler: ({record, error in
-                println("\(record)")
+                
+                println("Brief Record: \(record)")
+                
+                var teamMemberRef = CKReference(recordID: user.getID(), action: CKReferenceAction.DeleteSelf)
+                
+                record.setObject(teamMemberRef, forKey: "teamMember")
+                
+                privateDatabase.saveRecord(record, completionHandler: ({record, error in
+                    println("Brief Record: \(record)")
+                    
+                }));
+
             }));
             
         }));
-
+        
     }
     
 }

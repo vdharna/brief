@@ -44,13 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         if (user.getDraftBrief().status == Status.InProgress) {
             
-            var success = BriefRepository().saveChanges(user.getDraftBrief())
-            if (success) {
-                println("Saved the draft brief")
-            }
-            else {
-                println("Could not save the draft brief")
-            }
+            BriefRepository.saveDraftBrief(user.getDraftBrief())
         }
     }
 
