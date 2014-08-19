@@ -20,6 +20,7 @@ class HomeViewController: UIViewController {
     
     var cbvc: MasterBriefViewController?
     
+    
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         //assign the constant
@@ -36,30 +37,35 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        setupNavBar()
+       
+        var cloudManager = BriefCloudManager()
+        cloudManager.requestDiscoverabilityPermission({ discoverability in
+            if (discoverability) {
+                
+                cloudManager.discoverUserInfo({ userInfo in
+                    
+                    user.id = userInfo.userRecordID
+                    user.firstName = userInfo.firstName
+                    user.lastName = userInfo.lastName
+                    
+                });
+            
+            } else {
+                
+                var alert = UIAlertController(title: "Brief", message: "Getting your Briefs requires permission.", preferredStyle: UIAlertControllerStyle.Alert)
+                
+                var action = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { alert in
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                });
+                
+                alert.addAction(action)
+                self.presentViewController(alert, animated: true, completion: nil)
+                
+            }
+        });
+        
     }
     
-    
-    func setupNavBar() {
-        
-        self.navigationItem.title = ""
-        
-        // this will appear as the title in the navigation bar
-        var label = UILabel()
-        label.text = "Brief"
-        label.backgroundColor = UIColor.clearColor()
-        label.font = UIFont.boldSystemFontOfSize(25.0)
-        label.textAlignment = NSTextAlignment.Center
-        label.textColor = UIColor.whiteColor()
-        self.navigationItem.titleView = label;
-        label.sizeToFit()
-    
-        //setup the gear
-        var gearImage = UIImage(named: "gear.png")
-        var gearButton = UIBarButtonItem(image: gearImage, style: .Plain, target: self, action: "settings")
-        self.navigationItem.rightBarButtonItem = gearButton;
-        
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -67,7 +73,24 @@ class HomeViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+        
         super.viewWillAppear(animated)
+        
+        configureNavBar()
+        //configureButtons()
+
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+
+    }
+    
+    func configureButtons() {
         
         switch (user.getDraftBrief().status) {
             
@@ -83,15 +106,28 @@ class HomeViewController: UIViewController {
             self.composeButton.imageView.image = UIImage(named: "compose.png")
             self.composeLabel.text = "COMPOSE"
         }
+        
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-    }
-    
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-
+    func configureNavBar() {
+        
+        self.navigationItem.title = ""
+        
+        // this will appear as the title in the navigation bar
+        var label = UILabel()
+        label.text = "Brief"
+        label.backgroundColor = UIColor.clearColor()
+        label.font = UIFont.boldSystemFontOfSize(25.0)
+        label.textAlignment = NSTextAlignment.Center
+        label.textColor = UIColor.whiteColor()
+        self.navigationItem.titleView = label;
+        label.sizeToFit()
+        
+        //setup the gear
+        var gearImage = UIImage(named: "gear.png")
+        var gearButton = UIBarButtonItem(image: gearImage, style: .Plain, target: self, action: "settings")
+        self.navigationItem.rightBarButtonItem = gearButton;
+        
     }
     
     // ==========================================
@@ -130,21 +166,17 @@ class HomeViewController: UIViewController {
 
     @IBAction func cloudKitPressed(sender: AnyObject) {
         
-        var defaultContainer = CKContainer.defaultContainer()
-        defaultContainer.requestApplicationPermission(CKApplicationPermissions.PermissionUserDiscoverability, completionHandler: nil)
-        
-        // get user information
-        defaultContainer.fetchUserRecordIDWithCompletionHandler({recordID, error in
-            
-            println("\(recordID)")
-            defaultContainer.discoverUserInfoWithUserRecordID(recordID, completionHandler: {userInfo, error in
-                
-                println("\(userInfo)")
-            
-                
-            });
-                
-
+        var cloudManager = BriefCloudManager()
+        cloudManager.requestDiscoverabilityPermission({discoverability in
+            if (discoverability) {
+                println("True")
+                cloudManager.discoverUserInfo({userInfo in
+                    println("\(userInfo.firstName)")
+                    println("\(userInfo.lastName)")
+                });
+            } else {
+                println("False")
+            }
         });
         
     }

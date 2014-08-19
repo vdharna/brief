@@ -10,7 +10,7 @@ import Foundation
 
 class Brief: NSObject, NSCoding {
     
-    private let id: NSUUID
+    var id: String
     var progress: Array<Progress>
     var plans: Array<Plan>
     var problems: Array<Problem>
@@ -18,14 +18,14 @@ class Brief: NSObject, NSCoding {
     var status: Status
     
     init(status: Status) {
-        self.id = NSUUID.UUID()
+        self.id = NSUUID.UUID().UUIDString
         self.progress = Array<Progress>()
         self.plans = Array<Plan>()
         self.problems = Array<Problem>()
         self.status = status
     }
     
-    func getId() -> NSUUID {
+    func getId() -> String {
         return self.id
     }
     
@@ -137,7 +137,7 @@ class Brief: NSObject, NSCoding {
     
     required init(coder aDecoder: NSCoder!) {
         
-        self.id = aDecoder.decodeObjectForKey("id") as NSUUID
+        self.id = aDecoder.decodeObjectForKey("id") as String
         self.progress = aDecoder.decodeObjectForKey("progress") as Array<Progress>
         self.plans = aDecoder.decodeObjectForKey("plans") as Array<Plan>
         self.problems = aDecoder.decodeObjectForKey("problems") as Array<Problem>

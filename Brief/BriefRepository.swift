@@ -11,7 +11,8 @@ import CloudKit
 
 class BriefRepository {
     
-    func saveChanges(brief: Brief) -> Bool {
+    
+    func saveDraftBriefToDevice(brief: Brief) -> Bool {
         
         var path = self.briefArchivePath()
         
@@ -20,7 +21,7 @@ class BriefRepository {
 
     }
     
-    func loadDraftBrief() -> Brief? {
+    func loadDraftBriefFromDevice() -> Brief? {
         
         var path = self.briefArchivePath()
         return NSKeyedUnarchiver.unarchiveObjectWithFile(path) as? Brief
@@ -44,7 +45,7 @@ class BriefRepository {
         //query for the brief object first
         
         var privateDatabase = CKContainer.defaultContainer().privateCloudDatabase
-        var briefRecordID = CKRecordID(recordName: brief.getId().UUIDString)
+        var briefRecordID = CKRecordID(recordName: brief.getId())
         var briefRecord: CKRecord = CKRecord(recordType: "Brief", recordID: briefRecordID)
         
         //check to see if it exists already
@@ -94,6 +95,61 @@ class BriefRepository {
                 }));
 
             }));
+            
+        }));
+        
+    }
+    
+    class func loadDraftBrief() {
+        
+        var privateDatabase = CKContainer.defaultContainer().privateCloudDatabase
+        
+        // Match draft brief record whose owner (TeamMember) field points to the specified draft brief record.
+        var recordToMatch = CKReference(recordID: user.getID(), action: CKReferenceAction.DeleteSelf)
+        var predicate = NSPredicate(format: "teamMember == %@", recordToMatch)
+
+        // Create the query object.
+        var query = CKQuery(recordType:"Brief", predicate: predicate)
+        privateDatabase.performQuery(query, inZoneWithID: nil, completionHandler: ({results, error in
+            
+            println("\(results.count)")
+            
+            if (error != nil) {
+                println("\(error)")
+                println("Error Reported")
+                
+            } else {
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                
+                    // make sure it executes on main thread
+                    // create the brief to load from CKRecord
+                    var brief = Brief(status: Status.InProgress)
+                    // reference to CKRecord
+                    var briefRecord = results.first as CKRecord
+                    // load the ID
+                    var briefId = briefRecord.recordID.recordName
+                    brief.id = briefId
+                    // load the progress items
+                    var progressList = briefRecord.objectForKey("progress") as Array<String>
+                    for i in (0 ..< progressList.count) {
+                        brief.addProgress(Progress(content: progressList[i]))
+                    }
+                    // load the plan list
+                    var planList = briefRecord.objectForKey("plans") as Array<String>
+                    for i in (0 ..< planList.count) {
+                        brief.addPlan(Plan(content: planList[i]))
+                    }
+                    //load the problem list
+                    var problemList = briefRecord.objectForKey("problems") as Array<String>
+                    for i in (0 ..< problemList.count) {
+                        brief.addProblem(Problem(content: problemList[i]))
+                    }
+                    
+                    user.draftBrief = brief
+                })
+                
+            }
             
         }));
         

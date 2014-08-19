@@ -13,35 +13,17 @@ let user = TeamMember()
 
 class TeamMember: NSObject, NSCoding {
     
-    private var id: CKRecordID?
-    private var firstName: String?
-    private var lastName: String?
+    var id: CKRecordID?
+    var firstName: String?
+    var lastName: String?
     
-    private var draftBrief:Brief?
+    var draftBrief:Brief?
     private var completedBriefs: Array<Brief>?
     private var notificationSubscriptions = Array<NSUUID>()
     
     override init() {
         super.init()
-        //check to see if the iCloud token is the same. If so, set the values from NSDefaults.
         
-        var defaultContainer = CKContainer.defaultContainer()
-        defaultContainer.requestApplicationPermission(CKApplicationPermissions.PermissionUserDiscoverability, completionHandler: nil)
-        
-        // get user information
-        defaultContainer.fetchUserRecordIDWithCompletionHandler({recordID, error in
-            
-            defaultContainer.discoverUserInfoWithUserRecordID(recordID, completionHandler: {userInfo, error in
-                
-                self.id = userInfo.userRecordID
-                println("\(self.id)")
-                self.firstName = userInfo.firstName
-                self.lastName = userInfo.lastName
-                
-            });
-            
-        });
-
     }
     
     func getID() -> CKRecordID {
@@ -49,13 +31,10 @@ class TeamMember: NSObject, NSCoding {
     }
     
     func getDraftBrief() -> Brief {
-        
+
         if (self.draftBrief == nil) {
-                
-            self.draftBrief = Brief(status: .New)
-            
+            self.draftBrief = Brief(status: Status.New)
         }
-                
         return self.draftBrief!
     }
     
@@ -126,7 +105,7 @@ class TeamMember: NSObject, NSCoding {
         return find(self.notificationSubscriptions, id) != nil
     }
     
-    func findBriefById(id: NSUUID) -> Brief? {
+    func findBriefById(id: String) -> Brief? {
         
         var brief: Brief?
         // loop through each array

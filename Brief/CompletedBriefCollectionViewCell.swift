@@ -16,7 +16,7 @@ class CompletedBriefCollectionViewCell: UICollectionViewCell {
     @IBOutlet
     weak var dateLabel: UILabel!
     
-    var briefId:NSUUID!
+    var briefId: String!
     
     override func awakeFromNib() {
         super.awakeFromNib()
