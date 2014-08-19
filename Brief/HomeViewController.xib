@@ -10,6 +10,7 @@
                 <outlet property="completedLabel" destination="Ul2-HT-6Wn" id="6FA-0x-yoF"/>
                 <outlet property="composeButton" destination="b4b-st-HJq" id="W90-hv-dtC"/>
                 <outlet property="composeLabel" destination="jc6-df-MJB" id="jQx-E5-tN5"/>
+                <outlet property="userNameLabel" destination="YI8-C9-oSS" id="5tS-aG-yhL"/>
                 <outlet property="view" destination="Fda-Io-Fys" id="u8y-Et-Psl"/>
             </connections>
         </placeholder>
@@ -57,6 +58,12 @@
                         <action selector="cloudKitPressed:" destination="-1" eventType="touchUpInside" id="YYz-0F-yKh"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YI8-C9-oSS">
+                    <rect key="frame" x="8" y="102" width="304" height="21"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>

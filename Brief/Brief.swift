@@ -95,7 +95,7 @@ class Brief: NSObject, NSCoding {
         }
     }
     
-    func findItemById(id: NSUUID) -> PPPItem {
+    func findItemById(id: String) -> PPPItem {
         
         // loop through each array
         for i in (0 ..< progress.count) {

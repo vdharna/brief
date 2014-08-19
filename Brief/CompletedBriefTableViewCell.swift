@@ -15,7 +15,7 @@ class CompletedBriefTableViewCell: UITableViewCell {
     @IBOutlet weak var view2: UIView!
     @IBOutlet weak var view3: UIView!
     
-    var briefId: NSUUID!
+    var briefId: String!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String!) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

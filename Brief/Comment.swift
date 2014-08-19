@@ -14,13 +14,13 @@ func ==(lhs: Comment, rhs: Comment) -> Bool {
 
 class Comment: NSObject, NSCoding, Equatable {
     
-    private var id: NSUUID
+    private var id: String
     private var content: String
     private var createdDate: NSDate
     private var createdBy: TeamMember
     
     init(content: String, createdDate: NSDate, createdBy: TeamMember) {
-        self.id = NSUUID.UUID()
+        self.id = NSUUID.UUID().UUIDString
         self.content = content
         self.createdDate = createdDate
         self.createdBy = createdBy
@@ -34,7 +34,7 @@ class Comment: NSObject, NSCoding, Equatable {
         return self.createdBy
     }
     
-    func getId() -> NSUUID {
+    func getId() -> String {
         return self.id
     }
     
@@ -52,7 +52,7 @@ class Comment: NSObject, NSCoding, Equatable {
     
     required init(coder aDecoder: NSCoder!) {
         
-        self.id = aDecoder.decodeObjectForKey("id") as NSUUID
+        self.id = aDecoder.decodeObjectForKey("id") as String
         self.content = aDecoder.decodeObjectForKey("content") as String
         self.createdDate = aDecoder.decodeObjectForKey("createdDate") as NSDate
         self.createdBy = aDecoder.decodeObjectForKey("createdBy") as TeamMember

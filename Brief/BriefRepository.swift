@@ -85,7 +85,7 @@ class BriefRepository {
                 
                 println("Brief Record: \(record)")
                 
-                var teamMemberRef = CKReference(recordID: user.getID(), action: CKReferenceAction.DeleteSelf)
+                var teamMemberRef = CKReference(recordID: nil, action: CKReferenceAction.DeleteSelf)
                 
                 record.setObject(teamMemberRef, forKey: "teamMember")
                 
@@ -105,7 +105,7 @@ class BriefRepository {
         var privateDatabase = CKContainer.defaultContainer().privateCloudDatabase
         
         // Match draft brief record whose owner (TeamMember) field points to the specified draft brief record.
-        var recordToMatch = CKReference(recordID: user.getID(), action: CKReferenceAction.DeleteSelf)
+        var recordToMatch = CKReference(recordID: nil, action: CKReferenceAction.DeleteSelf)
         var predicate = NSPredicate(format: "teamMember == %@", recordToMatch)
 
         // Create the query object.

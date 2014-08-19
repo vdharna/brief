@@ -10,7 +10,7 @@ import Foundation
 
 enum Status {
     
-    case New
+    case IsNew
     case InProgress
     case Completed
     

@@ -13,27 +13,27 @@ let user = TeamMember()
 
 class TeamMember: NSObject, NSCoding {
     
-    var id: CKRecordID?
+    var id: String?
     var firstName: String?
     var lastName: String?
     
     var draftBrief:Brief?
     private var completedBriefs: Array<Brief>?
-    private var notificationSubscriptions = Array<NSUUID>()
+    private var notificationSubscriptions = Array<String>()
     
     override init() {
         super.init()
         
     }
     
-    func getID() -> CKRecordID {
-        return self.id!
+    func getID() -> String? {
+        return self.id
     }
     
     func getDraftBrief() -> Brief {
 
         if (self.draftBrief == nil) {
-            self.draftBrief = Brief(status: Status.New)
+            self.draftBrief = Brief(status: .IsNew)
         }
         return self.draftBrief!
     }
@@ -89,11 +89,11 @@ class TeamMember: NSObject, NSCoding {
 
     }
     
-    func addNotification(id: NSUUID) {
+    func addNotification(id: String) {
         self.notificationSubscriptions.append(id)
     }
     
-    func removeNotification(id: NSUUID) {
+    func removeNotification(id: String) {
         
         var index = find(self.notificationSubscriptions, id)
         if (index != nil) {
@@ -101,7 +101,7 @@ class TeamMember: NSObject, NSCoding {
         }
     }
     
-    func containsNotification(id: NSUUID) -> Bool {
+    func containsNotification(id: String) -> Bool {
         return find(self.notificationSubscriptions, id) != nil
     }
     
@@ -123,7 +123,7 @@ class TeamMember: NSObject, NSCoding {
     }
     
     func deleteBrief() {
-        self.draftBrief = Brief(status: .New)
+        self.draftBrief = Brief(status: .IsNew)
     }
     
     
@@ -139,11 +139,11 @@ class TeamMember: NSObject, NSCoding {
     
     required init(coder aDecoder: NSCoder!) {
         
-        self.id = aDecoder.decodeObjectForKey("id") as? CKRecordID
+        self.id = aDecoder.decodeObjectForKey("id") as? String
         self.firstName = aDecoder.decodeObjectForKey("first?Name") as? String
         self.lastName = aDecoder.decodeObjectForKey("last?Name") as? String
         self.draftBrief = aDecoder.decodeObjectForKey("draftBrief") as? Brief
-        self.notificationSubscriptions = aDecoder.decodeObjectForKey("notificationSubscriptions") as Array<NSUUID>
+        self.notificationSubscriptions = aDecoder.decodeObjectForKey("notificationSubscriptions") as Array<String>
         
     }
 }

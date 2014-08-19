@@ -11,18 +11,18 @@ import Foundation
 
 class PPPItem: NSObject, NSCoding {
     
-    private var id: NSUUID
-    private var content: String
-    private var flag: Flag
+    var id: String
+    var content: String
+    var flag: Flag
     var comments = Array<Comment>()
         
     init(content: String) {
-        self.id = NSUUID.UUID()
+        self.id = NSUUID.UUID().UUIDString
         self.content = content
         self.flag = Flag()
     }
     
-    func getId() -> NSUUID {
+    func getId() -> String {
         return self.id
     }
     
@@ -70,7 +70,7 @@ class PPPItem: NSObject, NSCoding {
     
     required init(coder aDecoder: NSCoder!) {
         
-        self.id = aDecoder.decodeObjectForKey("id") as NSUUID
+        self.id = aDecoder.decodeObjectForKey("id") as String
         self.content = aDecoder.decodeObjectForKey("content") as String
         self.flag = aDecoder.decodeObjectForKey("flag") as Flag
         self.comments = aDecoder.decodeObjectForKey("comments") as Array<Comment>

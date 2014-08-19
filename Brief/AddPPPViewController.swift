@@ -194,11 +194,16 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
         switch (selectedSegment!) {
             
         case 0:
+            
+            //create progress item in iCloud
             var progress = Progress(content: content.text)
+            
             if (editMode) {
                 draftBrief.updateProgress(selectedPPPElement, p: progress)
             } else {
+                
                 draftBrief.addProgress(progress)
+                
             }
             
         case 1:

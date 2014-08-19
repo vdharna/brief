@@ -384,7 +384,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         var cell = table.dequeueReusableCellWithIdentifier(cellName, forIndexPath: indexPath) as ComposeBriefTableViewCell
        
         var text:String
-        var id: NSUUID
+        var id: String
         
         var draftBrief = user.getDraftBrief()
         
@@ -405,7 +405,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
             
         default:
             text = ""
-            id = NSUUID.UUID()
+            id = ""
         }
         
         cell.briefId = id

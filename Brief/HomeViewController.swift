@@ -18,7 +18,10 @@ class HomeViewController: UIViewController {
     @IBOutlet var completedButton: UIButton!
     @IBOutlet var completedLabel: UILabel!
     
+    @IBOutlet weak var userNameLabel: UILabel!
+    
     var cbvc: MasterBriefViewController?
+    var cloudManager = BriefCloudManager()
     
     
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
@@ -37,17 +40,18 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-       
-        var cloudManager = BriefCloudManager()
-        cloudManager.requestDiscoverabilityPermission({ discoverability in
+        
+        self.cloudManager.requestDiscoverabilityPermission({ discoverability in
             if (discoverability) {
                 
-                cloudManager.discoverUserInfo({ userInfo in
+                self.cloudManager.discoverUserInfo({ userInfo in
                     
-                    user.id = userInfo.userRecordID
+                    self.userNameLabel.text = "\(userInfo.firstName) \(userInfo.lastName)"
+                    
+                    user.id = userInfo.userRecordID.recordName
                     user.firstName = userInfo.firstName
                     user.lastName = userInfo.lastName
-                    
+        
                 });
             
             } else {
@@ -94,7 +98,7 @@ class HomeViewController: UIViewController {
         
         switch (user.getDraftBrief().status) {
             
-        case .New:
+        case .IsNew:
             self.composeButton.imageView.image = UIImage(named: "compose.png")
             self.composeLabel.text = "COMPOSE"
             
@@ -139,6 +143,14 @@ class HomeViewController: UIViewController {
         //prevent duplicate tap
         composeButton.enabled = false
         completedButton.enabled = false
+        
+        // create the record in iCloud
+        var draftBrief = user.getDraftBrief()
+        self.cloudManager.addBriefRecord(draftBrief, completionClosure: { record in
+            
+            // assign the record id generated from iCloud to the draft brief
+            draftBrief.id = record.recordID.recordName
+        })
 
         var cvc = ComposeViewController(nibName: "ComposeViewController", bundle: NSBundle.mainBundle())
         self.navigationController.pushViewController(cvc, animated: true)
