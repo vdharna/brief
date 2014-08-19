@@ -135,10 +135,57 @@ class BriefCloudManager {
         
     }
     
-    func addPPPRecord(ppp: PPPItem, completionClosure: (record :CKRecord) ->()) {
+    func addProgressRecord(progress: Progress, completionClosure: (record :CKRecord) ->()) {
+        
+        var record: CKRecord = CKRecord(recordType: "Progress")
+        record.setObject(progress.content, forKey: "content")
+        
+        self.publicDatabase.saveRecord(record, completionHandler: { record, error in
+            
+            if (error != nil) {
+                
+                println("An error occured saving record: \(error)")
+                
+            } else {
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    completionClosure(record: record)
+                })
+                
+            }
+            
+        })
+        
+    }
+    
+    func addPlanRecord(plan: Plan, completionClosure: (record :CKRecord) ->()) {
         
         var record: CKRecord = CKRecord(recordType: "Plan")
+        record.setObject(plan.content, forKey: "content")
+
+        self.publicDatabase.saveRecord(record, completionHandler: { record, error in
+            
+            if (error != nil) {
+                
+                println("An error occured saving record: \(error)")
+                
+            } else {
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    completionClosure(record: record)
+                })
+                
+            }
+            
+        })
         
+    }
+    
+    func addProblemRecord(problem: Problem, completionClosure: (record :CKRecord) ->()) {
+        
+        var record: CKRecord = CKRecord(recordType: "Problem")
+        record.setObject(problem.content, forKey: "content")
+
         self.publicDatabase.saveRecord(record, completionHandler: { record, error in
             
             if (error != nil) {

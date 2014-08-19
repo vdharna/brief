@@ -24,6 +24,8 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
     var selectedPPPElement = -1 //default to indicate nothing is transitioned
     var snapshot:String?
     
+    var cloudManager = BriefCloudManager()
+    
     let progressDescription = "List an accomplishment, finished item or closed task for the current reporting period..."
     let planDescription = "List a goal or objective for the next reporting period..."
     let problemDescription = "List an item you can't finish and need escalation or help from someone else..."
@@ -58,6 +60,7 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
 
         setContentForEdit()
         self.charCountView.updateCharacterCount(content.text.utf16Count)
+        
         //take snapshot for comparison
         snapshot = content.text
     
@@ -194,32 +197,84 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
         switch (selectedSegment!) {
             
         case 0:
-            
-            //create progress item in iCloud
-            var progress = Progress(content: content.text)
-            
+        
             if (editMode) {
-                draftBrief.updateProgress(selectedPPPElement, p: progress)
+                var progress = user.getDraftBrief().progress[selectedPPPElement] as Progress
+                // update the progress item
+                progress.content = self.content.text
+                draftBrief.updateProgress(self.selectedPPPElement, p: progress)
+                
+                self.cloudManager.fetchRecordWithID(progress.id, completionClosure: { record in
+                    // update the record for CloudKit
+                    record.setObject(progress.content, forKey: "content")
+                    self.cloudManager.saveRecord(record)
+                })
+                
+                
             } else {
+                
+                //create progress item in iCloud
+                var progress = Progress(content: content.text)
+                self.cloudManager.addProgressRecord(progress, completionClosure: { record in
+                    progress.id = record.recordID.recordName
+                })
                 
                 draftBrief.addProgress(progress)
                 
             }
             
         case 1:
-            var plan = Plan(content: content.text)
+            
             if (editMode) {
-                draftBrief.updatePlan(selectedPPPElement, p: plan)
+                
+                var plan = user.getDraftBrief().plans[selectedPPPElement] as Plan
+                // update the plan item
+                plan.content = self.content.text
+                draftBrief.updatePlan(self.selectedPPPElement, p: plan)
+                
+                self.cloudManager.fetchRecordWithID(plan.id, completionClosure: { record in
+                    // update the record for CloudKit
+                    record.setObject(plan.content, forKey: "content")
+                    self.cloudManager.saveRecord(record)
+                })
+                
             } else {
+                
+                //create plan item in iCloud
+                var plan = Plan(content: content.text)
+                self.cloudManager.addPlanRecord(plan, completionClosure: { record in
+                    plan.id = record.recordID.recordName
+                })
+                
                 draftBrief.addPlan(plan)
+                
             }
             
         case 2:
-            var problem = Problem(content: content.text)
+            
             if (editMode) {
-                draftBrief.updateProblem(selectedPPPElement, p: problem)
+                var problem = user.getDraftBrief().problems[selectedPPPElement] as Problem
+                // update the problem item
+                problem.content = self.content.text
+                draftBrief.updateProblem(self.selectedPPPElement, p: problem)
+                
+                self.cloudManager.fetchRecordWithID(problem.id, completionClosure: { record in
+                    // update the record for CloudKit
+                    record.setObject(problem.content, forKey: "content")
+                    self.cloudManager.saveRecord(record)
+                })
+                
+                
             } else {
+                
+                //create problem item in iCloud
+                var problem = Problem(content: content.text)
+                self.cloudManager.addProblemRecord(problem, completionClosure: { record in
+                    problem.id = record.recordID.recordName
+                })
+                
                 draftBrief.addProblem(problem)
+                
             }
             
         default:
