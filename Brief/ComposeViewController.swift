@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CloudKit
 
 let characterLimit = 140
 
@@ -51,6 +52,8 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var snapshot: UIView?        ///< A snapshot of the row user is moving.
     var sourceIndexPath:NSIndexPath? ///< Initial index path, where gesture begins.
+    
+    var cloudManager = BriefCloudManager()
     
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -435,12 +438,36 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
             switch (selectedSegment) {
                 
             case 0:
-                draftBrief.deleteProgress(indexPath.row)
                 
+                // delete from iCloud
+                var progress = draftBrief.progress[indexPath.row]
+                var recordID = CKRecordID(recordName: progress.id)
+                var record = CKRecord(recordType: "Progress", recordID: recordID)
+                cloudManager.deleteRecord(record)
+                
+                // delete from local model
+                draftBrief.deleteProgress(indexPath.row)
+
             case 1:
+                
+                // delete from iCloud
+                var plan = draftBrief.plans[indexPath.row]
+                var recordID = CKRecordID(recordName: plan.id)
+                var record = CKRecord(recordType: "Plan", recordID: recordID)
+                cloudManager.deleteRecord(record)
+                
+                // delete from local model
                 draftBrief.deletePlan(indexPath.row)
                 
             case 2:
+                
+                // delete from iCloud
+                var problem = draftBrief.problems[indexPath.row]
+                var recordID = CKRecordID(recordName: problem.id)
+                var record = CKRecord(recordType: "Problem", recordID: recordID)
+                cloudManager.deleteRecord(record)
+                
+                // delete from local model
                 draftBrief.deleteProblem(indexPath.row)
                 
             default:
