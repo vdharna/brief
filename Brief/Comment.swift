@@ -9,54 +9,35 @@
 import Foundation
 
 func ==(lhs: Comment, rhs: Comment) -> Bool {
-    return lhs.getId() == rhs.getId()
+    return lhs.id == rhs.id
 }
 
-class Comment: NSObject, NSCoding, Equatable {
+class Comment: Equatable {
     
-    private var id: String
-    private var content: String
-    private var createdDate: NSDate
-    private var createdBy: TeamMember
+    var id: String
+    var content: String
+    var createdDate: NSDate?
+    var createdBy: String? // first and last name of the commentor
     
-    init(content: String, createdDate: NSDate, createdBy: TeamMember) {
+    init(content: String) {
         self.id = NSUUID.UUID().UUIDString
         self.content = content
-        self.createdDate = createdDate
-        self.createdBy = createdBy
+
     }
     
-    func getCreatedDate() -> NSDate {
-        return self.createdDate
-    }
-    
-    func getCreatedBy() -> TeamMember {
-        return self.createdBy
-    }
-    
-    func getId() -> String {
-        return self.id
-    }
-    
-    func getContent() -> String {
-        return self.content
-    }
-    
-    func encodeWithCoder(aCoder: NSCoder!) {
+    func getElapsedTime() -> String {
         
-        aCoder.encodeObject(self.id, forKey: "id")
-        aCoder.encodeObject(self.content, forKey: "content")
-        aCoder.encodeObject(self.createdDate, forKey: "createdDate")
-        aCoder.encodeObject(self.createdBy, forKey: "createdBy")
-    }
-    
-    required init(coder aDecoder: NSCoder!) {
+        var timeInterval = createdDate?.timeIntervalSinceNow
+        var timeIntervalSeconds = timeInterval! / 1000
         
-        self.id = aDecoder.decodeObjectForKey("id") as String
-        self.content = aDecoder.decodeObjectForKey("content") as String
-        self.createdDate = aDecoder.decodeObjectForKey("createdDate") as NSDate
-        self.createdBy = aDecoder.decodeObjectForKey("createdBy") as TeamMember
+//        if (timeIntervalSeconds < 6000) {
+//            // return the number of hours
+//            return timeIntervalSeconds /
+//        }
+        
+        return "1"
         
     }
+    
     
 }

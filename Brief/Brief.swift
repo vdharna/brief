@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Brief: NSObject, NSCoding {
+class Brief {
     
     var id: String
     var progress: Array<Progress>
@@ -123,25 +123,6 @@ class Brief: NSObject, NSCoding {
     
     func submit() {
         self.submittedDate = NSDate()
-    }
-    
-    func encodeWithCoder(aCoder: NSCoder!) {
-        
-        aCoder.encodeObject(self.id, forKey: "id")
-        aCoder.encodeObject(self.progress, forKey: "progress")
-        aCoder.encodeObject(self.plans, forKey: "plans")
-        aCoder.encodeObject(self.problems, forKey: "problems")
-        aCoder.encodeObject(self.submittedDate, forKey: "submittedDate")
-        
-    }
-    
-    required init(coder aDecoder: NSCoder!) {
-        
-        self.id = aDecoder.decodeObjectForKey("id") as String
-        self.progress = aDecoder.decodeObjectForKey("progress") as Array<Progress>
-        self.plans = aDecoder.decodeObjectForKey("plans") as Array<Plan>
-        self.problems = aDecoder.decodeObjectForKey("problems") as Array<Problem>
-        self.status = .InProgress //default to this since it's always just a draft brief
     }
 
 }

@@ -12,7 +12,7 @@ class BriefArchiveDebugLoadUtility {
     
     class func createSampleBrief() -> Brief {
         
-        var brief = Brief(status: .Completed)
+        var brief = Brief(status: .IsCompleted)
         
         populateProgress(brief)
         populatePlans(brief)
@@ -58,7 +58,7 @@ class BriefArchiveDebugLoadUtility {
         
         for var index = 0; index < 3; ++index {
             let randomIndex = Int(arc4random_uniform(UInt32(comments.count)))
-            var c = Comment(content: comments[randomIndex], createdDate: NSDate(), createdBy: user )
+            var c = Comment(content: comments[randomIndex])
             //item.addComment(c)
         }
     }

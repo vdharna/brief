@@ -8,14 +8,6 @@
 
 import Foundation
 
-class Team: NSObject, NSCoding {
-    
-    func encodeWithCoder(aCoder: NSCoder!) {
-        
-    }
-    
-    required init(coder aDecoder: NSCoder!) {
-        
-    }
+class Team {
     
 }

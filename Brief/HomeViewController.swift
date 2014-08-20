@@ -41,17 +41,16 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        // enhance this code to pull user info locally and using identity management prior to hitting iCloud
+        
         self.cloudManager.requestDiscoverabilityPermission({ discoverability in
             if (discoverability) {
                 
                 self.cloudManager.discoverUserInfo({ userInfo in
                     
-                    self.userNameLabel.text = "\(userInfo.firstName) \(userInfo.lastName)"
-                    
-                    user.id = userInfo.userRecordID.recordName
-                    user.firstName = userInfo.firstName
-                    user.lastName = userInfo.lastName
-        
+                    user.userInfo = userInfo
+                    self.userNameLabel.text = "Welcome \(userInfo.firstName)"
+
                 });
             
             } else {
@@ -81,7 +80,7 @@ class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         
         configureNavBar()
-        //configureButtons()
+        configureButtons()
 
     }
     
@@ -97,10 +96,6 @@ class HomeViewController: UIViewController {
     func configureButtons() {
         
         switch (user.getDraftBrief().status) {
-            
-        case .IsNew:
-            self.composeButton.imageView.image = UIImage(named: "compose.png")
-            self.composeLabel.text = "COMPOSE"
             
         case .InProgress:
             self.composeButton.imageView.image = UIImage(named: "continue.png")

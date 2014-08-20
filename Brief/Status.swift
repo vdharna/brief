@@ -8,10 +8,22 @@
 
 import Foundation
 
-enum Status {
+enum Status: Int {
     
-    case IsNew
-    case InProgress
-    case Completed
+    case InProgress = 1
+    case IsCompleted = 2
     
+    func simpleDescription() -> String {
+        
+        switch self {
+            
+        case .InProgress:
+            return "In Progress"
+        case .IsCompleted:
+            return "Completed"
+        default:
+            return String(self.toRaw())
+            
+        }
+    }
 }

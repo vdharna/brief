@@ -200,8 +200,20 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @IBAction func actionBrief(sender: AnyObject) {
         
-        var alert = UIAlertView(title: "Action", message: "Action Button Clicked", delegate: nil, cancelButtonTitle: "Cancel")
-        alert.show()
+        var draftBrief = user.getDraftBrief()
+        cloudManager.fetchRecordWithID(draftBrief.getId(), completionClosure: {record in
+            
+            // update the draft brief status
+            draftBrief.status = Status.IsCompleted
+            record.setObject(draftBrief.status.toRaw(), forKey: "status")
+            record.setObject(NSDate(), forKey: "submittedDate")
+            // save the record to iCloud
+            user.deleteBrief()
+            self.cloudManager.saveRecord(record)
+            var alert = UIAlertView(title: "Action", message: "Brief Submitted", delegate: nil, cancelButtonTitle: "Cancel")
+            alert.show()
+            self.navigationController.popToRootViewControllerAnimated(true)
+        })
     }
     
     @IBAction func deleteBrief(sender: AnyObject) {
@@ -214,12 +226,23 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         var deleteActionButton = UIAlertAction(title: "Delete", style: .Destructive, handler: {
             (alertAction: UIAlertAction!) in
+            
+            //delete the iCloud copy
+            var recordID = CKRecordID(recordName: user.getDraftBrief().id)
+            var record = CKRecord(recordType: "Brief", recordID: recordID)
+            self.cloudManager.deleteRecord(record)
+            
+            //delete the local copy
             user.deleteBrief()
-            self.selectedSegment = 0
-            self.table.reloadData()
-            self.animateBriefDelete()
-            self.deleteButton.enabled = false
-            self.actionButton.enabled = false
+            
+            self.navigationController.popToRootViewControllerAnimated(true)
+
+//            self.selectedSegment = 0
+//            self.table.reloadData()
+//            self.animateBriefDelete()
+//            self.deleteButton.enabled = false
+//            self.actionButton.enabled = false
+            
             })
 
         alertView.addAction(cancelActionButton)
@@ -326,8 +349,6 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
     }
-    
-
     
     func animateBriefDelete() {
         

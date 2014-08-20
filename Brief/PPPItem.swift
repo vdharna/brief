@@ -9,7 +9,7 @@
 import Foundation
 
 
-class PPPItem: NSObject, NSCoding {
+class PPPItem {
     
     var id: String
     var content: String
@@ -57,24 +57,6 @@ class PPPItem: NSObject, NSCoding {
     
     func commentsCount() -> Int {
         return self.comments.count
-    }
-    
-    func encodeWithCoder(aCoder: NSCoder!) {
-        
-        aCoder.encodeObject(self.id, forKey: "id")
-        aCoder.encodeObject(self.content, forKey: "content")
-        aCoder.encodeObject(self.flag, forKey: "flag")
-        aCoder.encodeObject(self.comments, forKey: "comments")
-        
-    }
-    
-    required init(coder aDecoder: NSCoder!) {
-        
-        self.id = aDecoder.decodeObjectForKey("id") as String
-        self.content = aDecoder.decodeObjectForKey("content") as String
-        self.flag = aDecoder.decodeObjectForKey("flag") as Flag
-        self.comments = aDecoder.decodeObjectForKey("comments") as Array<Comment>
-
     }
     
 }

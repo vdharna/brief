@@ -34,6 +34,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
     
     var item: PPPItem?
     
+    var cloudManager = BriefCloudManager()
     // MARK: --------------------------------
     // MARK: Init  Methods
     // MARK: --------------------------------
@@ -239,15 +240,16 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
         cell.authorImage.image = UIImage(named: "avatar.png")
         
         // set the author name
-        cell.commentAuthor.text = "Dharminder Dharna"
+        cell.commentAuthor.text = item!.comments[indexPath.row].createdBy
         
         // set the number of days elapsed since posting
-        cell.commentTimestamp.text = "🕗 1d"
-        
+        //cell.commentTimestamp.text = item!.comments[indexPath.row].createdDate
+        cell.commentTimestamp.text = item!.comments[indexPath.row].getElapsedTime()
+
         //set the actual comment content
         cell.commentContent.numberOfLines = 0
         
-        cell.commentContent.text = item!.comments[indexPath.row].getContent()
+        cell.commentContent.text = item!.comments[indexPath.row].content
 
         return cell
     }
@@ -269,25 +271,34 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
             var indexPath = NSIndexPath(forRow: index, inSection: 0)
             
             // create the comment
-            var comment = Comment(content: self.inputAccessoryTextView.text, createdDate: NSDate(), createdBy: user)
-            self.item!.addComment(comment)
-            
-            self.determineNoCommentLabelVisibility()
-            
-            // add a new cell into the table
-            self.table.insertRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
-            
-            // reset the text fields and clean-up for the next entry
-            self.inputAccessoryTextView.text = ""
-            var button = self.inputAccessoryToolbar.items[2] as UIBarButtonItem
-            button.enabled = false
-            self.inputAccessoryTextView.frame.size.height = 30
-            self.inputAccessoryTextView.resignFirstResponder()
-            
-            self.textView.text = "Enter Comment..."
-            self.textView.textColor = UIColor.lightGrayColor()
-            
-            scrollToBottom()
+            var comment = Comment(content: self.inputAccessoryTextView.text)
+            // add comment to iCloud
+            cloudManager.addCommentRecord(comment, item: item!, completionClosure: { record in
+                comment.id = record.recordID.recordName
+                comment.createdBy = record.objectForKey("createdBy") as? String
+                comment.createdDate = record.objectForKey("createdDate") as? NSDate
+                
+                // add locally
+                self.item!.addComment(comment)
+                
+                self.determineNoCommentLabelVisibility()
+                
+                // add a new cell into the table
+                self.table.insertRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+                
+                // reset the text fields and clean-up for the next entry
+                self.inputAccessoryTextView.text = ""
+                var button = self.inputAccessoryToolbar.items[2] as UIBarButtonItem
+                button.enabled = false
+                self.inputAccessoryTextView.frame.size.height = 30
+                self.inputAccessoryTextView.resignFirstResponder()
+                
+                self.textView.text = "Enter Comment..."
+                self.textView.textColor = UIColor.lightGrayColor()
+                
+                self.scrollToBottom()
+            })
+
         }
         
     }

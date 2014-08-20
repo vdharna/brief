@@ -11,29 +11,33 @@ import CloudKit
 
 let user = TeamMember()
 
-class TeamMember: NSObject, NSCoding {
+class TeamMember {
     
-    var id: String?
-    var firstName: String?
-    var lastName: String?
+    var userInfo: CKDiscoveredUserInfo?
     
     var draftBrief:Brief?
     private var completedBriefs: Array<Brief>?
     private var notificationSubscriptions = Array<String>()
     
-    override init() {
-        super.init()
-        
+    init() {
     }
     
     func getID() -> String? {
-        return self.id
+        return self.userInfo?.userRecordID.recordName
+    }
+    
+    func getFirstName() -> String? {
+        return self.userInfo?.firstName
+    }
+    
+    func getLastName() -> String? {
+        return self.userInfo?.lastName
     }
     
     func getDraftBrief() -> Brief {
 
         if (self.draftBrief == nil) {
-            self.draftBrief = Brief(status: .IsNew)
+            self.draftBrief = Brief(status: .InProgress)
         }
         return self.draftBrief!
     }
@@ -123,27 +127,7 @@ class TeamMember: NSObject, NSCoding {
     }
     
     func deleteBrief() {
-        self.draftBrief = Brief(status: .IsNew)
+        self.draftBrief = nil
     }
     
-    
-    func encodeWithCoder(aCoder: NSCoder!) {
-        
-        aCoder.encodeObject(self.id, forKey: "id")
-        aCoder.encodeObject(self.firstName, forKey: "firstName")
-        aCoder.encodeObject(self.lastName, forKey: "lastName")
-        aCoder.encodeObject(self.draftBrief, forKey: "draftBrief")
-        aCoder.encodeObject(self.notificationSubscriptions, forKey: "notificationSubscriptions")
-        
-    }
-    
-    required init(coder aDecoder: NSCoder!) {
-        
-        self.id = aDecoder.decodeObjectForKey("id") as? String
-        self.firstName = aDecoder.decodeObjectForKey("first?Name") as? String
-        self.lastName = aDecoder.decodeObjectForKey("last?Name") as? String
-        self.draftBrief = aDecoder.decodeObjectForKey("draftBrief") as? Brief
-        self.notificationSubscriptions = aDecoder.decodeObjectForKey("notificationSubscriptions") as Array<String>
-        
-    }
 }
