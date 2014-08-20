@@ -208,9 +208,11 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
             record.setObject(draftBrief.status.toRaw(), forKey: "status")
             record.setObject(NSDate(), forKey: "submittedDate")
             // save the record to iCloud
-            user.deleteBrief()
             self.cloudManager.saveRecord(record)
-            var alert = UIAlertView(title: "Action", message: "Brief Submitted", delegate: nil, cancelButtonTitle: "Cancel")
+            // remove the brief from local
+            user.deleteBrief()
+            // pop back to main screen
+            var alert = UIAlertView(title: "Brief", message: "Brief Submitted", delegate: nil, cancelButtonTitle: "OK")
             alert.show()
             self.navigationController.popToRootViewControllerAnimated(true)
         })

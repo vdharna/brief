@@ -278,5 +278,11 @@ class BriefCloudManager {
         })
         
     }
+    
+    func queryForDraftBriefWithReferenceNamed(completionClosure: (records:CKRecord) ->()) {
+        
+        
+
+    }
 
 }

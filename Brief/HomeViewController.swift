@@ -41,6 +41,20 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+    }
+    
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        
+        configureNavBar()
+        
         // enhance this code to pull user info locally and using identity management prior to hitting iCloud
         
         self.cloudManager.requestDiscoverabilityPermission({ discoverability in
@@ -48,11 +62,16 @@ class HomeViewController: UIViewController {
                 
                 self.cloudManager.discoverUserInfo({ userInfo in
                     
+                    // assign the user information
                     user.userInfo = userInfo
                     self.userNameLabel.text = "Welcome \(userInfo.firstName)"
-
+                    
+                    
+                    // pull any draft briefs if applicable
+                    self.configureButtons()
+                    
                 });
-            
+                
             } else {
                 
                 var alert = UIAlertController(title: "Brief", message: "Getting your Briefs requires permission.", preferredStyle: UIAlertControllerStyle.Alert)
@@ -67,20 +86,6 @@ class HomeViewController: UIViewController {
             }
         });
         
-    }
-    
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        
-        super.viewWillAppear(animated)
-        
-        configureNavBar()
-        configureButtons()
 
     }
     
@@ -95,13 +100,13 @@ class HomeViewController: UIViewController {
     
     func configureButtons() {
         
-        switch (user.getDraftBrief().status) {
+        if (!user.getDraftBrief().isEmpty()) {
             
-        case .InProgress:
             self.composeButton.imageView.image = UIImage(named: "continue.png")
             self.composeLabel.text = "CONTINUE"
             
-        default:
+        } else {
+        
             self.composeButton.imageView.image = UIImage(named: "compose.png")
             self.composeLabel.text = "COMPOSE"
         }
