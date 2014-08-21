@@ -37,7 +37,7 @@ class TeamMember {
     func getDraftBrief() -> Brief {
 
         if (self.draftBrief == nil) {
-            self.draftBrief = Brief(status: .InProgress)
+            self.draftBrief = Brief(status: .IsNew)
         }
         return self.draftBrief!
     }

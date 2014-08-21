@@ -83,14 +83,12 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     override func viewWillAppear(animated: Bool) {
+        
         self.navigationController.navigationBarHidden = false
-        segmentedControl.selectedSegmentIndex = selectedSegment //sets to last selected segment
-        
-        refreshToolbarItems()
-        
-        table.reloadData()
-        
-        determineNoPPPItemLabelVisibility()
+        self.segmentedControl.selectedSegmentIndex = selectedSegment //sets to last selected segment
+        self.refreshToolbarItems()
+        self.table.reloadData()
+        self.determineNoPPPItemLabelVisibility()
         
     }
     
@@ -598,5 +596,6 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
             
         }
     }
+
 }
 

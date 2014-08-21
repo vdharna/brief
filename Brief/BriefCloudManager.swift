@@ -279,7 +279,7 @@ class BriefCloudManager {
         
     }
     
-    func queryForDraftBriefWithReferenceNamed(completionClosure: (records: Array<CKRecord>) ->()) {
+    func queryForDraftBrief(completionClosure: (records: Array<CKRecord>) ->()) {
         
         // Match draft brief record whose owner (TeamMember) field points to the specified draft brief record.
         var recordToMatch = user.userInfo?.userRecordID
@@ -291,7 +291,7 @@ class BriefCloudManager {
         publicDatabase.performQuery(query, inZoneWithID: nil, completionHandler: {results, error in
                         
             if (error != nil) {
-                println("An error occured retrieving record: \(error)")
+                println("An error occured retrieving records: \(error)")
                 
             } else {
                 
@@ -303,6 +303,37 @@ class BriefCloudManager {
             }
             
         });
+
+    }
+    
+    func queryForItemRecordsWithReferenceNamed(referenceRecordName: String, recordType: String, completionClosure: (records: Array<CKRecord>) ->()) {
+    
+        var recordID = CKRecordID(recordName: referenceRecordName)
+        var parent = CKReference(recordID: recordID, action: CKReferenceAction.None)
+        
+        var predicate = NSPredicate(format: "brief == %@", parent)
+        var query = CKQuery(recordType: recordType, predicate: predicate)
+        
+        var queryOperation = CKQueryOperation(query: query)
+        
+        var results = Array<CKRecord>()
+        
+        queryOperation.recordFetchedBlock = {record in
+            results.append(record)
+        }
+        
+        queryOperation.queryCompletionBlock = { cursor, error in
+         
+            if (error != nil) {
+                println("An error occured retrieving records: \(error)")
+            } else {
+                dispatch_async(dispatch_get_main_queue(), {
+                    completionClosure(records: results)
+                })
+            }
+        }
+        
+        self.publicDatabase.addOperation(queryOperation)
         
     }
 
