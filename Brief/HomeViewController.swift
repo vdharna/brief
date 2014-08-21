@@ -40,7 +40,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+        configureNavBar()
     }
     
 
@@ -53,8 +53,6 @@ class HomeViewController: UIViewController {
         
         super.viewWillAppear(animated)
         
-        configureNavBar()
-        
         // enhance this code to pull user info locally and using identity management prior to hitting iCloud
         
         self.cloudManager.requestDiscoverabilityPermission({ discoverability in
@@ -66,9 +64,26 @@ class HomeViewController: UIViewController {
                     user.userInfo = userInfo
                     self.userNameLabel.text = "Welcome \(userInfo.firstName)"
                     
-                    
-                    // pull any draft briefs if applicable
-                    self.configureButtons()
+                    self.cloudManager.queryForDraftBriefWithReferenceNamed({ records in
+                        
+                        if (records.count > 0) {
+                            
+                            // pull the first record
+                            var record = records.first
+                            
+                            var id = record?.recordID.recordName
+                            var statusRaw = record?.objectForKey("status") as NSNumber
+                            var status = Status.fromRaw(statusRaw)
+                            
+                            var draftBrief = Brief(status: status!)
+                            draftBrief.id = id!
+                            
+                            user.draftBrief = draftBrief
+                        }
+
+                        self.configureButtons()
+                    })
+
                     
                 });
                 
@@ -100,16 +115,16 @@ class HomeViewController: UIViewController {
     
     func configureButtons() {
         
-        if (!user.getDraftBrief().isEmpty()) {
-            
+        switch(user.getDraftBrief().status) {
+        case .InProgress:
             self.composeButton.imageView.image = UIImage(named: "continue.png")
             self.composeLabel.text = "CONTINUE"
             
-        } else {
-        
+        default:
             self.composeButton.imageView.image = UIImage(named: "compose.png")
             self.composeLabel.text = "COMPOSE"
         }
+
         
     }
     
@@ -190,6 +205,10 @@ class HomeViewController: UIViewController {
                 println("False")
             }
         });
+        
+        cloudManager.queryForDraftBriefWithReferenceNamed({ record in
+            println(record)
+        })
         
     }
 }
