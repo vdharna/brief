@@ -20,8 +20,10 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var userNameLabel: UILabel!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     var cbvc: MasterBriefViewController?
-    var cloudManager = BriefCloudManager()
+    let cloudManager = BriefCloudManager()
     
     
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
@@ -29,7 +31,7 @@ class HomeViewController: UIViewController {
         //assign the constant
     }
     
-    required init(coder aDecoder: NSCoder!) {
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -39,59 +41,12 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        configureNavBar()
         
-        // enhance this code to pull user info locally and using identity management prior to hitting iCloud
-        self.cloudManager.requestDiscoverabilityPermission({ discoverability in
-            if (discoverability) {
-                
-                self.cloudManager.discoverUserInfo({ userInfo in
-                    
-                    // assign the user information
-                    user.userInfo = userInfo
-                    self.userNameLabel.text = "Welcome \(userInfo.firstName)"
-                    
-                    self.cloudManager.queryForDraftBrief({ records in
-                        
-                        if (records.count > 0) {
-                            
-                            // pull the first record
-                            var record = records.first
-                            
-                            var id = record?.recordID.recordName
-                            var statusRaw = record?.objectForKey("status") as NSNumber
-                            var status = Status.fromRaw(statusRaw)
-                            
-                            var draftBrief = Brief(status: status!)
-                            draftBrief.id = id!
-                            
-                            user.draftBrief = draftBrief
-                            
-                            self.loadProgressItemsFromiCloud()
-                            self.loadPlanItemsFromiCloud()
-                            self.loadProblemItemsFromiCloud()
-                        }
-                        
-                        self.configureButtons()
-                    })
-                    
-                    
-                });
-                
-            } else {
-                
-                var alert = UIAlertController(title: "Brief", message: "Getting your Briefs requires permission.", preferredStyle: UIAlertControllerStyle.Alert)
-                
-                var action = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { alert in
-                    self.dismissViewControllerAnimated(true, completion: nil)
-                });
-                
-                alert.addAction(action)
-                self.presentViewController(alert, animated: true, completion: nil)
-                
-            }
-        });
+        self.composeButton.hidden = true
+        self.composeLabel.hidden = true
+        
+        self.completedButton.hidden = true
+        self.completedLabel.hidden = true
         
     }
     
@@ -104,8 +59,48 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         
         super.viewWillAppear(animated)
+        // Do any additional setup after loading the view, typically from a nib.
+        configureNavBar()
         
-        self.configureButtons()
+        if (user.draftBrief == nil) {
+            
+            self.activityIndicator.startAnimating()
+            
+            self.cloudManager.queryForDraftBrief({ records in
+                
+                if (records.count > 0) {
+                    
+                    // pull the first record
+                    var record = records.first
+                    
+                    var id = record?.recordID.recordName
+                    var statusRaw = record?.objectForKey("status") as NSNumber
+                    var status = Status.fromRaw(statusRaw)
+                    
+                    var draftBrief = Brief(status: status!)
+                    draftBrief.id = id!
+                    
+                    user.draftBrief = draftBrief
+                    
+                    self.loadProgressItemsFromiCloud()
+                    self.loadPlanItemsFromiCloud()
+                    self.loadProblemItemsFromiCloud()
+                    
+                    self.configureButtons()
+                    
+                    self.activityIndicator.stopAnimating()
+                    
+                }
+                
+            })
+            
+        } else {
+            
+            self.configureButtons()
+            
+        }
+
+        
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -133,7 +128,12 @@ class HomeViewController: UIViewController {
             self.composeButton.imageView.image = UIImage(named: "compose.png")
             self.composeLabel.text = "COMPOSE"
         }
-
+        
+        self.composeButton.hidden = false
+        self.composeLabel.hidden = false
+        
+        self.completedButton.hidden = false
+        self.completedLabel.hidden = false
         
     }
     
@@ -174,8 +174,6 @@ class HomeViewController: UIViewController {
         if (draftBrief.status == Status.IsNew) {
             draftBrief.status = .InProgress
             self.cloudManager.addBriefRecord(draftBrief, completionClosure: { record in
-                // assign the record id generated from iCloud to the draft brief
-                draftBrief.id = record.recordID.recordName
             })
         }
 
@@ -226,11 +224,6 @@ class HomeViewController: UIViewController {
         })
         
     }
-    
-    
-    // MARK: --------------------------------
-    // MARK: iCloud load methods
-    // MARK: --------------------------------
     
     func loadProgressItemsFromiCloud() {
         
@@ -291,5 +284,6 @@ class HomeViewController: UIViewController {
             
         })
     }
+    
 }
 

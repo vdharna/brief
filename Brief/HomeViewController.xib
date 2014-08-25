@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="Brief" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicator" destination="MKb-wh-m8t" id="Y0y-5L-SWk"/>
                 <outlet property="completedButton" destination="SQh-Xg-khp" id="tJg-eN-gns"/>
                 <outlet property="completedLabel" destination="Ul2-HT-6Wn" id="6FA-0x-yoF"/>
                 <outlet property="composeButton" destination="b4b-st-HJq" id="W90-hv-dtC"/>
@@ -64,6 +65,10 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="MKb-wh-m8t">
+                    <rect key="frame" x="142" y="201" width="37" height="37"/>
+                    <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>

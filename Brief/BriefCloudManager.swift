@@ -27,6 +27,10 @@ class BriefCloudManager {
             if (error != nil) {
                 
                 println("\(error)")
+                dispatch_async(dispatch_get_main_queue(), {
+                    completionClosure(applicationPermissionStatus == CKApplicationPermissionStatus.Granted)
+                    
+                })
                 
             } else {
                 
@@ -86,14 +90,10 @@ class BriefCloudManager {
         self.publicDatabase.fetchRecordWithID(current, completionHandler: { record, error in
             
             if (error != nil) {
-                
                 println("An error occured: \(error)")
-                
             } else {
-                
                 dispatch_async(dispatch_get_main_queue(), {
                     completionClosure(record: record)
-                    
                 })
                 
             }
@@ -105,13 +105,9 @@ class BriefCloudManager {
         self.publicDatabase.saveRecord(record, completionHandler: { record, error in
             
             if (error != nil) {
-                
                 println("An error occured saving record: \(error)")
-                
             } else {
-                
                 println("Successfully saved record")
-                
             }
         })
     }
@@ -121,36 +117,28 @@ class BriefCloudManager {
         self.publicDatabase.deleteRecordWithID(record.recordID, completionHandler: { recordID, error in
             
             if (error != nil) {
-                
                 println("An error occured saving record: \(error)")
-                
             } else {
-                
                 println("Successfully deleted record")
-                
             }
         })
         
     }
 
     func addBriefRecord(draftBrief: Brief, completionClosure: (record :CKRecord) ->()) {
-        
-        var record: CKRecord = CKRecord(recordType: "Brief")
+    
+        var record: CKRecord = CKRecord(recordType: "Brief", recordID: CKRecordID(recordName: draftBrief.id))
         // update the draft brief status
         record.setObject(draftBrief.status.toRaw(), forKey: "status")
         
         self.publicDatabase.saveRecord(record, completionHandler: { record, error in
             
             if (error != nil) {
-                
                 println("An error occured saving record: \(error)")
-                
             } else {
-                
                 dispatch_async(dispatch_get_main_queue(), {
                     completionClosure(record: record)
                 })
-                
             }
             
         })
@@ -160,7 +148,8 @@ class BriefCloudManager {
     func addProgressRecord(progress: Progress, completionClosure: (record :CKRecord) ->()) {
         
         // create the record
-        var record: CKRecord = CKRecord(recordType: "Progress")
+        var record: CKRecord = CKRecord(recordType: "Progress", recordID: CKRecordID(recordName: progress.id))
+
         //set the common traits
         self.setPPPCommonTraits(progress, record: record)
         
@@ -169,6 +158,7 @@ class BriefCloudManager {
             if (error != nil) {
                 
                 println("An error occured saving record: \(error)")
+               
                 
             } else {
                 
@@ -184,7 +174,8 @@ class BriefCloudManager {
     
     func addPlanRecord(plan: Plan, completionClosure: (record :CKRecord) ->()) {
         
-        var record: CKRecord = CKRecord(recordType: "Plan")
+        var record: CKRecord = CKRecord(recordType: "Plan", recordID: CKRecordID(recordName: plan.id))
+
         //set the common traits
         self.setPPPCommonTraits(plan, record: record)
 
@@ -208,7 +199,8 @@ class BriefCloudManager {
     
     func addProblemRecord(problem: Problem, completionClosure: (record :CKRecord) ->()) {
         
-        var record: CKRecord = CKRecord(recordType: "Problem")
+        var record: CKRecord = CKRecord(recordType: "Problem", recordID: CKRecordID(recordName: problem.id))
+
         //set the common traits
         self.setPPPCommonTraits(problem, record: record)
 

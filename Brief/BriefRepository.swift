@@ -17,14 +17,14 @@ class BriefRepository {
         var path = self.briefArchivePath()
         
         // Returns true on success
-        return NSKeyedArchiver.archiveRootObject(brief, toFile: path)
+        return NSKeyedArchiver.archiveRootObject(brief, toFile: path!)
 
     }
     
     func loadDraftBriefFromDevice() -> Brief? {
         
         var path = self.briefArchivePath()
-        return NSKeyedUnarchiver.unarchiveObjectWithFile(path) as? Brief
+        return NSKeyedUnarchiver.unarchiveObjectWithFile(path!) as? Brief
         
     }
     

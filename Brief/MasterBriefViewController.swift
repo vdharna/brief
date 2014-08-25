@@ -38,7 +38,7 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
-    required init(coder aDecoder: NSCoder!) {
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -406,13 +406,13 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         var df = NSDateFormatter()
         
         df.dateFormat = "dd"
-        var myDayString = df.stringFromDate(brief.submittedDate)
+        var myDayString = df.stringFromDate(brief.submittedDate!)
         
         df.dateFormat = "MMMM"
-        var myMonthString = df.stringFromDate(brief.submittedDate)
+        var myMonthString = df.stringFromDate(brief.submittedDate!)
         
         df.dateFormat = "yy"
-        var myYearString = df.stringFromDate(brief.submittedDate)
+        var myYearString = df.stringFromDate(brief.submittedDate!)
         
         cell.monthLabel.text = "\(myMonthString)"
         cell.dateLabel.text = "\(myDayString)"
@@ -454,11 +454,8 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         }
         
         var cell = self.collectionView.cellForItemAtIndexPath(indexPath) as CompletedBriefCollectionViewCell
-        if (cell != nil) {
-            
-            cell.applySelectedColorScheme()
+        cell.applySelectedColorScheme()
 
-        }
         
         // Remember selection:
         self.selectedIndexPath = indexPath

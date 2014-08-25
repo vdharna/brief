@@ -24,7 +24,7 @@ class TransparentEdgesScrollView: UIScrollView {
         addObserver(self, forKeyPath: "contentOffset", options: nil, context: nil)
     }
     
-    required init(coder aDecoder: NSCoder!)
+    required init(coder aDecoder: NSCoder)
     {
         super.init(coder: aDecoder)
         addObserver(self, forKeyPath: "contentOffset", options: nil, context: nil)

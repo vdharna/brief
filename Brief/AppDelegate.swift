@@ -13,24 +13,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             
     var window: UIWindow?
 
-
+    let cloudManager = BriefCloudManager()
+    
     func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool {
         // Override point for customization after application launch.
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-
-        let homeVC = HomeViewController(nibName: "HomeViewController", bundle: NSBundle.mainBundle())
-        let briefNavVC = UINavigationController(rootViewController: homeVC)
         
-        //nav bar setup
-        briefNavVC.navigationBar.barTintColor = UIColor.blackColor()
-        briefNavVC.navigationBar.tintColor = UIColor.whiteColor()
-        briefNavVC.navigationBar.barStyle = UIBarStyle.BlackTranslucent
-        
-        self.window?.rootViewController = briefNavVC
-        self.window?.backgroundColor = UIColor.whiteColor()
-        self.window?.makeKeyAndVisible()
+        // enhance this code to pull user info locally and using identity management prior to hitting iCloud
+        self.cloudManager.requestDiscoverabilityPermission({ discoverability in
+            
+            if (discoverability) {
+                
+                self.cloudManager.discoverUserInfo({ userInfo in
+                    
+                    // assign the user information
+                    user.userInfo = userInfo
+                    
+                    let homeVC = HomeViewController(nibName: "HomeViewController", bundle: NSBundle.mainBundle())
+                    let briefNavVC = UINavigationController(rootViewController: homeVC)
+                    
+                    //nav bar setup
+                    briefNavVC.navigationBar.barTintColor = UIColor.blackColor()
+                    briefNavVC.navigationBar.tintColor = UIColor.whiteColor()
+                    briefNavVC.navigationBar.barStyle = UIBarStyle.BlackTranslucent
+                    
+                    self.window?.rootViewController = briefNavVC
+                    self.window?.backgroundColor = UIColor.whiteColor()
+                    self.window?.makeKeyAndVisible()
+             
+                })
+                
+            } else {
+                
+                let homeVC = EnableAccount(nibName: "EnableAccount", bundle: NSBundle.mainBundle())
+                let briefNavVC = UINavigationController(rootViewController: homeVC)
+                
+                //nav bar setup
+                briefNavVC.navigationBar.barTintColor = UIColor.blackColor()
+                briefNavVC.navigationBar.tintColor = UIColor.whiteColor()
+                briefNavVC.navigationBar.barStyle = UIBarStyle.BlackTranslucent
+                
+                self.window?.rootViewController = briefNavVC
+                self.window?.backgroundColor = UIColor.whiteColor()
+                self.window?.makeKeyAndVisible()
+            }
+            
+        })
         
         return true
+
     }
 
     func applicationWillResignActive(application: UIApplication!) {
@@ -54,7 +85,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication!) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
 
 }
 

@@ -34,7 +34,7 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
-    required init(coder aDecoder: NSCoder!) {
+    required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -216,7 +216,6 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
                 //create progress item in iCloud
                 var progress = Progress(content: content.text)
                 self.cloudManager.addProgressRecord(progress, completionClosure: { record in
-                    progress.id = record.recordID.recordName
                 })
                 
                 draftBrief.addProgress(progress)
@@ -243,7 +242,6 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
                 //create plan item in iCloud
                 var plan = Plan(content: content.text)
                 self.cloudManager.addPlanRecord(plan, completionClosure: { record in
-                    plan.id = record.recordID.recordName
                 })
                 
                 draftBrief.addPlan(plan)
@@ -270,7 +268,6 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
                 //create problem item in iCloud
                 var problem = Problem(content: content.text)
                 self.cloudManager.addProblemRecord(problem, completionClosure: { record in
-                    problem.id = record.recordID.recordName
                 })
                 
                 draftBrief.addProblem(problem)
