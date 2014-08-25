@@ -16,9 +16,10 @@ class TeamMember {
     var userInfo: CKDiscoveredUserInfo?
     
     var draftBrief:Brief?
-    private var completedBriefs: Array<Brief>?
+    var completedBriefs: Array<Brief>?
     private var notificationSubscriptions = Array<String>()
     
+    private var cloudManager = BriefCloudManager()
     init() {
     }
     
@@ -46,12 +47,31 @@ class TeamMember {
         
         if (completedBriefs == nil) {
             self.completedBriefs = Array<Brief>()
-            self.loadArchivedBriefs()
+            self.loadArchivedBriefsTest()
         }
         return self.completedBriefs!
     }
     
-    func loadArchivedBriefs() {
+    func loadCompletedBriefs() {
+        
+        //query for completed briefs
+        cloudManager.queryForCompletedBriefs({ records in
+            
+            // loop through array
+            for i in (0 ..< records.count) {
+                var record = records[i] as CKRecord
+                var brief = Brief(status: Status.fromRaw(record.objectForKey("status") as NSNumber)!)
+                brief.id = record.recordID.recordName
+                brief.submittedDate = record.objectForKey("submittedDate") as? NSDate
+                self.completedBriefs!.append(brief)
+            }
+            
+        })
+        
+        
+        
+    }
+    func loadArchivedBriefsTest() {
         //load via server-side archive (e.g. Rest Service or Cloud-Kit)
         
         // if this is set to 1, load the archive as a sample

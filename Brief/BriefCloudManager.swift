@@ -298,6 +298,33 @@ class BriefCloudManager {
 
     }
     
+    func queryForCompletedBriefs(completionClosure: (records: Array<CKRecord>) ->()) {
+        
+        // Match draft brief record whose owner (TeamMember) field points to the specified draft brief record.
+        var recordToMatch = user.userInfo?.userRecordID
+        var predicate = NSPredicate(format: "(status == %@) AND (creatorUserRecordID == %@)", NSNumber(int: 2), recordToMatch!)
+        
+        // Create the query object.
+        var query = CKQuery(recordType:"Brief", predicate: predicate)
+
+        publicDatabase.performQuery(query, inZoneWithID: nil, completionHandler: {results, error in
+            
+            if (error != nil) {
+                println("An error occured retrieving records: \(error)")
+                
+            } else {
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    completionClosure(records: results as Array<CKRecord>)
+                    
+                })
+                
+            }
+            
+        });
+        
+    }
+    
     func queryForItemRecordsWithReferenceNamed(referenceRecordName: String, recordType: String, completionClosure: (records: Array<CKRecord>) ->()) {
     
         var recordID = CKRecordID(recordName: referenceRecordName)
