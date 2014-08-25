@@ -51,44 +51,18 @@ class HomeViewController: UIViewController {
         self.completedButton.hidden = true
         self.completedLabel.hidden = true
         
-        if (user.draftBrief == nil) {
+        // start the activity spinner
+        self.activityIndicator.startAnimating()
+        
+        user.loadDraftBrief({ completed in
             
-            self.activityIndicator.startAnimating()
-            
-            self.cloudManager.queryForDraftBrief({ records in
-                
-                if (records.count > 0) {
-                    
-                    // pull the first record
-                    var record = records.first
-                    
-                    var id = record?.recordID.recordName
-                    var statusRaw = record?.objectForKey("status") as NSNumber
-                    var status = Status.fromRaw(statusRaw)
-                    
-                    var draftBrief = Brief(status: status!)
-                    draftBrief.id = id!
-                    
-                    user.draftBrief = draftBrief
-                    
-                    self.loadProgressItemsFromiCloud()
-                    self.loadPlanItemsFromiCloud()
-                    self.loadProblemItemsFromiCloud()
-                    
-                    self.configureButtons()
-                    
-                    self.activityIndicator.stopAnimating()
-                    
-                } else {
-                    
-                    self.configureButtons()
-                    self.activityIndicator.stopAnimating()
-                    
-                }
-                
+            user.loadCompletedBriefs({ completed in
+                // when the loading of the draft brief completes
+                self.configureButtons()
+                self.activityIndicator.stopAnimating()
             })
             
-        } 
+        })
         
     }
     
@@ -228,66 +202,6 @@ class HomeViewController: UIViewController {
             println("\(records)")
         })
         
-    }
-    
-    func loadProgressItemsFromiCloud() {
-        
-        var briefId = user.getDraftBrief().id
-        self.cloudManager.queryForItemRecordsWithReferenceNamed(briefId, recordType: "Progress", completionClosure: { records in
-            
-            for i in (0 ..< records.count) {
-                var id = records[i].recordID.recordName
-                var content = records[i].objectForKey("content") as String
-                
-                var progress = Progress(content: content)
-                progress.id = id
-                
-                user.getDraftBrief().addProgress(progress)
-            }
-            
-            
-            
-        })
-    }
-    
-    func loadPlanItemsFromiCloud() {
-        
-        var briefId = user.getDraftBrief().id
-        self.cloudManager.queryForItemRecordsWithReferenceNamed(briefId, recordType: "Plan", completionClosure: { records in
-            
-            for i in (0 ..< records.count) {
-                var id = records[i].recordID.recordName
-                var content = records[i].objectForKey("content") as String
-                
-                var plan = Plan(content: content)
-                plan.id = id
-                
-                user.getDraftBrief().addPlan(plan)
-            }
-            
-            
-            
-        })
-    }
-    
-    func loadProblemItemsFromiCloud() {
-        
-        var briefId = user.getDraftBrief().id
-        self.cloudManager.queryForItemRecordsWithReferenceNamed(briefId, recordType: "Problem", completionClosure: { records in
-            
-            for i in (0 ..< records.count) {
-                var id = records[i].recordID.recordName
-                var content = records[i].objectForKey("content") as String
-                
-                var problem = Problem(content: content)
-                problem.id = id
-                
-                user.getDraftBrief().addProblem(problem)
-            }
-            
-            
-            
-        })
     }
     
 }

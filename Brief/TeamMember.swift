@@ -16,10 +16,11 @@ class TeamMember {
     var userInfo: CKDiscoveredUserInfo?
     
     var draftBrief:Brief?
-    var completedBriefs: Array<Brief>?
+    var completedBriefs = Array<Brief>()
     private var notificationSubscriptions = Array<String>()
     
     private var cloudManager = BriefCloudManager()
+    
     init() {
     }
     
@@ -36,23 +37,51 @@ class TeamMember {
     }
     
     func getDraftBrief() -> Brief {
-
-        if (self.draftBrief == nil) {
-            self.draftBrief = Brief(status: .IsNew)
-        }
         return self.draftBrief!
     }
     
-    func getCompletedBriefs() -> Array<Brief> {
+    func loadDraftBrief(completionClosure: ((Bool) -> Void)) {
         
-        if (completedBriefs == nil) {
-            self.completedBriefs = Array<Brief>()
-            self.loadArchivedBriefsTest()
+        if (self.draftBrief == nil) {
+            
+            // check for reachability before querying for records in iCloud
+            
+            self.cloudManager.queryForDraftBrief({ records in
+            
+                if (records.count > 0) {
+                
+                    // pull the first record
+                    var record = records.first
+                
+                    var id = record?.recordID.recordName
+                    var statusRaw = record?.objectForKey("status") as NSNumber
+                    var status = Status.fromRaw(statusRaw)
+                
+                    var draftBrief = Brief(status: status!)
+                    draftBrief.id = id!
+                
+                    self.draftBrief = draftBrief
+                
+                } else {
+                    
+                    // REPLACE with load via local archive by checking user defaults
+                    self.draftBrief = Brief(status: .IsNew)
+
+                } //finally create a blank new one if one doesn't exist either in iCloud or local archive
+    
+                // send the completed value once you load all the parts
+                self.draftBrief!.loadPPPItems({ completed in
+                    dispatch_async(dispatch_get_main_queue(), {
+                        completionClosure(completed)
+                    })
+                })
+            
+            })
         }
-        return self.completedBriefs!
+
     }
     
-    func loadCompletedBriefs() {
+    func loadCompletedBriefs(completionClosure: ((Bool) -> Void)) {
         
         //query for completed briefs
         cloudManager.queryForCompletedBriefs({ records in
@@ -63,14 +92,20 @@ class TeamMember {
                 var brief = Brief(status: Status.fromRaw(record.objectForKey("status") as NSNumber)!)
                 brief.id = record.recordID.recordName
                 brief.submittedDate = record.objectForKey("submittedDate") as? NSDate
-                self.completedBriefs!.append(brief)
+                self.completedBriefs.append(brief)
             }
             
+            dispatch_async(dispatch_get_main_queue(), {
+                completionClosure(true)
+            })
+            
         })
-        
-        
-        
     }
+    
+    func getCompletedBriefs() -> Array<Brief> {
+        return self.completedBriefs
+    }
+    
     func loadArchivedBriefsTest() {
         //load via server-side archive (e.g. Rest Service or Cloud-Kit)
         
@@ -107,7 +142,7 @@ class TeamMember {
         for var index = 0; index < 20; ++index {
             var brief = BriefArchiveDebugLoadUtility.createSampleBrief()
             brief.submittedDate = dates[index]
-            completedBriefs!.append(brief)
+            completedBriefs.append(brief)
         }
         
 
@@ -133,9 +168,9 @@ class TeamMember {
         
         var brief: Brief?
         // loop through each array
-        for i in (0 ..< completedBriefs!.count) {
-            if completedBriefs![i].getId().isEqual(id) {
-                brief = completedBriefs![i]
+        for i in (0 ..< completedBriefs.count) {
+            if completedBriefs[i].getId().isEqual(id) {
+                brief = completedBriefs[i]
             }
         }
         return brief
@@ -143,11 +178,13 @@ class TeamMember {
     
     func getMostRecentBrief() -> Brief {
         // need to make this smarter by latest submitted date
-        return self.completedBriefs![0]
+        return self.completedBriefs[0]
     }
     
     func deleteBrief() {
-        self.draftBrief = nil
+        self.draftBrief = Brief(status: .IsNew)
     }
+    
+
     
 }

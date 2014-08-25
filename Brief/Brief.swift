@@ -17,6 +17,8 @@ class Brief {
     var submittedDate: NSDate?
     var status: Status
     
+    private var cloudManager = BriefCloudManager()
+    
     init(status: Status) {
         self.id = NSUUID.UUID().UUIDString
         self.progress = Array<Progress>()
@@ -123,6 +125,88 @@ class Brief {
     
     func submit() {
         self.submittedDate = NSDate()
+    }
+    
+    func loadPPPItems(completionClosure: ((Bool) -> Void)) {
+        
+        self.loadProgressItemsFromiCloud({ completed in
+            
+            self.loadPlanItemsFromiCloud({ completed in
+                
+                self.loadProblemItemsFromiCloud({ completed in
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        completionClosure(true)
+                    })
+                    
+                })
+            })
+        })
+
+    }
+    
+    private func loadProgressItemsFromiCloud(completionClosure: ((Bool) -> Void)) {
+        
+        self.cloudManager.queryForItemRecordsWithReferenceNamed(self.id, recordType: "Progress", completionClosure: { records in
+            
+            for i in (0 ..< records.count) {
+                var id = records[i].recordID.recordName
+                var content = records[i].objectForKey("content") as String
+                
+                var progress = Progress(content: content)
+                progress.id = id
+                
+                self.addProgress(progress)
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                completionClosure(true)
+            })
+            
+        })
+    }
+    
+    private func loadPlanItemsFromiCloud(completionClosure: ((Bool) -> Void)) {
+        
+        self.cloudManager.queryForItemRecordsWithReferenceNamed(self.id, recordType: "Plan", completionClosure: { records in
+            
+            for i in (0 ..< records.count) {
+                var id = records[i].recordID.recordName
+                var content = records[i].objectForKey("content") as String
+                
+                var plan = Plan(content: content)
+                plan.id = id
+                
+                self.addPlan(plan)
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                completionClosure(true)
+            })
+            
+        })
+    }
+    
+    private func loadProblemItemsFromiCloud(completionClosure: ((Bool) -> Void)) {
+        
+        self.cloudManager.queryForItemRecordsWithReferenceNamed(self.id, recordType: "Problem", completionClosure: { records in
+            
+            for i in (0 ..< records.count) {
+                var id = records[i].recordID.recordName
+                var content = records[i].objectForKey("content") as String
+                
+                var problem = Problem(content: content)
+                problem.id = id
+                
+                self.addProblem(problem)
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                completionClosure(true)
+            })
+            
+            
+        })
     }
 
 }
