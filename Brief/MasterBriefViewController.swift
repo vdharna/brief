@@ -29,9 +29,6 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
     private var completedBriefs = user.getCompletedBriefs()
     private var selectedBrief: Brief?
     
-    @IBOutlet
-    weak var activityIndicator: UIActivityIndicatorView!
-    
     private var selectedIndexPath:NSIndexPath?
     
     private var cloudManager = BriefCloudManager()
@@ -496,11 +493,14 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         // Remember selection:
         self.selectedIndexPath = indexPath
         
-        self.activityIndicator.startAnimating()
+        // start the activity spinner
+        var progressView = ProgressView(frame: CGRectMake(0, 0, 300, 300))
+        self.view.addSubview(progressView)
+        
         user.findBriefById(cell.briefId, completionClosure: { brief in
             self.selectedBrief = brief
             self.table.reloadData()
-            self.activityIndicator.stopAnimating()
+            progressView.removeFromSuperview()
         })
     }
     
