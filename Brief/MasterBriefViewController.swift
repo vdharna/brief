@@ -471,8 +471,6 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
             self.table.reloadData()
             self.activityIndicator.stopAnimating()
         })
-        
-        
     }
     
     func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: UICollectionViewLayout!, sizeForItemAtIndexPath indexPath: NSIndexPath!) -> CGSize {
