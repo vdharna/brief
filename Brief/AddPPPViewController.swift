@@ -207,7 +207,8 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
                 self.cloudManager.fetchRecordWithID(progress.id, completionClosure: { record in
                     // update the record for CloudKit
                     record.setObject(progress.content, forKey: "content")
-                    self.cloudManager.saveRecord(record)
+                    self.cloudManager.saveRecord(record, completionClosure: { success in
+                    })
                 })
                 
                 
@@ -234,7 +235,8 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
                 self.cloudManager.fetchRecordWithID(plan.id, completionClosure: { record in
                     // update the record for CloudKit
                     record.setObject(plan.content, forKey: "content")
-                    self.cloudManager.saveRecord(record)
+                    self.cloudManager.saveRecord(record, completionClosure: { success in
+                    })
                 })
                 
             } else {
@@ -259,7 +261,8 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
                 self.cloudManager.fetchRecordWithID(problem.id, completionClosure: { record in
                     // update the record for CloudKit
                     record.setObject(problem.content, forKey: "content")
-                    self.cloudManager.saveRecord(record)
+                    self.cloudManager.saveRecord(record, completionClosure: { success in
+                    })
                 })
                 
                 

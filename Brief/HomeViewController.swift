@@ -171,8 +171,9 @@ class HomeViewController: UIViewController {
         //prevent duplicate tap
         composeButton.enabled = false
         completedButton.enabled = false
-        if (cbvc == nil) {
+        if (cbvc == nil || user.submittedBrief) {
             cbvc = MasterBriefViewController(nibName: "MasterBriefViewController", bundle: NSBundle.mainBundle())
+            user.submittedBrief = false
         }
         self.navigationController.pushViewController(cbvc, animated: true)
         self.composeButton.enabled = true

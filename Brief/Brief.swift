@@ -161,6 +161,17 @@ class Brief {
                 self.addProgress(progress)
             }
             
+            if (self.progress.isEmpty) {
+                
+                var id = ""
+                var content = "This Brief does not contain any Progress items"
+                
+                var progress = Progress(content: content)
+                progress.id = id
+                
+                self.addProgress(progress)
+            }
+            
             dispatch_async(dispatch_get_main_queue(), {
                 completionClosure(true)
             })
@@ -184,6 +195,17 @@ class Brief {
                 self.addPlan(plan)
             }
             
+            if (self.plans.isEmpty) {
+                
+                var id = ""
+                var content = "This Brief does not contain any Plan items"
+                
+                var plan = Plan(content: content)
+                plan.id = id
+                
+                self.addPlan(plan)
+            }
+            
             dispatch_async(dispatch_get_main_queue(), {
                 completionClosure(true)
             })
@@ -200,6 +222,17 @@ class Brief {
             for i in (0 ..< records.count) {
                 var id = records[i].recordID.recordName
                 var content = records[i].objectForKey("content") as String
+                
+                var problem = Problem(content: content)
+                problem.id = id
+                
+                self.addProblem(problem)
+            }
+            
+            if (self.problems.isEmpty) {
+                
+                var id = ""
+                var content = "This Brief does not contain any Problem items"
                 
                 var problem = Problem(content: content)
                 problem.id = id

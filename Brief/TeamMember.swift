@@ -17,6 +17,8 @@ class TeamMember {
     
     var draftBrief:Brief?
     var completedBriefs = Array<Brief>()
+    
+    var submittedBrief = false
     private var notificationSubscriptions = Array<String>()
     
     private var cloudManager = BriefCloudManager()
@@ -85,7 +87,7 @@ class TeamMember {
         
         //query for completed briefs
         cloudManager.queryForCompletedBriefs({ records in
-            
+            self.completedBriefs.removeAll(keepCapacity: false)
             // loop through array
             for i in (0 ..< records.count) {
                 var record = records[i] as CKRecord
@@ -108,6 +110,7 @@ class TeamMember {
             
         })
     }
+    
     
     func getCompletedBriefs() -> Array<Brief> {
         return self.completedBriefs
@@ -198,6 +201,29 @@ class TeamMember {
         self.draftBrief = Brief(status: .IsNew)
     }
     
+    func submitBrief(completionClosure: ((Bool) -> Void)) {
+        
+        cloudManager.fetchRecordWithID(self.draftBrief!.getId(), completionClosure: {record in
+            
+            // update the draft brief status
+            self.draftBrief!.status = Status.IsCompleted
+            self.draftBrief!.submittedDate = NSDate()
+            record.setObject(self.draftBrief!.status.toRaw(), forKey: "status")
+            record.setObject(self.draftBrief!.submittedDate, forKey: "submittedDate")
+            // save the record to iCloud
+            self.cloudManager.saveRecord(record, completionClosure: { success in
+                // remove the brief from local
+                self.completedBriefs.insert(self.draftBrief!, atIndex: 0)
+                self.deleteBrief()
+                self.submittedBrief = true
+                dispatch_async(dispatch_get_main_queue(), {
+                    completionClosure(true)
+                })
+            })
+
+
+        })
+    }
 
     
 }

@@ -198,22 +198,15 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @IBAction func actionBrief(sender: AnyObject) {
         
-        var draftBrief = user.getDraftBrief()
-        cloudManager.fetchRecordWithID(draftBrief.getId(), completionClosure: {record in
+        user.submitBrief({ completed in
             
-            // update the draft brief status
-            draftBrief.status = Status.IsCompleted
-            record.setObject(draftBrief.status.toRaw(), forKey: "status")
-            record.setObject(NSDate(), forKey: "submittedDate")
-            // save the record to iCloud
-            self.cloudManager.saveRecord(record)
-            // remove the brief from local
-            user.deleteBrief()
             // pop back to main screen
             var alert = UIAlertView(title: "Brief", message: "Brief Submitted", delegate: nil, cancelButtonTitle: "OK")
             alert.show()
             self.navigationController.popToRootViewControllerAnimated(true)
         })
+    
+
     }
     
     @IBAction func deleteBrief(sender: AnyObject) {

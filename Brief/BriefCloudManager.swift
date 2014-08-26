@@ -100,14 +100,20 @@ class BriefCloudManager {
         })
     }
     
-    func saveRecord(record: CKRecord) {
+    func saveRecord(record: CKRecord, completionClosure: ((Bool) -> Void)) {
         
         self.publicDatabase.saveRecord(record, completionHandler: { record, error in
             
             if (error != nil) {
                 println("An error occured saving record: \(error)")
+                dispatch_async(dispatch_get_main_queue(), {
+                    completionClosure(false)
+                })
             } else {
                 println("Successfully saved record")
+                dispatch_async(dispatch_get_main_queue(), {
+                    completionClosure(true)
+                })
             }
         })
     }

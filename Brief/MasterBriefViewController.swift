@@ -167,7 +167,13 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         var item: PPPItem = getPPPItem(indexPath)
         
         cell.cellLabel.text = item.getContent()
-        cell.briefId = item.getId()
+        cell.itemID = item.getId()
+        
+        if (cell.itemID.isEmpty) { // put a placeholder cell in it's place to avoid an akward looking cell
+            cell.cellLabel.textColor = UIColor.lightGrayColor()
+            cell.accessoryType = UITableViewCellAccessoryType.None
+            cell.userInteractionEnabled = false
+        }
         
         // show flag status
         if (item.isFlagged()) {
@@ -320,6 +326,9 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) -> [AnyObject]! {
 
         var item: PPPItem = self.getPPPItem(indexPath)
+        if (item.id.isEmpty) {
+            return []
+        }
         var flagActionTitle = " Flag "
         // create flag title
         if (item.isFlagged()) {
@@ -391,7 +400,7 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         
         //get reference to the cell
         var cell = self.table.cellForRowAtIndexPath(indexPath) as CompletedBriefTableViewCell
-        var item = selectedBrief!.findItemById(cell.briefId)
+        var item = selectedBrief!.findItemById(cell.itemID)
         briefItemDetailVC.item = item
         self.navigationController.pushViewController(briefItemDetailVC, animated: true)
     }
