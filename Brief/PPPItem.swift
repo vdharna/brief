@@ -13,13 +13,13 @@ class PPPItem {
     
     var id: String
     var content: String
-    var flag: Flag
+    var flagged: Bool
     var comments = Array<Comment>()
         
     init(content: String) {
         self.id = NSUUID.UUID().UUIDString
         self.content = content
-        self.flag = Flag()
+        self.flagged = false
     }
     
     func getId() -> String {
@@ -35,13 +35,11 @@ class PPPItem {
     }
     
     func isFlagged() -> Bool {
-        
-        return flag.isFlagged()
-        
+        return flagged
     }
     
-    func flag(flag: Bool) {
-        self.flag.setFlag(flag)
+    func setFlag(flag: Bool) {
+        self.flagged = flag
     }
     
     func addComment(comment: Comment) {
@@ -50,9 +48,7 @@ class PPPItem {
     }
     
     func removeComment(comment: Comment) {
-        
         var index = find(self.comments, comment)
-        
     }
     
     func commentsCount() -> Int {

@@ -39,6 +39,20 @@ class CompletedBriefTableViewCell: UITableViewCell {
         // Configure the view for the selected state
         self.selectionStyle = UITableViewCellSelectionStyle.None
         self.cellLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+        
+        if (self.itemID.isEmpty) { // put a placeholder cell in it's place to avoid an akward looking cell
+            
+            self.cellLabel.textColor = UIColor.lightGrayColor()
+            self.accessoryType = UITableViewCellAccessoryType.None
+            self.userInteractionEnabled = false
+            
+        } else {
+            
+            self.cellLabel.textColor = UIColor.darkTextColor()
+            self.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+            self.userInteractionEnabled = true
+            
+        }
 
     }
     

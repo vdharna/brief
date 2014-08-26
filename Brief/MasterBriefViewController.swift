@@ -87,6 +87,9 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
             
         }
         
+        var briefs = user.getCompletedBriefs()
+        println("\(briefs.count)")
+        
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -96,6 +99,9 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         if (!user.getCompletedBriefs().isEmpty) {
             self.table.reloadData()
         }
+        
+        var briefs = user.getCompletedBriefs()
+        println("\(briefs.count)")
 
     }
     
@@ -169,11 +175,6 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         cell.cellLabel.text = item.getContent()
         cell.itemID = item.getId()
         
-        if (cell.itemID.isEmpty) { // put a placeholder cell in it's place to avoid an akward looking cell
-            cell.cellLabel.textColor = UIColor.lightGrayColor()
-            cell.accessoryType = UITableViewCellAccessoryType.None
-            cell.userInteractionEnabled = false
-        }
         
         // show flag status
         if (item.isFlagged()) {
@@ -338,8 +339,17 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         var flagRowAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: flagActionTitle, handler:{action, indexpath in
                 
             // update the model to reflect the action
-            item.flag(!item.isFlagged()) //set the opposite
-            self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
+            item.setFlag(!item.isFlagged()) //set the opposite 
+            // update iCloud to reflect this change
+            self.cloudManager.fetchRecordWithID(item.id, completionClosure: { record in
+                
+                record.setObject(item.isFlagged(), forKey:"flag")
+                println("\(record)")
+                self.cloudManager.saveRecord(record, completionClosure: { completed in
+                    //update the view
+                    self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
+                })
+            })
         });
         flagRowAction.backgroundColor = UIColor.orangeColor()
         

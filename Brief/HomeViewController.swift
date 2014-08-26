@@ -86,6 +86,9 @@ class HomeViewController: UIViewController {
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        var briefs = user.getCompletedBriefs()
+        println("\(briefs.count)")
     }
     
     override func viewDidDisappear(animated: Bool) {

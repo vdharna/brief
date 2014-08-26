@@ -34,7 +34,6 @@
 		6261D5FB197EE3EB007B8AA3 /* MasterBriefViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6261D5F9197EE3EB007B8AA3 /* MasterBriefViewController.swift */; };
 		6261D5FC197EE3EB007B8AA3 /* MasterBriefViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6261D5FA197EE3EB007B8AA3 /* MasterBriefViewController.xib */; };
 		626FCD1E1985A8ED00946973 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626FCD1D1985A8ED00946973 /* Comment.swift */; };
-		626FCD221986B43900946973 /* Flag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626FCD211986B43900946973 /* Flag.swift */; };
 		626FCD241986B44700946973 /* Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626FCD231986B44700946973 /* Share.swift */; };
 		62727F9E199946350063EA0C /* CompletedBriefCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62727F9C199946350063EA0C /* CompletedBriefCollectionViewCell.swift */; };
 		62727F9F199946350063EA0C /* CompletedBriefCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62727F9D199946350063EA0C /* CompletedBriefCollectionViewCell.xib */; };
@@ -96,7 +95,6 @@
 		6261D5F9197EE3EB007B8AA3 /* MasterBriefViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterBriefViewController.swift; sourceTree = "<group>"; };
 		6261D5FA197EE3EB007B8AA3 /* MasterBriefViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MasterBriefViewController.xib; sourceTree = "<group>"; };
 		626FCD1D1985A8ED00946973 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
-		626FCD211986B43900946973 /* Flag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flag.swift; sourceTree = "<group>"; };
 		626FCD231986B44700946973 /* Share.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Share.swift; sourceTree = "<group>"; };
 		62727F9C199946350063EA0C /* CompletedBriefCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedBriefCollectionViewCell.swift; sourceTree = "<group>"; };
 		62727F9D199946350063EA0C /* CompletedBriefCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompletedBriefCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -274,7 +272,6 @@
 				623B21B919744C4F00EC766F /* Progress.swift */,
 				623B21BB19744C5B00EC766F /* Plan.swift */,
 				623B21BD19744C6600EC766F /* Problem.swift */,
-				626FCD211986B43900946973 /* Flag.swift */,
 				626FCD1D1985A8ED00946973 /* Comment.swift */,
 				626FCD231986B44700946973 /* Share.swift */,
 				6215FC40199D2C4200F5BD2B /* BriefRepository.swift */,
@@ -439,7 +436,6 @@
 			files = (
 				623B21BE19744C6600EC766F /* Problem.swift in Sources */,
 				62727F9E199946350063EA0C /* CompletedBriefCollectionViewCell.swift in Sources */,
-				626FCD221986B43900946973 /* Flag.swift in Sources */,
 				62FC24E11983060800372D14 /* TransparentEdgesTableView.swift in Sources */,
 				62474132196CB5A10043C7E5 /* ComposeViewController.swift in Sources */,
 				620097F9198C1ED00058E83B /* CharacterCountView.swift in Sources */,

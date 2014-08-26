@@ -233,7 +233,7 @@ class BriefCloudManager {
         // add the content
         record.setObject(item.content, forKey: "content")
         // add the flag info
-        
+        record.setObject(item.isFlagged(), forKey: "flag")
         // add notification flag
         
         // add a reference to the Brief (back reference)

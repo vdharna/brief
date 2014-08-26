@@ -34,18 +34,24 @@ class Brief {
     func addProgress(p: Progress) {
         
         self.progress.append(p)
-        status = Status.InProgress
+        if (self.status == Status.IsNew) {
+            self.status = Status.InProgress
+        }
+        
     }
     
     func addPlan(p: Plan) {
         self.plans.append(p)
-        status = Status.InProgress
+        if (self.status == Status.IsNew) {
+            self.status = Status.InProgress
+        }
     }
     
     func addProblem(p: Problem) {
         self.problems.append(p)
-        status = Status.InProgress
-    }
+        if (self.status == Status.IsNew) {
+            self.status = Status.InProgress
+        }    }
     
     func updateProgress(index: Int, p: Progress) {
         self.progress.removeAtIndex(index)
@@ -154,14 +160,16 @@ class Brief {
             for i in (0 ..< records.count) {
                 var id = records[i].recordID.recordName
                 var content = records[i].objectForKey("content") as String
+                var flag = records[i].objectForKey("flag") as Bool
                 
                 var progress = Progress(content: content)
                 progress.id = id
+                progress.setFlag(flag)
                 
                 self.addProgress(progress)
             }
             
-            if (self.progress.isEmpty) {
+            if (self.progress.isEmpty && self.status == Status.IsCompleted) {
                 
                 var id = ""
                 var content = "This Brief does not contain any Progress items"
@@ -188,14 +196,16 @@ class Brief {
             for i in (0 ..< records.count) {
                 var id = records[i].recordID.recordName
                 var content = records[i].objectForKey("content") as String
+                var flag = records[i].objectForKey("flag") as Bool
                 
                 var plan = Plan(content: content)
                 plan.id = id
+                plan.setFlag(flag)
                 
                 self.addPlan(plan)
             }
             
-            if (self.plans.isEmpty) {
+            if (self.plans.isEmpty && self.status == Status.IsCompleted) {
                 
                 var id = ""
                 var content = "This Brief does not contain any Plan items"
@@ -222,14 +232,16 @@ class Brief {
             for i in (0 ..< records.count) {
                 var id = records[i].recordID.recordName
                 var content = records[i].objectForKey("content") as String
+                var flag = records[i].objectForKey("flag") as Bool
                 
                 var problem = Problem(content: content)
                 problem.id = id
+                problem.setFlag(flag)
                 
                 self.addProblem(problem)
             }
             
-            if (self.problems.isEmpty) {
+            if (self.problems.isEmpty && self.status == Status.IsCompleted) {
                 
                 var id = ""
                 var content = "This Brief does not contain any Problem items"
