@@ -514,8 +514,12 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
     // MARK: --------------------------------
     
     func refresh(refreshControl:UIRefreshControl) {
-        self.table.reloadData()
-        refreshControl.endRefreshing()
+        
+        user.findBriefById(selectedBrief!.id, completionClosure: { brief in
+            self.selectedBrief = brief
+            self.table.reloadData()
+            refreshControl.endRefreshing()
+        })
     }
     
     // MARK: --------------------------------
