@@ -60,8 +60,20 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
             self.noBriefLabel.hidden = true
             self.table.hidden = false
             self.collectionView.hidden = false
+            self.table.hidden = true
+            self.collectionView.hidden = true
             
-            self.loadInitialBrief()
+            // start the activity spinner
+            var progressView = ProgressView(frame: CGRectMake(0, 0, 300, 300))
+            self.view.addSubview(progressView)
+            
+            self.loadInitialBrief({ completed in
+                self.table.reloadData()
+                self.table.hidden = false
+                self.collectionView.hidden = false
+                progressView.removeFromSuperview()
+
+            })
             self.configureTableView()
             self.configureCollectionView()
             
@@ -490,20 +502,20 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
     // MARK: --------------------------------
     // MARK: Utility Methods
     // MARK: --------------------------------
-    func loadInitialBrief() {
-        // pull the correct Brief based on some parameter
-        if (selectedIndexPath != nil) {
+    func loadInitialBrief(completionClosure: ((Bool) -> Void)) {
+
+        self.selectedBrief = user.getMostRecentBrief()
+        self.selectedIndexPath = NSIndexPath(forItem: 0, inSection: 0)
+        self.collectionView.scrollToItemAtIndexPath(self.selectedIndexPath, atScrollPosition: UICollectionViewScrollPosition.None, animated: true)
+        
+        self.selectedBrief!.loadPPPItems({ completed in
             
-            var cell = self.collectionView.cellForItemAtIndexPath(selectedIndexPath) as CompletedBriefCollectionViewCell
-            var briefId = cell.briefId
-            //self.selectedBrief = user.findBriefById(briefId!)
-            
-        } else {
-            
-            self.selectedIndexPath = NSIndexPath(forItem: 0, inSection: 0)
-            self.selectedBrief = user.getMostRecentBrief()
-            self.collectionView.scrollToItemAtIndexPath(selectedIndexPath, atScrollPosition: UICollectionViewScrollPosition.None, animated: true)
-        }
+            dispatch_async(dispatch_get_main_queue(), {
+                completionClosure(completed)
+            })
+        })
+
+    
     }
     
     private func getPPPItem(indexPath: NSIndexPath) -> PPPItem {
