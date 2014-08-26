@@ -85,7 +85,6 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         }
         
         var briefs = user.getCompletedBriefs()
-        println("\(briefs.count)")
         
     }
 
@@ -98,7 +97,6 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         }
         
         var briefs = user.getCompletedBriefs()
-        println("\(briefs.count)")
 
     }
     
@@ -341,7 +339,6 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
             self.cloudManager.fetchRecordWithID(item.id, completionClosure: { record in
                 
                 record.setObject(item.isFlagged(), forKey:"flag")
-                println("\(record)")
                 self.cloudManager.saveRecord(record, completionClosure: { completed in
                     //update the view
                     self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)

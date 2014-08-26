@@ -288,25 +288,26 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
             // add locally
             self.item!.addComment(comment)
             
+            self.determineNoCommentLabelVisibility()
+            
+            // add a new cell into the table
+            self.table.insertRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+            
+            // reset the text fields and clean-up for the next entry
+            self.inputAccessoryTextView.text = ""
+            var button = self.inputAccessoryToolbar.items[2] as UIBarButtonItem
+            button.enabled = false
+            self.inputAccessoryTextView.frame.size.height = 30
+            self.inputAccessoryTextView.resignFirstResponder()
+            
+            self.textView.text = "Enter Comment..."
+            self.textView.textColor = UIColor.lightGrayColor()
+            
+            self.scrollToBottom()
+            
             // add comment to iCloud
             cloudManager.addCommentRecord(comment, item: item!, completionClosure: { record in
 
-                self.determineNoCommentLabelVisibility()
-                
-                // add a new cell into the table
-                self.table.insertRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
-                
-                // reset the text fields and clean-up for the next entry
-                self.inputAccessoryTextView.text = ""
-                var button = self.inputAccessoryToolbar.items[2] as UIBarButtonItem
-                button.enabled = false
-                self.inputAccessoryTextView.frame.size.height = 30
-                self.inputAccessoryTextView.resignFirstResponder()
-                
-                self.textView.text = "Enter Comment..."
-                self.textView.textColor = UIColor.lightGrayColor()
-                
-                self.scrollToBottom()
             })
 
         }

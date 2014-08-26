@@ -112,8 +112,6 @@ class BriefRepository {
         var query = CKQuery(recordType:"Brief", predicate: predicate)
         privateDatabase.performQuery(query, inZoneWithID: nil, completionHandler: ({results, error in
             
-            println("\(results.count)")
-            
             if (error != nil) {
                 println("\(error)")
                 println("Error Reported")
