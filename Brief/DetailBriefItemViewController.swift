@@ -35,6 +35,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
     var item: PPPItem?
     
     var cloudManager = BriefCloudManager()
+    
     // MARK: --------------------------------
     // MARK: Init  Methods
     // MARK: --------------------------------
@@ -57,11 +58,11 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
         // Do any additional setup after loading the view.
         self.navigationItem.title = "Comments"
         
-        configureTableView()
-        configureTextViews()
-        configureInputAccessoryToolbar()
-        configureDockedToolbar()
-        
+        self.configureTableView()
+        self.configureTextViews()
+        self.configureInputAccessoryToolbar()
+        self.configureDockedToolbar()
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -72,7 +73,16 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.determineNoCommentLabelVisibility()
+        // start the activity spinner
+        var progressView = ProgressView(frame: CGRectMake(0, 0, 300, 300))
+        self.view.addSubview(progressView)
+        item!.loadCommentsFromiCloud({ completed in
+            self.table.reloadData()
+            progressView.removeFromSuperview()
+            self.determineNoCommentLabelVisibility()
+
+        })
+        
         
     }
     
@@ -244,7 +254,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
         
         // set the number of days elapsed since posting
         //cell.commentTimestamp.text = item!.comments[indexPath.row].createdDate
-        cell.commentTimestamp.text = item!.comments[indexPath.row].getElapsedTime()
+      //  cell.commentTimestamp.text = item!.comments[indexPath.row].getElapsedTime()
 
         //set the actual comment content
         cell.commentContent.numberOfLines = 0
@@ -272,15 +282,15 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
             
             // create the comment
             var comment = Comment(content: self.inputAccessoryTextView.text)
+            comment.createdBy = user.userInfo!.firstName
+            comment.createdDate = NSDate()
+            
+            // add locally
+            self.item!.addComment(comment)
+            
             // add comment to iCloud
             cloudManager.addCommentRecord(comment, item: item!, completionClosure: { record in
-                comment.id = record.recordID.recordName
-                comment.createdBy = record.objectForKey("createdBy") as? String
-                comment.createdDate = record.objectForKey("createdDate") as? NSDate
-                
-                // add locally
-                self.item!.addComment(comment)
-                
+
                 self.determineNoCommentLabelVisibility()
                 
                 // add a new cell into the table

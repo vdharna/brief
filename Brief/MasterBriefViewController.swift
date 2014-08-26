@@ -235,7 +235,7 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         cell.view2.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
         cell.view3.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
         
-        if (item.commentsCount() > 0) {
+        if (item.hasComments()) {
             //create the uiimage and the count label
             var commentLabel = UILabel(frame: CGRectMake(0, 0, 20, 20))
             commentLabel.text = "\u{1F4AC}"

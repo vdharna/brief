@@ -236,6 +236,9 @@ class BriefCloudManager {
         record.setObject(item.isFlagged(), forKey: "flag")
         // add notification flag
         
+        // add comment boolean flag
+        record.setObject(item.hasComments(), forKey: "hasComments")
+        
         // add a reference to the Brief (back reference)
         var briefRecordID = CKRecordID(recordName: user.getDraftBrief().id)
         var reference = CKReference(recordID: briefRecordID, action: .DeleteSelf)
@@ -267,8 +270,19 @@ class BriefCloudManager {
                 
             } else {
                 
-                dispatch_async(dispatch_get_main_queue(), {
-                    completionClosure(record: record)
+                // update the boolean for the item since it now has a comment
+                self.fetchRecordWithID(item.getId(), completionClosure: { record in
+                    
+                    record.setObject(item.hasComments(), forKey: "hasComments")
+                    
+                    self.saveRecord(record, completionClosure: { completed in
+                    
+                        dispatch_async(dispatch_get_main_queue(), {
+                            completionClosure(record: record)
+                    })
+                
+                })
+
                 })
                 
             }
@@ -360,6 +374,35 @@ class BriefCloudManager {
         }
         
         self.publicDatabase.addOperation(queryOperation)
+        
+    }
+    
+    func queryForCommmentsWithReferenceNamed(referenceRecordName: String, completionClosure: (records: Array<CKRecord>) ->()) {
+        
+        // Match draft brief record whose owner (TeamMember) field points to the specified draft brief record.
+        //var recordToMatch = CKRecord(recordType: referenceRecordType, recordID: CKRecordID(recordName: referenceRecordName))
+        var recordToMatch = CKRecordID(recordName: referenceRecordName)
+        var predicate = NSPredicate(format: "(item == %@)", recordToMatch)
+        
+        // Create the query object.
+        var query = CKQuery(recordType: "Comment", predicate: predicate)
+        query.sortDescriptors = [NSSortDescriptor(key: "createdDate", ascending: true)]
+        
+        publicDatabase.performQuery(query, inZoneWithID: nil, completionHandler: {results, error in
+            
+            if (error != nil) {
+                println("An error occured retrieving records: \(error)")
+                
+            } else {
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    completionClosure(records: results as Array<CKRecord>)
+                    
+                })
+                
+            }
+            
+        });
         
     }
 

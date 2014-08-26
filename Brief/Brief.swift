@@ -161,10 +161,12 @@ class Brief {
                 var id = records[i].recordID.recordName
                 var content = records[i].objectForKey("content") as String
                 var flag = records[i].objectForKey("flag") as Bool
+                var hasComments = records[i].objectForKey("hasComments") as Bool
                 
                 var progress = Progress(content: content)
                 progress.id = id
                 progress.setFlag(flag)
+                progress.containsComments = hasComments
                 
                 self.addProgress(progress)
             }
@@ -197,10 +199,13 @@ class Brief {
                 var id = records[i].recordID.recordName
                 var content = records[i].objectForKey("content") as String
                 var flag = records[i].objectForKey("flag") as Bool
+                var hasComments = records[i].objectForKey("hasComments") as Bool
                 
                 var plan = Plan(content: content)
                 plan.id = id
                 plan.setFlag(flag)
+                plan.containsComments = hasComments
+    
                 
                 self.addPlan(plan)
             }
@@ -233,11 +238,13 @@ class Brief {
                 var id = records[i].recordID.recordName
                 var content = records[i].objectForKey("content") as String
                 var flag = records[i].objectForKey("flag") as Bool
+                var hasComments = records[i].objectForKey("hasComments") as Bool
                 
                 var problem = Problem(content: content)
                 problem.id = id
                 problem.setFlag(flag)
-                
+                problem.containsComments = hasComments
+
                 self.addProblem(problem)
             }
             
