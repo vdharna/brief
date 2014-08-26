@@ -42,6 +42,7 @@
 		6275B5B019A8FF5C004D7D36 /* EnableAccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6275B5AE19A8FF5C004D7D36 /* EnableAccount.xib */; };
 		6276E47E199F2268004D7326 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6276E47D199F2268004D7326 /* CloudKit.framework */; };
 		6295FAC619746D6500C338D3 /* Brief.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6295FAC519746D6500C338D3 /* Brief.swift */; };
+		62ABD5F219AC0F5A003E13CD /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ABD5F119AC0F5A003E13CD /* ProgressView.swift */; };
 		62C032881981CE86005AC29F /* ComposeBriefTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C032861981CE86005AC29F /* ComposeBriefTableViewCell.swift */; };
 		62C032891981CE86005AC29F /* ComposeBriefTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62C032871981CE86005AC29F /* ComposeBriefTableViewCell.xib */; };
 		62C0328B1981D260005AC29F /* compose-table-cell.graffle in Resources */ = {isa = PBXBuildFile; fileRef = 62C0328A1981D260005AC29F /* compose-table-cell.graffle */; };
@@ -103,6 +104,7 @@
 		6275B5AE19A8FF5C004D7D36 /* EnableAccount.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnableAccount.xib; sourceTree = "<group>"; };
 		6276E47D199F2268004D7326 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		6295FAC519746D6500C338D3 /* Brief.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brief.swift; sourceTree = "<group>"; };
+		62ABD5F119AC0F5A003E13CD /* ProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		62ABE282199EC25200CD6430 /* Brief.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Brief.entitlements; sourceTree = "<group>"; };
 		62C032861981CE86005AC29F /* ComposeBriefTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeBriefTableViewCell.swift; sourceTree = "<group>"; };
 		62C032871981CE86005AC29F /* ComposeBriefTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ComposeBriefTableViewCell.xib; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 		62FC24E31983073B00372D14 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
+				62ABD5F119AC0F5A003E13CD /* ProgressView.swift */,
 				620097F8198C1ED00058E83B /* CharacterCountView.swift */,
 				62FC24DE1983060800372D14 /* TransparentEdgesScrollView.swift */,
 				62FC24DF1983060800372D14 /* TransparentEdgesTableView.swift */,
@@ -440,6 +443,7 @@
 				62FC24E11983060800372D14 /* TransparentEdgesTableView.swift in Sources */,
 				62474132196CB5A10043C7E5 /* ComposeViewController.swift in Sources */,
 				620097F9198C1ED00058E83B /* CharacterCountView.swift in Sources */,
+				62ABD5F219AC0F5A003E13CD /* ProgressView.swift in Sources */,
 				62E655911992A6A8001CE289 /* BriefItemCommentTableViewCell.swift in Sources */,
 				62FC24E01983060800372D14 /* TransparentEdgesScrollView.swift in Sources */,
 				623B21C219744DC200EC766F /* TeamMember.swift in Sources */,

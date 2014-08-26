@@ -20,11 +20,10 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var userNameLabel: UILabel!
     
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
     var cbvc: MasterBriefViewController?
     let cloudManager = BriefCloudManager()
     
+    var initialLoad = true
     
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -52,7 +51,8 @@ class HomeViewController: UIViewController {
         self.completedLabel.hidden = true
         
         // start the activity spinner
-        self.activityIndicator.startAnimating()
+        var progressView = ProgressView(frame: CGRectMake(0, 0, 300, 300))
+        self.view.addSubview(progressView)
         
         user.loadDraftBrief({ completed in
             
@@ -60,7 +60,8 @@ class HomeViewController: UIViewController {
                 
                 // when the loading of the draft brief completes
                 self.configureButtons()
-                self.activityIndicator.stopAnimating()
+                progressView.removeFromSuperview()
+                self.initialLoad = false
             })
             
         })
@@ -77,7 +78,7 @@ class HomeViewController: UIViewController {
         
         super.viewWillAppear(animated)
         
-        if (!self.activityIndicator.isAnimating()){
+        if (!self.initialLoad) {
             self.configureButtons()
         }
         
