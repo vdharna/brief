@@ -149,6 +149,8 @@ class Brief {
         
         self.cloudManager.queryForItemRecordsWithReferenceNamed(self.id, recordType: "Progress", completionClosure: { records in
             
+            self.progress.removeAll(keepCapacity: true)
+            
             for i in (0 ..< records.count) {
                 var id = records[i].recordID.recordName
                 var content = records[i].objectForKey("content") as String
@@ -170,6 +172,8 @@ class Brief {
         
         self.cloudManager.queryForItemRecordsWithReferenceNamed(self.id, recordType: "Plan", completionClosure: { records in
             
+            self.plans.removeAll(keepCapacity: true)
+            
             for i in (0 ..< records.count) {
                 var id = records[i].recordID.recordName
                 var content = records[i].objectForKey("content") as String
@@ -190,6 +194,8 @@ class Brief {
     private func loadProblemItemsFromiCloud(completionClosure: ((Bool) -> Void)) {
         
         self.cloudManager.queryForItemRecordsWithReferenceNamed(self.id, recordType: "Problem", completionClosure: { records in
+            
+            self.problems.removeAll(keepCapacity: true)
             
             for i in (0 ..< records.count) {
                 var id = records[i].recordID.recordName

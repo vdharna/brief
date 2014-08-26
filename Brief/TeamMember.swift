@@ -93,6 +93,13 @@ class TeamMember {
                 brief.id = record.recordID.recordName
                 brief.submittedDate = record.objectForKey("submittedDate") as? NSDate
                 self.completedBriefs.append(brief)
+                
+                if (i == 0) {
+                    // load the first one by default
+                    brief.loadPPPItems({ completed in
+                        // do nothing
+                    })
+                }
             }
             
             dispatch_async(dispatch_get_main_queue(), {
@@ -164,7 +171,7 @@ class TeamMember {
         return find(self.notificationSubscriptions, id) != nil
     }
     
-    func findBriefById(id: String) -> Brief? {
+    func findBriefById(id: String, completionClosure: (brief: Brief?) ->()) {
         
         var brief: Brief?
         // loop through each array
@@ -173,7 +180,13 @@ class TeamMember {
                 brief = completedBriefs[i]
             }
         }
-        return brief
+        
+        brief?.loadPPPItems({ completed in
+            dispatch_async(dispatch_get_main_queue(), {
+                completionClosure(brief: brief?)
+            })
+        })
+
     }
     
     func getMostRecentBrief() -> Brief {

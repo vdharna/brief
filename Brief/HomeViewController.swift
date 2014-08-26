@@ -57,6 +57,7 @@ class HomeViewController: UIViewController {
         user.loadDraftBrief({ completed in
             
             user.loadCompletedBriefs({ completed in
+                
                 // when the loading of the draft brief completes
                 self.configureButtons()
                 self.activityIndicator.stopAnimating()

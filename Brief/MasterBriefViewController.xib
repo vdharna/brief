@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MasterBriefViewController" customModule="Brief" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicator" destination="Jbe-5n-U3z" id="ieL-N3-x4v"/>
                 <outlet property="collectionView" destination="xAz-4s-C2D" id="zir-RX-tt0"/>
                 <outlet property="noBriefLabel" destination="75H-Lu-OEb" id="8Cy-PI-FNE"/>
                 <outlet property="table" destination="jwX-MJ-V9h" id="zmR-Ut-IFz"/>
@@ -52,6 +53,10 @@
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Jbe-5n-U3z">
+                    <rect key="frame" x="142" y="265" width="37" height="37"/>
+                    <color key="color" cocoaTouchSystemColor="darkTextColor"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>

@@ -29,7 +29,12 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
     private var completedBriefs = user.getCompletedBriefs()
     private var selectedBrief: Brief?
     
+    @IBOutlet
+    weak var activityIndicator: UIActivityIndicatorView!
+    
     private var selectedIndexPath:NSIndexPath?
+    
+    private var cloudManager = BriefCloudManager()
     
     // MARK: --------------------------------
     // MARK: Initializers
@@ -56,9 +61,9 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
             self.table.hidden = false
             self.collectionView.hidden = false
             
-            loadBrief()
-            configureTableView()
-            configureCollectionView()
+            self.loadInitialBrief()
+            self.configureTableView()
+            self.configureCollectionView()
             
         } else {
             
@@ -460,8 +465,13 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         // Remember selection:
         self.selectedIndexPath = indexPath
         
-        self.selectedBrief = user.findBriefById(cell.briefId)
-        self.table.reloadData()
+        self.activityIndicator.startAnimating()
+        user.findBriefById(cell.briefId, completionClosure: { brief in
+            self.selectedBrief = brief
+            self.table.reloadData()
+            self.activityIndicator.stopAnimating()
+        })
+        
         
     }
     
@@ -482,13 +492,13 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
     // MARK: --------------------------------
     // MARK: Utility Methods
     // MARK: --------------------------------
-    func loadBrief() {
+    func loadInitialBrief() {
         // pull the correct Brief based on some parameter
         if (selectedIndexPath != nil) {
             
             var cell = self.collectionView.cellForItemAtIndexPath(selectedIndexPath) as CompletedBriefCollectionViewCell
             var briefId = cell.briefId
-            self.selectedBrief = user.findBriefById(briefId!)
+            //self.selectedBrief = user.findBriefById(briefId!)
             
         } else {
             

@@ -306,6 +306,7 @@ class BriefCloudManager {
         
         // Create the query object.
         var query = CKQuery(recordType:"Brief", predicate: predicate)
+        query.sortDescriptors = [NSSortDescriptor(key: "submittedDate", ascending: false)]
 
         publicDatabase.performQuery(query, inZoneWithID: nil, completionHandler: {results, error in
             
