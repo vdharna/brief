@@ -19,6 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
+        // Register for push notifications
+        var notificationSettings = UIUserNotificationSettings(forTypes: UIUserNotificationType.Alert, categories: nil)
+        application.registerUserNotificationSettings(notificationSettings)
+        application.registerForRemoteNotifications()
+        
         // enhance this code to pull user info locally and using identity management prior to hitting iCloud
         self.cloudManager.requestDiscoverabilityPermission({ discoverability in
             
@@ -28,18 +33,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     
                     // assign the user information
                     user.userInfo = userInfo
+                                        
+                    self.cloudManager.fetchRecordWithID(user.userInfo!.userRecordID.recordName, completionClosure: { record in
+                        
+                        user.preferredName = record.objectForKey("preferredName") as? String
+                        
+                        let homeVC = HomeViewController(nibName: "HomeViewController", bundle: NSBundle.mainBundle())
+                        let briefNavVC = UINavigationController(rootViewController: homeVC)
+                        
+                        //nav bar setup
+                        briefNavVC.navigationBar.barTintColor = UIColor.blackColor()
+                        briefNavVC.navigationBar.tintColor = UIColor.whiteColor()
+                        briefNavVC.navigationBar.barStyle = UIBarStyle.BlackTranslucent
+                        
+                        self.window?.rootViewController = briefNavVC
+                        self.window?.backgroundColor = UIColor.whiteColor()
+                        self.window?.makeKeyAndVisible()
+                        
+                    })
                     
-                    let homeVC = HomeViewController(nibName: "HomeViewController", bundle: NSBundle.mainBundle())
-                    let briefNavVC = UINavigationController(rootViewController: homeVC)
-                    
-                    //nav bar setup
-                    briefNavVC.navigationBar.barTintColor = UIColor.blackColor()
-                    briefNavVC.navigationBar.tintColor = UIColor.whiteColor()
-                    briefNavVC.navigationBar.barStyle = UIBarStyle.BlackTranslucent
-                    
-                    self.window?.rootViewController = briefNavVC
-                    self.window?.backgroundColor = UIColor.whiteColor()
-                    self.window?.makeKeyAndVisible()
+
              
                 })
                 
@@ -59,6 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
         })
+    
         
         return true
 
@@ -84,6 +98,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication!) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        println("Registered for Push notifications with token: \(deviceToken)")
+    }
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        println("Push subscription failed: \(error)")
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        println("Registered for Push notifications with token: \(userInfo)")
     }
 
 }

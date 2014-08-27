@@ -32,7 +32,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
     let cellName = "BriefItemCommentTableViewCell"
     let offScreenCell: BriefItemCommentTableViewCell?
     
-    var item: PPPItem?
+    var item: PPPItem!
     
     var cloudManager = BriefCloudManager()
     
@@ -76,7 +76,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
         // start the activity spinner
         var progressView = ProgressView(frame: CGRectMake(0, 0, 300, 300))
         self.view.addSubview(progressView)
-        item!.loadCommentsFromiCloud({ completed in
+        item.loadCommentsFromiCloud({ completed in
             self.table.reloadData()
             progressView.removeFromSuperview()
             self.determineNoCommentLabelVisibility()
@@ -173,7 +173,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
         self.table.tableHeaderView = headerView
         self.table.estimatedRowHeight = 44.0
         self.table.rowHeight = UITableViewAutomaticDimension
-        self.itemLabel.text = self.item!.getContent()
+        self.itemLabel.text = self.item.getContent()
         
     }
     
@@ -250,22 +250,21 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
         cell.authorImage.image = UIImage(named: "avatar.png")
         
         // set the author name
-        cell.commentAuthor.text = item!.comments[indexPath.row].createdBy
+        cell.commentAuthor.text = item.comments[indexPath.row].createdBy
         
         // set the number of days elapsed since posting
-        //cell.commentTimestamp.text = item!.comments[indexPath.row].createdDate
-      //  cell.commentTimestamp.text = item!.comments[indexPath.row].getElapsedTime()
+      //  cell.commentTimestamp.text = item.comments[indexPath.row].getElapsedTime()
 
         //set the actual comment content
         cell.commentContent.numberOfLines = 0
         
-        cell.commentContent.text = item!.comments[indexPath.row].content
+        cell.commentContent.text = item.comments[indexPath.row].content
 
         return cell
     }
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
-        return item!.commentsCount()
+        return item.commentsCount()
     }
     
     
@@ -277,7 +276,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
         
         if (!self.inputAccessoryTextView.text.isEmpty) {
             // add the comment to the brief item
-            var index = self.item!.commentsCount()
+            var index = self.item.commentsCount()
             var indexPath = NSIndexPath(forRow: index, inSection: 0)
             
             // create the comment
@@ -286,7 +285,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
             comment.createdDate = NSDate()
             
             // add locally
-            self.item!.addComment(comment)
+            self.item.addComment(comment)
             
             self.determineNoCommentLabelVisibility()
             
@@ -306,7 +305,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
             self.scrollToBottom()
             
             // add comment to iCloud
-            cloudManager.addCommentRecord(comment, item: item!, completionClosure: { record in
+            cloudManager.addCommentRecord(comment, item: item, completionClosure: { record in
 
             })
 
@@ -317,7 +316,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
     
     func scrollToBottom() {
 
-        self.table.scrollToRowAtIndexPath(NSIndexPath(forRow: self.item!.commentsCount() - 1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
+        self.table.scrollToRowAtIndexPath(NSIndexPath(forRow: self.item.commentsCount() - 1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
 
     }
     

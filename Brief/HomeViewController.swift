@@ -62,6 +62,11 @@ class HomeViewController: UIViewController {
                 self.configureButtons()
                 progressView.removeFromSuperview()
                 self.initialLoad = false
+                if let name = user.preferredName {
+                    self.userNameLabel.text = "Welcome \(user.preferredName!)"
+                } else {
+                    self.userNameLabel.text = "Welcome \(user.userInfo!.firstName)"
+                }
             })
             
         })

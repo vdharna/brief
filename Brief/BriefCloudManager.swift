@@ -380,7 +380,6 @@ class BriefCloudManager {
     func queryForCommmentsWithReferenceNamed(referenceRecordName: String, completionClosure: (records: Array<CKRecord>) ->()) {
         
         // Match draft brief record whose owner (TeamMember) field points to the specified draft brief record.
-        //var recordToMatch = CKRecord(recordType: referenceRecordType, recordID: CKRecordID(recordName: referenceRecordName))
         var recordToMatch = CKRecordID(recordName: referenceRecordName)
         var predicate = NSPredicate(format: "(item == %@)", recordToMatch)
         
@@ -397,12 +396,53 @@ class BriefCloudManager {
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     completionClosure(records: results as Array<CKRecord>)
-                    
                 })
-                
             }
             
         });
+        
+    }
+    
+    func subscribeForComments(referenceRecordName: String, completionClosure: (subscription: CKSubscription) ->()) {
+        
+        var recordToMatch = CKRecordID(recordName: referenceRecordName)
+        var predicate = NSPredicate(format: "(item == %@)", recordToMatch)
+        
+        var itemSubscription = CKSubscription(recordType: "Comment", predicate: predicate, options: CKSubscriptionOptions.FiresOnRecordCreation)
+        
+        var notification = CKNotificationInfo()
+        notification.alertBody = "New Comment Added!"
+        itemSubscription.notificationInfo = notification
+        
+        self.publicDatabase.saveSubscription(itemSubscription, completionHandler: { subscription, error in
+            
+            if (error != nil) {
+                println("An error occured in saving subscription \(error)")
+            } else {
+                println("Subscribed to Comment")
+                dispatch_async(dispatch_get_main_queue(), {
+                    completionClosure(subscription: subscription)
+                })
+            }
+        })
+        
+        
+    }
+    
+    func unsubscribe(subscriptionID: String) {
+        
+        var modifyOperation = CKModifySubscriptionsOperation()
+        modifyOperation.subscriptionIDsToDelete = [subscriptionID]
+        
+        modifyOperation.modifySubscriptionsCompletionBlock = { savedSubscriptions, deletedSubscriptionIDs, error in
+            if (error != nil) {
+                // In your app, handle this error beautifully.
+                println("An error occured in operation: \(error)")
+            } else {
+                println("Unsubscribed to Item")
+            }
+            
+        }
         
     }
 
