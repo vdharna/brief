@@ -8,6 +8,9 @@
 
 import Foundation
 
+let PlanRecordType = "Plan"
+
 class Plan: PPPItem {
+    
     
 }

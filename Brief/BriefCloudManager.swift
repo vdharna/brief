@@ -10,6 +10,7 @@ import Foundation
 import CloudKit
 
 class BriefCloudManager {
+        
     
     var container: CKContainer
     var publicDatabase: CKDatabase
@@ -133,9 +134,9 @@ class BriefCloudManager {
 
     func addBriefRecord(draftBrief: Brief, completionClosure: (record :CKRecord) ->()) {
     
-        var record: CKRecord = CKRecord(recordType: "Brief", recordID: CKRecordID(recordName: draftBrief.id))
+        var record: CKRecord = CKRecord(recordType: BriefRecordType, recordID: CKRecordID(recordName: draftBrief.id))
         // update the draft brief status
-        record.setObject(draftBrief.status.toRaw(), forKey: "status")
+        record.setObject(draftBrief.status.toRaw(), forKey: StatusField)
         
         self.publicDatabase.saveRecord(record, completionHandler: { record, error in
             
@@ -154,7 +155,7 @@ class BriefCloudManager {
     func addProgressRecord(progress: Progress, completionClosure: (record :CKRecord) ->()) {
         
         // create the record
-        var record: CKRecord = CKRecord(recordType: "Progress", recordID: CKRecordID(recordName: progress.id))
+        var record: CKRecord = CKRecord(recordType: ProgressRecordType, recordID: CKRecordID(recordName: progress.id))
 
         //set the common traits
         self.setPPPCommonTraits(progress, record: record)
@@ -180,7 +181,7 @@ class BriefCloudManager {
     
     func addPlanRecord(plan: Plan, completionClosure: (record :CKRecord) ->()) {
         
-        var record: CKRecord = CKRecord(recordType: "Plan", recordID: CKRecordID(recordName: plan.id))
+        var record: CKRecord = CKRecord(recordType: PlanRecordType, recordID: CKRecordID(recordName: plan.id))
 
         //set the common traits
         self.setPPPCommonTraits(plan, record: record)
@@ -205,7 +206,7 @@ class BriefCloudManager {
     
     func addProblemRecord(problem: Problem, completionClosure: (record :CKRecord) ->()) {
         
-        var record: CKRecord = CKRecord(recordType: "Problem", recordID: CKRecordID(recordName: problem.id))
+        var record: CKRecord = CKRecord(recordType: ProblemRecordType, recordID: CKRecordID(recordName: problem.id))
 
         //set the common traits
         self.setPPPCommonTraits(problem, record: record)
@@ -231,35 +232,33 @@ class BriefCloudManager {
     private func setPPPCommonTraits(item: PPPItem, record: CKRecord) {
         
         // add the content
-        record.setObject(item.content, forKey: "content")
+        record.setObject(item.content, forKey: ItemContentField)
         // add the flag info
-        record.setObject(item.isFlagged(), forKey: "flag")
+        record.setObject(item.isFlagged(), forKey: FlagField)
         // add notification flag
         
         // add comment boolean flag
-        record.setObject(item.hasComments(), forKey: "hasComments")
+        record.setObject(item.hasComments(), forKey: HasCommentsField)
         
         // add a reference to the Brief (back reference)
         var briefRecordID = CKRecordID(recordName: user.getDraftBrief().id)
         var reference = CKReference(recordID: briefRecordID, action: .DeleteSelf)
-        record.setObject(reference, forKey: "brief")
+        record.setObject(reference, forKey: BriefReferenceRecordType)
 
     }
     
     func addCommentRecord(comment: Comment, item: PPPItem, completionClosure: (record :CKRecord) ->()) {
         
         // create the record instance
-        var record: CKRecord = CKRecord(recordType: "Comment")
+        var record: CKRecord = CKRecord(recordType: CommentRecordType)
         // add the content
-        record.setObject(comment.content, forKey: "content")
+        record.setObject(comment.content, forKey: CommentContentField)
         // add the user
-        record.setObject(user.getFirstName(), forKey: "createdBy")
-        // add the created date since it's not working in iCloud
-        record.setObject(NSDate(), forKey: "createdDate")
+        record.setObject(user.getFirstName(), forKey: CreatedByField)
         // add the reference
         var itemRecordID = CKRecordID(recordName: item.id)
         var reference = CKReference(recordID: itemRecordID, action: .DeleteSelf)
-        record.setObject(reference, forKey: "item")
+        record.setObject(reference, forKey: ItemReferenceRecordType)
         
         // save the comment record
         self.publicDatabase.saveRecord(record, completionHandler: { record, error in
@@ -273,7 +272,7 @@ class BriefCloudManager {
                 // update the boolean for the item since it now has a comment
                 self.fetchRecordWithID(item.getId(), completionClosure: { record in
                     
-                    record.setObject(item.hasComments(), forKey: "hasComments")
+                    record.setObject(item.hasComments(), forKey: HasCommentsField)
                     
                     self.saveRecord(record, completionClosure: { completed in
                     
@@ -298,7 +297,7 @@ class BriefCloudManager {
         var predicate = NSPredicate(format: "(status == %@) AND (creatorUserRecordID == %@)", NSNumber(int: 1), recordToMatch!)
 
         // Create the query object.
-        var query = CKQuery(recordType:"Brief", predicate: predicate)
+        var query = CKQuery(recordType:BriefRecordType, predicate: predicate)
 
         publicDatabase.performQuery(query, inZoneWithID: nil, completionHandler: {results, error in
                         
@@ -323,13 +322,13 @@ class BriefCloudManager {
         // Match draft brief record whose owner (TeamMember) field points to the specified draft brief record.
         var recordToMatch = user.userInfo?.userRecordID
         var predicate = NSPredicate(format: "(status == %@) AND (creatorUserRecordID == %@)", NSNumber(int: 2), recordToMatch!)
-        
+
         // Create the query object.
-        var query = CKQuery(recordType:"Brief", predicate: predicate)
-        query.sortDescriptors = [NSSortDescriptor(key: "submittedDate", ascending: false)]
+        var query = CKQuery(recordType:BriefRecordType, predicate: predicate)
+        query.sortDescriptors = [NSSortDescriptor(key: SubmittedDateField, ascending: false)]
 
         publicDatabase.performQuery(query, inZoneWithID: nil, completionHandler: {results, error in
-            
+            println("\(results.first)")
             if (error != nil) {
                 println("An error occured retrieving records: \(error)")
                 
@@ -384,8 +383,8 @@ class BriefCloudManager {
         var predicate = NSPredicate(format: "(item == %@)", recordToMatch)
         
         // Create the query object.
-        var query = CKQuery(recordType: "Comment", predicate: predicate)
-        query.sortDescriptors = [NSSortDescriptor(key: "createdDate", ascending: true)]
+        var query = CKQuery(recordType: CommentRecordType, predicate: predicate)
+        query.sortDescriptors = [NSSortDescriptor(key: CreatedDateField, ascending: true)]
         
         publicDatabase.performQuery(query, inZoneWithID: nil, completionHandler: {results, error in
             
@@ -408,7 +407,7 @@ class BriefCloudManager {
         var recordToMatch = CKRecordID(recordName: referenceRecordName)
         var predicate = NSPredicate(format: "(item == %@)", recordToMatch)
         
-        var itemSubscription = CKSubscription(recordType: "Comment", predicate: predicate, options: CKSubscriptionOptions.FiresOnRecordCreation)
+        var itemSubscription = CKSubscription(recordType: CommentRecordType, predicate: predicate, options: CKSubscriptionOptions.FiresOnRecordCreation)
         
         var notification = CKNotificationInfo()
         notification.alertBody = "New Comment Added!"
@@ -420,12 +419,13 @@ class BriefCloudManager {
                 println("An error occured in saving subscription \(error)")
             } else {
                 println("Subscribed to Comment")
-                dispatch_async(dispatch_get_main_queue(), {
-                    completionClosure(subscription: subscription)
-                })
+
             }
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                completionClosure(subscription: subscription)
+            })
         })
-        
         
     }
     
@@ -443,6 +443,8 @@ class BriefCloudManager {
             }
             
         }
+        
+        self.publicDatabase.addOperation(modifyOperation)
         
     }
 

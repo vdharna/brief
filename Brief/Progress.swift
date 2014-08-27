@@ -8,6 +8,8 @@
 
 import Foundation
 
+let ProgressRecordType = "Progress"
+
 class Progress: PPPItem {
     
 }

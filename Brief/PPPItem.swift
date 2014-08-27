@@ -7,7 +7,12 @@
 //
 
 import Foundation
+import CloudKit
 
+let ItemContentField = "content"
+let BriefReferenceRecordType = "brief"
+let FlagField = "flag"
+let HasCommentsField = "hasComments"
 
 class PPPItem {
     
@@ -61,20 +66,23 @@ class PPPItem {
     
     func loadCommentsFromiCloud(completionClosure: ((Bool) -> Void)) {
         
+        self.comments.removeAll(keepCapacity: true)
+        
+        var recordList: Array<CKRecord>?
+        
         self.cloudManager.queryForCommmentsWithReferenceNamed(self.id, completionClosure: { records in
-            
-            self.comments.removeAll(keepCapacity: true)
-            
+                        
             for i in (0 ..< records.count) {
+                
                 var id = records[i].recordID.recordName
-                var content = records[i].objectForKey("content") as String
-                var createdBy = records[i].objectForKey("createdBy") as String
-                var createdDate = records[i].objectForKey("createdDate") as NSDate
+                var content = records[i].objectForKey(CommentContentField) as String
+                var createdDate = records[i].objectForKey(CreatedDateField) as NSDate
+                var createdBy = records[i].objectForKey(CreatedByField) as String
                 
                 var comment = Comment(content: content)
                 comment.id = id
-                comment.createdBy = createdBy
                 comment.createdDate = createdDate
+                comment.createdBy = createdBy
                 
                 self.addComment(comment)
             }
@@ -82,9 +90,9 @@ class PPPItem {
             dispatch_async(dispatch_get_main_queue(), {
                 completionClosure(true)
             })
-            
-            
-        })
+                        
+        })        
+
     }
     
 }

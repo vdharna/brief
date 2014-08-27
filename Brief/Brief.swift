@@ -8,6 +8,11 @@
 
 import Foundation
 
+let StatusField = "status" // int
+let SubmittedDateField = "submittedDate" //date
+
+let BriefRecordType = "Brief"
+
 class Brief {
     
     var id: String
@@ -153,15 +158,15 @@ class Brief {
     
     private func loadProgressItemsFromiCloud(completionClosure: ((Bool) -> Void)) {
         
-        self.cloudManager.queryForItemRecordsWithReferenceNamed(self.id, recordType: "Progress", completionClosure: { records in
+        self.cloudManager.queryForItemRecordsWithReferenceNamed(self.id, recordType: ProgressRecordType, completionClosure: { records in
             
             self.progress.removeAll(keepCapacity: true)
             
             for i in (0 ..< records.count) {
                 var id = records[i].recordID.recordName
-                var content = records[i].objectForKey("content") as String
-                var flag = records[i].objectForKey("flag") as Bool
-                var hasComments = records[i].objectForKey("hasComments") as Bool
+                var content = records[i].objectForKey(ItemContentField) as String
+                var flag = records[i].objectForKey(FlagField) as Bool
+                var hasComments = records[i].objectForKey(HasCommentsField) as Bool
                 
                 var progress = Progress(content: content)
                 progress.id = id
@@ -191,15 +196,15 @@ class Brief {
     
     private func loadPlanItemsFromiCloud(completionClosure: ((Bool) -> Void)) {
         
-        self.cloudManager.queryForItemRecordsWithReferenceNamed(self.id, recordType: "Plan", completionClosure: { records in
+        self.cloudManager.queryForItemRecordsWithReferenceNamed(self.id, recordType: PlanRecordType, completionClosure: { records in
             
             self.plans.removeAll(keepCapacity: true)
             
             for i in (0 ..< records.count) {
                 var id = records[i].recordID.recordName
-                var content = records[i].objectForKey("content") as String
-                var flag = records[i].objectForKey("flag") as Bool
-                var hasComments = records[i].objectForKey("hasComments") as Bool
+                var content = records[i].objectForKey(ItemContentField) as String
+                var flag = records[i].objectForKey(FlagField) as Bool
+                var hasComments = records[i].objectForKey(HasCommentsField) as Bool
                 
                 var plan = Plan(content: content)
                 plan.id = id
@@ -230,15 +235,15 @@ class Brief {
     
     private func loadProblemItemsFromiCloud(completionClosure: ((Bool) -> Void)) {
         
-        self.cloudManager.queryForItemRecordsWithReferenceNamed(self.id, recordType: "Problem", completionClosure: { records in
+        self.cloudManager.queryForItemRecordsWithReferenceNamed(self.id, recordType: ProblemRecordType, completionClosure: { records in
             
             self.problems.removeAll(keepCapacity: true)
             
             for i in (0 ..< records.count) {
                 var id = records[i].recordID.recordName
-                var content = records[i].objectForKey("content") as String
-                var flag = records[i].objectForKey("flag") as Bool
-                var hasComments = records[i].objectForKey("hasComments") as Bool
+                var content = records[i].objectForKey(ItemContentField) as String
+                var flag = records[i].objectForKey(FlagField) as Bool
+                var hasComments = records[i].objectForKey(HasCommentsField) as Bool
                 
                 var problem = Problem(content: content)
                 problem.id = id

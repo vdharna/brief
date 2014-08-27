@@ -56,7 +56,7 @@ class TeamMember {
                     var record = records.first
                 
                     var id = record?.recordID.recordName
-                    var statusRaw = record?.objectForKey("status") as NSNumber
+                    var statusRaw = record?.objectForKey(StatusField) as NSNumber
                     var status = Status.fromRaw(statusRaw)
                 
                     var draftBrief = Brief(status: status!)
@@ -91,9 +91,9 @@ class TeamMember {
             // loop through array
             for i in (0 ..< records.count) {
                 var record = records[i] as CKRecord
-                var brief = Brief(status: Status.fromRaw(record.objectForKey("status") as NSNumber)!)
+                var brief = Brief(status: Status.fromRaw(record.objectForKey(StatusField) as NSNumber)!)
                 brief.id = record.recordID.recordName
-                brief.submittedDate = record.objectForKey("submittedDate") as? NSDate
+                brief.submittedDate = record.objectForKey(SubmittedDateField) as? NSDate
                 self.completedBriefs.append(brief)
                 
                 if (i == 0) {
@@ -117,9 +117,8 @@ class TeamMember {
     }
 
     
-    func addNotification(id: String) {
+    func addNotification(id: String, completionClosure: ((Bool) -> Void)) {
         
-        // invoke the subscribe method
         cloudManager.subscribeForComments(id, completionClosure: { subscription in
             
             var subscriptionID = subscription.subscriptionID as String
@@ -127,6 +126,10 @@ class TeamMember {
             //add to NSUserDefaults
             var defaults = NSUserDefaults.standardUserDefaults()
             defaults.setObject(subscriptionID, forKey: id)
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                completionClosure(true)
+            })
             
         })
 
@@ -184,8 +187,8 @@ class TeamMember {
             // update the draft brief status
             self.draftBrief!.status = Status.IsCompleted
             self.draftBrief!.submittedDate = NSDate()
-            record.setObject(self.draftBrief!.status.toRaw(), forKey: "status")
-            record.setObject(self.draftBrief!.submittedDate, forKey: "submittedDate")
+            record.setObject(self.draftBrief!.status.toRaw(), forKey: StatusField)
+            record.setObject(self.draftBrief!.submittedDate, forKey: SubmittedDateField)
             // save the record to iCloud
             self.cloudManager.saveRecord(record, completionClosure: { success in
                 // remove the brief from local

@@ -39,8 +39,8 @@
 		62727F9F199946350063EA0C /* CompletedBriefCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62727F9D199946350063EA0C /* CompletedBriefCollectionViewCell.xib */; };
 		6275B5AF19A8FF5C004D7D36 /* EnableAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6275B5AD19A8FF5C004D7D36 /* EnableAccount.swift */; };
 		6275B5B019A8FF5C004D7D36 /* EnableAccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6275B5AE19A8FF5C004D7D36 /* EnableAccount.xib */; };
-		6276E47E199F2268004D7326 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6276E47D199F2268004D7326 /* CloudKit.framework */; };
 		6295FAC619746D6500C338D3 /* Brief.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6295FAC519746D6500C338D3 /* Brief.swift */; };
+		629AA74819ADAFE60099FF0E /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 629AA74719ADAFE60099FF0E /* CloudKit.framework */; };
 		62ABD5F219AC0F5A003E13CD /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ABD5F119AC0F5A003E13CD /* ProgressView.swift */; };
 		62C032881981CE86005AC29F /* ComposeBriefTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C032861981CE86005AC29F /* ComposeBriefTableViewCell.swift */; };
 		62C032891981CE86005AC29F /* ComposeBriefTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62C032871981CE86005AC29F /* ComposeBriefTableViewCell.xib */; };
@@ -100,8 +100,8 @@
 		62727F9D199946350063EA0C /* CompletedBriefCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompletedBriefCollectionViewCell.xib; sourceTree = "<group>"; };
 		6275B5AD19A8FF5C004D7D36 /* EnableAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnableAccount.swift; sourceTree = "<group>"; };
 		6275B5AE19A8FF5C004D7D36 /* EnableAccount.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnableAccount.xib; sourceTree = "<group>"; };
-		6276E47D199F2268004D7326 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		6295FAC519746D6500C338D3 /* Brief.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brief.swift; sourceTree = "<group>"; };
+		629AA74719ADAFE60099FF0E /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		62ABD5F119AC0F5A003E13CD /* ProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		62ABE282199EC25200CD6430 /* Brief.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Brief.entitlements; sourceTree = "<group>"; };
 		62C032861981CE86005AC29F /* ComposeBriefTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeBriefTableViewCell.swift; sourceTree = "<group>"; };
@@ -120,7 +120,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6276E47E199F2268004D7326 /* CloudKit.framework in Frameworks */,
+				629AA74819ADAFE60099FF0E /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,7 +145,7 @@
 		6247411F196CB5A10043C7E5 = {
 			isa = PBXGroup;
 			children = (
-				6276E47D199F2268004D7326 /* CloudKit.framework */,
+				629AA74719ADAFE60099FF0E /* CloudKit.framework */,
 				6247412A196CB5A10043C7E5 /* Brief */,
 				6247413F196CB5A10043C7E5 /* BriefTests */,
 				62474129196CB5A10043C7E5 /* Products */,

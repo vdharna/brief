@@ -348,7 +348,7 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         flagRowAction.backgroundColor = UIColor.orangeColor()
         
         // notify action
-        var notifyRowAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Notify", handler:{action, indexpath in
+        var notifyRowAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Notify", handler:{ action, indexpath in
             
             var itemId = item.getId()
             
@@ -368,13 +368,16 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
             
             var notifyAction = UIAlertAction(title: notifyTitle, style: .Default, handler: {
                 (alertAction: UIAlertAction!) in
+    
                 if (user.containsNotification(itemId)){
                     user.removeNotification(itemId)
+                    self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
                 } else {
-                    user.addNotification(itemId)
+                    user.addNotification(itemId, completionClosure: { completed in
+                        self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
+                    })
                 }
                 
-                self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
             })
             
             alert.addAction(cancelAction)

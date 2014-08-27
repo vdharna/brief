@@ -8,6 +8,8 @@
 
 import Foundation
 
+let ProblemRecordType = "Problem"
+
 class Problem: PPPItem {
     
 }

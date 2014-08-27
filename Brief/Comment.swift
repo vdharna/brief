@@ -7,17 +7,31 @@
 //
 
 import Foundation
+import CloudKit
 
 func ==(lhs: Comment, rhs: Comment) -> Bool {
     return lhs.id == rhs.id
 }
 
+let CommentContentField = "content" // String
+let ItemReferenceRecordType = "item" //Reference
+let CreatedByField = "createdBy" // String
+let CreatedDateField = "creationDate" //Date --> Sort By
+
+let CommentRecordType = "Comment"
+
+var cloudManager = BriefCloudManager()
+
 class Comment: Equatable {
+    
+
     
     var id: String
     var content: String
     var createdDate: NSDate?
     var createdBy: String? // first and last name of the commentor
+    
+    var userReferenceID: String? // used to lookup the user reference
     
     init(content: String) {
         self.id = NSUUID.UUID().UUIDString
@@ -36,8 +50,7 @@ class Comment: Equatable {
 //        }
         
         return "1"
-        
+
     }
-    
     
 }
