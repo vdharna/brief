@@ -76,16 +76,12 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
         // start the activity spinner
         var progressView = ProgressView(frame: CGRectMake(0, 0, 300, 300))
         self.view.addSubview(progressView)
-        println("outside 1")
         item.loadCommentsFromiCloud({ completed in
-            println("inside 1")
             self.table.reloadData()
             progressView.removeFromSuperview()
             self.determineNoCommentLabelVisibility()
 
-        })
-        println("outside 2")
-        
+        })        
     }
     
     override func viewDidDisappear(animated: Bool) {

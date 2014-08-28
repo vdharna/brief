@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CloudKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
         // Register for push notifications
-        var notificationSettings = UIUserNotificationSettings(forTypes: UIUserNotificationType.Alert, categories: nil)
+        var notificationSettings = UIUserNotificationSettings(forTypes: UIUserNotificationType.Alert | UIUserNotificationType.Badge, categories: nil)
         application.registerUserNotificationSettings(notificationSettings)
         application.registerForRemoteNotifications()
         
@@ -107,8 +108,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        println("Registered for Push notifications with token: \(userInfo)")
-    }
+        println("Push received with alert body:: \(userInfo)")
+        
+        var cloudKitNotification = CKNotification(fromRemoteNotificationDictionary: userInfo)
+        
+        if(cloudKitNotification.notificationType == CKNotificationType.Query) {
+            var queryNotification = cloudKitNotification as CKQueryNotification
+            var recordID = queryNotification.recordID
+            var publicDatabase = CKContainer.defaultContainer().publicCloudDatabase
+            
+            publicDatabase.fetchRecordWithID(recordID, completionHandler: { record, error in
+                
+                if (error != nil) {
+                    println("\(error)")
+                } else {
+                    NSNotificationCenter.defaultCenter().postNotificationName("test", object: record)
+                }
+            })
+            
+        }
 
+    }
+    
+    
 }
 
