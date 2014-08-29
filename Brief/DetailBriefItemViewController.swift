@@ -57,6 +57,8 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
 
         // Do any additional setup after loading the view.
         self.navigationItem.title = "Comments"
+        self.navigationController.hidesBarsOnSwipe = true
+        self.navigationController.hidesBarsOnTap = true
         
         self.configureTableView()
         self.configureTextViews()

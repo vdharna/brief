@@ -17,8 +17,8 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet
     weak var table: UITableView!
     
-    @IBOutlet
-    weak var collectionView: UICollectionView!
+    var cview = UIView(frame: CGRectMake(0, 64, 320, 44))
+    var collectionView: UICollectionView!
     
     @IBOutlet
     weak var noBriefLabel: UILabel!
@@ -50,6 +50,14 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        self.collectionView = UICollectionView(frame: CGRectMake(0, 2, 320, 40), collectionViewLayout: UICollectionViewFlowLayout())
+        
+        self.cview.backgroundColor = UIColor.whiteColor()
+        self.cview.addSubview(collectionView)
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
         if (!user.getCompletedBriefs().isEmpty) {
             
@@ -97,6 +105,10 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         }
         
         var briefs = user.getCompletedBriefs()
+        //self.table.tableHeaderView = self.cview
+        self.view.addSubview(cview)
+        self.navigationController.hidesBarsOnSwipe = false
+        self.navigationController.hidesBarsOnTap = false
 
     }
     
@@ -125,10 +137,6 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         
         // Register this NIB, which contains the cell
         self.table.registerNib(nib, forCellReuseIdentifier: tableViewCellName)
-
-        var footer = UIView(frame: CGRectMake(0, 0, self.table.frame.width, 25))
-        footer.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.92)
-        self.table.tableFooterView = footer
         
         // add refresh control
         var refreshControl = UIRefreshControl()
@@ -197,9 +205,11 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         if (user.containsNotification(item.getId())) {
             var notificationLabel = UILabel(frame: CGRectMake(0, 0, 20, 20))
             notificationLabel.tag = 2
-            notificationLabel.text = "⌚︎"
-            notificationLabel.font = UIFont(name: "HelveticaNeue-Light", size: 17)
-            notificationLabel.textColor = UIColor.grayColor()
+            
+            var image = UIImageView(frame: CGRectMake(1, 5, 10, 10))
+            image.image = UIImage(named: "alarm.png")
+            notificationLabel.addSubview(image)
+
             
             if (cell.view1.viewWithTag(1) == nil) { //no flag icon is set
                 
@@ -233,9 +243,9 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         if (item.hasComments()) {
             //create the uiimage and the count label
             var commentLabel = UILabel(frame: CGRectMake(0, 0, 20, 20))
-            commentLabel.text = "\u{1F4AC}"
-            commentLabel.font = UIFont(name: "HelveticaNeue-Light", size: 8)
-            commentLabel.textColor = UIColor.grayColor()
+            var image = UIImageView(frame: CGRectMake(-4, 0, 20, 20))
+            image.image = UIImage(named: "speech-bubble-32.png")
+            commentLabel.addSubview(image)
             commentLabel.tag = 3
             
             if (cell.view1.viewWithTag(1) == nil
@@ -294,30 +304,42 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
     
     }
 
-    // Asks the data source for the title of the header of the specified section of the table view.
-    func tableView(tableView: UITableView!, titleForHeaderInSection section: Int) -> String! {
+    
+    func tableView(tableView: UITableView!, viewForHeaderInSection section: Int) -> UIView! {
         
-        switch (section) {
-        case 0: return "Progress"
-        case 1: return "Plans"
-        case 2: return "Problems"
-        default: return ""
+        var string = ""
+        
+        switch(section) {
+            
+        case 0: string = "Progress"
+            
+        case 1: string = "Plans"
+            
+        case 2: string = "Problems"
+            
+        default: string = ""
         }
+        
+        var bundle = NSBundle.mainBundle()
+        var headerView = (bundle.loadNibNamed("SectionHeader", owner: self, options: nil)[0] as SectionHeader)
+        headerView.label1.text = string
+        
+        return headerView
+    }
+    
+    func tableView(tableView: UITableView!, willDisplayHeaderView view: UIView!, forSection section: Int) {
+    }
+    
+    func tableView(tableView: UITableView!, heightForHeaderInSection section: Int) -> CGFloat {
+        println("willDisplayHeaderView: \(section)")
+        
+        return 24
     }
     
     // MARK: --------------------------------
     // MARK: TableView Delegate Methods
     // MARK: --------------------------------
-    
-    func tableView(tableView: UITableView!, willDisplayHeaderView view: UIView!, forSection section: Int) {
-        
-        //background color
-        view.tintColor = UIColor.darkTextColor()
-        
-        //text color
-        var header = view as UITableViewHeaderFooterView
-        header.textLabel.textColor = UIColor.whiteColor()
-    }
+
     
     func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) -> [AnyObject]! {
 
@@ -373,7 +395,7 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
                     user.removeNotification(itemId)
                     self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
                 } else {
-                    user.addNotification(itemId, completionClosure: { completed in
+                    user.addNotification(item, completionClosure: { completed in
                         self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
                     })
                 }

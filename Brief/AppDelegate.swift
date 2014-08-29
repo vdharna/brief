@@ -43,9 +43,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         let briefNavVC = UINavigationController(rootViewController: homeVC)
                         
                         //nav bar setup
-                        briefNavVC.navigationBar.barTintColor = UIColor.blackColor()
-                        briefNavVC.navigationBar.tintColor = UIColor.whiteColor()
-                        briefNavVC.navigationBar.barStyle = UIBarStyle.BlackTranslucent
+                        briefNavVC.navigationBar.barTintColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1.0)
+                        briefNavVC.navigationBar.tintColor = UIColor.darkGrayColor()
+                        briefNavVC.navigationBar.barStyle = UIBarStyle.Default
                         
                         self.window?.rootViewController = briefNavVC
                         self.window?.backgroundColor = UIColor.whiteColor()

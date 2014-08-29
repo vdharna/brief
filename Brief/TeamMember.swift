@@ -117,15 +117,15 @@ class TeamMember {
     }
 
     
-    func addNotification(id: String, completionClosure: ((Bool) -> Void)) {
+    func addNotification(item: PPPItem, completionClosure: ((Bool) -> Void)) {
         
-        cloudManager.subscribeForComments(id, completionClosure: { subscription in
+        cloudManager.subscribeForComments(item, completionClosure: { subscription in
             
             var subscriptionID = subscription.subscriptionID as String
             
             //add to NSUserDefaults
             var defaults = NSUserDefaults.standardUserDefaults()
-            defaults.setObject(subscriptionID, forKey: id)
+            defaults.setObject(subscriptionID, forKey: item.id)
             
             dispatch_async(dispatch_get_main_queue(), {
                 completionClosure(true)

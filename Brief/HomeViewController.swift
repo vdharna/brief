@@ -131,11 +131,11 @@ class HomeViewController: UIViewController {
         
         // this will appear as the title in the navigation bar
         var label = UILabel()
-        label.text = "Brief"
+        label.text = "brief"
         label.backgroundColor = UIColor.clearColor()
         label.font = UIFont.boldSystemFontOfSize(25.0)
         label.textAlignment = NSTextAlignment.Center
-        label.textColor = UIColor.whiteColor()
+        label.textColor = UIColor.darkTextColor()
         self.navigationItem.titleView = label;
         label.sizeToFit()
         

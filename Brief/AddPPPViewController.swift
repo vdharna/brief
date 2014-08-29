@@ -89,7 +89,7 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
         // Do any additional setup after loading the view.
         content.delegate = self;
         content.returnKeyType = .Default
-        content.keyboardAppearance = .Dark
+        content.keyboardAppearance = UIKeyboardAppearance.Dark
         content.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
         content.becomeFirstResponder()
         content.keyboardType = .ASCIICapable

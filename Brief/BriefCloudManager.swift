@@ -402,15 +402,15 @@ class BriefCloudManager {
         
     }
     
-    func subscribeForComments(referenceRecordName: String, completionClosure: (subscription: CKSubscription) ->()) {
+    func subscribeForComments(referenceRecord: PPPItem, completionClosure: (subscription: CKSubscription) ->()) {
         
-        var recordToMatch = CKRecordID(recordName: referenceRecordName)
+        var recordToMatch = CKRecordID(recordName: referenceRecord.id)
         var predicate = NSPredicate(format: "(item == %@)", recordToMatch)
         
         var itemSubscription = CKSubscription(recordType: CommentRecordType, predicate: predicate, options: CKSubscriptionOptions.FiresOnRecordCreation)
         
         var notification = CKNotificationInfo()
-        notification.alertBody = "New Comment Added!"
+        notification.alertBody = "You recieved a new comment!"
         itemSubscription.notificationInfo = notification
         
         self.publicDatabase.saveSubscription(itemSubscription, completionHandler: { subscription, error in
