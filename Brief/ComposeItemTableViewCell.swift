@@ -39,7 +39,7 @@ class ComposeItemTableViewCell: UITableViewCell {
         circle!.clipsToBounds = true
         circle!.layer.cornerRadius = circle!.frame.size.width / 2
         
-        var imageView = UIImageView(frame: CGRectMake(2.5, 2.5, 17, 17))
+        var imageView = UIImageView(frame: CGRectMake(3.5, 3.5, 15, 15))
         var image = UIImage(named: "icon.png")
         imageView.image = image
         circle!.addSubview(imageView)
