@@ -30,16 +30,16 @@ class ComposeItemTableViewCell: UITableViewCell {
         // Configure the view for the selected state
         cellLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
         
-        line = UIView(frame: CGRect(x: 10, y: 0, width: 2, height: self.frame.height))
-        let position = (line!.frame.height - 14) / 2
-        circle = UIView(frame: CGRect(x:1, y: position, width:20, height:20))
+        line = UIView(frame: CGRect(x: 12, y: 0, width: 2, height: self.frame.height))
+        let position = (line!.frame.height - 20) / 2
+        circle = UIView(frame: CGRect(x:3, y: position, width:22, height:22))
         
         circle!.backgroundColor = UIColor.whiteColor()
         circle!.layer.borderWidth = 2
         circle!.clipsToBounds = true
         circle!.layer.cornerRadius = circle!.frame.size.width / 2
         
-        var imageView = UIImageView(frame: CGRectMake(2.5, 2.5, 15, 15))
+        var imageView = UIImageView(frame: CGRectMake(2.5, 2.5, 17, 17))
         var image = UIImage(named: "icon.png")
         imageView.image = image
         circle!.addSubview(imageView)
