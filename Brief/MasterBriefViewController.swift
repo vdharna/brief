@@ -331,7 +331,6 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(tableView: UITableView!, heightForHeaderInSection section: Int) -> CGFloat {
-        println("willDisplayHeaderView: \(section)")
         
         return 24
     }
