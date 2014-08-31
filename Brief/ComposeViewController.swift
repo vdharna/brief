@@ -41,12 +41,11 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     let segmentedControl = UISegmentedControl(items: ["Progress", "Plans", "Problems"])
     
-    let cellName = "ComposeBriefTableViewCell"
+    let cellName = "ComposeItemTableViewCell"
     let redCellImage = UIImage(named: "compose-table-cell-red.png")
     let greenCellImage = UIImage(named: "compose-table-cell-green.png")
     
     let tableCellHeight:CGFloat = 130
-    
     
     var selectedSegment = 0 //remember which segment was selected
     
@@ -124,6 +123,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func configureTableView() {
+
         table.separatorStyle = UITableViewCellSeparatorStyle.None
         table.delegate = self
         table.dataSource = self
@@ -135,13 +135,15 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Register this NIB, which contains the cell
         table.registerNib(nib, forCellReuseIdentifier: cellName)
         
-       // self.pppTable!.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: "UITableViewCell")
         table.allowsMultipleSelectionDuringEditing = false
         
         //add long tap gesture recognizer
         var longPress = UILongPressGestureRecognizer(target: self, action: "longPressGestureRecognized:")
         table.addGestureRecognizer(longPress)
-                
+        
+        self.table.estimatedRowHeight = tableCellHeight
+        self.table.rowHeight = UITableViewAutomaticDimension
+        
     }
     
     func configureToolbarView() {
@@ -229,12 +231,6 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
             user.deleteBrief()
             
             self.navigationController.popToRootViewControllerAnimated(true)
-
-//            self.selectedSegment = 0
-//            self.table.reloadData()
-//            self.animateBriefDelete()
-//            self.deleteButton.enabled = false
-//            self.actionButton.enabled = false
             
             })
 
@@ -398,8 +394,8 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         
-        var cell = table.dequeueReusableCellWithIdentifier(cellName, forIndexPath: indexPath) as ComposeBriefTableViewCell
-       
+        var cell = table.dequeueReusableCellWithIdentifier(cellName, forIndexPath: indexPath) as ComposeItemTableViewCell
+        
         var text:String
         var id: String
         
@@ -427,13 +423,10 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         cell.briefId = id
         cell.cellLabel.text = text
-        cell.cellLabel.font = UIFont(name: "HelveticaNeue-Light", size: 14)
-        cell.cellLabel.numberOfLines = 6
-        cell.accessoryType = .DisclosureIndicator
         if (cell.cellLabel.text.utf16Count > characterLimit) {
-            cell.cellImage.image = redCellImage
+           // cell.cellImage.image = redCellImage
         } else {
-            cell.cellImage.image = greenCellImage
+           // cell.cellImage.image = greenCellImage
 
         }
         
@@ -499,10 +492,6 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     // MARK: --------------------------------
     // MARK: UITableViewDelegate Methods
     // MARK: --------------------------------
-    
-    func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
-        return tableCellHeight
-    }
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!)  {
         

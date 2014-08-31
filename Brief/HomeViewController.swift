@@ -25,6 +25,8 @@ class HomeViewController: UIViewController {
     
     var initialLoad = true
     
+    var cvc = ComposeViewController(nibName: "ComposeViewController", bundle: NSBundle.mainBundle())
+    
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         //assign the constant
@@ -166,7 +168,6 @@ class HomeViewController: UIViewController {
         }
 
 
-        var cvc = ComposeViewController(nibName: "ComposeViewController", bundle: NSBundle.mainBundle())
         self.navigationController.pushViewController(cvc, animated: true)
         self.composeButton.enabled = true
         self.completedButton.enabled = true

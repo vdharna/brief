@@ -10,7 +10,7 @@
                 <outlet property="deleteButton" destination="qyS-dT-7vb" id="g3h-jB-28L"/>
                 <outlet property="descriptionLabel" destination="T48-ew-xly" id="CNv-7e-u2a"/>
                 <outlet property="noItemLabel" destination="4td-eo-RRH" id="PuD-ZA-5rn"/>
-                <outlet property="table" destination="PnK-ve-qTC" id="cKe-ea-ReI"/>
+                <outlet property="table" destination="PnK-ve-qTC" id="Tdj-WS-24H"/>
                 <outlet property="toolbar" destination="1n5-if-skg" id="2ii-6G-nVh"/>
                 <outlet property="view" destination="GrQ-cF-UqD" id="ZyC-KS-K6r"/>
             </connections>
