@@ -54,6 +54,8 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var cloudManager = BriefCloudManager()
     
+    var svc = SubmitPopUpViewController(nibName: "SubmitPopUpViewController", bundle: NSBundle.mainBundle())
+    
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -198,18 +200,23 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
 
-    @IBAction func actionBrief(sender: AnyObject) {
+    @IBAction func actionPressed(sender: AnyObject) {
         
-        user.submitBrief({ completed in
-            
-            // pop back to main screen
-            var alert = UIAlertView(title: "Brief", message: "Brief Submitted", delegate: nil, cancelButtonTitle: "OK")
-            alert.show()
-            self.navigationController.popToRootViewControllerAnimated(true)
-        })
-    
+        svc.showInView(self.view, vc: self)
 
     }
+    
+    func cancel() {
+        
+        svc.cancelAnimate()
+        
+    }
+    
+    func submitBrief() {
+        
+        svc.submitAnimate()
+    }
+    
     
     @IBAction func deleteBrief(sender: AnyObject) {
         

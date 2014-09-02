@@ -14,6 +14,8 @@
 		6210303219A30765002ABA05 /* BriefCloudManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6210303119A30765002ABA05 /* BriefCloudManager.swift */; };
 		6215FC41199D2C4200F5BD2B /* BriefRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6215FC40199D2C4200F5BD2B /* BriefRepository.swift */; };
 		6215FC43199DC60000F5BD2B /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6215FC42199DC60000F5BD2B /* Status.swift */; };
+		621B08D719B572C400CA348D /* SubmitPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621B08D519B572C400CA348D /* SubmitPopUpViewController.swift */; };
+		621B08D819B572C400CA348D /* SubmitPopUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 621B08D619B572C400CA348D /* SubmitPopUpViewController.xib */; };
 		622582F419802B3D000E4F27 /* CompletedBriefTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622582F219802B3D000E4F27 /* CompletedBriefTableViewCell.swift */; };
 		622582F519802B3D000E4F27 /* CompletedBriefTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 622582F319802B3D000E4F27 /* CompletedBriefTableViewCell.xib */; };
 		623B21BA19744C4F00EC766F /* Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623B21B919744C4F00EC766F /* Progress.swift */; };
@@ -75,6 +77,8 @@
 		6210303119A30765002ABA05 /* BriefCloudManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BriefCloudManager.swift; sourceTree = "<group>"; };
 		6215FC40199D2C4200F5BD2B /* BriefRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BriefRepository.swift; sourceTree = "<group>"; };
 		6215FC42199DC60000F5BD2B /* Status.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		621B08D519B572C400CA348D /* SubmitPopUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmitPopUpViewController.swift; sourceTree = "<group>"; };
+		621B08D619B572C400CA348D /* SubmitPopUpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubmitPopUpViewController.xib; sourceTree = "<group>"; };
 		622582F219802B3D000E4F27 /* CompletedBriefTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedBriefTableViewCell.swift; sourceTree = "<group>"; };
 		622582F319802B3D000E4F27 /* CompletedBriefTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompletedBriefTableViewCell.xib; sourceTree = "<group>"; };
 		623B21B919744C4F00EC766F /* Progress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Progress.swift; sourceTree = "<group>"; };
@@ -308,6 +312,7 @@
 				622582F319802B3D000E4F27 /* CompletedBriefTableViewCell.xib */,
 				62E655901992A6A8001CE289 /* BriefItemCommentTableViewCell.xib */,
 				62727F9D199946350063EA0C /* CompletedBriefCollectionViewCell.xib */,
+				621B08D619B572C400CA348D /* SubmitPopUpViewController.xib */,
 			);
 			name = "Interface Builder";
 			sourceTree = "<group>";
@@ -325,6 +330,7 @@
 				622582F219802B3D000E4F27 /* CompletedBriefTableViewCell.swift */,
 				62E6558F1992A6A8001CE289 /* BriefItemCommentTableViewCell.swift */,
 				62727F9C199946350063EA0C /* CompletedBriefCollectionViewCell.swift */,
+				621B08D519B572C400CA348D /* SubmitPopUpViewController.swift */,
 			);
 			name = Swift;
 			sourceTree = "<group>";
@@ -427,6 +433,7 @@
 				620097F5198C118B0058E83B /* DetailBriefItemViewController.xib in Resources */,
 				6241FB59196F2C020092B014 /* ComposeViewController.xib in Resources */,
 				62E655941992EF19001CE289 /* CommentHeaderView.xib in Resources */,
+				621B08D819B572C400CA348D /* SubmitPopUpViewController.xib in Resources */,
 				62E655921992A6A8001CE289 /* BriefItemCommentTableViewCell.xib in Resources */,
 				6241FB65196F5BB50092B014 /* AddPPPViewController.xib in Resources */,
 				6261D5FC197EE3EB007B8AA3 /* MasterBriefViewController.xib in Resources */,
@@ -465,6 +472,7 @@
 				620097F4198C118B0058E83B /* DetailBriefItemViewController.swift in Sources */,
 				6247F76E1975B11B002FC8B4 /* PPPItem.swift in Sources */,
 				6210303219A30765002ABA05 /* BriefCloudManager.swift in Sources */,
+				621B08D719B572C400CA348D /* SubmitPopUpViewController.swift in Sources */,
 				623B21BC19744C5B00EC766F /* Plan.swift in Sources */,
 				623B21C019744DB400EC766F /* Team.swift in Sources */,
 				6275B5AF19A8FF5C004D7D36 /* EnableAccount.swift in Sources */,

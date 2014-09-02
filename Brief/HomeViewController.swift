@@ -192,28 +192,6 @@ class HomeViewController: UIViewController {
         println("settings")
     }
 
-    @IBAction func cloudKitPressed(sender: AnyObject) {
-        
-        var cloudManager = BriefCloudManager()
-        cloudManager.requestDiscoverabilityPermission({discoverability in
-            if (discoverability) {
-                cloudManager.discoverUserInfo({userInfo in
-                    println("\(userInfo.firstName)")
-                    println("\(userInfo.lastName)")
-                });
-            } 
-        });
-        
-        cloudManager.queryForDraftBrief({ record in
-            println(record)
-        })
-        
-        cloudManager.queryForItemRecordsWithReferenceNamed(user.getDraftBrief().id, recordType: "Progress", completionClosure: { records in
-            
-            println("\(records)")
-        })
-        
-    }
     
 }
 
