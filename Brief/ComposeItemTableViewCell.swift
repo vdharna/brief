@@ -31,7 +31,8 @@ class ComposeItemTableViewCell: UITableViewCell {
         cellLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
         
         line = UIView(frame: CGRect(x: 12, y: 0, width: 2, height: self.frame.height))
-        let position = (line!.frame.height - 20) / 2
+        let circleSize: Int = 22
+        let position = (line!.frame.height - 22) / 2
         circle = UIView(frame: CGRect(x:3, y: position, width:22, height:22))
         
         circle!.backgroundColor = UIColor.whiteColor()
@@ -39,8 +40,8 @@ class ComposeItemTableViewCell: UITableViewCell {
         circle!.clipsToBounds = true
         circle!.layer.cornerRadius = circle!.frame.size.width / 2
         
-        var imageView = UIImageView(frame: CGRectMake(3.5, 3.5, 15, 15))
-        var image = UIImage(named: "icon.png")
+        var imageView = UIImageView(frame: CGRectMake(4.0, 3.5, 15, 15))
+        var image = UIImage(named: "icon-15pt.png")
         imageView.image = image
         circle!.addSubview(imageView)
         
