@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6206.8" systemVersion="14A329f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6206.8" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
         <capability name="Constraints with attributes relative to the layout margin" minToolsVersion="6.0"/>
@@ -14,7 +14,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Dharminder Dharna" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZHr-7W-fo6" userLabel="author">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Dharminder Dharna" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZHr-7W-fo6" userLabel="author">
                         <rect key="frame" x="56" y="8" width="197" height="14"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -33,33 +33,42 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="🕗 1d" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q1k-WB-ccp" userLabel="timestamp">
-                        <rect key="frame" x="261" y="8" width="51" height="14"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20 days" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q1k-WB-ccp" userLabel="timestamp">
+                        <rect key="frame" x="271" y="8" width="41" height="15"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="timeline" translatesAutoresizingMaskIntoConstraints="NO" id="ylC-zy-d3D">
+                        <rect key="frame" x="254" y="8" width="15" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="15" id="ODZ-SU-bQV"/>
+                            <constraint firstAttribute="height" constant="15" id="UlE-xC-KXf"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
-                    <constraint firstItem="q1k-WB-ccp" firstAttribute="leading" secondItem="ZHr-7W-fo6" secondAttribute="trailing" constant="8" id="34C-h1-jBc"/>
-                    <constraint firstItem="q1k-WB-ccp" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="3Jm-Ag-jd8"/>
-                    <constraint firstItem="q1k-WB-ccp" firstAttribute="leading" secondItem="ZHr-7W-fo6" secondAttribute="trailing" constant="8" id="5kR-dn-idu"/>
+                    <constraint firstItem="q1k-WB-ccp" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="624-VH-kBQ"/>
                     <constraint firstItem="Mfs-nM-Tys" firstAttribute="top" secondItem="ZHr-7W-fo6" secondAttribute="bottom" constant="2" id="6ur-jp-f1l"/>
-                    <constraint firstItem="q1k-WB-ccp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="74a-Ap-0as"/>
+                    <constraint firstItem="q1k-WB-ccp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="BLW-F0-G0g"/>
                     <constraint firstItem="S6Y-N9-vMe" firstAttribute="top" secondItem="ZHr-7W-fo6" secondAttribute="top" id="CwL-i3-xVB"/>
                     <constraint firstItem="S6Y-N9-vMe" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="EsC-lM-guZ"/>
                     <constraint firstItem="S6Y-N9-vMe" firstAttribute="top" secondItem="q1k-WB-ccp" secondAttribute="top" id="HxS-pg-C9B"/>
+                    <constraint firstItem="ylC-zy-d3D" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="J0E-f8-Fdc"/>
                     <constraint firstItem="ZHr-7W-fo6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="L6q-No-gia"/>
                     <constraint firstItem="Mfs-nM-Tys" firstAttribute="top" secondItem="q1k-WB-ccp" secondAttribute="bottom" constant="2" id="Qh7-D9-ezd"/>
+                    <constraint firstItem="q1k-WB-ccp" firstAttribute="bottom" secondItem="ylC-zy-d3D" secondAttribute="bottom" id="TZr-lu-VUY"/>
                     <constraint firstItem="S6Y-N9-vMe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="Tnn-WG-Tda"/>
                     <constraint firstItem="Mfs-nM-Tys" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="bhR-Qw-71P"/>
                     <constraint firstItem="Mfs-nM-Tys" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="blC-gK-GVj"/>
                     <constraint firstItem="Mfs-nM-Tys" firstAttribute="leading" secondItem="S6Y-N9-vMe" secondAttribute="trailing" constant="8" id="f29-Us-Fy2"/>
                     <constraint firstItem="Mfs-nM-Tys" firstAttribute="leading" secondItem="S6Y-N9-vMe" secondAttribute="trailing" constant="8" id="f60-uC-b5S"/>
+                    <constraint firstItem="q1k-WB-ccp" firstAttribute="leading" secondItem="ylC-zy-d3D" secondAttribute="trailing" constant="2" id="gUY-lj-PPx"/>
                     <constraint firstItem="Mfs-nM-Tys" firstAttribute="top" secondItem="ZHr-7W-fo6" secondAttribute="bottom" constant="2" id="k7d-vU-KgY"/>
                     <constraint firstItem="Mfs-nM-Tys" firstAttribute="top" secondItem="q1k-WB-ccp" secondAttribute="bottom" constant="2" id="pUN-Mo-vqL"/>
                     <constraint firstItem="ZHr-7W-fo6" firstAttribute="leading" secondItem="S6Y-N9-vMe" secondAttribute="trailing" constant="8" id="vR3-VY-ycs"/>
+                    <constraint firstItem="Mfs-nM-Tys" firstAttribute="top" secondItem="q1k-WB-ccp" secondAttribute="bottom" constant="2" id="vZV-85-4Ri"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -73,5 +82,6 @@
     </objects>
     <resources>
         <image name="avatar" width="210" height="210"/>
+        <image name="timeline" width="83" height="83"/>
     </resources>
 </document>

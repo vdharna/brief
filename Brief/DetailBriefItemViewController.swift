@@ -77,6 +77,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
         
         // start the activity spinner
         var progressView = ProgressView(frame: CGRectMake(0, 0, 300, 300))
+        progressView.captionText = "Loading Comments..."
         self.view.addSubview(progressView)
         item.loadCommentsFromiCloud({ completed in
             self.table.reloadData()

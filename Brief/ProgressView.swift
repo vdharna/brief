@@ -10,6 +10,7 @@ import UIKit
 
 class ProgressView: UIView {
 
+    var captionText = "Loading Brief..."
     /*
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -39,7 +40,7 @@ class ProgressView: UIView {
         captionLabel.textColor = UIColor.whiteColor()
         captionLabel.adjustsFontSizeToFitWidth = true
         captionLabel.textAlignment = NSTextAlignment.Center
-        captionLabel.text = "Loading..."
+        captionLabel.text = captionText
         
         hudView.addSubview(captionLabel)
         
