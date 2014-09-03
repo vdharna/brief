@@ -9,11 +9,12 @@
 import UIKit
 import QuartzCore
 
-class SubmitPopUpViewController: UIViewController {
+class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var popUpView: UIView!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var submit: UIButton!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     var parentController: ComposeViewController!
     
@@ -30,6 +31,12 @@ class SubmitPopUpViewController: UIViewController {
         
         self.closeButton.addTarget(parentController, action: Selector("cancel"), forControlEvents: UIControlEvents.TouchDown)
         self.submit.addTarget(parentController, action: Selector("submitBrief"), forControlEvents: UIControlEvents.TouchDown)
+        
+        
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+        self.collectionView.registerClass(UICollectionViewCell.classForCoder(), forCellWithReuseIdentifier: "cell")
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,7 +58,7 @@ class SubmitPopUpViewController: UIViewController {
 
     
     func submitAnimate() {
-                
+        
         user.submitBrief({ completed in
             
             UIView.animateWithDuration(0.25, animations: {
@@ -98,5 +105,30 @@ class SubmitPopUpViewController: UIViewController {
             self.showAnimate()
         })
     }
+    
+    // MARK: --------------------------------
+    // MARK: CollectionView Delegate Methods
+    // MARK: --------------------------------
 
+    func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: UICollectionViewLayout!, sizeForItemAtIndexPath indexPath: NSIndexPath!) -> CGSize {
+        return CGSizeMake(50, 50)
+    }
+    
+    func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
+        var cell = self.collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as UICollectionViewCell
+        cell.backgroundColor = UIColor.orangeColor()
+        return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
+        return 20
+    }
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView!) -> Int {
+        return 1
+    }
+    
+    func collectionView(collectionView: UICollectionView!, didSelectItemAtIndexPath indexPath: NSIndexPath!) {
+        println(indexPath)
+    }
 }
