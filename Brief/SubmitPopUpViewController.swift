@@ -121,7 +121,7 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return 10
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView!) -> Int {

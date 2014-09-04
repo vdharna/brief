@@ -75,8 +75,6 @@ class PunchedLayout: UICollectionViewFlowLayout {
         var desiredPoint = CGPointMake(proposedContentOffset.x + offsetAdjustment, proposedContentOffset.y)
         
         if ((proposedContentOffset.x == 0) || (proposedContentOffset.x >= (self.collectionViewContentSize().width - boundsSize!.width))) {
-            
-            
         }
     
         return desiredPoint
