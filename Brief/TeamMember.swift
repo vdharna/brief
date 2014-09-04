@@ -180,7 +180,7 @@ class TeamMember {
         self.draftBrief = Brief(status: .IsNew)
     }
     
-    func submitBrief(completionClosure: ((Bool) -> Void)) {
+    func submitBrief(completionClosure: ((Bool) -> ())) {
         
         cloudManager.fetchRecordWithID(self.draftBrief!.getId(), completionClosure: {record in
             

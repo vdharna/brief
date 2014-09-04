@@ -11,26 +11,21 @@ import QuartzCore
 
 class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
-    @IBOutlet weak var popUpView: UIView!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var submit: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var parentController: ComposeViewController!
+    var vc: ComposeViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-        self.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
-        self.popUpView.layer.cornerRadius = 5;
-        self.popUpView.layer.shadowOpacity = 0.8;
-        self.popUpView.layer.shadowOffset = CGSizeMake(0.0, 0.0);
-        // Do any additional setup after loading the view from its nib.
-        
-        self.closeButton.addTarget(parentController, action: Selector("cancel"), forControlEvents: UIControlEvents.TouchDown)
-        self.submit.addTarget(parentController, action: Selector("submitBrief"), forControlEvents: UIControlEvents.TouchDown)
+        self.view.layer.cornerRadius = 10.0
+        self.view.layer.shadowColor = UIColor.blackColor().CGColor
+        self.view.layer.shadowOffset = CGSizeMake(0, 0)
+        self.view.layer.shadowRadius = 10
+        self.view.layer.shadowOpacity = 0.5
         
         
         self.collectionView.delegate = self
@@ -44,74 +39,33 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
         // Dispose of any resources that can be recreated.
     }
     
-    func showAnimate() {
-        
-        self.view.transform = CGAffineTransformMakeScale(1.3, 1.3)
-        self.view.alpha = 0.0
-        UIView.animateWithDuration(0.25, animations: {
-            
-            self.view.alpha = 1.0
-            self.view.transform = CGAffineTransformMakeScale(1, 1)
-        })
-        
-    }
-
-    
-    func submitAnimate() {
+    @IBAction func send(sender: AnyObject) {
         
         user.submitBrief({ completed in
-            
-            UIView.animateWithDuration(0.25, animations: {
-                
-                self.view.transform = CGAffineTransformMakeScale(1.3, 1.3)
-                self.view.alpha = 0.0
-                
-                }, completion: { completed in
-                    
-                    if (completed) {
-                        self.view.removeFromSuperview()
-                        self.parentController.navigationController.popToRootViewControllerAnimated(true)
-                    }
-            })
+            println("")
+            self.presentingViewController?.dismissViewControllerAnimated(true, completion: {
+                println("")
+                self.vc?.table.reloadData()
 
+            })
         })
-        
-    }
-    
-    func cancelAnimate() {
-        
-        UIView.animateWithDuration(0.25, animations: {
-            
-            self.view.transform = CGAffineTransformMakeScale(1.3, 1.3)
-            self.view.alpha = 0.0
-            
-            }, completion: { completed in
-                
-                if (completed) {
-                    self.view.removeFromSuperview()
-                }
-        })
-        
-        
     }
     
     
-    func showInView(aView: UIView, vc: ComposeViewController) {
-        self.parentController = vc
+    @IBAction func cancel(sender: AnyObject) {
         
-        dispatch_async(dispatch_get_main_queue(), {
-            
-            aView.addSubview(self.view)
-            self.showAnimate()
-        })
+        self.presentingViewController?.dismissViewControllerAnimated(true, nil)
+        
     }
+    
+
     
     // MARK: --------------------------------
     // MARK: CollectionView Delegate Methods
     // MARK: --------------------------------
 
     func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: UICollectionViewLayout!, sizeForItemAtIndexPath indexPath: NSIndexPath!) -> CGSize {
-        return CGSizeMake(50, 50)
+        return CGSizeMake(80, 80)
     }
     
     func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {

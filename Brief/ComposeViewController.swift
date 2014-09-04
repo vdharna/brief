@@ -54,8 +54,8 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var cloudManager = BriefCloudManager()
     
-    var svc = SubmitPopUpViewController(nibName: "SubmitPopUpViewController", bundle: NSBundle.mainBundle())
-    
+    let overlayTransitioningDelegate = OverlayTransitioningDelegate()
+
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -201,22 +201,13 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     
 
     @IBAction func actionPressed(sender: AnyObject) {
-        
-        svc.showInView(self.view, vc: self)
 
+        let overlayVC = SubmitPopUpViewController(nibName: "SubmitPopUpViewController", bundle: NSBundle.mainBundle())
+        overlayVC.transitioningDelegate = overlayTransitioningDelegate
+        overlayVC.modalPresentationStyle = .Custom
+        overlayVC.vc = self
+        self.presentViewController(overlayVC, animated: true, completion: nil)
     }
-    
-    func cancel() {
-        
-        svc.cancelAnimate()
-        
-    }
-    
-    func submitBrief() {
-        
-        svc.submitAnimate()
-    }
-    
     
     @IBAction func deleteBrief(sender: AnyObject) {
         
