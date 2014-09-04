@@ -162,7 +162,69 @@
 			name = Services;
 			sourceTree = "<group>";
 		};
-		622DFEB819B8E0A700381586 /* Submit Screens */ = {
+		622DE57519B92E3700E3ADA1 /* Compose Brief */ = {
+			isa = PBXGroup;
+			children = (
+				6241FB58196F2C020092B014 /* ComposeViewController.xib */,
+				62474131196CB5A10043C7E5 /* ComposeViewController.swift */,
+				620097FA198C1EE70058E83B /* CharacterCountView.xib */,
+				620097F8198C1ED00058E83B /* CharacterCountView.swift */,
+				62C032871981CE86005AC29F /* ComposeBriefTableViewCell.xib */,
+				62C032861981CE86005AC29F /* ComposeBriefTableViewCell.swift */,
+				62F5D90819B2A72F000D6A58 /* ComposeItemTableViewCell.xib */,
+				62F5D90719B2A72F000D6A58 /* ComposeItemTableViewCell.swift */,
+				62FC24DE1983060800372D14 /* TransparentEdgesScrollView.swift */,
+				62FC24DF1983060800372D14 /* TransparentEdgesTableView.swift */,
+				6241FB63196F5BB50092B014 /* AddPPPViewController.xib */,
+				6241FB62196F5BB50092B014 /* AddPPPViewController.swift */,
+			);
+			name = "Compose Brief";
+			sourceTree = "<group>";
+		};
+		622DE57619B92EE900E3ADA1 /* Master Brief */ = {
+			isa = PBXGroup;
+			children = (
+				62F86F0919B03CD2006FCFA6 /* SectionHeader.xib */,
+				62F86F0819B03CD2006FCFA6 /* SectionHeader.swift */,
+				62727F9D199946350063EA0C /* CompletedBriefCollectionViewCell.xib */,
+				62727F9C199946350063EA0C /* CompletedBriefCollectionViewCell.swift */,
+				622582F319802B3D000E4F27 /* CompletedBriefTableViewCell.xib */,
+				622582F219802B3D000E4F27 /* CompletedBriefTableViewCell.swift */,
+				6261D5FA197EE3EB007B8AA3 /* MasterBriefViewController.xib */,
+				6261D5F9197EE3EB007B8AA3 /* MasterBriefViewController.swift */,
+			);
+			name = "Master Brief";
+			sourceTree = "<group>";
+		};
+		622DE57719B92F6200E3ADA1 /* Brief Comment */ = {
+			isa = PBXGroup;
+			children = (
+				62E655931992EF19001CE289 /* CommentHeaderView.xib */,
+				62E655901992A6A8001CE289 /* BriefItemCommentTableViewCell.xib */,
+				62E6558F1992A6A8001CE289 /* BriefItemCommentTableViewCell.swift */,
+			);
+			name = "Brief Comment";
+			sourceTree = "<group>";
+		};
+		622DE57819B92F9D00E3ADA1 /* Brief Detail */ = {
+			isa = PBXGroup;
+			children = (
+				620097F3198C118B0058E83B /* DetailBriefItemViewController.xib */,
+				620097F2198C118B0058E83B /* DetailBriefItemViewController.swift */,
+			);
+			name = "Brief Detail";
+			sourceTree = "<group>";
+		};
+		622DE57919B92FB500E3ADA1 /* Brief Home */ = {
+			isa = PBXGroup;
+			children = (
+				6241FB56196F137F0092B014 /* HomeViewController.xib */,
+				6247412F196CB5A10043C7E5 /* HomeViewController.swift */,
+			);
+			name = "Brief Home";
+			sourceTree = "<group>";
+		};
+		622DFEB819B8E0A700381586 /* Submit Screen */ = {
 			isa = PBXGroup;
 			children = (
 				622DFEB919B8F82000381586 /* Custom Presentation */,
@@ -170,7 +232,7 @@
 				621B08D519B572C400CA348D /* SubmitPopUpViewController.swift */,
 				62DDA5B019B7CA0400AB22CB /* PunchedLayout.swift */,
 			);
-			name = "Submit Screens";
+			name = "Submit Screen";
 			sourceTree = "<group>";
 		};
 		622DFEB919B8F82000381586 /* Custom Presentation */ = {
@@ -207,8 +269,13 @@
 			children = (
 				62ABE282199EC25200CD6430 /* Brief.entitlements */,
 				624741A7196DB0930043C7E5 /* Application */,
-				62888FE6197A1E67002D0DD0 /* Views */,
-				624741A6196DB0840043C7E5 /* View Controllers */,
+				622DE57919B92FB500E3ADA1 /* Brief Home */,
+				622DE57519B92E3700E3ADA1 /* Compose Brief */,
+				622DE57619B92EE900E3ADA1 /* Master Brief */,
+				622DE57819B92F9D00E3ADA1 /* Brief Detail */,
+				622DE57719B92F6200E3ADA1 /* Brief Comment */,
+				622DFEB819B8E0A700381586 /* Submit Screen */,
+				62888FE6197A1E67002D0DD0 /* Common */,
 				624741A8196DB0A30043C7E5 /* Model */,
 				6210303319A30773002ABA05 /* Services */,
 				62474136196CB5A10043C7E5 /* Images.xcassets */,
@@ -243,15 +310,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		624741A6196DB0840043C7E5 /* View Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				6261D5FD197EF589007B8AA3 /* Interface Builder */,
-				6261D5FE197EF5B4007B8AA3 /* Swift */,
-			);
-			name = "View Controllers";
-			sourceTree = "<group>";
-		};
 		624741A7196DB0930043C7E5 /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -269,39 +327,14 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		6261D5FD197EF589007B8AA3 /* Interface Builder */ = {
+		62888FE6197A1E67002D0DD0 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				62ABD5F119AC0F5A003E13CD /* ProgressView.swift */,
 				6275B5AE19A8FF5C004D7D36 /* EnableAccount.xib */,
-				6241FB56196F137F0092B014 /* HomeViewController.xib */,
-				6241FB58196F2C020092B014 /* ComposeViewController.xib */,
-				6241FB63196F5BB50092B014 /* AddPPPViewController.xib */,
-				6261D5FA197EE3EB007B8AA3 /* MasterBriefViewController.xib */,
-				620097F3198C118B0058E83B /* DetailBriefItemViewController.xib */,
-			);
-			name = "Interface Builder";
-			sourceTree = "<group>";
-		};
-		6261D5FE197EF5B4007B8AA3 /* Swift */ = {
-			isa = PBXGroup;
-			children = (
 				6275B5AD19A8FF5C004D7D36 /* EnableAccount.swift */,
-				6247412F196CB5A10043C7E5 /* HomeViewController.swift */,
-				62474131196CB5A10043C7E5 /* ComposeViewController.swift */,
-				6241FB62196F5BB50092B014 /* AddPPPViewController.swift */,
-				6261D5F9197EE3EB007B8AA3 /* MasterBriefViewController.swift */,
-				620097F2198C118B0058E83B /* DetailBriefItemViewController.swift */,
 			);
-			name = Swift;
-			sourceTree = "<group>";
-		};
-		62888FE6197A1E67002D0DD0 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				62FC24E21983072800372D14 /* Interface Builder */,
-				62FC24E31983073B00372D14 /* Swift */,
-			);
-			name = Views;
+			name = Common;
 			sourceTree = "<group>";
 		};
 		6295FAC319746D4E00C338D3 /* Brief */ = {
@@ -328,39 +361,6 @@
 				623B21C119744DC200EC766F /* TeamMember.swift */,
 			);
 			name = Team;
-			sourceTree = "<group>";
-		};
-		62FC24E21983072800372D14 /* Interface Builder */ = {
-			isa = PBXGroup;
-			children = (
-				62F86F0919B03CD2006FCFA6 /* SectionHeader.xib */,
-				620097FA198C1EE70058E83B /* CharacterCountView.xib */,
-				62E655931992EF19001CE289 /* CommentHeaderView.xib */,
-				62C032871981CE86005AC29F /* ComposeBriefTableViewCell.xib */,
-				62F5D90819B2A72F000D6A58 /* ComposeItemTableViewCell.xib */,
-				622582F319802B3D000E4F27 /* CompletedBriefTableViewCell.xib */,
-				62E655901992A6A8001CE289 /* BriefItemCommentTableViewCell.xib */,
-				62727F9D199946350063EA0C /* CompletedBriefCollectionViewCell.xib */,
-			);
-			name = "Interface Builder";
-			sourceTree = "<group>";
-		};
-		62FC24E31983073B00372D14 /* Swift */ = {
-			isa = PBXGroup;
-			children = (
-				62F86F0819B03CD2006FCFA6 /* SectionHeader.swift */,
-				62ABD5F119AC0F5A003E13CD /* ProgressView.swift */,
-				620097F8198C1ED00058E83B /* CharacterCountView.swift */,
-				62FC24DE1983060800372D14 /* TransparentEdgesScrollView.swift */,
-				62FC24DF1983060800372D14 /* TransparentEdgesTableView.swift */,
-				62C032861981CE86005AC29F /* ComposeBriefTableViewCell.swift */,
-				62F5D90719B2A72F000D6A58 /* ComposeItemTableViewCell.swift */,
-				622582F219802B3D000E4F27 /* CompletedBriefTableViewCell.swift */,
-				62E6558F1992A6A8001CE289 /* BriefItemCommentTableViewCell.swift */,
-				62727F9C199946350063EA0C /* CompletedBriefCollectionViewCell.swift */,
-				622DFEB819B8E0A700381586 /* Submit Screens */,
-			);
-			name = Swift;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
