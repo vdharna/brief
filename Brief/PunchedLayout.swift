@@ -84,37 +84,3 @@ class PunchedLayout: UICollectionViewFlowLayout {
     }
     
 }
-
-        
-//        - (CGPoint) targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity
-//        {
-//            CGFloat offsetAdjustment = CGFLOAT_MAX;
-//            
-//            // Retrieve all onscreen items at the proposed starting point
-//            CGRect targetRect = CGRectMake(proposedContentOffset.x, 0.0, boundsSize.width, boundsSize.height);
-//            NSArray *array = [super layoutAttributesForElementsInRect:targetRect];
-//            
-//            // Determine the proposed center x-coordinate
-//            CGFloat proposedCenterX = proposedContentOffset.x + midX;
-//            
-//            // Search for the minimum offset adjustment
-//            for (UICollectionViewLayoutAttributes* layoutAttributes in array)
-//            {
-//                CGFloat distance = layoutAttributes.center.x - proposedCenterX;
-//                if (ABS(distance) < ABS(offsetAdjustment))
-//                offsetAdjustment = distance;
-//            }
-//            
-//            CGPoint desiredPoint = CGPointMake(proposedContentOffset.x + offsetAdjustment, proposedContentOffset.y);
-//            
-//            if ((proposedContentOffset.x == 0) || (proposedContentOffset.x >= (self.collectionViewContentSize.width - boundsSize.width)))
-//            {
-//                NSNotification *note = [NSNotification notificationWithName:@"PleaseRecenter" object:[NSValue valueWithCGPoint:desiredPoint]];
-//                [[NSNotificationCenter defaultCenter] postNotification:note];
-//                return proposedContentOffset;
-//            }
-//            
-//            // Offset the content by the minimal centering
-//            return desiredPoint;
-//        }
-

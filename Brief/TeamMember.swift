@@ -16,9 +16,10 @@ class TeamMember {
     var userInfo: CKDiscoveredUserInfo?
     var preferredName: String?
     
+    var briefReviewers = Array<TeamMember>()
+    
     var draftBrief:Brief?
     var completedBriefs = Array<Brief>()
-    
     var submittedBrief = false
     
     private var cloudManager = BriefCloudManager()
@@ -202,6 +203,16 @@ class TeamMember {
 
 
         })
+    }
+    
+    func loadBriefReviewers() {
+        
+        self.briefReviewers.append(TeamMember())
+        self.briefReviewers.append(TeamMember())
+        self.briefReviewers.append(TeamMember())
+        self.briefReviewers.append(TeamMember())
+        self.briefReviewers.append(TeamMember())
+        self.briefReviewers.append(TeamMember())
     }
     
 //    func loadArchivedBriefsTest() {

@@ -24,6 +24,8 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
     
     var selectedCell: NSIndexPath?
     
+    var briefReviewerArray: Array<TeamMember>!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -41,6 +43,8 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
         
         // Register this NIB, which contains the cell
         self.collectionView.registerNib(UINib(nibName: collectionViewCellName, bundle: nil), forCellWithReuseIdentifier: collectionViewCellName)
+        
+        self.collectionView.registerClass(UICollectionViewCell.classForCoder(), forCellWithReuseIdentifier: "UICollectionViewCell")
         
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
@@ -87,10 +91,20 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
     // MARK: --------------------------------
 
     func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: UICollectionViewLayout!, sizeForItemAtIndexPath indexPath: NSIndexPath!) -> CGSize {
+        
+        if (indexPath.item == 0 || indexPath.item == (briefReviewerArray.count - 1)) {
+            return CGSizeMake(45, 100)
+        }
+        
         return CGSizeMake(90, 100)
     }
     
     func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
+        
+        if (indexPath.item == 0 || indexPath.item == (briefReviewerArray.count - 1)) {
+            var cell = self.collectionView.dequeueReusableCellWithReuseIdentifier("UICollectionViewCell", forIndexPath: indexPath) as UICollectionViewCell
+            return cell
+        }
         
         var cell = self.collectionView.dequeueReusableCellWithReuseIdentifier(collectionViewCellName, forIndexPath: indexPath) as TeamMemberCollectionViewCell
         
@@ -106,7 +120,12 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
-        return 3 // buffer this by adding a dummy cell in the beginning and the end
+        user.loadBriefReviewers()
+        briefReviewerArray = user.briefReviewers
+        briefReviewerArray.insert(TeamMember(), atIndex: 0)
+        briefReviewerArray.insert(TeamMember(), atIndex: user.briefReviewers.count)
+        var original = user.briefReviewers
+        return briefReviewerArray.count // buffer this by adding a dummy cell in the beginning and the end
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView!) -> Int {
@@ -114,13 +133,17 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     func collectionView(collectionView: UICollectionView!, didSelectItemAtIndexPath indexPath: NSIndexPath!) {
+        
         var cell = self.collectionView.cellForItemAtIndexPath(indexPath) as TeamMemberCollectionViewCell
+        
         cell.selectedIndicator.hidden = false
         cell.teamMemberNameLabel.backgroundColor = UIColor.blackColor()
         self.collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
+        
         if (indexPath == self.selectedCell) {
             return // do nothing
         }
+        
         if let index = self.selectedCell {
             if let cell = self.collectionView.cellForItemAtIndexPath(index) as? TeamMemberCollectionViewCell {
                 cell.selectedIndicator.hidden = true
