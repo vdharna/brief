@@ -154,11 +154,12 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
-        user.loadBriefReviewers() //replace with cloudKit call
+            
         self.briefReviewerArray = user.briefReviewers
-        self.briefReviewerArray.insert(TeamMember(), atIndex: 0)
-        self.briefReviewerArray.insert(TeamMember(), atIndex: user.briefReviewers.count)
-        return briefReviewerArray.count // buffer this by adding a dummy cell in the beginning and the end
+        self.briefReviewerArray.insert(TeamMember(), atIndex: 0) // add a buffer for the beginning
+        self.briefReviewerArray.insert(TeamMember(), atIndex: user.briefReviewers.count) //add buffer for the end
+        
+        return briefReviewerArray.count
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView!) -> Int {

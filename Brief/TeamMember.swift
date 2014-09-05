@@ -205,9 +205,9 @@ class TeamMember {
         })
     }
     
-    func loadBriefReviewers() {
+    func loadBriefReviewers(count: Int) {
         
-        for var index = 0; index < 5; ++index {
+        for var index = 0; index < count; ++index {
             var teamMember = TeamMember()
             teamMember.preferredName = index.description
             self.briefReviewers.append(teamMember)

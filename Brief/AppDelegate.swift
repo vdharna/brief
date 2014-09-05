@@ -38,14 +38,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     self.cloudManager.fetchRecordWithID(user.userInfo!.userRecordID.recordName, completionClosure: { record in
                         
                         user.preferredName = record.objectForKey("preferredName") as? String
-                        
+                        user.loadBriefReviewers(2) //replace with cloudKit call
+
                         let homeVC = HomeViewController(nibName: "HomeViewController", bundle: NSBundle.mainBundle())
                         let briefNavVC = UINavigationController(rootViewController: homeVC)
                         
                         //nav bar setup
-                        briefNavVC.navigationBar.barTintColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1.0)
-                        briefNavVC.navigationBar.tintColor = UIColor.darkGrayColor()
-                        briefNavVC.navigationBar.barStyle = UIBarStyle.Default
+//                        briefNavVC.navigationBar.barTintColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1.0)
+//                        briefNavVC.navigationBar.tintColor = UIColor.darkGrayColor()
+//                        briefNavVC.navigationBar.barStyle = UIBarStyle.Default
+                        
+                        //nav bar setup
+                        briefNavVC.navigationBar.barTintColor = UIColor.blackColor()
+                        briefNavVC.navigationBar.tintColor = UIColor.whiteColor()
+                        briefNavVC.navigationBar.barStyle = UIBarStyle.BlackTranslucent
                         
                         self.window?.rootViewController = briefNavVC
                         self.window?.backgroundColor = UIColor.whiteColor()

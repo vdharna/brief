@@ -17,7 +17,7 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet
     weak var table: UITableView!
     
-    var cview = UIView(frame: CGRectMake(0, 64, 320, 44))
+    var cview = UIView(frame: CGRectMake(0, 63, 320, 45))
     var collectionView: UICollectionView!
     
     @IBOutlet

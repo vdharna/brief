@@ -192,9 +192,13 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         let nc = UINavigationController(rootViewController: mvc)
         
         //nav bar setup for the modal - required to unify the look and feel
-        nc.navigationBar.barTintColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1.0)
-        nc.navigationBar.tintColor = UIColor.darkGrayColor()
-        nc.navigationBar.barStyle = UIBarStyle.Default
+//        nc.navigationBar.barTintColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1.0)
+//        nc.navigationBar.tintColor = UIColor.darkGrayColor()
+//        nc.navigationBar.barStyle = UIBarStyle.Default
+        
+        nc.navigationBar.barTintColor = UIColor.blackColor()
+        nc.navigationBar.tintColor = UIColor.whiteColor()
+        nc.navigationBar.barStyle = UIBarStyle.BlackTranslucent
         
         self.navigationController.presentViewController(nc, animated: true, completion: nil)
     }
@@ -518,9 +522,13 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let nc = UINavigationController(rootViewController: mvc)
         //nav bar setup
-        nc.navigationBar.barTintColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1.0)
-        nc.navigationBar.tintColor = UIColor.darkGrayColor()
-        nc.navigationBar.barStyle = UIBarStyle.Default
+//        nc.navigationBar.barTintColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1.0)
+//        nc.navigationBar.tintColor = UIColor.darkGrayColor()
+//        nc.navigationBar.barStyle = UIBarStyle.Default
+        
+        nc.navigationBar.barTintColor = UIColor.blackColor()
+        nc.navigationBar.tintColor = UIColor.whiteColor()
+        nc.navigationBar.barStyle = UIBarStyle.BlackTranslucent
         
         self.navigationController.presentViewController(nc, animated: true, completion: nil)
     }

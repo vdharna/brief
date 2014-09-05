@@ -177,10 +177,10 @@
 				62C032861981CE86005AC29F /* ComposeBriefTableViewCell.swift */,
 				62F5D90819B2A72F000D6A58 /* ComposeItemTableViewCell.xib */,
 				62F5D90719B2A72F000D6A58 /* ComposeItemTableViewCell.swift */,
-				62FC24DE1983060800372D14 /* TransparentEdgesScrollView.swift */,
-				62FC24DF1983060800372D14 /* TransparentEdgesTableView.swift */,
 				6241FB63196F5BB50092B014 /* AddPPPViewController.xib */,
 				6241FB62196F5BB50092B014 /* AddPPPViewController.swift */,
+				62FC24DE1983060800372D14 /* TransparentEdgesScrollView.swift */,
+				62FC24DF1983060800372D14 /* TransparentEdgesTableView.swift */,
 			);
 			name = Compose;
 			sourceTree = "<group>";

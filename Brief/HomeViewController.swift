@@ -137,7 +137,7 @@ class HomeViewController: UIViewController {
         label.backgroundColor = UIColor.clearColor()
         label.font = UIFont.boldSystemFontOfSize(25.0)
         label.textAlignment = NSTextAlignment.Center
-        label.textColor = UIColor.darkTextColor()
+        label.textColor = UIColor.whiteColor()
         self.navigationItem.titleView = label;
         label.sizeToFit()
         
