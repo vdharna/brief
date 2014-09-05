@@ -113,6 +113,7 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
         var cell = self.collectionView.cellForItemAtIndexPath(indexPath) as TeamMemberCollectionViewCell
         cell.selectedIndicator.hidden = false
         cell.teamMemberNameLabel.backgroundColor = UIColor.blackColor()
+        self.collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
         
         if let index = self.selectedCell {
             if let cell = self.collectionView.cellForItemAtIndexPath(index) as? TeamMemberCollectionViewCell {
@@ -122,6 +123,8 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
         }
         
         self.selectedCell = indexPath
+        
+        
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView!) {
