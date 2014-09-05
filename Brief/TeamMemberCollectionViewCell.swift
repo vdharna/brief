@@ -14,6 +14,8 @@ class TeamMemberCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var teamMemberNameLabel: UILabel!
     @IBOutlet weak var selectedIndicator: UIView!
     
+    var teamMember: TeamMember?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

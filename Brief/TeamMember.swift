@@ -207,12 +207,12 @@ class TeamMember {
     
     func loadBriefReviewers() {
         
-        self.briefReviewers.append(TeamMember())
-        self.briefReviewers.append(TeamMember())
-        self.briefReviewers.append(TeamMember())
-        self.briefReviewers.append(TeamMember())
-        self.briefReviewers.append(TeamMember())
-        self.briefReviewers.append(TeamMember())
+        for var index = 0; index < 5; ++index {
+            var teamMember = TeamMember()
+            teamMember.preferredName = index.description
+            self.briefReviewers.append(teamMember)
+        }
+
     }
     
 //    func loadArchivedBriefsTest() {

@@ -9,8 +9,12 @@
 import UIKit
 import QuartzCore
 
-class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextViewDelegate {
 
+    // MARK: --------------------------------
+    // MARK: Properties
+    // MARK: --------------------------------
+    
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var submit: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -26,17 +30,42 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
     
     var briefReviewerArray: Array<TeamMember>!
     
+    // MARK: --------------------------------
+    // MARK: Lifecycle methods
+    // MARK: --------------------------------
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.configurePopupView()
+        self.configureTextView()
+        self.configureCollectionView()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.collectionView.scrollToItemAtIndexPath(NSIndexPath(forItem: 1, inSection: 0), atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
+    }
+    
+    // MARK: --------------------------------
+    // MARK: View Configuration methods
+    // MARK: --------------------------------
+    
+    func configurePopupView() {
+        
         self.view.layer.cornerRadius = 10.0
         self.view.layer.shadowColor = UIColor.blackColor().CGColor
         self.view.layer.shadowOffset = CGSizeMake(0, 0)
         self.view.layer.shadowRadius = 10
         self.view.layer.shadowOpacity = 0.5
-        
-        self.commentText.layer.cornerRadius = 3.0
+    }
+    
+    func configureCollectionView() {
         
         // load the custom cell via NIB
         var nib = UINib(nibName: collectionViewCellName, bundle: nil)
@@ -51,17 +80,19 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
         self.collectionView.allowsMultipleSelection = false
         
         desiredPoint = CGRectNull.origin
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
     }
     
-    override func viewWillAppear(animated: Bool) {
-        self.collectionView.scrollToItemAtIndexPath(NSIndexPath(forItem: 1, inSection: 0), atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
+    func configureTextView() {
+        
+        self.commentText.layer.cornerRadius = 3.0
+        self.commentText.delegate = self
     }
-
+    
+    // MARK: --------------------------------
+    // MARK: Action methods
+    // MARK: --------------------------------
+    
     @IBAction func send(sender: AnyObject) {
         
         var recipients = self.collectionView.indexPathsForSelectedItems()
@@ -83,9 +114,7 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
         self.presentingViewController?.dismissViewControllerAnimated(true, nil)
         
     }
-    
 
-    
     // MARK: --------------------------------
     // MARK: CollectionView Delegate Methods
     // MARK: --------------------------------
@@ -103,10 +132,15 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
         
         if (indexPath.item == 0 || indexPath.item == (briefReviewerArray.count - 1)) {
             var cell = self.collectionView.dequeueReusableCellWithReuseIdentifier("UICollectionViewCell", forIndexPath: indexPath) as UICollectionViewCell
+            cell.userInteractionEnabled = false
             return cell
         }
         
         var cell = self.collectionView.dequeueReusableCellWithReuseIdentifier(collectionViewCellName, forIndexPath: indexPath) as TeamMemberCollectionViewCell
+        
+        var teamMember = user.briefReviewers[indexPath.item - 1]
+        cell.teamMember = teamMember
+        cell.teamMemberNameLabel.text = teamMember.preferredName
         
         if (indexPath == self.selectedCell) {
             cell.selectedIndicator.hidden = false
@@ -120,11 +154,10 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
-        user.loadBriefReviewers()
-        briefReviewerArray = user.briefReviewers
-        briefReviewerArray.insert(TeamMember(), atIndex: 0)
-        briefReviewerArray.insert(TeamMember(), atIndex: user.briefReviewers.count)
-        var original = user.briefReviewers
+        user.loadBriefReviewers() //replace with cloudKit call
+        self.briefReviewerArray = user.briefReviewers
+        self.briefReviewerArray.insert(TeamMember(), atIndex: 0)
+        self.briefReviewerArray.insert(TeamMember(), atIndex: user.briefReviewers.count)
         return briefReviewerArray.count // buffer this by adding a dummy cell in the beginning and the end
     }
     
