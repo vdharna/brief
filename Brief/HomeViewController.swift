@@ -20,7 +20,7 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var userNameLabel: UILabel!
     
-    var cbvc: MasterBriefViewController?
+    var cbvc: MasterBriefViewController!
     let cloudManager = BriefCloudManager()
     
     var initialLoad = true
@@ -167,11 +167,9 @@ class HomeViewController: UIViewController {
             })
         }
 
-
         self.navigationController.pushViewController(cvc, animated: true)
         self.composeButton.enabled = true
         self.completedButton.enabled = true
-        
     }
     
     @IBAction func showCompletedBriefs(sender: AnyObject) {
