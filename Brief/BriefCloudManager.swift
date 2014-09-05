@@ -24,7 +24,7 @@ class BriefCloudManager {
     func requestDiscoverabilityPermission(completionClosure: ((Bool) -> Void)) {
         
         self.container.requestApplicationPermission(CKApplicationPermissions.PermissionUserDiscoverability, completionHandler: {applicationPermissionStatus, error in
-            
+
             if (error != nil) {
                 
                 println("\(error)")

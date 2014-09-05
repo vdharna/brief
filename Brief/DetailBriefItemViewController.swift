@@ -161,7 +161,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
     func configureTableView() {
         
         // load the custom cell via NIB
-        var nib = UINib(nibName: cellName, bundle: nil)
+        var nib = UINib(nibName: cellName, bundle: NSBundle.mainBundle())
         
         // Register this NIB, which contains the cell
         self.table.registerNib(nib, forCellReuseIdentifier: cellName)

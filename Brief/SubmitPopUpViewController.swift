@@ -68,10 +68,10 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
     func configureCollectionView() {
         
         // load the custom cell via NIB
-        var nib = UINib(nibName: collectionViewCellName, bundle: nil)
+        var nib = UINib(nibName: collectionViewCellName, bundle: NSBundle.mainBundle())
         
         // Register this NIB, which contains the cell
-        self.collectionView.registerNib(UINib(nibName: collectionViewCellName, bundle: nil), forCellWithReuseIdentifier: collectionViewCellName)
+        self.collectionView.registerNib(UINib(nibName: collectionViewCellName, bundle: NSBundle.mainBundle()), forCellWithReuseIdentifier: collectionViewCellName)
         
         self.collectionView.registerClass(UICollectionViewCell.classForCoder(), forCellWithReuseIdentifier: "UICollectionViewCell")
         
@@ -111,6 +111,7 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
     
     @IBAction func cancel(sender: AnyObject) {
         
+        self.commentText.resignFirstResponder()
         self.presentingViewController?.dismissViewControllerAnimated(true, nil)
         
     }

@@ -115,7 +115,7 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewWillDisappear(animated: Bool) {
         // Do any additional setup after loading the view.
         self.navigationItem.title = ""
-        if (self.selectedIndexPath != nil) {
+        if let selectedPath = self.selectedIndexPath {
             self.collectionView.scrollToItemAtIndexPath(self.selectedIndexPath, atScrollPosition: UICollectionViewScrollPosition.None, animated: true)
         }
     }
@@ -133,7 +133,7 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
     func configureTableView() {
         
         // load the custom cell via NIB
-        var nib = UINib(nibName: tableViewCellName, bundle: nil)
+        var nib = UINib(nibName: tableViewCellName, bundle: NSBundle.mainBundle())
         
         // Register this NIB, which contains the cell
         self.table.registerNib(nib, forCellReuseIdentifier: tableViewCellName)
@@ -151,10 +151,10 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
     func configureCollectionView() {
         
         // load the custom cell via NIB
-        var nib = UINib(nibName: collectionViewCellName, bundle: nil)
+        var nib = UINib(nibName: collectionViewCellName, bundle: NSBundle.mainBundle())
         
         // Register this NIB, which contains the cell
-        self.collectionView.registerNib(UINib(nibName: collectionViewCellName, bundle: nil), forCellWithReuseIdentifier: collectionViewCellName)
+        self.collectionView.registerNib(UINib(nibName: collectionViewCellName, bundle: NSBundle.mainBundle()), forCellWithReuseIdentifier: collectionViewCellName)
         
         var cvfl = UICollectionViewFlowLayout()
         cvfl.scrollDirection = UICollectionViewScrollDirection.Horizontal
@@ -210,7 +210,7 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
             image.image = UIImage(named: "alarm.png")
             notificationLabel.addSubview(image)
 
-            
+    
             if (cell.view1.viewWithTag(1) == nil) { //no flag icon is set
                 
                 // unset all images that CAN render in view 2 so you don't have many instances layered on each other
@@ -356,13 +356,13 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
                 
             // update the model to reflect the action
             item.setFlag(!item.isFlagged()) //set the opposite 
+            //update the view
+            self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
             // update iCloud to reflect this change
             self.cloudManager.fetchRecordWithID(item.id, completionClosure: { record in
                 
                 record.setObject(item.isFlagged(), forKey:"flag")
                 self.cloudManager.saveRecord(record, completionClosure: { completed in
-                    //update the view
-                    self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
                 })
             })
         });
@@ -471,14 +471,12 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         cell.monthLabel.text = "\(myMonthString)"
         cell.dateLabel.text = "\(myDayString)"
         
-        if (self.selectedIndexPath? != nil && self.selectedIndexPath!.isEqual(indexPath)) {
-            
-            cell.applySelectedColorScheme()
-
-        } else {
-            
-            cell.applyUnselectedColorScheme()
-
+        if let selectedPath = self.selectedIndexPath {
+            if (self.selectedIndexPath!.isEqual(indexPath)) {
+                cell.applySelectedColorScheme()
+            } else {
+                cell.applyUnselectedColorScheme()
+            }
         }
 
         return cell
@@ -486,24 +484,16 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
     
     func collectionView(collectionView: UICollectionView!, didSelectItemAtIndexPath indexPath: NSIndexPath!) {
         
-        if (self.selectedIndexPath != nil) {
+        if let selectedPath = self.selectedIndexPath {
             // deselect previously selected cell
-            var cell = self.collectionView.cellForItemAtIndexPath(self.selectedIndexPath)
-            if (cell != nil) {
-                
-                var c = cell as CompletedBriefCollectionViewCell
-                c.applyUnselectedColorScheme()
-
+            if let cell = self.collectionView.cellForItemAtIndexPath(selectedPath) as? CompletedBriefCollectionViewCell {
+                cell.applyUnselectedColorScheme()
             }
+            
         } else {
             // remove the color from the first cell since this is the first time it's rendering
-            var cell = self.collectionView.cellForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0) )
-            
-            if (cell != nil) {
-                var c = cell as CompletedBriefCollectionViewCell
-                
-                c.applyUnselectedColorScheme()
-
+            if let cell = self.collectionView.cellForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0)) as? CompletedBriefCollectionViewCell {
+                cell.applyUnselectedColorScheme()
             }
         }
         
