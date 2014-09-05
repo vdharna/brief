@@ -14,8 +14,15 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var submit: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var commentText: UITextView!
+    
+    let collectionViewCellName = "TeamMemberCollectionViewCell"
     
     var vc: ComposeViewController?
+    
+    var desiredPoint: CGPoint?
+    
+    var selectedCell: NSIndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,11 +34,19 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
         self.view.layer.shadowRadius = 10
         self.view.layer.shadowOpacity = 0.5
         
+        self.commentText.layer.cornerRadius = 3.0
+        
+        // load the custom cell via NIB
+        var nib = UINib(nibName: collectionViewCellName, bundle: nil)
+        
+        // Register this NIB, which contains the cell
+        self.collectionView.registerNib(UINib(nibName: collectionViewCellName, bundle: nil), forCellWithReuseIdentifier: collectionViewCellName)
         
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
-        self.collectionView.registerClass(UICollectionViewCell.classForCoder(), forCellWithReuseIdentifier: "cell")
-
+        self.collectionView.allowsMultipleSelection = false
+        
+        desiredPoint = CGRectNull.origin
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,11 +56,14 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
     
     @IBAction func send(sender: AnyObject) {
         
+        var recipients = self.collectionView.indexPathsForSelectedItems()
+        println(recipients)
+        
         user.submitBrief({ completed in
             println("")
             self.presentingViewController?.dismissViewControllerAnimated(true, completion: {
                 println("")
-                self.vc?.table.reloadData()
+                self.vc?.animateSubmit()
 
             })
         })
@@ -65,12 +83,21 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
     // MARK: --------------------------------
 
     func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: UICollectionViewLayout!, sizeForItemAtIndexPath indexPath: NSIndexPath!) -> CGSize {
-        return CGSizeMake(80, 80)
+        return CGSizeMake(80, 100)
     }
     
     func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
-        var cell = self.collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as UICollectionViewCell
-        cell.backgroundColor = UIColor.orangeColor()
+        var cell = self.collectionView.dequeueReusableCellWithReuseIdentifier(collectionViewCellName, forIndexPath: indexPath) as TeamMemberCollectionViewCell
+        
+        if (indexPath == self.selectedCell) {
+            cell.selectedIndicator.hidden = false
+            cell.teamMemberNameLabel.backgroundColor = UIColor.blackColor()
+        } else {
+            cell.selectedIndicator.hidden = true
+            cell.teamMemberNameLabel.backgroundColor = UIColor.lightGrayColor()
+        }
+        
+        
         return cell
     }
     
@@ -83,6 +110,32 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     func collectionView(collectionView: UICollectionView!, didSelectItemAtIndexPath indexPath: NSIndexPath!) {
-        println(indexPath)
+        var cell = self.collectionView.cellForItemAtIndexPath(indexPath) as TeamMemberCollectionViewCell
+        cell.selectedIndicator.hidden = false
+        cell.teamMemberNameLabel.backgroundColor = UIColor.blackColor()
+        
+        if let index = self.selectedCell {
+            if let cell = self.collectionView.cellForItemAtIndexPath(index) as? TeamMemberCollectionViewCell {
+                cell.selectedIndicator.hidden = true
+                cell.teamMemberNameLabel.backgroundColor = UIColor.lightGrayColor()
+            }
+        }
+        
+        self.selectedCell = indexPath
     }
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView!) {
+        
+        if (CGPointEqualToPoint(desiredPoint!, CGRectNull.origin)) {
+            return
+        }
+        
+        var rect = scrollView.bounds
+        rect.origin = desiredPoint!
+        self.collectionView.scrollRectToVisible(rect, animated: true)
+        
+        desiredPoint = CGRectNull.origin;
+    }
+    
+
 }

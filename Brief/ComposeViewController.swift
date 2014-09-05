@@ -209,6 +209,24 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.presentViewController(overlayVC, animated: true, completion: nil)
     }
     
+    func animateSubmit() {
+        
+        self.table.reloadData()
+        
+        var submitAlert = UIAlertController(title: "Brief Successfully Submitted", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        var okayActionButton = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: { action in
+            println("")
+            self.navigationController.popToRootViewControllerAnimated(true)
+        })
+        
+        submitAlert.addAction(okayActionButton)
+        
+        self.presentViewController(submitAlert, animated: true, completion: nil)
+        
+
+    }
+    
     @IBAction func deleteBrief(sender: AnyObject) {
         
         var alertView = UIAlertController(title: "Delete Brief?", message: nil, preferredStyle: .ActionSheet)

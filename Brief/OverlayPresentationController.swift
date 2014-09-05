@@ -46,8 +46,8 @@ class OverlayPresentationController: UIPresentationController {
   }
   
   override func frameOfPresentedViewInContainerView() -> CGRect {
-    var rect = containerView.bounds.rectByInsetting(dx: 30, dy: 150)
-    rect.origin.y = 30
+    var rect = containerView.bounds.rectByInsetting(dx: 30, dy: 140)
+    rect.origin.y = 25
     return rect
   }
   
