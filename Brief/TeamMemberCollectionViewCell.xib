@@ -47,6 +47,6 @@
     </objects>
     <resources>
         <image name="avatar" width="210" height="210"/>
-        <image name="checkmark" width="48" height="48"/>
+        <image name="checkmark" width="64" height="64"/>
     </resources>
 </document>

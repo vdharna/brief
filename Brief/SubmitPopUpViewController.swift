@@ -54,6 +54,10 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(animated: Bool) {
+        self.collectionView.scrollToItemAtIndexPath(NSIndexPath(forItem: 1, inSection: 0), atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
+    }
+
     @IBAction func send(sender: AnyObject) {
         
         var recipients = self.collectionView.indexPathsForSelectedItems()
@@ -83,10 +87,11 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
     // MARK: --------------------------------
 
     func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: UICollectionViewLayout!, sizeForItemAtIndexPath indexPath: NSIndexPath!) -> CGSize {
-        return CGSizeMake(80, 100)
+        return CGSizeMake(90, 100)
     }
     
     func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
+        
         var cell = self.collectionView.dequeueReusableCellWithReuseIdentifier(collectionViewCellName, forIndexPath: indexPath) as TeamMemberCollectionViewCell
         
         if (indexPath == self.selectedCell) {
@@ -97,12 +102,11 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
             cell.teamMemberNameLabel.backgroundColor = UIColor.lightGrayColor()
         }
         
-        
         return cell
     }
     
     func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return 3 // buffer this by adding a dummy cell in the beginning and the end
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView!) -> Int {
@@ -114,7 +118,9 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
         cell.selectedIndicator.hidden = false
         cell.teamMemberNameLabel.backgroundColor = UIColor.blackColor()
         self.collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
-        
+        if (indexPath == self.selectedCell) {
+            return // do nothing
+        }
         if let index = self.selectedCell {
             if let cell = self.collectionView.cellForItemAtIndexPath(index) as? TeamMemberCollectionViewCell {
                 cell.selectedIndicator.hidden = true
@@ -123,8 +129,6 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
         }
         
         self.selectedCell = indexPath
-        
-        
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView!) {
