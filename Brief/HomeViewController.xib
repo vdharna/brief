@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6206.8" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6206.9" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
     </dependencies>
@@ -7,8 +7,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="Brief" customModuleProvider="target">
             <connections>
                 <outlet property="completedButton" destination="SQh-Xg-khp" id="tJg-eN-gns"/>
+                <outlet property="completedImageView" destination="fjF-vr-KMZ" id="Hm5-pu-cH7"/>
                 <outlet property="completedLabel" destination="Ul2-HT-6Wn" id="6FA-0x-yoF"/>
                 <outlet property="composeButton" destination="b4b-st-HJq" id="W90-hv-dtC"/>
+                <outlet property="composeImageView" destination="rSI-j2-YFd" id="H5Z-rb-sye"/>
                 <outlet property="composeLabel" destination="jc6-df-MJB" id="jQx-E5-tN5"/>
                 <outlet property="userNameLabel" destination="YI8-C9-oSS" id="5tS-aG-yhL"/>
                 <outlet property="view" destination="Fda-Io-Fys" id="u8y-Et-Psl"/>
@@ -19,42 +21,78 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="COMPOSE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jc6-df-MJB" userLabel="compose label">
-                    <rect key="frame" x="8" y="268" width="304" height="21"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="redraw" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SQh-Xg-khp" userLabel="completed button">
-                    <rect key="frame" x="111" y="337" width="98" height="78"/>
-                    <state key="normal" image="completed">
-                        <color key="titleShadowColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                    </state>
-                    <connections>
-                        <action selector="showCompletedBriefs:" destination="-1" eventType="touchUpInside" id="7Td-db-boK"/>
-                    </connections>
-                </button>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="COMPLETED" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ul2-HT-6Wn" userLabel="completed label">
-                    <rect key="frame" x="8" y="423" width="304" height="21"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b4b-st-HJq" userLabel="compose button">
-                    <rect key="frame" x="129" y="180" width="80" height="80"/>
-                    <state key="normal" image="compose">
-                        <color key="titleShadowColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                    </state>
-                    <connections>
-                        <action selector="composeBrief:" destination="-1" eventType="touchUpInside" id="7vs-iU-PMp"/>
-                    </connections>
-                </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YI8-C9-oSS">
                     <rect key="frame" x="8" y="102" width="304" height="21"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cE6-ds-rN4" userLabel="compose view">
+                    <rect key="frame" x="120" y="160" width="90" height="90"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b4b-st-HJq" userLabel="compose button">
+                            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                            <state key="normal">
+                                <color key="titleShadowColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="composeBrief:" destination="-1" eventType="touchUpInside" id="7vs-iU-PMp"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="COMPOSE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jc6-df-MJB" userLabel="compose label">
+                            <rect key="frame" x="0.0" y="70" width="90" height="20"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rSI-j2-YFd">
+                            <rect key="frame" x="24" y="15" width="50" height="50"/>
+                        </imageView>
+                    </subviews>
+                </view>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jFv-fn-57K" userLabel="completed view">
+                    <rect key="frame" x="120" y="280" width="90" height="90"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="redraw" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SQh-Xg-khp" userLabel="completed button">
+                            <rect key="frame" x="5" y="5" width="80" height="80"/>
+                            <state key="normal">
+                                <color key="titleShadowColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            </state>
+                            <connections>
+                                <action selector="showCompletedBriefs:" destination="-1" eventType="touchUpInside" id="7Td-db-boK"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="COMPLETED" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ul2-HT-6Wn" userLabel="completed label">
+                            <rect key="frame" x="0.0" y="65" width="90" height="20"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="completed" translatesAutoresizingMaskIntoConstraints="NO" id="fjF-vr-KMZ">
+                            <rect key="frame" x="13" y="10" width="64" height="64"/>
+                        </imageView>
+                    </subviews>
+                </view>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VBi-2t-PYz" userLabel="review view">
+                    <rect key="frame" x="120" y="400" width="90" height="90"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="redraw" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2yE-Pd-o3n" userLabel="completed button">
+                            <rect key="frame" x="5" y="5" width="80" height="80"/>
+                            <state key="normal">
+                                <color key="titleShadowColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            </state>
+                        </button>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="REVIEW" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0xT-bc-Ctg" userLabel="completed label">
+                            <rect key="frame" x="0.0" y="65" width="90" height="20"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="inbox18" translatesAutoresizingMaskIntoConstraints="NO" id="NNH-JD-pCk">
+                            <rect key="frame" x="20" y="8" width="50" height="50"/>
+                        </imageView>
+                    </subviews>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
@@ -63,11 +101,11 @@
                 <size key="portraitSize" width="320" height="568"/>
                 <size key="landscapeSize" width="568" height="320"/>
             </simulatedScreenMetrics>
-            <point key="canvasLocation" x="259" y="220"/>
+            <point key="canvasLocation" x="142" y="145"/>
         </view>
     </objects>
     <resources>
-        <image name="completed" width="125" height="125"/>
-        <image name="compose" width="90" height="90"/>
+        <image name="completed" width="128" height="128"/>
+        <image name="inbox18" width="128" height="128"/>
     </resources>
 </document>

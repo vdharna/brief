@@ -49,8 +49,6 @@
 		6295FAC619746D6500C338D3 /* Brief.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6295FAC519746D6500C338D3 /* Brief.swift */; };
 		629AA74819ADAFE60099FF0E /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 629AA74719ADAFE60099FF0E /* CloudKit.framework */; };
 		62ABD5F219AC0F5A003E13CD /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ABD5F119AC0F5A003E13CD /* ProgressView.swift */; };
-		62C032881981CE86005AC29F /* ComposeBriefTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C032861981CE86005AC29F /* ComposeBriefTableViewCell.swift */; };
-		62C032891981CE86005AC29F /* ComposeBriefTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62C032871981CE86005AC29F /* ComposeBriefTableViewCell.xib */; };
 		62C0328B1981D260005AC29F /* compose-table-cell.graffle in Resources */ = {isa = PBXBuildFile; fileRef = 62C0328A1981D260005AC29F /* compose-table-cell.graffle */; };
 		62DDA5B119B7CA0400AB22CB /* PunchedLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DDA5B019B7CA0400AB22CB /* PunchedLayout.swift */; };
 		62E655911992A6A8001CE289 /* BriefItemCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E6558F1992A6A8001CE289 /* BriefItemCommentTableViewCell.swift */; };
@@ -123,8 +121,6 @@
 		629AA74719ADAFE60099FF0E /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		62ABD5F119AC0F5A003E13CD /* ProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		62ABE282199EC25200CD6430 /* Brief.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Brief.entitlements; sourceTree = "<group>"; };
-		62C032861981CE86005AC29F /* ComposeBriefTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeBriefTableViewCell.swift; sourceTree = "<group>"; };
-		62C032871981CE86005AC29F /* ComposeBriefTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ComposeBriefTableViewCell.xib; sourceTree = "<group>"; };
 		62C0328A1981D260005AC29F /* compose-table-cell.graffle */ = {isa = PBXFileReference; lastKnownFileType = file; path = "compose-table-cell.graffle"; sourceTree = "<group>"; };
 		62DDA5B019B7CA0400AB22CB /* PunchedLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PunchedLayout.swift; sourceTree = "<group>"; };
 		62E6558F1992A6A8001CE289 /* BriefItemCommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BriefItemCommentTableViewCell.swift; sourceTree = "<group>"; };
@@ -173,8 +169,6 @@
 				62474131196CB5A10043C7E5 /* ComposeViewController.swift */,
 				620097FA198C1EE70058E83B /* CharacterCountView.xib */,
 				620097F8198C1ED00058E83B /* CharacterCountView.swift */,
-				62C032871981CE86005AC29F /* ComposeBriefTableViewCell.xib */,
-				62C032861981CE86005AC29F /* ComposeBriefTableViewCell.swift */,
 				62F5D90819B2A72F000D6A58 /* ComposeItemTableViewCell.xib */,
 				62F5D90719B2A72F000D6A58 /* ComposeItemTableViewCell.swift */,
 				6241FB63196F5BB50092B014 /* AddPPPViewController.xib */,
@@ -472,7 +466,6 @@
 				62E655921992A6A8001CE289 /* BriefItemCommentTableViewCell.xib in Resources */,
 				6241FB65196F5BB50092B014 /* AddPPPViewController.xib in Resources */,
 				6261D5FC197EE3EB007B8AA3 /* MasterBriefViewController.xib in Resources */,
-				62C032891981CE86005AC29F /* ComposeBriefTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -515,7 +508,6 @@
 				622DFEBF19B8F83200381586 /* OverlayTransitioningDelegate.swift in Sources */,
 				6275B5AF19A8FF5C004D7D36 /* EnableAccount.swift in Sources */,
 				6247412E196CB5A10043C7E5 /* AppDelegate.swift in Sources */,
-				62C032881981CE86005AC29F /* ComposeBriefTableViewCell.swift in Sources */,
 				6215FC41199D2C4200F5BD2B /* BriefRepository.swift in Sources */,
 				6261D5FB197EE3EB007B8AA3 /* MasterBriefViewController.swift in Sources */,
 				626FCD1E1985A8ED00946973 /* Comment.swift in Sources */,

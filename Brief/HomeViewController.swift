@@ -14,9 +14,11 @@ class HomeViewController: UIViewController {
     
     @IBOutlet var composeButton: UIButton!
     @IBOutlet var composeLabel: UILabel!
+    @IBOutlet weak var composeImageView: UIImageView!
     
     @IBOutlet var completedButton: UIButton!
     @IBOutlet var completedLabel: UILabel!
+    @IBOutlet weak var completedImageView: UIImageView!
     
     @IBOutlet weak var userNameLabel: UILabel!
     
@@ -107,15 +109,15 @@ class HomeViewController: UIViewController {
         switch(user.getDraftBrief().status) {
             
         case .IsNew:
-            self.composeButton.imageView!.image = UIImage(named: "compose.png")
+            self.composeImageView.image = UIImage(named: "compose.png")
             self.composeLabel.text = "COMPOSE"
             
         case .InProgress:
-            self.composeButton.imageView!.image = UIImage(named: "continue.png")
+            self.composeImageView.image = UIImage(named: "continue-2.png")
             self.composeLabel.text = "CONTINUE"
             
         default:
-            self.composeButton.imageView!.image = UIImage(named: "compose.png")
+            self.composeImageView.image = UIImage(named: "compose.png")
             self.composeLabel.text = "COMPOSE"
         }
         

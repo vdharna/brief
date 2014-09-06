@@ -145,10 +145,10 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
         
         if (indexPath == self.selectedCell) {
             cell.selectedIndicator.hidden = false
-            cell.teamMemberNameLabel.backgroundColor = UIColor.blackColor()
+            //cell.teamMemberNameLabel.backgroundColor = UIColor.blackColor()
         } else {
             cell.selectedIndicator.hidden = true
-            cell.teamMemberNameLabel.backgroundColor = UIColor.lightGrayColor()
+            //cell.teamMemberNameLabel.backgroundColor = UIColor.lightGrayColor()
         }
         
         return cell
@@ -182,7 +182,7 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
         if let index = self.selectedCell {
             if let cell = self.collectionView.cellForItemAtIndexPath(index) as? TeamMemberCollectionViewCell {
                 cell.selectedIndicator.hidden = true
-                cell.teamMemberNameLabel.backgroundColor = UIColor.lightGrayColor()
+                //cell.teamMemberNameLabel.backgroundColor = UIColor.lightGrayColor()
             }
         }
         
