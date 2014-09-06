@@ -120,7 +120,7 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
     // MARK: CollectionView Delegate Methods
     // MARK: --------------------------------
 
-    func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: UICollectionViewLayout!, sizeForItemAtIndexPath indexPath: NSIndexPath!) -> CGSize {
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         
         if (indexPath.item == 0 || indexPath.item == (briefReviewerArray.count - 1)) {
             return CGSizeMake(45, 100)
@@ -129,7 +129,7 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
         return CGSizeMake(90, 100)
     }
     
-    func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         if (indexPath.item == 0 || indexPath.item == (briefReviewerArray.count - 1)) {
             var cell = self.collectionView.dequeueReusableCellWithReuseIdentifier("UICollectionViewCell", forIndexPath: indexPath) as UICollectionViewCell
@@ -154,7 +154,7 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
         return cell
     }
     
-    func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             
         self.briefReviewerArray = user.briefReviewers
         self.briefReviewerArray.insert(TeamMember(), atIndex: 0) // add a buffer for the beginning
@@ -163,11 +163,11 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
         return briefReviewerArray.count
     }
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView!) -> Int {
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func collectionView(collectionView: UICollectionView!, didSelectItemAtIndexPath indexPath: NSIndexPath!) {
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
         var cell = self.collectionView.cellForItemAtIndexPath(indexPath) as TeamMemberCollectionViewCell
         

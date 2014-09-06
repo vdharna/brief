@@ -107,15 +107,15 @@ class HomeViewController: UIViewController {
         switch(user.getDraftBrief().status) {
             
         case .IsNew:
-            self.composeButton.imageView.image = UIImage(named: "compose.png")
+            self.composeButton.imageView!.image = UIImage(named: "compose.png")
             self.composeLabel.text = "COMPOSE"
             
         case .InProgress:
-            self.composeButton.imageView.image = UIImage(named: "continue.png")
+            self.composeButton.imageView!.image = UIImage(named: "continue.png")
             self.composeLabel.text = "CONTINUE"
             
         default:
-            self.composeButton.imageView.image = UIImage(named: "compose.png")
+            self.composeButton.imageView!.image = UIImage(named: "compose.png")
             self.composeLabel.text = "COMPOSE"
         }
         
@@ -167,7 +167,7 @@ class HomeViewController: UIViewController {
             })
         }
 
-        self.navigationController.pushViewController(cvc, animated: true)
+        self.navigationController?.pushViewController(cvc, animated: true)
         self.composeButton.enabled = true
         self.completedButton.enabled = true
     }
@@ -181,7 +181,7 @@ class HomeViewController: UIViewController {
             cbvc = MasterBriefViewController(nibName: "MasterBriefViewController", bundle: NSBundle.mainBundle())
             user.submittedBrief = false
         }
-        self.navigationController.pushViewController(cbvc, animated: true)
+        self.navigationController?.pushViewController(cbvc, animated: true)
         self.composeButton.enabled = true
         self.completedButton.enabled = true
     }

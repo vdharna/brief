@@ -107,8 +107,8 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         var briefs = user.getCompletedBriefs()
         //self.table.tableHeaderView = self.cview
         self.view.addSubview(cview)
-        self.navigationController.hidesBarsOnSwipe = false
-        self.navigationController.hidesBarsOnTap = false
+        self.navigationController?.hidesBarsOnSwipe = false
+        self.navigationController?.hidesBarsOnTap = false
 
     }
     
@@ -116,7 +116,7 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         // Do any additional setup after loading the view.
         self.navigationItem.title = ""
         if let selectedPath = self.selectedIndexPath {
-            self.collectionView.scrollToItemAtIndexPath(self.selectedIndexPath, atScrollPosition: UICollectionViewScrollPosition.None, animated: true)
+            self.collectionView.scrollToItemAtIndexPath(self.selectedIndexPath!, atScrollPosition: UICollectionViewScrollPosition.None, animated: true)
         }
     }
     
@@ -169,7 +169,7 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
     // MARK: ------------------------------------
     
     // Asks the data source for a cell to insert in a particular location of the table view. (required)
-    func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         // Get a new or recycled cell
         let cell = self.table.dequeueReusableCellWithIdentifier(tableViewCellName, forIndexPath: indexPath) as CompletedBriefTableViewCell
@@ -280,14 +280,14 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     // Asks the data source to return the number of sections in the table view.
-    func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
         return 3
         
     }
 
     // Tells the data source to return the number of rows in a given section of a table view. (required)
-    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if (!user.getCompletedBriefs().isEmpty) {
             switch(section) {
@@ -305,7 +305,7 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
     }
 
     
-    func tableView(tableView: UITableView!, viewForHeaderInSection section: Int) -> UIView! {
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView {
         
         var string = ""
         
@@ -340,7 +340,7 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
     // MARK: --------------------------------
 
     
-    func tableView(tableView: UITableView!, editActionsForRowAtIndexPath indexPath: NSIndexPath!) -> [AnyObject]! {
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject] {
 
         var item: PPPItem = self.getPPPItem(indexPath)
         if (item.id.isEmpty) {
@@ -430,7 +430,7 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         var cell = self.table.cellForRowAtIndexPath(indexPath) as CompletedBriefTableViewCell
         var item = selectedBrief!.findItemById(cell.itemID)
         briefItemDetailVC.item = item
-        self.navigationController.pushViewController(briefItemDetailVC, animated: true)
+        self.navigationController?.pushViewController(briefItemDetailVC, animated: true)
     }
 
     
@@ -438,19 +438,19 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
     // MARK: CollectionView Delegate Methods
     // MARK: --------------------------------
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView!) -> Int {
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         
         return 1
     
     }
     
-    func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         return self.completedBriefs.count
         
     }
     
-    func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         var cell = self.collectionView.dequeueReusableCellWithReuseIdentifier(collectionViewCellName, forIndexPath: indexPath) as CompletedBriefCollectionViewCell
         
@@ -482,7 +482,7 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         return cell
     }
     
-    func collectionView(collectionView: UICollectionView!, didSelectItemAtIndexPath indexPath: NSIndexPath!) {
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
         if let selectedPath = self.selectedIndexPath {
             // deselect previously selected cell
@@ -515,7 +515,7 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         })
     }
     
-    func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: UICollectionViewLayout!, sizeForItemAtIndexPath indexPath: NSIndexPath!) -> CGSize {
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         return CGSizeMake(60, 40)
     }
 
@@ -540,7 +540,7 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
 
         self.selectedBrief = user.getMostRecentBrief()
         self.selectedIndexPath = NSIndexPath(forItem: 0, inSection: 0)
-        self.collectionView.scrollToItemAtIndexPath(self.selectedIndexPath, atScrollPosition: UICollectionViewScrollPosition.None, animated: true)
+        self.collectionView.scrollToItemAtIndexPath(self.selectedIndexPath!, atScrollPosition: UICollectionViewScrollPosition.None, animated: true)
         
         self.selectedBrief!.loadPPPItems({ completed in
             

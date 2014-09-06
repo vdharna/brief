@@ -114,7 +114,7 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
     @IBAction func dismissModal(sender: UIButton) {
         
         if(snapshot == content.text) {
-            self.presentingViewController.dismissViewControllerAnimated(true, completion: {})
+            self.presentingViewController?.dismissViewControllerAnimated(true, completion: {})
             
         } else {
             //set up the action sheets
@@ -128,8 +128,8 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
             
             var discardAlertAction = UIAlertAction(title: "Discard", style: .Destructive, handler: {
                 (value: UIAlertAction!) in
-                self.presentingViewController.dismissViewControllerAnimated(true, completion: {})
-
+                self.presentingViewController?.dismissViewControllerAnimated(true, completion: {})
+                println("") //need a line of code to make this work for some reason
                 })
             
             
@@ -278,11 +278,11 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
             }
             
         default:
-            self.presentingViewController.dismissViewControllerAnimated(true, completion: {})
+            self.presentingViewController?.dismissViewControllerAnimated(true, completion: {})
 
         }
                 
-        self.presentingViewController.dismissViewControllerAnimated(true, completion: {})
+        self.presentingViewController?.dismissViewControllerAnimated(true, completion: {})
 
     }
     

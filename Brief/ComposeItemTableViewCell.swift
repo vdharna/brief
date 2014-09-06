@@ -45,7 +45,7 @@ class ComposeItemTableViewCell: UITableViewCell {
         imageView.image = image
         circle!.addSubview(imageView)
         
-        if (self.cellLabel.text.utf16Count > characterLimit) {
+        if (self.cellLabel.text?.utf16Count > characterLimit) {
             line!.backgroundColor = UIColor(red: 153/255, green: 0, blue: 0, alpha: 1)
             circle!.layer.borderColor = UIColor(red: 153/255, green: 0, blue: 0, alpha: 1).CGColor
 

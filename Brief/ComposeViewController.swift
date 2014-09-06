@@ -85,7 +85,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewWillAppear(animated: Bool) {
         
-        self.navigationController.navigationBarHidden = false
+        self.navigationController?.navigationBarHidden = false
         self.segmentedControl.selectedSegmentIndex = selectedSegment //sets to last selected segment
         self.refreshToolbarItems()
         self.table.reloadData()
@@ -200,7 +200,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         nc.navigationBar.tintColor = UIColor.whiteColor()
         nc.navigationBar.barStyle = UIBarStyle.BlackTranslucent
         
-        self.navigationController.presentViewController(nc, animated: true, completion: nil)
+        self.navigationController?.presentViewController(nc, animated: true, completion: nil)
     }
     
 
@@ -221,7 +221,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         var okayActionButton = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: { action in
             println("")
-            self.navigationController.popToRootViewControllerAnimated(true)
+            self.navigationController?.popToRootViewControllerAnimated(true)
         })
         
         submitAlert.addAction(okayActionButton)
@@ -250,7 +250,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
             //delete the local copy
             user.deleteBrief()
             
-            self.navigationController.popToRootViewControllerAnimated(true)
+            self.navigationController?.popToRootViewControllerAnimated(true)
             
             })
 
@@ -269,33 +269,38 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
             
         switch (state) {
         case .Began:
-            if((indexPath) != nil) {
-
+            
+            if let indexPath = indexPath {
+                
                 sourceIndexPath = indexPath
                 
-                var cell = table.cellForRowAtIndexPath(indexPath)
-                
-                // Take a snapshot of the selected row using helper method.
-                snapshot = self.customSnapshotFromView(cell)
-                
-                // Add the snapshot as subview, centered at cell's center...
-                var center = cell.center
-                snapshot!.center = center
-                snapshot!.alpha = 0.0;
-                table.addSubview(snapshot!)
-                
-                UIView.animateWithDuration(0.25, animations: {
+                if let cell = table.cellForRowAtIndexPath(indexPath) {
                     
-                    // Offset for gesture location.
-                    center.y = location.y;
-                    self.snapshot!.center = center;
-                    self.snapshot!.transform = CGAffineTransformMakeScale(1.05, 1.05);
-                    self.snapshot!.alpha = 0.98;
-                    cell.hidden = true
+                    // Take a snapshot of the selected row using helper method.
+                    snapshot = self.customSnapshotFromView(cell)
                     
-                    }, completion: nil)
+                    // Add the snapshot as subview, centered at cell's center...
+                    var center = cell.center
+                    snapshot!.center = center
+                    snapshot!.alpha = 0.0;
+                    table.addSubview(snapshot!)
+                    
+                    UIView.animateWithDuration(0.25, animations: {
+                        
+                        // Offset for gesture location.
+                        center.y = location.y;
+                        self.snapshot!.center = center;
+                        self.snapshot!.transform = CGAffineTransformMakeScale(1.05, 1.05);
+                        self.snapshot!.alpha = 0.98;
+                        cell.hidden = true
+                        
+                        }, completion: nil)
+                    
+                    cell.hidden = false
+                    
+                }
                 
-                cell.hidden = false
+
             }
             
             break
@@ -307,29 +312,31 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
             snapshot!.center = center;
             
             // Is destination valid and is it different from source?
-            if ((indexPath != nil) && !indexPath!.isEqual(sourceIndexPath)) {
-                
-                // ... update data source.
-                switch (selectedSegment) {
+            if let indexPath = indexPath {
+                if (!indexPath.isEqual(sourceIndexPath)) {
                     
-                case 0:
-                    user.getDraftBrief().moveProgress(sourceIndexPath!.row, to: indexPath!.row)
-                
-                case 1:
-                    user.getDraftBrief().movePlan(sourceIndexPath!.row, to: indexPath!.row)
+                    // ... update data source.
+                    switch (selectedSegment) {
+                        
+                    case 0:
+                        user.getDraftBrief().moveProgress(sourceIndexPath!.row, to: indexPath.row)
+                        
+                    case 1:
+                        user.getDraftBrief().movePlan(sourceIndexPath!.row, to: indexPath.row)
+                        
+                    case 2:
+                        user.getDraftBrief().moveProblem(sourceIndexPath!.row, to: indexPath.row)
+                        
+                    default:
+                        println("Nothing Selected")
+                    }
                     
-                case 2:
-                    user.getDraftBrief().moveProblem(sourceIndexPath!.row, to: indexPath!.row)
+                    // ... move the rows.
+                    table.moveRowAtIndexPath(sourceIndexPath!, toIndexPath: indexPath)
                     
-                default:
-                    println("Nothing Selected")
+                    // ... and update source so it is in sync with UI changes.
+                    sourceIndexPath = indexPath;
                 }
-                
-                // ... move the rows.
-                table.moveRowAtIndexPath(sourceIndexPath, toIndexPath: indexPath)
-                
-                // ... and update source so it is in sync with UI changes.
-                sourceIndexPath = indexPath;
             }
             
             break;
@@ -337,24 +344,26 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         default:
             
             //Clean up.
-            var cell = table.cellForRowAtIndexPath(sourceIndexPath)
-            UIView.animateWithDuration(0.2, animations: {
-                
-                self.snapshot!.center = cell.center;
-                self.snapshot!.transform = CGAffineTransformIdentity;
-                self.snapshot!.alpha = 0.0;
-                
-                // Undo the black-out effect we did.
-                cell.backgroundColor = UIColor.whiteColor()
-
-                }, completion: {
-                    (value: Bool) in
-                    self.snapshot!.removeFromSuperview()
-                    self.snapshot = nil;
+            if let cell = table.cellForRowAtIndexPath(sourceIndexPath!) {
+                UIView.animateWithDuration(0.2, animations: {
+                    
+                    self.snapshot!.center = cell.center;
+                    self.snapshot!.transform = CGAffineTransformIdentity;
+                    self.snapshot!.alpha = 0.0;
+                    
+                    // Undo the black-out effect we did.
+                    cell.backgroundColor = UIColor.whiteColor()
+                    
+                    }, completion: {
+                        (value: Bool) in
+                        self.snapshot!.removeFromSuperview()
+                        self.snapshot = nil;
                 })
-            
-            sourceIndexPath = nil;
-            break;
+                
+                sourceIndexPath = nil;
+                break;
+            }
+
         }
         
     }
@@ -394,7 +403,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     // MARK: --------------------------------
     // MARK: UITableViewDatasource methods
     // MARK: --------------------------------
-    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         switch (selectedSegment) {
             
@@ -412,7 +421,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var cell = table.dequeueReusableCellWithIdentifier(cellName, forIndexPath: indexPath) as ComposeItemTableViewCell
         
@@ -443,21 +452,15 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         cell.briefId = id
         cell.cellLabel.text = text
-        if (cell.cellLabel.text.utf16Count > characterLimit) {
-           // cell.cellImage.image = redCellImage
-        } else {
-           // cell.cellImage.image = greenCellImage
-
-        }
         
         return cell
     }
     
-    func tableView(tableView: UITableView!, canEditRowAtIndexPath indexPath: NSIndexPath!) -> Bool {
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
     
-    func tableView(tableView: UITableView!, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath!) {
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if (editingStyle == .Delete) {
             
             var draftBrief = user.getDraftBrief()
@@ -513,7 +516,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     // MARK: UITableViewDelegate Methods
     // MARK: --------------------------------
     
-    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!)  {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)  {
         
         let mvc = AddPPPViewController(nibName: "AddPPPViewController", bundle: NSBundle.mainBundle())
         mvc.modalTransitionStyle = UIModalTransitionStyle.PartialCurl
@@ -530,7 +533,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         nc.navigationBar.tintColor = UIColor.whiteColor()
         nc.navigationBar.barStyle = UIBarStyle.BlackTranslucent
         
-        self.navigationController.presentViewController(nc, animated: true, completion: nil)
+        self.navigationController?.presentViewController(nc, animated: true, completion: nil)
     }
 
 

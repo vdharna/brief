@@ -21,20 +21,20 @@ class PunchedLayout: UICollectionViewFlowLayout {
         
         super.prepareLayout()
         
-        boundsSize = self.collectionView.bounds.size;
+        boundsSize = self.collectionView!.bounds.size;
         midX = boundsSize!.width / 2.0;
     }
    
-    override func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]! {
+    override func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]? {
         
         var array = super.layoutAttributesForElementsInRect(rect)
         
-        for attributes in array  {
+        for attributes in array!  {
             var a = attributes as UICollectionViewLayoutAttributes
             a.transform3D = CATransform3DIdentity
             if (!CGRectIntersectsRect(a.frame, rect)) {continue}
             
-            var contentOffset = self.collectionView.contentOffset
+            var contentOffset = self.collectionView!.contentOffset
             var itemCenter = CGPointMake(a.center.x - contentOffset.x, a.center.y - contentOffset.y)
             
             var distance = abs(midX! - itemCenter.x)
@@ -64,7 +64,7 @@ class PunchedLayout: UICollectionViewFlowLayout {
         // Search for the minimum offset adjustment
         
             
-        for attributes in array  {
+        for attributes in array!  {
             var a = attributes as UICollectionViewLayoutAttributes
             var distance = a.center.x - proposedCenterX
             if (abs(distance) < abs(offsetAdjustment)) {

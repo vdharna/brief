@@ -57,8 +57,8 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
 
         // Do any additional setup after loading the view.
         self.navigationItem.title = "Comments"
-        self.navigationController.hidesBarsOnSwipe = true
-        self.navigationController.hidesBarsOnTap = true
+        self.navigationController?.hidesBarsOnSwipe = true
+        self.navigationController?.hidesBarsOnTap = true
         
         self.configureTableView()
         self.configureTextViews()
@@ -228,7 +228,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
             
         }
         
-        var button = self.inputAccessoryToolbar.items[2] as UIBarButtonItem
+        var button = self.inputAccessoryToolbar.items![2] as UIBarButtonItem
         if (!textView.text.isEmpty) {
             button.enabled = true
         } else {
@@ -242,7 +242,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
     // MARK: UITableView Delegate Methods
     // MARK: --------------------------------
     
-    func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var cell = self.table.dequeueReusableCellWithIdentifier(cellName, forIndexPath: indexPath) as BriefItemCommentTableViewCell
 
@@ -264,7 +264,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
         return cell
     }
     
-    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return item.commentsCount()
     }
     
@@ -295,7 +295,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
             
             // reset the text fields and clean-up for the next entry
             self.inputAccessoryTextView.text = ""
-            var button = self.inputAccessoryToolbar.items[2] as UIBarButtonItem
+            var button = self.inputAccessoryToolbar.items![2] as UIBarButtonItem
             button.enabled = false
             self.inputAccessoryTextView.frame.size.height = 30
             self.inputAccessoryTextView.resignFirstResponder()
