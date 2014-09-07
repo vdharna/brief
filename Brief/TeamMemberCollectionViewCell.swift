@@ -7,18 +7,21 @@
 //
 
 import UIKit
+import QuartzCore
 
 class TeamMemberCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var teamMemberImageView: UIView!
     @IBOutlet weak var teamMemberNameLabel: UILabel!
     @IBOutlet weak var selectedIndicator: UIView!
+    @IBOutlet weak var container: UIView!
     
     var teamMember: TeamMember?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.container.layer.borderWidth = 1
     }
 
 }

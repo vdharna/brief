@@ -12,15 +12,19 @@ import CloudKit
 
 class HomeViewController: UIViewController {
     
+    @IBOutlet weak var userNameLabel: UILabel!
+
+    @IBOutlet weak var composeView: UIView!
     @IBOutlet var composeButton: UIButton!
     @IBOutlet var composeLabel: UILabel!
     @IBOutlet weak var composeImageView: UIImageView!
     
+    @IBOutlet weak var completedView: UIView!
     @IBOutlet var completedButton: UIButton!
     @IBOutlet var completedLabel: UILabel!
     @IBOutlet weak var completedImageView: UIImageView!
     
-    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var reviewView: UIView!
     
     var cbvc: MasterBriefViewController!
     let cloudManager = BriefCloudManager()
@@ -48,11 +52,9 @@ class HomeViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         configureNavBar()
         
-        self.composeButton.hidden = true
-        self.composeLabel.hidden = true
-        
-        self.completedButton.hidden = true
-        self.completedLabel.hidden = true
+        self.composeView.hidden = true
+        self.completedView.hidden = true
+        self.reviewView.hidden = true
         
         // start the activity spinner
         var progressView = ProgressView(frame: CGRectMake(0, 0, 300, 300))
@@ -121,11 +123,9 @@ class HomeViewController: UIViewController {
             self.composeLabel.text = "COMPOSE"
         }
         
-        self.composeButton.hidden = false
-        self.composeLabel.hidden = false
-        
-        self.completedButton.hidden = false
-        self.completedLabel.hidden = false
+        self.composeView.hidden = false
+        self.completedView.hidden = false
+        self.reviewView.hidden = false
         
     }
     
