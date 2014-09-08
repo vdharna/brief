@@ -33,6 +33,8 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
     
     private var cloudManager = BriefCloudManager()
     
+    let shareTransitionDelegate = ShareTransitioningDelegate()
+    
     // MARK: --------------------------------
     // MARK: Initializers
     // MARK: --------------------------------
@@ -409,10 +411,17 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         notifyRowAction.backgroundColor = UIColor.blueColor();
         
         // share action
-        var shareRowAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Share", handler:{action, indexpath in
-            println("SHARE•ACTION");
-            var alert = UIAlertView(title: "Action", message: "Share Button Clicked", delegate: nil, cancelButtonTitle: "Cancel")
-            alert.show()
+        var shareRowAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Share", handler: { action, indexpath in
+            
+            let shareVC = ShareViewController(nibName: "ShareViewController", bundle: NSBundle.mainBundle())
+            shareVC.transitioningDelegate = self.shareTransitionDelegate
+            shareVC.modalPresentationStyle = .Custom
+            self.presentViewController(shareVC, animated: true, completion: {
+                
+                self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
+
+            })
+            
         });
         shareRowAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
         

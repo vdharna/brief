@@ -26,9 +26,9 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
     
     var cloudManager = BriefCloudManager()
     
-    let progressDescription = "List an accomplishment, finished item or closed task for the current reporting period..."
-    let planDescription = "List a goal or objective for the next reporting period..."
-    let problemDescription = "List an item you can't finish and need escalation or help from someone else..."
+    let progressDescription = "List an accomplishment, finished item or task for the current reporting period"
+    let planDescription = "List a goal or objective for the next reporting period"
+    let problemDescription = "List an item you can't finish and need escalation or help from someone else"
     
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -46,6 +46,8 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
 
         configureNavigationBar()
         itemDescription.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+        itemDescription.numberOfLines = 0
+        itemDescription.sizeToFit()
         
         //configure the character count view
         setupCharacterCountLabel()

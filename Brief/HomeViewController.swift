@@ -115,7 +115,7 @@ class HomeViewController: UIViewController {
             self.composeLabel.text = "COMPOSE"
             
         case .InProgress:
-            self.composeImageView.image = UIImage(named: "continue-2.png")
+            self.composeImageView.image = UIImage(named: "continue.png")
             self.composeLabel.text = "CONTINUE"
             
         default:
