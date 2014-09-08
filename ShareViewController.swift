@@ -10,6 +10,12 @@ import UIKit
 
 class ShareViewController: UIViewController {
 
+    @IBOutlet weak var shareLabel: UILabel!
+    @IBOutlet weak var cancelButton: UIButton!
+    
+    @IBOutlet weak var emailButton: UIButton!
+    @IBOutlet weak var textButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -17,6 +23,12 @@ class ShareViewController: UIViewController {
         view.layer.shadowColor = UIColor.blackColor().CGColor
         view.layer.shadowOffset = CGSizeMake(0, 0)
         view.layer.shadowOpacity = 0.5
+        
+        shareLabel.layer.borderWidth = 1.0
+        shareLabel.layer.borderColor = UIColor.lightGrayColor().CGColor
+        
+        cancelButton.layer.borderWidth = 0.75
+        cancelButton.layer.borderColor = UIColor.lightGrayColor().CGColor
     }
 
     override func didReceiveMemoryWarning() {

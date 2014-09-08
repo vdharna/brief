@@ -46,12 +46,14 @@ class SharePresentationController: UIPresentationController {
   }
   
   override func frameOfPresentedViewInContainerView() -> CGRect {
-    return containerView.bounds.rectByInsetting(dx: 0, dy: 150)
+    return containerView.bounds.rectByInsetting(dx: 0, dy: 196)
   }
   
   override func containerViewWillLayoutSubviews() {
     dimmingView.frame = containerView.bounds
     presentedView().frame = frameOfPresentedViewInContainerView()
     presentedView().center = CGPointMake(presentedView().center.x, ((presentedView().frame.origin.y * 2) + (presentedView().frame.height / 2)))
+    
+    print(presentedView().frame)
   }
 }
