@@ -8,6 +8,7 @@
 
 import Foundation
 import CloudKit
+import UIKit
 
 let user = TeamMember()
 
@@ -15,6 +16,7 @@ class TeamMember {
     
     var userInfo: CKDiscoveredUserInfo?
     var preferredName: String?
+    var image: UIImage?
     
     var briefReviewers = Array<TeamMember>()
     
@@ -46,6 +48,10 @@ class TeamMember {
         
         return "Unknown" //use user defaults
         
+    }
+    
+    func getImage() -> UIImage? {
+        return self.image
     }
     
     func getDraftBrief() -> Brief {

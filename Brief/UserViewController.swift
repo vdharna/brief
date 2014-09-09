@@ -38,6 +38,7 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         label.sizeToFit()
         
         self.userName.text = user.getFirstName() + " " + user.getLastName()
+        self.profileImageView.image = user.image
     }
 
     override func didReceiveMemoryWarning() {
@@ -92,6 +93,7 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
             // Put that image onto the screen in our image view
             self.profileImageView.image = image
+        
             
             // dismiss the modal
             self.dismissViewControllerAnimated(true, completion: nil)

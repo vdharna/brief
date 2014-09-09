@@ -38,6 +38,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     self.cloudManager.fetchRecordWithID(user.userInfo!.userRecordID.recordName, completionClosure: { record in
                         
                         user.preferredName = record.objectForKey("preferredName") as? String
+                        if let photoAsset = record.objectForKey("photo") as? CKAsset {
+                            var image = UIImage(contentsOfFile: photoAsset.fileURL.path!)
+                            user.image = image
+                        }
+                        
+
                         user.loadBriefReviewers(2) //replace with cloudKit call
 
                         let homeVC = HomeViewController(nibName: "HomeViewController", bundle: NSBundle.mainBundle())
