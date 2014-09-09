@@ -31,12 +31,21 @@ class TeamMember {
         return self.userInfo?.userRecordID.recordName
     }
     
-    func getFirstName() -> String? {
-        return self.userInfo?.firstName
+    func getFirstName() -> String {
+        if let firstName =  self.userInfo?.firstName {
+            return firstName
+        }
+        
+        return "Unknown"
     }
     
-    func getLastName() -> String? {
-        return self.userInfo?.lastName
+    func getLastName() -> String {
+        if let lastName = userInfo?.lastName {
+            return lastName
+        }
+        
+        return "Unknown" //use user defaults
+        
     }
     
     func getDraftBrief() -> Brief {

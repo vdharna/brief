@@ -44,6 +44,8 @@
 		626FCD241986B44700946973 /* Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626FCD231986B44700946973 /* Share.swift */; };
 		62727F9E199946350063EA0C /* CompletedBriefCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62727F9C199946350063EA0C /* CompletedBriefCollectionViewCell.swift */; };
 		62727F9F199946350063EA0C /* CompletedBriefCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62727F9D199946350063EA0C /* CompletedBriefCollectionViewCell.xib */; };
+		6275111819BE67030058F706 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6275111619BE67030058F706 /* UserViewController.swift */; };
+		6275111919BE67030058F706 /* UserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6275111719BE67030058F706 /* UserViewController.xib */; };
 		6275B5AF19A8FF5C004D7D36 /* EnableAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6275B5AD19A8FF5C004D7D36 /* EnableAccount.swift */; };
 		6275B5B019A8FF5C004D7D36 /* EnableAccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6275B5AE19A8FF5C004D7D36 /* EnableAccount.xib */; };
 		6295FAC619746D6500C338D3 /* Brief.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6295FAC519746D6500C338D3 /* Brief.swift */; };
@@ -119,6 +121,8 @@
 		626FCD231986B44700946973 /* Share.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Share.swift; sourceTree = "<group>"; };
 		62727F9C199946350063EA0C /* CompletedBriefCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedBriefCollectionViewCell.swift; sourceTree = "<group>"; };
 		62727F9D199946350063EA0C /* CompletedBriefCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompletedBriefCollectionViewCell.xib; sourceTree = "<group>"; };
+		6275111619BE67030058F706 /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
+		6275111719BE67030058F706 /* UserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserViewController.xib; sourceTree = "<group>"; };
 		6275B5AD19A8FF5C004D7D36 /* EnableAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnableAccount.swift; sourceTree = "<group>"; };
 		6275B5AE19A8FF5C004D7D36 /* EnableAccount.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnableAccount.xib; sourceTree = "<group>"; };
 		6295FAC519746D6500C338D3 /* Brief.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brief.swift; sourceTree = "<group>"; };
@@ -278,6 +282,7 @@
 				62ABE282199EC25200CD6430 /* Brief.entitlements */,
 				624741A7196DB0930043C7E5 /* Application */,
 				622DE57919B92FB500E3ADA1 /* Home */,
+				6275111A19BE67090058F706 /* User */,
 				622DE57519B92E3700E3ADA1 /* Compose */,
 				622DE57619B92EE900E3ADA1 /* Master */,
 				62C23D5A19BD504B0059ADD9 /* Action */,
@@ -335,6 +340,15 @@
 				6295FAC419746D5800C338D3 /* Team */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		6275111A19BE67090058F706 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				6275111619BE67030058F706 /* UserViewController.swift */,
+				6275111719BE67030058F706 /* UserViewController.xib */,
+			);
+			name = User;
 			sourceTree = "<group>";
 		};
 		62888FE6197A1E67002D0DD0 /* Common */ = {
@@ -484,6 +498,7 @@
 				62F86F0B19B03CD2006FCFA6 /* SectionHeader.xib in Resources */,
 				620097FB198C1EE70058E83B /* CharacterCountView.xib in Resources */,
 				6241FB57196F137F0092B014 /* HomeViewController.xib in Resources */,
+				6275111919BE67030058F706 /* UserViewController.xib in Resources */,
 				62F5D90A19B2A72F000D6A58 /* ComposeItemTableViewCell.xib in Resources */,
 				6275B5B019A8FF5C004D7D36 /* EnableAccount.xib in Resources */,
 				62727F9F199946350063EA0C /* CompletedBriefCollectionViewCell.xib in Resources */,
@@ -541,6 +556,7 @@
 				6275B5AF19A8FF5C004D7D36 /* EnableAccount.swift in Sources */,
 				6247412E196CB5A10043C7E5 /* AppDelegate.swift in Sources */,
 				6215FC41199D2C4200F5BD2B /* BriefRepository.swift in Sources */,
+				6275111819BE67030058F706 /* UserViewController.swift in Sources */,
 				62C23D6219BD52A10059ADD9 /* SharePresentationController.swift in Sources */,
 				6261D5FB197EE3EB007B8AA3 /* MasterBriefViewController.swift in Sources */,
 				626FCD1E1985A8ED00946973 /* Comment.swift in Sources */,

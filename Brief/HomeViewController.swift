@@ -144,9 +144,21 @@ class HomeViewController: UIViewController {
         label.sizeToFit()
         
         //setup the gear
-        var gearImage = UIImage(named: "gear.png")
-        var gearButton = UIBarButtonItem(image: gearImage, style: .Plain, target: self, action: "settings")
-        self.navigationItem.rightBarButtonItem = gearButton;
+        var userImage = UIImage(named: "user-1.png")
+        
+        var size = CGSizeMake(17, 18)
+        
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        userImage.drawInRect(CGRectMake(0, 0, size.width, size.height))
+        var newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        userImage = newImage
+
+    
+
+        var userButton = UIBarButtonItem(image: userImage, style: .Plain, target: self, action: "settings")
+        self.navigationItem.rightBarButtonItem = userButton;
         
     }
     
@@ -189,7 +201,10 @@ class HomeViewController: UIViewController {
     }
     
     func settings() {
-        println("settings")
+        
+        var userVC = UserViewController(nibName: "UserViewController", bundle: NSBundle.mainBundle())
+        self.navigationController?.pushViewController(userVC, animated: true)
+
     }
 
     
