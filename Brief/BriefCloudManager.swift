@@ -85,6 +85,32 @@ class BriefCloudManager {
 
     }
     
+    func uploadAssetWithURL(assetURL: NSURL, completionHandler: (record: CKRecord) ->()) {
+        
+        //find the user record
+        if let userRecordID = user.userInfo?.userRecordID.recordName? {
+            self.fetchRecordWithID(userRecordID, completionClosure: { (record: CKRecord) in
+                
+                var assetRecord = CKAsset(fileURL: assetURL)
+                record.setObject(assetRecord, forKey: "photo")
+                
+                self.publicDatabase.saveRecord(record, completionHandler: { record, error in
+                    
+                    if (error != nil) {
+                        println(error)
+                    } else {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            completionHandler(record: record)
+                        })
+                    }
+                })
+                
+            })
+        }
+        
+    }
+    
+    
     func fetchRecordWithID(recordID: String, completionClosure: (record :CKRecord) ->()) {
     
         var current = CKRecordID(recordName: recordID)

@@ -15,6 +15,8 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var cameraImage: UIImageView!
     
+    var cloudManager = BriefCloudManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -42,27 +44,68 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
 
-
     }
     
     @IBAction func changePicture(sender: AnyObject) {
+        
         var imagePicker = UIImagePickerController()
+        var sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        if (UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)) {
+            sourceType = UIImagePickerControllerSourceType.Camera
+        }
+        
         imagePicker.delegate = self
-        imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-        self.presentViewController(imagePicker, animated: true, completion: {})
+        imagePicker.sourceType = sourceType
+        
+        self.presentViewController(imagePicker, animated: true, nil)
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
-        // Get picked image from info dictionary
-        var image = info[UIImagePickerControllerOriginalImage] as UIImage
         
-        // Put that image onto the screen in our image view
-        self.profileImageView.image = image
+       // dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            
+            // Get picked image from info dictionary
+            var image = info[UIImagePickerControllerOriginalImage] as UIImage
+            
+            var newSize = CGSizeMake(512, 512);
+            
+            if (image.size.width > image.size.height) {
+                newSize.height = round(newSize.width * image.size.height / image.size.width);
+            } else {
+                newSize.width = round(newSize.height * image.size.width / image.size.height);
+            }
+            
+            UIGraphicsBeginImageContext(newSize)
+            image.drawInRect(CGRectMake(0, 0, newSize.width, newSize.height))
+            var data = UIImagePNGRepresentation(UIGraphicsGetImageFromCurrentImageContext())
+            UIGraphicsEndImageContext();
+
+            // write the image out to a cache file
+            var cachesDirectory = NSFileManager.defaultManager().URLForDirectory(NSSearchPathDirectory.CachesDirectory, inDomain: NSSearchPathDomainMask.UserDomainMask, appropriateForURL: nil, create: true, error: nil)
+            var temporaryName = NSUUID.UUID().UUIDString + ".png"
+            if let localURL = cachesDirectory?.URLByAppendingPathComponent(temporaryName) {
+                data.writeToURL(localURL, atomically: true)
+                self.cloudManager.uploadAssetWithURL(localURL, completionHandler: { record in
+                    
+                })
+            }
+        
+            // Put that image onto the screen in our image view
+            self.profileImageView.image = image
+            
+            // dismiss the modal
+            self.dismissViewControllerAnimated(true, completion: nil)
+
+            
+      //  })
+
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         
         // dismiss the modal
         self.dismissViewControllerAnimated(true, completion: nil)
     }
-    
 
 
 }
