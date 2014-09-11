@@ -345,8 +345,8 @@
 		6275111A19BE67090058F706 /* User */ = {
 			isa = PBXGroup;
 			children = (
-				6275111619BE67030058F706 /* UserViewController.swift */,
 				6275111719BE67030058F706 /* UserViewController.xib */,
+				6275111619BE67030058F706 /* UserViewController.swift */,
 			);
 			name = User;
 			sourceTree = "<group>";

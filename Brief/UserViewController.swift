@@ -37,7 +37,12 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         self.navigationItem.titleView = label;
         label.sizeToFit()
         
-        self.userName.text = user.getFirstName() + " " + user.getLastName()
+        if let preferredName = user.getPreferredName() {
+            self.userName.text = preferredName
+        } else {
+            self.userName.text = user.getFirstName() + " " + user.getLastName()
+        }
+        
         self.profileImageView.image = user.image
     }
 
@@ -51,14 +56,43 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         var imagePicker = UIImagePickerController()
         var sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-        if (UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)) {
-            sourceType = UIImagePickerControllerSourceType.Camera
-        }
-        
         imagePicker.delegate = self
         imagePicker.sourceType = sourceType
+
+
+        var profileImageActionOptions = UIAlertController(title: "Edit Photo", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         
-        self.presentViewController(imagePicker, animated: true, nil)
+        // cancel
+        var cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+        profileImageActionOptions.addAction(cancelAction)
+        
+        // take photo
+        if (UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)) {
+            var takePhotoAction = UIAlertAction(title: "Take Photo", style: UIAlertActionStyle.Default, handler: { alertAction in
+                sourceType = UIImagePickerControllerSourceType.Camera
+                imagePicker.sourceType = sourceType
+                self.presentViewController(imagePicker, animated: true, nil)
+            })
+            
+            profileImageActionOptions.addAction(takePhotoAction)
+            
+        }
+        
+        // choose photo
+        var choosePhotoAction = UIAlertAction(title: "Choose Photo", style: UIAlertActionStyle.Default, handler: { alertAction in
+            self.presentViewController(imagePicker, animated: true, nil)
+        })
+        profileImageActionOptions.addAction(choosePhotoAction)
+
+        // delete photo
+        var deletePhotoAction = UIAlertAction(title: "Delete Photo", style: UIAlertActionStyle.Destructive, handler: { alertAction in
+            user.deleteProfilePhoto()
+            self.profileImageView.image = nil
+        })
+        profileImageActionOptions.addAction(deletePhotoAction)
+        
+        self.presentViewController(profileImageActionOptions, animated: true, completion: nil)
+        
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {

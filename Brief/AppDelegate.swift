@@ -37,7 +37,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                         
                     self.cloudManager.fetchRecordWithID(user.userInfo!.userRecordID.recordName, completionClosure: { record in
                         
-                        user.preferredName = record.objectForKey("preferredName") as? String
+                        if let preferredName = record.objectForKey("preferredName") as? String {
+                            if (!preferredName.isEmpty) {
+                                user.preferredName = preferredName
+                            }
+                        }
+                        
                         if let photoAsset = record.objectForKey("photo") as? CKAsset {
                             var image = UIImage(contentsOfFile: photoAsset.fileURL.path!)
                             user.image = image

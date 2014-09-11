@@ -50,12 +50,29 @@ class TeamMember {
         
     }
     
+    func getPreferredName() -> String? {
+        return preferredName
+    }
+    
     func getImage() -> UIImage? {
         return self.image
     }
     
     func getDraftBrief() -> Brief {
         return self.draftBrief!
+    }
+    
+    func deleteProfilePhoto() {
+        if let recordID = userInfo?.userRecordID.recordName {
+            self.cloudManager.fetchRecordWithID(recordID, completionClosure: { record in
+                record.setObject(nil, forKey: "photo")
+                self.cloudManager.saveRecord(record, completionClosure: { completion in
+                    self.image = nil
+                })
+                
+            })
+        }
+
     }
     
     func loadDraftBrief(completionClosure: ((Bool) -> Void)) {
