@@ -56,7 +56,11 @@ class TeamMember {
     
     func updatePreferredName(name: String) {
         
-        self.preferredName = name
+        if (name.isEmpty) {
+            self.preferredName = nil
+        } else {
+            self.preferredName = name
+        }
 
         if let recordID = userInfo?.userRecordID.recordName {
             self.cloudManager.fetchRecordWithID(recordID, completionClosure: { record in

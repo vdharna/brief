@@ -44,8 +44,8 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     override func viewWillAppear(animated: Bool) {
         
-        if let preferredName = user.getPreferredName() {
-            self.userName.text = preferredName
+        if let name = user.preferredName {
+            self.userName.text = user.preferredName
         } else {
             self.userName.text = user.getFirstName() + " " + user.getLastName()
         }

@@ -79,13 +79,10 @@ class ChangePreferredNameViewController: UIViewController, UITableViewDelegate, 
         textField.delegate = self
         
         if let preferredName = user.preferredName {
-            if (!preferredName.isEmpty) {
-                self.textField.text = preferredName
-            } else {
-                textField.placeholder = "Enter Name Here"
-            }
+            self.textField.text = preferredName
+        } else {
+            textField.placeholder = "Enter Name Here"
         }
-        
         
         cell.contentView.addSubview(textField)
         
