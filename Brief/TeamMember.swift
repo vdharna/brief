@@ -54,6 +54,25 @@ class TeamMember {
         return preferredName
     }
     
+    func updatePreferredName(name: String) {
+        
+        self.preferredName = name
+
+        if let recordID = userInfo?.userRecordID.recordName {
+            self.cloudManager.fetchRecordWithID(recordID, completionClosure: { record in
+                if (name.isEmpty) {
+                    record.setObject(nil, forKey: "preferredName")
+                } else {
+                    record.setObject(name, forKey: "preferredName")
+                }
+                self.cloudManager.saveRecord(record, completionClosure: { completion in
+                })
+                
+            })
+        }
+
+    }
+    
     func getImage() -> UIImage? {
         return self.image
     }

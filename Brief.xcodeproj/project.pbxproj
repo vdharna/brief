@@ -48,6 +48,8 @@
 		6275111919BE67030058F706 /* UserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6275111719BE67030058F706 /* UserViewController.xib */; };
 		6275B5AF19A8FF5C004D7D36 /* EnableAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6275B5AD19A8FF5C004D7D36 /* EnableAccount.swift */; };
 		6275B5B019A8FF5C004D7D36 /* EnableAccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6275B5AE19A8FF5C004D7D36 /* EnableAccount.xib */; };
+		6279F9A019C2A22A00673D5A /* ChangePreferredNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6279F99E19C2A22A00673D5A /* ChangePreferredNameViewController.swift */; };
+		6279F9A119C2A22A00673D5A /* ChangePreferredNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6279F99F19C2A22A00673D5A /* ChangePreferredNameViewController.xib */; };
 		6295FAC619746D6500C338D3 /* Brief.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6295FAC519746D6500C338D3 /* Brief.swift */; };
 		629AA74819ADAFE60099FF0E /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 629AA74719ADAFE60099FF0E /* CloudKit.framework */; };
 		62ABD5F219AC0F5A003E13CD /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ABD5F119AC0F5A003E13CD /* ProgressView.swift */; };
@@ -125,6 +127,8 @@
 		6275111719BE67030058F706 /* UserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserViewController.xib; sourceTree = "<group>"; };
 		6275B5AD19A8FF5C004D7D36 /* EnableAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnableAccount.swift; sourceTree = "<group>"; };
 		6275B5AE19A8FF5C004D7D36 /* EnableAccount.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnableAccount.xib; sourceTree = "<group>"; };
+		6279F99E19C2A22A00673D5A /* ChangePreferredNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePreferredNameViewController.swift; sourceTree = "<group>"; };
+		6279F99F19C2A22A00673D5A /* ChangePreferredNameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePreferredNameViewController.xib; sourceTree = "<group>"; };
 		6295FAC519746D6500C338D3 /* Brief.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brief.swift; sourceTree = "<group>"; };
 		629AA74719ADAFE60099FF0E /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		62ABD5F119AC0F5A003E13CD /* ProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
@@ -347,6 +351,8 @@
 			children = (
 				6275111719BE67030058F706 /* UserViewController.xib */,
 				6275111619BE67030058F706 /* UserViewController.swift */,
+				6279F99E19C2A22A00673D5A /* ChangePreferredNameViewController.swift */,
+				6279F99F19C2A22A00673D5A /* ChangePreferredNameViewController.xib */,
 			);
 			name = User;
 			sourceTree = "<group>";
@@ -507,6 +513,7 @@
 				6241FB59196F2C020092B014 /* ComposeViewController.xib in Resources */,
 				62E655941992EF19001CE289 /* CommentHeaderView.xib in Resources */,
 				621B08D819B572C400CA348D /* SubmitPopUpViewController.xib in Resources */,
+				6279F9A119C2A22A00673D5A /* ChangePreferredNameViewController.xib in Resources */,
 				62C23D5E19BD50C30059ADD9 /* ShareViewController.xib in Resources */,
 				62E655921992A6A8001CE289 /* BriefItemCommentTableViewCell.xib in Resources */,
 				6241FB65196F5BB50092B014 /* AddPPPViewController.xib in Resources */,
@@ -567,6 +574,7 @@
 				622582F419802B3D000E4F27 /* CompletedBriefTableViewCell.swift in Sources */,
 				62FC24E519855A0600372D14 /* BriefArchiveDebugLoadUtility.swift in Sources */,
 				62F5D90919B2A72F000D6A58 /* ComposeItemTableViewCell.swift in Sources */,
+				6279F9A019C2A22A00673D5A /* ChangePreferredNameViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

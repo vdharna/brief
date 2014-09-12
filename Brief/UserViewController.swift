@@ -23,9 +23,9 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
         // Do any additional setup after loading the view.
         self.userProfileView.clipsToBounds = true;
-        
+        var radius = self.userProfileView.bounds.width / 2.0
         self.userProfileView.layer.borderWidth = 2.0;
-        self.userProfileView.layer.cornerRadius = 10
+        self.userProfileView.layer.cornerRadius = radius
         self.userProfileView.layer.borderColor = UIColor.blackColor().CGColor
         
         // this will appear as the title in the navigation bar
@@ -38,6 +38,12 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         self.navigationItem.titleView = label;
         label.sizeToFit()
         
+        self.table.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: "UITableViewCell")
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        
         if let preferredName = user.getPreferredName() {
             self.userName.text = preferredName
         } else {
@@ -45,8 +51,6 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
         
         self.profileImageView.image = user.image
-        
-        self.table.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: "UITableViewCell")
     }
 
     override func didReceiveMemoryWarning() {
@@ -150,6 +154,7 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = self.table.dequeueReusableCellWithIdentifier("UITableViewCell") as UITableViewCell
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
         var text = ""
         
         switch (indexPath.section) {
@@ -206,9 +211,11 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         println(indexPath)
         
         switch(indexPath.section) {
+        
         case 0:
             // throw up a modal for changing name
-            println("throw up a modal for changing name")
+            showChangeNameModal()
+            
         case 1:
             switch (indexPath.row) {
             case 0:
@@ -228,6 +235,18 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         default:
             println("No screen to show")
         }
+    }
+    
+    func showChangeNameModal() {
+        let mvc = ChangePreferredNameViewController(nibName: "ChangePreferredNameViewController", bundle: NSBundle.mainBundle())
+        
+        let nc = UINavigationController(rootViewController: mvc)
+        
+        nc.navigationBar.barTintColor = UIColor.blackColor()
+        nc.navigationBar.tintColor = UIColor.whiteColor()
+        nc.navigationBar.barStyle = UIBarStyle.BlackTranslucent
+        
+        self.navigationController?.presentViewController(nc, animated: true, completion: nil)
     }
 
 
