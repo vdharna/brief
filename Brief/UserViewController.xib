@@ -8,6 +8,7 @@
             <connections>
                 <outlet property="cameraImage" destination="TPs-3n-jih" id="EXG-d5-Wyd"/>
                 <outlet property="profileImageView" destination="sdx-pg-t32" id="K5B-SG-3d1"/>
+                <outlet property="table" destination="bTj-1P-Hv0" id="M1U-ft-ZXr"/>
                 <outlet property="userName" destination="cwx-LN-LAf" id="FSg-jD-aej"/>
                 <outlet property="userProfileView" destination="9cW-RW-RAJ" id="U6H-Lh-nTf"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -18,6 +19,9 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView userInteractionEnabled="NO" alpha="0.44999999999999962" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Golden-Gate" translatesAutoresizingMaskIntoConstraints="NO" id="uFh-xT-zlK">
+                    <rect key="frame" x="-5" y="58" width="330" height="171"/>
+                </imageView>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9cW-RW-RAJ">
                     <rect key="frame" x="120" y="90" width="90" height="90"/>
                     <subviews>
@@ -45,13 +49,14 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K9C-iX-qL0">
-                    <rect key="frame" x="8" y="223" width="304" height="30"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
-                    <state key="normal" title="Change Preferred Name">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="bTj-1P-Hv0">
+                    <rect key="frame" x="0.0" y="223" width="320" height="345"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="lO4-pF-L45"/>
+                        <outlet property="delegate" destination="-1" id="2XC-3C-Bj1"/>
+                    </connections>
+                </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
@@ -61,6 +66,7 @@
         </view>
     </objects>
     <resources>
+        <image name="Golden-Gate" width="1500" height="654"/>
         <image name="camera" width="128" height="128"/>
     </resources>
 </document>

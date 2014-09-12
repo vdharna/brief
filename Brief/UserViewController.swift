@@ -8,12 +8,13 @@
 
 import UIKit
 
-class UserViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class UserViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var userProfileView: UIView!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var cameraImage: UIImageView!
+    @IBOutlet weak var table: UITableView!
     
     var cloudManager = BriefCloudManager()
     
@@ -44,6 +45,8 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
         
         self.profileImageView.image = user.image
+        
+        self.table.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: "UITableViewCell")
     }
 
     override func didReceiveMemoryWarning() {
@@ -135,6 +138,96 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         // dismiss the modal
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    // MARK: --------------------------------
+    // MARK: UITableViewDatasource methods
+    // MARK: --------------------------------
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 3
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell = self.table.dequeueReusableCellWithIdentifier("UITableViewCell") as UITableViewCell
+        var text = ""
+        
+        switch (indexPath.section) {
+        case 0:
+            text = "Changed Preferred Display Name"
+        case 1:
+            switch (indexPath.row) {
+            case 0:
+                text = "Team Members Receiving My Briefs"
+            case 1:
+                text = "Team Members Sending Me Briefs"
+            default:
+                text = ""
+            }
+        case 2:
+            text = "Manage My Subscriptions"
+        default:
+            text = ""
+        }
+    
+        cell.textLabel?.text = text
+        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+        switch (section) {
+        case 0:
+            return 1
+        case 1:
+            return 2
+        case 2:
+            return 1
+        default:
+            return 0
+        }
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch (section) {
+        case 0:
+            return "Personal Info"
+        case 1:
+            return "Team Settings"
+        case 2:
+            return "Subscription Settings"
+        default:
+            return ""
+        }
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        println(indexPath)
+        
+        switch(indexPath.section) {
+        case 0:
+            // throw up a modal for changing name
+            println("throw up a modal for changing name")
+        case 1:
+            switch (indexPath.row) {
+            case 0:
+                // throw up modal for adding team members for Brief escalation
+                println("throw up modal for adding team members for Brief escalation")
+
+            case 1:
+                // throw up modal for adding team members for Brief reception
+                println("throw up modal for adding team members for Brief reception")
+
+            default:
+                println("No screen to show")
+            }
+        case 2:
+            // throw up modal for subscriptions
+            println("throw up modal for subscriptions")
+        default:
+            println("No screen to show")
+        }
     }
 
 
