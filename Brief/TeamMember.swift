@@ -85,12 +85,19 @@ class TeamMember {
         return self.draftBrief!
     }
     
+    func updateProfileImage(image: UIImage) {
+        
+        self.image = image
+    }
+    
     func deleteProfilePhoto() {
+        
+        self.image = nil
+
         if let recordID = userInfo?.userRecordID.recordName {
             self.cloudManager.fetchRecordWithID(recordID, completionClosure: { record in
                 record.setObject(nil, forKey: "photo")
                 self.cloudManager.saveRecord(record, completionClosure: { completion in
-                    self.image = nil
                 })
                 
             })

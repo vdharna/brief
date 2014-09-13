@@ -85,6 +85,23 @@ class BriefCloudManager {
 
     }
     
+    func discoverAllContactUserInfos(completionClosure: (userInfos :[CKDiscoveredUserInfo]) ->()) {
+        
+        self.container.discoverAllContactUserInfosWithCompletionHandler({ userInfos, error in
+            
+            if (error != nil) {
+                
+                println("\(error)")
+                
+            } else {
+                dispatch_async(dispatch_get_main_queue(), {
+                    completionClosure(userInfos: userInfos as [CKDiscoveredUserInfo])
+                })
+            }
+        })
+
+    }
+    
     func uploadAssetWithURL(assetURL: NSURL, completionHandler: (record: CKRecord) ->()) {
         
         //find the user record

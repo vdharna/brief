@@ -130,8 +130,10 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             })
         }
         
+        //update the photo for the user
+        user.updateProfileImage(image)
         // Put that image onto the screen in our image view
-        self.profileImageView.image = image
+        self.profileImageView.image = user.image
         
         // dismiss the modal
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -163,9 +165,9 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         case 1:
             switch (indexPath.row) {
             case 0:
-                text = "Team Members Receiving My Briefs"
+                text = "My Brief Recipients"
             case 1:
-                text = "Team Members Sending Me Briefs"
+                text = "Contacts Sending Me Briefs"
             default:
                 text = ""
             }
@@ -221,7 +223,7 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             case 0:
                 // throw up modal for adding team members for Brief escalation
                 println("throw up modal for adding team members for Brief escalation")
-
+                showTeamMembers()
             case 1:
                 // throw up modal for adding team members for Brief reception
                 println("throw up modal for adding team members for Brief reception")
@@ -247,6 +249,17 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         nc.navigationBar.barStyle = UIBarStyle.BlackTranslucent
         
         self.navigationController?.presentViewController(nc, animated: true, completion: nil)
+    }
+    
+    func showTeamMembers() {
+        self.cloudManager.discoverAllContactUserInfos({ userInfos in
+            
+            for userInfo in userInfos {
+                println(userInfo.userRecordID)
+                
+            }
+    
+        })
     }
 
 
