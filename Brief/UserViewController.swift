@@ -252,14 +252,17 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     func showTeamMembers() {
-        self.cloudManager.discoverAllContactUserInfos({ userInfos in
-            
-            for userInfo in userInfos {
-                println(userInfo.userRecordID)
-                
-            }
-    
-        })
+        
+        let mvc = VisibleTeamMembersViewController(nibName: "VisibleTeamMembersViewController", bundle: NSBundle.mainBundle())
+        
+        let nc = UINavigationController(rootViewController: mvc)
+        
+        nc.navigationBar.barTintColor = UIColor.blackColor()
+        nc.navigationBar.tintColor = UIColor.whiteColor()
+        nc.navigationBar.barStyle = UIBarStyle.BlackTranslucent
+        
+        self.navigationController?.presentViewController(nc, animated: true, completion: nil)
+        
     }
 
 

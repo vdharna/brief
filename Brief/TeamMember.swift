@@ -23,6 +23,7 @@ class TeamMember {
     var draftBrief:Brief?
     var completedBriefs = Array<Brief>()
     var submittedBrief = false
+    var discoverableUsers = Array<TeamMember>()
     
     private var cloudManager = BriefCloudManager()
     
@@ -275,6 +276,22 @@ class TeamMember {
             self.briefReviewers.append(teamMember)
         }
 
+    }
+    
+    func getAllDiscoverableUsers(completionClosure: ((Bool) -> ())) {
+        
+        self.discoverableUsers.removeAll(keepCapacity: true)
+        
+        self.cloudManager.discoverAllContactUserInfos({ userInfos in
+            for userInfo in userInfos {
+                var teamMember = TeamMember()
+                teamMember.userInfo = userInfo
+                self.discoverableUsers.append(teamMember)
+            }
+            dispatch_async(dispatch_get_main_queue(), {
+                completionClosure(true)
+            })
+        })
     }
     
 //    func loadArchivedBriefsTest() {

@@ -16,6 +16,8 @@
 		6215FC43199DC60000F5BD2B /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6215FC42199DC60000F5BD2B /* Status.swift */; };
 		621B08D719B572C400CA348D /* SubmitPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621B08D519B572C400CA348D /* SubmitPopUpViewController.swift */; };
 		621B08D819B572C400CA348D /* SubmitPopUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 621B08D619B572C400CA348D /* SubmitPopUpViewController.xib */; };
+		621F37A919C6A08900F02499 /* VisibleUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621F37A719C6A08900F02499 /* VisibleUserTableViewCell.swift */; };
+		621F37AA19C6A08900F02499 /* VisibleUserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 621F37A819C6A08900F02499 /* VisibleUserTableViewCell.xib */; };
 		622582F419802B3D000E4F27 /* CompletedBriefTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622582F219802B3D000E4F27 /* CompletedBriefTableViewCell.swift */; };
 		622582F519802B3D000E4F27 /* CompletedBriefTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 622582F319802B3D000E4F27 /* CompletedBriefTableViewCell.xib */; };
 		622DE57C19B936A000E3ADA1 /* TeamMemberCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 622DE57A19B936A000E3ADA1 /* TeamMemberCollectionViewCell.swift */; };
@@ -50,6 +52,8 @@
 		6275B5B019A8FF5C004D7D36 /* EnableAccount.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6275B5AE19A8FF5C004D7D36 /* EnableAccount.xib */; };
 		6279F9A019C2A22A00673D5A /* ChangePreferredNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6279F99E19C2A22A00673D5A /* ChangePreferredNameViewController.swift */; };
 		6279F9A119C2A22A00673D5A /* ChangePreferredNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6279F99F19C2A22A00673D5A /* ChangePreferredNameViewController.xib */; };
+		6279F9A419C3F51100673D5A /* VisibleTeamMembersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6279F9A219C3F51100673D5A /* VisibleTeamMembersViewController.swift */; };
+		6279F9A519C3F51100673D5A /* VisibleTeamMembersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6279F9A319C3F51100673D5A /* VisibleTeamMembersViewController.xib */; };
 		6295FAC619746D6500C338D3 /* Brief.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6295FAC519746D6500C338D3 /* Brief.swift */; };
 		629AA74819ADAFE60099FF0E /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 629AA74719ADAFE60099FF0E /* CloudKit.framework */; };
 		62ABD5F219AC0F5A003E13CD /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62ABD5F119AC0F5A003E13CD /* ProgressView.swift */; };
@@ -91,6 +95,8 @@
 		6215FC42199DC60000F5BD2B /* Status.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		621B08D519B572C400CA348D /* SubmitPopUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmitPopUpViewController.swift; sourceTree = "<group>"; };
 		621B08D619B572C400CA348D /* SubmitPopUpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubmitPopUpViewController.xib; sourceTree = "<group>"; };
+		621F37A719C6A08900F02499 /* VisibleUserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisibleUserTableViewCell.swift; sourceTree = "<group>"; };
+		621F37A819C6A08900F02499 /* VisibleUserTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisibleUserTableViewCell.xib; sourceTree = "<group>"; };
 		622582F219802B3D000E4F27 /* CompletedBriefTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedBriefTableViewCell.swift; sourceTree = "<group>"; };
 		622582F319802B3D000E4F27 /* CompletedBriefTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompletedBriefTableViewCell.xib; sourceTree = "<group>"; };
 		622DE57A19B936A000E3ADA1 /* TeamMemberCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamMemberCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -129,6 +135,8 @@
 		6275B5AE19A8FF5C004D7D36 /* EnableAccount.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnableAccount.xib; sourceTree = "<group>"; };
 		6279F99E19C2A22A00673D5A /* ChangePreferredNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePreferredNameViewController.swift; sourceTree = "<group>"; };
 		6279F99F19C2A22A00673D5A /* ChangePreferredNameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePreferredNameViewController.xib; sourceTree = "<group>"; };
+		6279F9A219C3F51100673D5A /* VisibleTeamMembersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisibleTeamMembersViewController.swift; sourceTree = "<group>"; };
+		6279F9A319C3F51100673D5A /* VisibleTeamMembersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisibleTeamMembersViewController.xib; sourceTree = "<group>"; };
 		6295FAC519746D6500C338D3 /* Brief.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brief.swift; sourceTree = "<group>"; };
 		629AA74719ADAFE60099FF0E /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		62ABD5F119AC0F5A003E13CD /* ProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
@@ -353,6 +361,10 @@
 				6275111619BE67030058F706 /* UserViewController.swift */,
 				6279F99F19C2A22A00673D5A /* ChangePreferredNameViewController.xib */,
 				6279F99E19C2A22A00673D5A /* ChangePreferredNameViewController.swift */,
+				6279F9A319C3F51100673D5A /* VisibleTeamMembersViewController.xib */,
+				6279F9A219C3F51100673D5A /* VisibleTeamMembersViewController.swift */,
+				621F37A819C6A08900F02499 /* VisibleUserTableViewCell.xib */,
+				621F37A719C6A08900F02499 /* VisibleUserTableViewCell.swift */,
 			);
 			name = User;
 			sourceTree = "<group>";
@@ -505,6 +517,7 @@
 				620097FB198C1EE70058E83B /* CharacterCountView.xib in Resources */,
 				6241FB57196F137F0092B014 /* HomeViewController.xib in Resources */,
 				6275111919BE67030058F706 /* UserViewController.xib in Resources */,
+				621F37AA19C6A08900F02499 /* VisibleUserTableViewCell.xib in Resources */,
 				62F5D90A19B2A72F000D6A58 /* ComposeItemTableViewCell.xib in Resources */,
 				6275B5B019A8FF5C004D7D36 /* EnableAccount.xib in Resources */,
 				62727F9F199946350063EA0C /* CompletedBriefCollectionViewCell.xib in Resources */,
@@ -515,6 +528,7 @@
 				621B08D819B572C400CA348D /* SubmitPopUpViewController.xib in Resources */,
 				6279F9A119C2A22A00673D5A /* ChangePreferredNameViewController.xib in Resources */,
 				62C23D5E19BD50C30059ADD9 /* ShareViewController.xib in Resources */,
+				6279F9A519C3F51100673D5A /* VisibleTeamMembersViewController.xib in Resources */,
 				62E655921992A6A8001CE289 /* BriefItemCommentTableViewCell.xib in Resources */,
 				6241FB65196F5BB50092B014 /* AddPPPViewController.xib in Resources */,
 				6261D5FC197EE3EB007B8AA3 /* MasterBriefViewController.xib in Resources */,
@@ -538,6 +552,7 @@
 				623B21BE19744C6600EC766F /* Problem.swift in Sources */,
 				62727F9E199946350063EA0C /* CompletedBriefCollectionViewCell.swift in Sources */,
 				62FC24E11983060800372D14 /* TransparentEdgesTableView.swift in Sources */,
+				621F37A919C6A08900F02499 /* VisibleUserTableViewCell.swift in Sources */,
 				62474132196CB5A10043C7E5 /* ComposeViewController.swift in Sources */,
 				620097F9198C1ED00058E83B /* CharacterCountView.swift in Sources */,
 				62ABD5F219AC0F5A003E13CD /* ProgressView.swift in Sources */,
@@ -548,6 +563,7 @@
 				6215FC43199DC60000F5BD2B /* Status.swift in Sources */,
 				623B21BA19744C4F00EC766F /* Progress.swift in Sources */,
 				62F86F0A19B03CD2006FCFA6 /* SectionHeader.swift in Sources */,
+				6279F9A419C3F51100673D5A /* VisibleTeamMembersViewController.swift in Sources */,
 				626FCD241986B44700946973 /* Share.swift in Sources */,
 				6295FAC619746D6500C338D3 /* Brief.swift in Sources */,
 				62C23D5D19BD50C30059ADD9 /* ShareViewController.swift in Sources */,

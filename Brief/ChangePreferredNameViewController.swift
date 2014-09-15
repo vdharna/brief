@@ -37,7 +37,7 @@ class ChangePreferredNameViewController: UIViewController, UITableViewDelegate, 
         
         self.navigationItem.leftBarButtonItem = cancelButton
         self.navigationItem.rightBarButtonItem = saveButton
-        self.navigationItem.title = "Compose"
+        self.navigationItem.title = "Change Name"
         
         self.automaticallyAdjustsScrollViewInsets = false
     }
