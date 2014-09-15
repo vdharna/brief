@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import CloudKit
 
 class VisibleTeamMembersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var table: UITableView!
     var cloudManager = BriefCloudManager()
+
+    var progressView = ProgressView(frame: CGRectMake(0, 0, 300, 300))
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,11 +27,10 @@ class VisibleTeamMembersViewController: UIViewController, UITableViewDataSource,
         super.viewWillAppear(animated)
         
         // start the activity spinner
-        var progressView = ProgressView(frame: CGRectMake(0, 0, 300, 300))
+        self.table.hidden = true
         self.view.addSubview(progressView)
         user.getAllDiscoverableUsers({ completed in
             self.table.reloadData()
-            progressView.removeFromSuperview()
         })
 
     }
@@ -52,8 +54,12 @@ class VisibleTeamMembersViewController: UIViewController, UITableViewDataSource,
     
     
     func configureTableView() {
-        self.table.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: "UITableViewCell")
+        var nib = UINib(nibName: "VisibleUserTableViewCell", bundle: NSBundle.mainBundle())
+        self.table.registerNib(nib, forCellReuseIdentifier: "VisibleUserTableViewCell")
         self.table.allowsMultipleSelection = true
+        
+        self.table.estimatedRowHeight = 60
+        self.table.rowHeight = UITableViewAutomaticDimension
     }
     
 
@@ -66,11 +72,36 @@ class VisibleTeamMembersViewController: UIViewController, UITableViewDataSource,
         
         var discoveredUser = user.discoverableUsers[indexPath.row]
         println(discoveredUser.userInfo?.userRecordID.recordName)
-        var cell = self.table.dequeueReusableCellWithIdentifier("UITableViewCell") as UITableViewCell
+        var cell = self.table.dequeueReusableCellWithIdentifier("VisibleUserTableViewCell") as VisibleUserTableViewCell
         var text = discoveredUser.getFirstName() + " " + discoveredUser.getLastName()
         
-        cell.textLabel?.text = text
+        if let recordName = discoveredUser.userInfo?.userRecordID.recordName {
+            self.cloudManager.fetchRecordWithID(recordName, completionClosure: { record in
+                
+                if let preferredName = record.objectForKey("preferredName") as? String {
+                    if (!preferredName.isEmpty) {
+                        text = preferredName
+                    }
+                }
+                
+                cell.userName.text = text
+                
+                if let photoAsset = record.objectForKey("photo") as? CKAsset {
+                    var image = UIImage(contentsOfFile: photoAsset.fileURL.path!)
+                    cell.profileImage.image = image
+                }
+                
+                if (indexPath.row + 1 == user.discoverableUsers.count) {
+                    self.table.hidden = false
+                    self.progressView.removeFromSuperview()
+                }
+                
+            })
+        }
+
+        
         cell.accessoryType = UITableViewCellAccessoryType.None
+        
         return cell
     }
     

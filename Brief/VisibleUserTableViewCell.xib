@@ -14,10 +14,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="contact" translatesAutoresizingMaskIntoConstraints="NO" id="fed-Kd-fDe">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="contact" translatesAutoresizingMaskIntoConstraints="NO" id="fed-Kd-fDe">
                         <rect key="frame" x="8" y="8" width="57" height="57"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="57" id="5lf-lB-9uN"/>
+                            <constraint firstAttribute="width" constant="57" id="EbN-ot-LqO"/>
+                        </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7f2-kI-U6h">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7f2-kI-U6h">
                         <rect key="frame" x="73" y="8" width="208" height="57"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -25,11 +29,20 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="fed-Kd-fDe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="K1w-0U-fry"/>
-                    <constraint firstItem="fed-Kd-fDe" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="M04-7H-Snd"/>
-                    <constraint firstItem="fed-Kd-fDe" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="zhw-ka-WCA"/>
+                    <constraint firstItem="7f2-kI-U6h" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="AVC-7g-A4y"/>
+                    <constraint firstItem="7f2-kI-U6h" firstAttribute="leading" secondItem="fed-Kd-fDe" secondAttribute="trailing" constant="8" id="HB8-By-3Dq"/>
+                    <constraint firstItem="7f2-kI-U6h" firstAttribute="leading" secondItem="fed-Kd-fDe" secondAttribute="trailing" constant="8" id="TEt-8U-NRL"/>
+                    <constraint firstItem="fed-Kd-fDe" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="TLt-ie-qRI"/>
+                    <constraint firstItem="7f2-kI-U6h" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="cj6-DK-tMu"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="7f2-kI-U6h" secondAttribute="trailing" constant="31" id="ixa-rs-pR0"/>
+                    <constraint firstItem="fed-Kd-fDe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="ly5-g8-gZg"/>
+                    <constraint firstItem="fed-Kd-fDe" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="rCW-xd-kXN"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="profileImage" destination="fed-Kd-fDe" id="3uv-bC-bAu"/>
+                <outlet property="userName" destination="7f2-kI-U6h" id="JOZ-hV-mjN"/>
+            </connections>
             <point key="canvasLocation" x="305" y="263.5"/>
         </tableViewCell>
     </objects>
