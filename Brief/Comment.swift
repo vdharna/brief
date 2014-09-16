@@ -24,8 +24,6 @@ var cloudManager = BriefCloudManager()
 
 class Comment: Equatable {
     
-
-    
     var id: String
     var content: String
     var createdDate: NSDate?
