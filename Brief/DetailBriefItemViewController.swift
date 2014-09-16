@@ -295,13 +295,22 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
     @IBAction func post() {
         
         if (!self.inputAccessoryTextView.text.isEmpty) {
-            // start the activity spinner
-            var progressView = ProgressView(frame: CGRectMake(0, 0, 300, 300))
-            self.view.addSubview(progressView)
-            
             // create the comment
             var comment = Comment(content: self.inputAccessoryTextView.text)
             comment.userReferenceID = user.userInfo?.userRecordID
+            
+            // reset the text fields and clean-up for the next entry
+            self.inputAccessoryTextView.text = ""
+            var button = self.inputAccessoryToolbar.items![2] as UIBarButtonItem
+            button.enabled = false
+            self.inputAccessoryTextView.frame.size.height = 30
+            self.inputAccessoryTextView.resignFirstResponder()
+            
+            self.textView.text = "Enter Comment..."
+            self.textView.textColor = UIColor.lightGrayColor()
+            // start the activity spinner
+            var progressView = ProgressView(frame: CGRectMake(0, 0, 300, 300))
+            self.view.addSubview(progressView)
  
             // add comment to iCloud
             cloudManager.addCommentRecord(comment, item: item, completionClosure: { record in
@@ -317,15 +326,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
                     
                     progressView.removeFromSuperview()
                     
-                    // reset the text fields and clean-up for the next entry
-                    self.inputAccessoryTextView.text = ""
-                    var button = self.inputAccessoryToolbar.items![2] as UIBarButtonItem
-                    button.enabled = false
-                    self.inputAccessoryTextView.frame.size.height = 30
-                    self.inputAccessoryTextView.resignFirstResponder()
-                    
-                    self.textView.text = "Enter Comment..."
-                    self.textView.textColor = UIColor.lightGrayColor()
+
                     
                     self.scrollToBottom()
 
