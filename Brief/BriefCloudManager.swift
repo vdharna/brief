@@ -296,8 +296,6 @@ class BriefCloudManager {
         var record: CKRecord = CKRecord(recordType: CommentRecordType)
         // add the content
         record.setObject(comment.content, forKey: CommentContentField)
-        // add the user
-        record.setObject(user.getFirstName(), forKey: CreatedByField)
         // add the reference
         var itemRecordID = CKRecordID(recordName: item.id)
         var reference = CKReference(recordID: itemRecordID, action: .DeleteSelf)
@@ -311,6 +309,9 @@ class BriefCloudManager {
                 println("An error occured saving record: \(error)")
                 
             } else {
+                
+                // add the created date
+                comment.createdDate = record.objectForKey(CreatedDateField) as NSDate
                 
                 // update the boolean for the item since it now has a comment
                 self.fetchRecordWithID(item.getId(), completionClosure: { record in

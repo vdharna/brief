@@ -81,23 +81,28 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
         item.loadCommentsFromiCloud({ completed in
 
             var comments = self.item.comments
-            var index = 0
             
-            for comment in comments {
-                index++
-                comment.loadUserInfo( { completed in
-                    if (index == comments.count) {
-                        self.table.reloadData()
-                        progressView.removeFromSuperview()
-                        self.determineNoCommentLabelVisibility()
-                    }
-                })
+            if (comments.isEmpty) {
                 
-
+                progressView.removeFromSuperview()
+                self.determineNoCommentLabelVisibility()
                 
+            } else {
+                
+                var index = 0
+                
+                for comment in comments {
+                    index++
+                    comment.loadUserInfo( { completed in
+                        if (index == comments.count) {
+                            self.table.reloadData()
+                            progressView.removeFromSuperview()
+                            self.determineNoCommentLabelVisibility()
+                        }
+                    })
+                }
             }
-
-
+            
         })        
     }
     
@@ -296,8 +301,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
             
             // create the comment
             var comment = Comment(content: self.inputAccessoryTextView.text)
-            comment.createdBy = user.userInfo!.firstName
-            comment.createdDate = NSDate()
+            comment.userReferenceID = user.userInfo?.userRecordID
             
             // add locally
             self.item.addComment(comment)
@@ -321,6 +325,10 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
             
             // add comment to iCloud
             cloudManager.addCommentRecord(comment, item: item, completionClosure: { record in
+                
+                comment.loadUserInfo({ completed in
+                    self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+                })
 
             })
 
