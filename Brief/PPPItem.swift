@@ -72,17 +72,17 @@ class PPPItem {
         
         self.cloudManager.queryForCommmentsWithReferenceNamed(self.id, completionClosure: { records in
                         
-            for i in (0 ..< records.count) {
+            for record in records {
                 
-                var id = records[i].recordID.recordName
-                var content = records[i].objectForKey(CommentContentField) as String
-                var createdDate = records[i].objectForKey(CreatedDateField) as NSDate
-                var createdBy = records[i].objectForKey(CreatedByField) as String
+                var id = record.recordID.recordName
+                var content = record.objectForKey(CommentContentField) as String
+                var createdDate = record.objectForKey(CreatedDateField) as NSDate
+                var userReference = record.objectForKey("creatorUserRecordID") as CKRecordID
                 
                 var comment = Comment(content: content)
                 comment.id = id
                 comment.createdDate = createdDate
-                comment.createdBy = createdBy
+                comment.userReferenceID = userReference
                 
                 self.addComment(comment)
             }

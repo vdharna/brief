@@ -77,12 +77,26 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
         
         // start the activity spinner
         var progressView = ProgressView(frame: CGRectMake(0, 0, 300, 300))
-        progressView.captionText = "Loading Comments..."
         self.view.addSubview(progressView)
         item.loadCommentsFromiCloud({ completed in
-            self.table.reloadData()
-            progressView.removeFromSuperview()
-            self.determineNoCommentLabelVisibility()
+
+            var comments = self.item.comments
+            var index = 0
+            
+            for comment in comments {
+                index++
+                comment.loadUserInfo( { completed in
+                    if (index == comments.count) {
+                        self.table.reloadData()
+                        progressView.removeFromSuperview()
+                        self.determineNoCommentLabelVisibility()
+                    }
+                })
+                
+
+                
+            }
+
 
         })        
     }
