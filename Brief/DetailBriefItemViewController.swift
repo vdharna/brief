@@ -78,32 +78,39 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
         // start the activity spinner
         var progressView = ProgressView(frame: CGRectMake(0, 0, 300, 300))
         self.view.addSubview(progressView)
-        item.loadCommentsFromiCloud({ completed in
-
-            var comments = self.item.comments
-            
-            if (comments.isEmpty) {
-                
-                progressView.removeFromSuperview()
-                self.determineNoCommentLabelVisibility()
-                
-            } else {
-                
-                var index = 0
-                
-                for comment in comments {
-                    index++
-                    comment.loadUserInfo( { completed in
-                        if (index == comments.count) {
-                            self.table.reloadData()
-                            progressView.removeFromSuperview()
-                            self.determineNoCommentLabelVisibility()
-                        }
-                    })
-                }
-            }
-            
-        })        
+        
+        item.loadComments({ completed in
+            self.table.reloadData()
+            progressView.removeFromSuperview()
+            self.determineNoCommentLabelVisibility()
+        })
+        
+//        item.loadCommentsFromiCloud({ completed in
+//
+//            var comments = self.item.comments
+//            
+//            if (comments.isEmpty) {
+//                
+//                progressView.removeFromSuperview()
+//                self.determineNoCommentLabelVisibility()
+//                
+//            } else {
+//                
+//                var index = 0
+//                
+//                for comment in comments {
+//                    index++
+//                    comment.loadUserInfo( { completed in
+//                        if (index == comments.count) {
+//                            self.table.reloadData()
+//                            progressView.removeFromSuperview()
+//                            self.determineNoCommentLabelVisibility()
+//                        }
+//                    })
+//                }
+//            }
+//            
+//        })        
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -325,8 +332,6 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
                     self.determineNoCommentLabelVisibility()
                     
                     progressView.removeFromSuperview()
-                    
-
                     
                     self.scrollToBottom()
 

@@ -283,32 +283,46 @@ class TeamMember {
         self.discoverableUsers.removeAll(keepCapacity: true)
         
         self.cloudManager.discoverAllContactUserInfos({ userInfos in
+            
+            var recordIDs = Array<CKRecordID>()
+            
             for userInfo in userInfos {
                 var teamMember = TeamMember()
                 teamMember.userInfo = userInfo
+                self.discoverableUsers.append(teamMember)
                 
-                self.cloudManager.fetchRecordWithID(userInfo.userRecordID.recordName, completionClosure: { record in
+                recordIDs.append(userInfo.userRecordID)
+            }
+            
+            var fetchRecords = CKFetchRecordsOperation(recordIDs: recordIDs)
+            
+            fetchRecords.fetchRecordsCompletionBlock = { recordsByRecordID, operationError in
+                
+                for teamMember in self.discoverableUsers {
                     
-                    if let preferredName = record.objectForKey("preferredName") as? String {
-                        if (!preferredName.isEmpty) {
-                            teamMember.preferredName = preferredName
+                    if let userInfo = teamMember.userInfo {
+                        var record = recordsByRecordID[userInfo.userRecordID] as CKRecord
+                        
+                        if let preferredName = record.objectForKey("preferredName") as? String {
+                            if (!preferredName.isEmpty) {
+                                teamMember.preferredName = preferredName
+                            }
+                        }
+                        
+                        if let photoAsset = record.objectForKey("photo") as? CKAsset {
+                            var image = UIImage(contentsOfFile: photoAsset.fileURL.path!)
+                            teamMember.image = image
                         }
                     }
                     
-                    if let photoAsset = record.objectForKey("photo") as? CKAsset {
-                        var image = UIImage(contentsOfFile: photoAsset.fileURL.path!)
-                        teamMember.image = image
-                    }
-                    
-                })
+                }
                 
-                self.discoverableUsers.append(teamMember)
+                dispatch_async(dispatch_get_main_queue(), {
+                    completionClosure(true)
+                })
             }
-            dispatch_async(dispatch_get_main_queue(), {
-                completionClosure(true)
-            })
+            
+            self.cloudManager.publicDatabase.addOperation(fetchRecords)
         })
-        
-        
     }
 }
