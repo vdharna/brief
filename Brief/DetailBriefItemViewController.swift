@@ -84,33 +84,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
             progressView.removeFromSuperview()
             self.determineNoCommentLabelVisibility()
         })
-        
-//        item.loadCommentsFromiCloud({ completed in
-//
-//            var comments = self.item.comments
-//            
-//            if (comments.isEmpty) {
-//                
-//                progressView.removeFromSuperview()
-//                self.determineNoCommentLabelVisibility()
-//                
-//            } else {
-//                
-//                var index = 0
-//                
-//                for comment in comments {
-//                    index++
-//                    comment.loadUserInfo( { completed in
-//                        if (index == comments.count) {
-//                            self.table.reloadData()
-//                            progressView.removeFromSuperview()
-//                            self.determineNoCommentLabelVisibility()
-//                        }
-//                    })
-//                }
-//            }
-//            
-//        })        
+             
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -274,7 +248,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
 
         
         // set the author picture
-        cell.authorImage.image = UIImage(named: "avatar.png")
+        cell.authorImage.image = item.comments[indexPath.row].image
         
         // set the author name
         cell.commentAuthor.text = item.comments[indexPath.row].createdBy

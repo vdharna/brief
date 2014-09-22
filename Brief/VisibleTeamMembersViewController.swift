@@ -71,7 +71,6 @@ class VisibleTeamMembersViewController: UIViewController, UITableViewDataSource,
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var discoveredUser = user.discoverableUsers[indexPath.row]
-        println(discoveredUser.userInfo?.userRecordID.recordName)
         var cell = self.table.dequeueReusableCellWithIdentifier("VisibleUserTableViewCell") as VisibleUserTableViewCell
         var text = discoveredUser.getFirstName() + " " + discoveredUser.getLastName()
         
