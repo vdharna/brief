@@ -34,7 +34,7 @@ class Comment: Equatable {
     var userReferenceID: CKRecordID! // used to lookup the user reference
     
     init(content: String) {
-        self.id = NSUUID.UUID().UUIDString
+        self.id = NSUUID().UUIDString
         self.content = content
 
     }

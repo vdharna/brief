@@ -149,7 +149,7 @@ class HomeViewController: UIViewController {
         var size = CGSizeMake(17, 18)
         
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-        userImage.drawInRect(CGRectMake(0, 0, size.width, size.height))
+        userImage?.drawInRect(CGRectMake(0, 0, size.width, size.height))
         var newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         

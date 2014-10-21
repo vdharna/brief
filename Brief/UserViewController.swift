@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDataSource, UITableViewDelegate {
+class UserViewController: UIViewController {
 
     @IBOutlet weak var userProfileView: UIView!
     @IBOutlet weak var profileImageView: UIImageView!
@@ -102,143 +102,6 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
-        
-        // Get picked image from info dictionary
-        var image = info[UIImagePickerControllerOriginalImage] as UIImage
-        
-        var newSize = CGSizeMake(256, 256);
-        
-        if (image.size.width > image.size.height) {
-            newSize.height = round(newSize.width * image.size.height / image.size.width);
-        } else {
-            newSize.width = round(newSize.height * image.size.width / image.size.height);
-        }
-        
-        UIGraphicsBeginImageContext(newSize)
-        image.drawInRect(CGRectMake(0, 0, newSize.width, newSize.height))
-        var data = UIImagePNGRepresentation(UIGraphicsGetImageFromCurrentImageContext())
-        UIGraphicsEndImageContext();
-        
-        // write the image out to a cache file
-        var cachesDirectory = NSFileManager.defaultManager().URLForDirectory(NSSearchPathDirectory.CachesDirectory, inDomain: NSSearchPathDomainMask.UserDomainMask, appropriateForURL: nil, create: true, error: nil)
-        var temporaryName = NSUUID.UUID().UUIDString + ".png"
-        if let localURL = cachesDirectory?.URLByAppendingPathComponent(temporaryName) {
-            data.writeToURL(localURL, atomically: true)
-            self.cloudManager.uploadAssetWithURL(localURL, completionHandler: { record in
-                
-            })
-        }
-        
-        //update the photo for the user
-        user.updateProfileImage(image)
-        // Put that image onto the screen in our image view
-        self.profileImageView.image = user.image
-        
-        // dismiss the modal
-        self.dismissViewControllerAnimated(true, completion: nil)
-
-    }
-    
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        
-        // dismiss the modal
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    // MARK: --------------------------------
-    // MARK: UITableViewDatasource methods
-    // MARK: --------------------------------
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = self.table.dequeueReusableCellWithIdentifier("UITableViewCell") as UITableViewCell
-        cell.selectionStyle = UITableViewCellSelectionStyle.None
-        var text = ""
-        
-        switch (indexPath.section) {
-        case 0:
-            text = "Changed Preferred Display Name"
-        case 1:
-            switch (indexPath.row) {
-            case 0:
-                text = "My Brief Recipients"
-            case 1:
-                text = "Contacts Sending Me Briefs"
-            default:
-                text = ""
-            }
-        case 2:
-            text = "Manage My Subscriptions"
-        default:
-            text = ""
-        }
-    
-        cell.textLabel?.text = text
-        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        switch (section) {
-        case 0:
-            return 1
-        case 1:
-            return 2
-        case 2:
-            return 1
-        default:
-            return 0
-        }
-    }
-    
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch (section) {
-        case 0:
-            return "Personal Info"
-        case 1:
-            return "Team Settings"
-        case 2:
-            return "Subscription Settings"
-        default:
-            return ""
-        }
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        println(indexPath)
-        
-        switch(indexPath.section) {
-        
-        case 0:
-            // throw up a modal for changing name
-            showChangeNameModal()
-            
-        case 1:
-            switch (indexPath.row) {
-            case 0:
-                // throw up modal for adding team members for Brief escalation
-                println("throw up modal for adding team members for Brief escalation")
-                showTeamMembers()
-            case 1:
-                // throw up modal for adding team members for Brief reception
-                println("throw up modal for adding team members for Brief reception")
-
-            default:
-                println("No screen to show")
-            }
-        case 2:
-            // throw up modal for subscriptions
-            println("throw up modal for subscriptions")
-        default:
-            println("No screen to show")
-        }
-    }
-    
     func showChangeNameModal() {
         let mvc = ChangePreferredNameViewController(nibName: "ChangePreferredNameViewController", bundle: NSBundle.mainBundle())
         
@@ -267,3 +130,163 @@ class UserViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
 
 }
+
+// MARK: --------------------------------
+// MARK: UITableViewDatasource
+// MARK: --------------------------------
+
+extension UserViewController: UITableViewDataSource {
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 3
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell = self.table.dequeueReusableCellWithIdentifier("UITableViewCell") as UITableViewCell
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        var text = ""
+        
+        switch (indexPath.section) {
+        case 0:
+            text = "Changed Preferred Display Name"
+        case 1:
+            switch (indexPath.row) {
+            case 0:
+                text = "My Brief Recipients"
+            case 1:
+                text = "Contacts Sending Me Briefs"
+            default:
+                text = ""
+            }
+        case 2:
+            text = "Manage My Subscriptions"
+        default:
+            text = ""
+        }
+        
+        cell.textLabel.text = text
+        cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        switch (section) {
+        case 0:
+            return 1
+        case 1:
+            return 2
+        case 2:
+            return 1
+        default:
+            return 0
+        }
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch (section) {
+        case 0:
+            return "Personal Info"
+        case 1:
+            return "Team Settings"
+        case 2:
+            return "Subscription Settings"
+        default:
+            return ""
+        }
+    }
+    
+
+    
+}
+
+// MARK: --------------------------------
+// MARK: UITableViewDelegate methods
+// MARK: --------------------------------
+
+extension UserViewController: UITableViewDelegate {
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        println(indexPath)
+        
+        switch(indexPath.section) {
+            
+        case 0:
+            // throw up a modal for changing name
+            showChangeNameModal()
+            
+        case 1:
+            switch (indexPath.row) {
+            case 0:
+                // throw up modal for adding team members for Brief escalation
+                println("throw up modal for adding team members for Brief escalation")
+                showTeamMembers()
+            case 1:
+                // throw up modal for adding team members for Brief reception
+                println("throw up modal for adding team members for Brief reception")
+                
+            default:
+                println("No screen to show")
+            }
+        case 2:
+            // throw up modal for subscriptions
+            println("throw up modal for subscriptions")
+        default:
+            println("No screen to show")
+        }
+    }
+    
+}
+
+// MARK: --------------------------------
+// MARK: UIImagePickerControllerDelegate
+// MARK: --------------------------------
+
+extension UserViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+        
+        // Get picked image from info dictionary
+        var image = info[UIImagePickerControllerOriginalImage] as UIImage
+        
+        var newSize = CGSizeMake(256, 256);
+        
+        if (image.size.width > image.size.height) {
+            newSize.height = round(newSize.width * image.size.height / image.size.width);
+        } else {
+            newSize.width = round(newSize.height * image.size.width / image.size.height);
+        }
+        
+        UIGraphicsBeginImageContext(newSize)
+        image.drawInRect(CGRectMake(0, 0, newSize.width, newSize.height))
+        var data = UIImagePNGRepresentation(UIGraphicsGetImageFromCurrentImageContext())
+        UIGraphicsEndImageContext();
+        
+        // write the image out to a cache file
+        var cachesDirectory = NSFileManager.defaultManager().URLForDirectory(NSSearchPathDirectory.CachesDirectory, inDomain: NSSearchPathDomainMask.UserDomainMask, appropriateForURL: nil, create: true, error: nil)
+        var temporaryName = NSUUID().UUIDString + ".png"
+        if let localURL = cachesDirectory?.URLByAppendingPathComponent(temporaryName) {
+            data.writeToURL(localURL, atomically: true)
+            self.cloudManager.uploadAssetWithURL(localURL, completionHandler: { record in
+                
+            })
+        }
+        
+        //update the photo for the user
+        user.updateProfileImage(image)
+        // Put that image onto the screen in our image view
+        self.profileImageView.image = user.image
+        
+        // dismiss the modal
+        self.dismissViewControllerAnimated(true, completion: nil)
+        
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        
+        // dismiss the modal
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+}
+

@@ -9,7 +9,7 @@
 import UIKit
 import CloudKit
 
-class VisibleTeamMembersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class VisibleTeamMembersViewController: UIViewController {
 
     @IBOutlet weak var table: UITableView!
     var cloudManager = BriefCloudManager()
@@ -62,11 +62,29 @@ class VisibleTeamMembersViewController: UIViewController, UITableViewDataSource,
         self.table.rowHeight = UITableViewAutomaticDimension
     }
     
-
     // MARK: --------------------------------
-    // MARK: UITableViewDatasource methods
+    // MARK: Action methods
     // MARK: --------------------------------
     
+    func dismissModal() {
+        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+        
+    }
+    
+    func save() {
+        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+
+// MARK: --------------------------------
+// MARK: UITableViewDatasource methods
+// MARK: --------------------------------
+
+extension VisibleTeamMembersViewController: UITableViewDataSource {
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return user.discoverableUsers.count
+    }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -97,12 +115,14 @@ class VisibleTeamMembersViewController: UIViewController, UITableViewDataSource,
                 
             })
         }
-
         
         cell.accessoryType = UITableViewCellAccessoryType.None
         
         return cell
     }
+}
+
+extension VisibleTeamMembersViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var cell = self.table.cellForRowAtIndexPath(indexPath)
@@ -114,22 +134,4 @@ class VisibleTeamMembersViewController: UIViewController, UITableViewDataSource,
         cell?.accessoryType = UITableViewCellAccessoryType.None
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return user.discoverableUsers.count
-    }
-    
-    // MARK: --------------------------------
-    // MARK: Action methods
-    // MARK: --------------------------------
-    
-    func dismissModal() {
-        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-        
-    }
-    
-    func save() {
-        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-    }
-
-
 }

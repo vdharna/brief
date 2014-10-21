@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITableViewDelegate, UITableViewDataSource {
+class DetailBriefItemViewController: UIViewController {
     
     // MARK: --------------------------------
     // MARK: Properties
@@ -95,7 +95,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
     // MARK: View setup Methods
     // MARK: --------------------------------
     
-    func configureTextViews() {
+    private func configureTextViews() {
         
         textView = UITextView(frame: CGRectMake(0, 0, 290, 30))
         inputAccessoryTextView = UITextView(frame: CGRectMake(0, 0, 215, 30))
@@ -114,7 +114,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
 
     }
     
-    func configureInputAccessoryToolbar() {
+    private func configureInputAccessoryToolbar() {
         
         // docked toolbar
         inputAccessoryToolbar = UIToolbar(frame: CGRectMake(0, 524, 320, 44))
@@ -139,7 +139,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
         
     }
     
-    func configureDockedToolbar() {
+    private func configureDockedToolbar() {
         
         // docked toolbar
         toolbar = UIToolbar(frame: CGRectMake(0, 524, 320, 44))
@@ -158,7 +158,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
         self.view.addSubview(toolbar)
     }
     
-    func configureTableView() {
+    private func configureTableView() {
         
         // load the custom cell via NIB
         var nib = UINib(nibName: cellName, bundle: NSBundle.mainBundle())
@@ -178,95 +178,7 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
         
     }
     
-    // MARK: --------------------------------
-    // MARK: UITextView Delegate Methods
-    // MARK: --------------------------------
-    
-    func textViewDidBeginEditing(textView: UITextView!) {
-        
-        if (table.numberOfRowsInSection(0) > 0) {
-            scrollToLastVisibleRow()
-        }
-        
-        if (textView == self.textView) {
-            dispatch_async(dispatch_get_main_queue(), {
-                self.inputAccessoryTextView.text = ""
-                self.inputAccessoryTextView.becomeFirstResponder()
-                })
-        }
 
-    }
-    
-    func textViewShouldBeginEditing(textView: UITextView!) -> Bool {
-        
-        if (textView == self.textView) {
-            return !inputAccessoryTextView.isFirstResponder()
-        }
-        return true
-    }
-    
-    func textViewDidEndEditing(textView: UITextView!) {
-        
-        if (textView == inputAccessoryTextView) {
-            self.textView.text = textView.text
-        }
-    }
-    
-    func textViewDidChange(textView: UITextView!) {
-        var frame = textView.frame;
-        var size = frame.size.height
-        var inset = textView.contentInset
-        frame.size.height = textView.contentSize.height + inset.top + inset.bottom
-        var heightIncrement = frame.size.height - size
-        if (heightIncrement != 0) {
-            textView.frame = frame;
-            
-            //new height value for toolbar
-            self.inputAccessoryToolbar.frame.size.height += heightIncrement
-            //adjust the y value
-            self.inputAccessoryToolbar.frame.origin.y -= heightIncrement
-            
-        }
-        
-        var button = self.inputAccessoryToolbar.items![2] as UIBarButtonItem
-        if (!textView.text.isEmpty) {
-            button.enabled = true
-        } else {
-            button.enabled = false
-
-        }
-        
-    }
-    
-    // MARK: --------------------------------
-    // MARK: UITableView Delegate Methods
-    // MARK: --------------------------------
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        var cell = self.table.dequeueReusableCellWithIdentifier(cellName, forIndexPath: indexPath) as BriefItemCommentTableViewCell
-
-        
-        // set the author picture
-        cell.authorImage.image = item.comments[indexPath.row].image
-        
-        // set the author name
-        cell.commentAuthor.text = item.comments[indexPath.row].createdBy
-        
-        // set the number of days elapsed since posting
-      //  cell.commentTimestamp.text = item.comments[indexPath.row].getElapsedTime()
-
-        //set the actual comment content
-        cell.commentContent.numberOfLines = 0
-        
-        cell.commentContent.text = item.comments[indexPath.row].content
-
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return item.commentsCount()
-    }
     
     
     // MARK: --------------------------------
@@ -318,19 +230,19 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
     }
     
     
-    func scrollToBottom() {
+    private func scrollToBottom() {
 
         self.table.scrollToRowAtIndexPath(NSIndexPath(forRow: self.item.commentsCount() - 1, inSection: 0), atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
 
     }
     
-    func scrollToLastVisibleRow() {
+    private func scrollToLastVisibleRow() {
         
         var keyboardHeight = 300.0
         self.table.setContentOffset(CGPointMake(0, self.table.contentSize.height - 230), animated: true)
     }
     
-    func determineNoCommentLabelVisibility() {
+    private func determineNoCommentLabelVisibility() {
         
         // if the comment count is 0 then hide the table and show the label
         if (self.item?.commentsCount() == 0) {
@@ -349,4 +261,106 @@ class DetailBriefItemViewController: UIViewController, UITextViewDelegate, UITab
 
 }
 
+// MARK: --------------------------------
+// MARK: UITextView Delegate Methods
+// MARK: --------------------------------
+
+extension DetailBriefItemViewController: UITextViewDelegate {
+
+    
+    func textViewDidBeginEditing(textView: UITextView!) {
+        
+        if (table.numberOfRowsInSection(0) > 0) {
+            scrollToLastVisibleRow()
+        }
+        
+        if (textView == self.textView) {
+            dispatch_async(dispatch_get_main_queue(), {
+                self.inputAccessoryTextView.text = ""
+                self.inputAccessoryTextView.becomeFirstResponder()
+            })
+        }
+        
+    }
+    
+    func textViewShouldBeginEditing(textView: UITextView!) -> Bool {
+        
+        if (textView == self.textView) {
+            return !inputAccessoryTextView.isFirstResponder()
+        }
+        return true
+    }
+    
+    func textViewDidEndEditing(textView: UITextView!) {
+        
+        if (textView == inputAccessoryTextView) {
+            self.textView.text = textView.text
+        }
+    }
+    
+    func textViewDidChange(textView: UITextView!) {
+        var frame = textView.frame;
+        var size = frame.size.height
+        var inset = textView.contentInset
+        frame.size.height = textView.contentSize.height + inset.top + inset.bottom
+        var heightIncrement = frame.size.height - size
+        if (heightIncrement != 0) {
+            textView.frame = frame;
+            
+            //new height value for toolbar
+            self.inputAccessoryToolbar.frame.size.height += heightIncrement
+            //adjust the y value
+            self.inputAccessoryToolbar.frame.origin.y -= heightIncrement
+            
+        }
+        
+        var button = self.inputAccessoryToolbar.items![2] as UIBarButtonItem
+        if (!textView.text.isEmpty) {
+            button.enabled = true
+        } else {
+            button.enabled = false
+            
+        }
+        
+    }
+}
+
+extension DetailBriefItemViewController: UITableViewDelegate {
+    
+}
+
+
+// MARK: --------------------------------
+// MARK: UITableViewDatasource Methods
+// MARK: --------------------------------
+
+extension DetailBriefItemViewController: UITableViewDataSource {
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        var cell = self.table.dequeueReusableCellWithIdentifier(cellName, forIndexPath: indexPath) as BriefItemCommentTableViewCell
+        
+        
+        // set the author picture
+        cell.authorImage.image = item.comments[indexPath.row].image
+        
+        // set the author name
+        cell.commentAuthor.text = item.comments[indexPath.row].createdBy
+        
+        // set the number of days elapsed since posting
+        //  cell.commentTimestamp.text = item.comments[indexPath.row].getElapsedTime()
+        
+        //set the actual comment content
+        cell.commentContent.numberOfLines = 0
+        
+        cell.commentContent.text = item.comments[indexPath.row].content
+        
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return item.commentsCount()
+    }
+    
+}
 

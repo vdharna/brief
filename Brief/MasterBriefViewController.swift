@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class MasterBriefViewController: UIViewController {
     
     // MARK: --------------------------------
     // MARK: Properties
@@ -32,9 +32,7 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
     private var selectedIndexPath:NSIndexPath?
     
     private var cloudManager = BriefCloudManager()
-    
-    let shareTransitionDelegate = ShareTransitioningDelegate()
-    
+        
     // MARK: --------------------------------
     // MARK: Initializers
     // MARK: --------------------------------
@@ -127,12 +125,12 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         // Dispose of any resources that can be recreated.
     }
     
-    func configureNavBar() {
+    private func configureNavBar() {
         self.navigationItem.title = "Completed Briefs"
         
     }
     
-    func configureTableView() {
+    private func configureTableView() {
         
         // load the custom cell via NIB
         var nib = UINib(nibName: tableViewCellName, bundle: NSBundle.mainBundle())
@@ -150,7 +148,7 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         self.table.sectionHeaderHeight = UITableViewAutomaticDimension
     }
     
-    func configureCollectionView() {
+    private func configureCollectionView() {
         
         // load the custom cell via NIB
         var nib = UINib(nibName: collectionViewCellName, bundle: NSBundle.mainBundle())
@@ -165,10 +163,201 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         
         self.collectionView.setCollectionViewLayout(cvfl, animated: true)
     }
+
     
-    // MARK: ------------------------------------
-    // MARK: UITableViewDataSource implementation
-    // MARK: ------------------------------------
+    // MARK: --------------------------------
+    // MARK: Action Methods
+    // MARK: --------------------------------
+    
+    private func refresh(refreshControl:UIRefreshControl) {
+        
+        user.findBriefById(selectedBrief!.id, completionClosure: { brief in
+            self.selectedBrief = brief
+            self.table.reloadData()
+            refreshControl.endRefreshing()
+        })
+    }
+    
+    // MARK: --------------------------------
+    // MARK: Utility Methods
+    // MARK: --------------------------------
+    private func loadInitialBrief(completionClosure: ((Bool) -> Void)) {
+
+        self.selectedBrief = user.getMostRecentBrief()
+        self.selectedIndexPath = NSIndexPath(forItem: 0, inSection: 0)
+        self.collectionView.scrollToItemAtIndexPath(self.selectedIndexPath!, atScrollPosition: UICollectionViewScrollPosition.None, animated: true)
+        
+        self.selectedBrief!.loadPPPItems({ completed in
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                completionClosure(completed)
+            })
+        })
+
+    
+    }
+    
+    private func getPPPItem(indexPath: NSIndexPath) -> PPPItem {
+        
+        switch(indexPath.section) {
+            
+        case 0:
+            return selectedBrief!.progress[indexPath.row]
+            
+        case 1:
+            return selectedBrief!.plans[indexPath.row]
+            
+        case 2:
+            return selectedBrief!.problems[indexPath.row]
+            
+        default:
+            return PPPItem(content: "")
+            
+        }
+        
+    }
+    
+}
+
+// MARK: --------------------------------
+// MARK: TableView Delegate Methods
+// MARK: --------------------------------
+
+extension MasterBriefViewController: UITableViewDelegate {
+    
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject] {
+        
+        var item: PPPItem = self.getPPPItem(indexPath)
+        if (item.id.isEmpty) {
+            return []
+        }
+        var flagActionTitle = " Flag "
+        // create flag title
+        if (item.isFlagged()) {
+            flagActionTitle = "Unflag"
+        }
+        
+        var flagRowAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: flagActionTitle, handler:{action, indexpath in
+            
+            // update the model to reflect the action
+            item.setFlag(!item.isFlagged()) //set the opposite
+            //update the view
+            self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
+            // update iCloud to reflect this change
+            self.cloudManager.fetchRecordWithID(item.id, completionClosure: { record in
+                
+                record.setObject(item.isFlagged(), forKey:"flag")
+                self.cloudManager.saveRecord(record, completionClosure: { completed in
+                })
+            })
+        });
+        flagRowAction.backgroundColor = UIColor.orangeColor()
+        
+        // notify action
+        var notifyRowAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Notify", handler:{ action, indexpath in
+            
+            var itemId = item.getId()
+            
+            var alertTitle = "Receive notifications when anyone replies to this thread"
+            var notifyTitle = "Notify Me"
+            if (user.containsNotification(itemId)) {
+                alertTitle = "Stop receiving notifications on this thread"
+                notifyTitle = "Stop Notifying"
+            }
+            
+            var alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+            
+            var cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+                (alertAction: UIAlertAction!) in
+                self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
+            })
+            
+            var notifyAction = UIAlertAction(title: notifyTitle, style: .Default, handler: {
+                (alertAction: UIAlertAction!) in
+                
+                if (user.containsNotification(itemId)){
+                    user.removeNotification(itemId)
+                    self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
+                } else {
+                    user.addNotification(item, completionClosure: { completed in
+                        self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
+                    })
+                }
+                
+            })
+            
+            alert.addAction(cancelAction)
+            alert.addAction(notifyAction)
+            
+            self.presentViewController(alert, animated: true, completion: {})
+        });
+        notifyRowAction.backgroundColor = UIColor.blueColor();
+        
+        // share action
+        var shareRowAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Share", handler: { action, indexpath in
+            
+            let shareVC = UIActivityViewController(activityItems: [item.content], applicationActivities: nil)
+            shareVC.excludedActivityTypes = [UIActivityTypePostToFacebook]
+            self.presentViewController(shareVC, animated: true, completion: {
+                
+                self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
+                
+            })
+            
+        });
+        shareRowAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
+        
+        return [shareRowAction, notifyRowAction, flagRowAction];
+    }
+    
+    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+        
+        var briefItemDetailVC = DetailBriefItemViewController(nibName: "DetailBriefItemViewController", bundle: NSBundle.mainBundle())
+        
+        //get reference to the cell
+        var cell = self.table.cellForRowAtIndexPath(indexPath) as CompletedBriefTableViewCell
+        var item = selectedBrief!.findItemById(cell.itemID)
+        briefItemDetailVC.item = item
+        self.navigationController?.pushViewController(briefItemDetailVC, animated: true)
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView {
+        
+        var string = ""
+        
+        switch(section) {
+            
+        case 0: string = "Progress"
+            
+        case 1: string = "Plans"
+            
+        case 2: string = "Problems"
+            
+        default: string = ""
+        }
+        
+        var bundle = NSBundle.mainBundle()
+        var headerView = (bundle.loadNibNamed("SectionHeader", owner: self, options: nil)[0] as SectionHeader)
+        headerView.label1.text = string
+        
+        return headerView
+    }
+    
+    func tableView(tableView: UITableView!, willDisplayHeaderView view: UIView!, forSection section: Int) {
+    }
+    
+    func tableView(tableView: UITableView!, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        return 24
+    }
+    
+}
+
+// MARK: ------------------------------------
+// MARK: UITableViewDataSource implementation
+// MARK: ------------------------------------
+
+extension MasterBriefViewController: UITableViewDataSource {
     
     // Asks the data source for a cell to insert in a particular location of the table view. (required)
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -211,8 +400,8 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
             var image = UIImageView(frame: CGRectMake(1, 5, 10, 10))
             image.image = UIImage(named: "alarm.png")
             notificationLabel.addSubview(image)
-
-    
+            
+            
             if (cell.view1.viewWithTag(1) == nil) { //no flag icon is set
                 
                 // unset all images that CAN render in view 2 so you don't have many instances layered on each other
@@ -226,7 +415,7 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
                 // unset all images that CAN render in view 2 so you don't have many instances layered on each other
                 cell.view2.viewWithTag(2)?.removeFromSuperview() // remove the notification icon
                 cell.view2.viewWithTag(3)?.removeFromSuperview() // remove the comment icon
-            
+                
                 cell.view2.addSubview(notificationLabel) // add the notification icon
             }
             
@@ -252,30 +441,30 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
             
             if (cell.view1.viewWithTag(1) == nil
                 && cell.view1.viewWithTag(2) == nil) { //no flag or notify icon is set
-                
+                    
                     cell.view1.addSubview(commentLabel)
                     
             }  else if (cell.view1.viewWithTag(1) != nil &&
                 cell.view2.viewWithTag(2) != nil) {
                     
                     cell.view3.addSubview(commentLabel)
-            
+                    
             } else if (cell.view1.viewWithTag(1) != nil &&
                 cell.view1.viewWithTag(2) == nil) {
-
+                    
                     cell.view2.addSubview(commentLabel)
-                
+                    
             } else if (cell.view1.viewWithTag(1) == nil &&
                 cell.view1.viewWithTag(2) != nil) {
                     
                     cell.view2.addSubview(commentLabel)
-                
+                    
             } else {
                 
                 cell.view3.addSubview(commentLabel)
-            
+                
             }
-
+            
         }
         
         return cell
@@ -287,170 +476,40 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         return 3
         
     }
-
+    
     // Tells the data source to return the number of rows in a given section of a table view. (required)
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if (!user.getCompletedBriefs().isEmpty) {
             switch(section) {
-            
-                case 0: return selectedBrief!.progress.count
-                case 1: return selectedBrief!.plans.count
-                case 2: return selectedBrief!.problems.count
-                default: return 0
+                
+            case 0: return selectedBrief!.progress.count
+            case 1: return selectedBrief!.plans.count
+            case 2: return selectedBrief!.problems.count
+            default: return 0
             }
         } else {
             
             return 0
         }
-    
-    }
-
-    
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView {
         
-        var string = ""
-        
-        switch(section) {
-            
-        case 0: string = "Progress"
-            
-        case 1: string = "Plans"
-            
-        case 2: string = "Problems"
-            
-        default: string = ""
-        }
-        
-        var bundle = NSBundle.mainBundle()
-        var headerView = (bundle.loadNibNamed("SectionHeader", owner: self, options: nil)[0] as SectionHeader)
-        headerView.label1.text = string
-        
-        return headerView
-    }
-    
-    func tableView(tableView: UITableView!, willDisplayHeaderView view: UIView!, forSection section: Int) {
-    }
-    
-    func tableView(tableView: UITableView!, heightForHeaderInSection section: Int) -> CGFloat {
-        
-        return 24
-    }
-    
-    // MARK: --------------------------------
-    // MARK: TableView Delegate Methods
-    // MARK: --------------------------------
-
-    
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject] {
-
-        var item: PPPItem = self.getPPPItem(indexPath)
-        if (item.id.isEmpty) {
-            return []
-        }
-        var flagActionTitle = " Flag "
-        // create flag title
-        if (item.isFlagged()) {
-            flagActionTitle = "Unflag"
-        }
-       
-        var flagRowAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: flagActionTitle, handler:{action, indexpath in
-                
-            // update the model to reflect the action
-            item.setFlag(!item.isFlagged()) //set the opposite 
-            //update the view
-            self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
-            // update iCloud to reflect this change
-            self.cloudManager.fetchRecordWithID(item.id, completionClosure: { record in
-                
-                record.setObject(item.isFlagged(), forKey:"flag")
-                self.cloudManager.saveRecord(record, completionClosure: { completed in
-                })
-            })
-        });
-        flagRowAction.backgroundColor = UIColor.orangeColor()
-        
-        // notify action
-        var notifyRowAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Notify", handler:{ action, indexpath in
-            
-            var itemId = item.getId()
-            
-            var alertTitle = "Receive notifications when anyone replies to this thread"
-            var notifyTitle = "Notify Me"
-            if (user.containsNotification(itemId)) {
-                alertTitle = "Stop receiving notifications on this thread"
-                notifyTitle = "Stop Notifying"
-            }
-            
-            var alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
-            
-            var cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
-                (alertAction: UIAlertAction!) in
-                self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
-            })
-            
-            var notifyAction = UIAlertAction(title: notifyTitle, style: .Default, handler: {
-                (alertAction: UIAlertAction!) in
-    
-                if (user.containsNotification(itemId)){
-                    user.removeNotification(itemId)
-                    self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
-                } else {
-                    user.addNotification(item, completionClosure: { completed in
-                        self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
-                    })
-                }
-                
-            })
-            
-            alert.addAction(cancelAction)
-            alert.addAction(notifyAction)
-            
-            self.presentViewController(alert, animated: true, completion: {})
-        });
-        notifyRowAction.backgroundColor = UIColor.blueColor();
-        
-        // share action
-        var shareRowAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Share", handler: { action, indexpath in
-            
-            let shareVC = ShareViewController(nibName: "ShareViewController", bundle: NSBundle.mainBundle())
-            shareVC.transitioningDelegate = self.shareTransitionDelegate
-            shareVC.modalPresentationStyle = .Custom
-            self.presentViewController(shareVC, animated: true, completion: {
-                
-                self.table.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Right)
-
-            })
-            
-        });
-        shareRowAction.backgroundColor = UIColor(red: 0.298, green: 0.851, blue: 0.3922, alpha: 1.0);
-        
-        return [shareRowAction, notifyRowAction, flagRowAction];
     }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
     }
     
-    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
-        
-        var briefItemDetailVC = DetailBriefItemViewController(nibName: "DetailBriefItemViewController", bundle: NSBundle.mainBundle())
-        
-        //get reference to the cell
-        var cell = self.table.cellForRowAtIndexPath(indexPath) as CompletedBriefTableViewCell
-        var item = selectedBrief!.findItemById(cell.itemID)
-        briefItemDetailVC.item = item
-        self.navigationController?.pushViewController(briefItemDetailVC, animated: true)
-    }
+}
 
-    
-    // MARK: --------------------------------
-    // MARK: CollectionView Delegate Methods
-    // MARK: --------------------------------
+// MARK: --------------------------------
+// MARK: CollectionView Delegate Methods
+// MARK: --------------------------------
+
+extension MasterBriefViewController: UICollectionViewDataSource {
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         
         return 1
-    
+        
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -465,7 +524,7 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         
         var brief = user.getCompletedBriefs()[indexPath.row]
         cell.briefId = brief.getId()
-                
+        
         var df = NSDateFormatter()
         
         df.dateFormat = "dd"
@@ -487,7 +546,7 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
                 cell.applyUnselectedColorScheme()
             }
         }
-
+        
         return cell
     }
     
@@ -508,7 +567,7 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         
         var cell = self.collectionView.cellForItemAtIndexPath(indexPath) as CompletedBriefCollectionViewCell
         cell.applySelectedColorScheme()
-
+        
         
         // Remember selection:
         self.selectedIndexPath = indexPath
@@ -524,61 +583,12 @@ class MasterBriefViewController: UIViewController, UITableViewDelegate, UITableV
         })
     }
     
+}
+
+extension MasterBriefViewController: UICollectionViewDelegateFlowLayout {
+    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         return CGSizeMake(60, 40)
-    }
-
-    
-    // MARK: --------------------------------
-    // MARK: Action Methods
-    // MARK: --------------------------------
-    
-    func refresh(refreshControl:UIRefreshControl) {
-        
-        user.findBriefById(selectedBrief!.id, completionClosure: { brief in
-            self.selectedBrief = brief
-            self.table.reloadData()
-            refreshControl.endRefreshing()
-        })
-    }
-    
-    // MARK: --------------------------------
-    // MARK: Utility Methods
-    // MARK: --------------------------------
-    func loadInitialBrief(completionClosure: ((Bool) -> Void)) {
-
-        self.selectedBrief = user.getMostRecentBrief()
-        self.selectedIndexPath = NSIndexPath(forItem: 0, inSection: 0)
-        self.collectionView.scrollToItemAtIndexPath(self.selectedIndexPath!, atScrollPosition: UICollectionViewScrollPosition.None, animated: true)
-        
-        self.selectedBrief!.loadPPPItems({ completed in
-            
-            dispatch_async(dispatch_get_main_queue(), {
-                completionClosure(completed)
-            })
-        })
-
-    
-    }
-    
-    private func getPPPItem(indexPath: NSIndexPath) -> PPPItem {
-        
-        switch(indexPath.section) {
-            
-        case 0:
-            return selectedBrief!.progress[indexPath.row]
-            
-        case 1:
-            return selectedBrief!.plans[indexPath.row]
-            
-        case 2:
-            return selectedBrief!.problems[indexPath.row]
-            
-        default:
-            return PPPItem(content: "")
-            
-        }
-        
     }
     
 }

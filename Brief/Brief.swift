@@ -25,7 +25,7 @@ class Brief {
     private var cloudManager = BriefCloudManager()
     
     init(status: Status) {
-        self.id = NSUUID.UUID().UUIDString
+        self.id = NSUUID().UUIDString
         self.progress = Array<Progress>()
         self.plans = Array<Plan>()
         self.problems = Array<Problem>()

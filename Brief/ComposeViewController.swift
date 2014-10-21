@@ -11,7 +11,7 @@ import CloudKit
 
 let characterLimit = 140
 
-class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ComposeViewController: UIViewController {
    
     // MARK: --------------------------------
     // MARK: Properties
@@ -190,11 +190,6 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         mvc.selectedSegment = selectedSegment //pass the selected segment to create the correct PPP instance
         
         let nc = UINavigationController(rootViewController: mvc)
-        
-        //nav bar setup for the modal - required to unify the look and feel
-//        nc.navigationBar.barTintColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1.0)
-//        nc.navigationBar.tintColor = UIColor.darkGrayColor()
-//        nc.navigationBar.barStyle = UIBarStyle.Default
         
         nc.navigationBar.barTintColor = UIColor.blackColor()
         nc.navigationBar.tintColor = UIColor.whiteColor()
@@ -398,143 +393,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
         return snapshot;
         
     }
-
     
-    // MARK: --------------------------------
-    // MARK: UITableViewDatasource methods
-    // MARK: --------------------------------
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        switch (selectedSegment) {
-            
-        case 0:
-            return user.getDraftBrief().progress.count
-            
-        case 1:
-            return user.getDraftBrief().plans.count
-       
-        case 2:
-            return user.getDraftBrief().problems.count
-            
-        default:
-            return 0
-        }
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        var cell = table.dequeueReusableCellWithIdentifier(cellName, forIndexPath: indexPath) as ComposeItemTableViewCell
-        
-        var text:String
-        var id: String
-        
-        var draftBrief = user.getDraftBrief()
-        
-        switch (selectedSegment) {
-            
-            
-        case 0:
-            text = draftBrief.progress[indexPath.row].getContent()
-            id = draftBrief.progress[indexPath.row].getId()
-            
-        case 1:
-            text = draftBrief.plans[indexPath.row].getContent()
-            id = draftBrief.plans[indexPath.row].getId()
-            
-        case 2:
-            text = draftBrief.problems[indexPath.row].getContent()
-            id = draftBrief.problems[indexPath.row].getId()
-            
-        default:
-            text = ""
-            id = ""
-        }
-        
-        cell.briefId = id
-        cell.cellLabel.text = text
-        
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if (editingStyle == .Delete) {
-            
-            var draftBrief = user.getDraftBrief()
-            
-            switch (selectedSegment) {
-                
-            case 0:
-                
-                // delete from iCloud
-                var progress = draftBrief.progress[indexPath.row]
-                var recordID = CKRecordID(recordName: progress.id)
-                var record = CKRecord(recordType: "Progress", recordID: recordID)
-                cloudManager.deleteRecord(record)
-                
-                // delete from local model
-                draftBrief.deleteProgress(indexPath.row)
-
-            case 1:
-                
-                // delete from iCloud
-                var plan = draftBrief.plans[indexPath.row]
-                var recordID = CKRecordID(recordName: plan.id)
-                var record = CKRecord(recordType: "Plan", recordID: recordID)
-                cloudManager.deleteRecord(record)
-                
-                // delete from local model
-                draftBrief.deletePlan(indexPath.row)
-                
-            case 2:
-                
-                // delete from iCloud
-                var problem = draftBrief.problems[indexPath.row]
-                var recordID = CKRecordID(recordName: problem.id)
-                var record = CKRecord(recordType: "Problem", recordID: recordID)
-                cloudManager.deleteRecord(record)
-                
-                // delete from local model
-                draftBrief.deleteProblem(indexPath.row)
-                
-            default:
-                table.reloadData()
-            }
-                        
-            refreshToolbarItems()
-            
-            var cellToDelete = NSIndexPath(index: indexPath.row)
-            table.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-            determineNoPPPItemLabelVisibility()
-        }
-    }
-    
-    // MARK: --------------------------------
-    // MARK: UITableViewDelegate Methods
-    // MARK: --------------------------------
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)  {
-        
-        let mvc = AddPPPViewController(nibName: "AddPPPViewController", bundle: NSBundle.mainBundle())
-        mvc.modalTransitionStyle = UIModalTransitionStyle.PartialCurl
-        mvc.selectedSegment = selectedSegment //pass the selected segment to create the correct PPP instance
-        mvc.selectedPPPElement = indexPath.row
-        
-        let nc = UINavigationController(rootViewController: mvc)
-        //nav bar setup
-//        nc.navigationBar.barTintColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1.0)
-//        nc.navigationBar.tintColor = UIColor.darkGrayColor()
-//        nc.navigationBar.barStyle = UIBarStyle.Default
-        
-        nc.navigationBar.barTintColor = UIColor.blackColor()
-        nc.navigationBar.tintColor = UIColor.whiteColor()
-        nc.navigationBar.barStyle = UIBarStyle.BlackTranslucent
-        
-        self.navigationController?.presentViewController(nc, animated: true, completion: nil)
-    }
 
 
     // MARK: --------------------------------
@@ -543,7 +402,7 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func formatDescLabelText(description: String) -> NSAttributedString {
         var attributedText = NSMutableAttributedString(string: description)
-        attributedText.addAttribute(NSFontAttributeName, value: UIFont(name: "HelveticaNeue-Light", size: 14), range: NSMakeRange(0, countElements(description)))
+        attributedText.addAttribute(NSFontAttributeName, value: UIFont(name: "HelveticaNeue-Light", size: 14)!, range: NSMakeRange(0, countElements(description)))
         
         return attributedText
     }
@@ -608,3 +467,143 @@ class ComposeViewController: UIViewController, UITableViewDelegate, UITableViewD
 
 }
 
+
+// MARK: --------------------------------
+// MARK: UITableViewDelegate Methods
+// MARK: --------------------------------
+
+extension ComposeViewController: UITableViewDelegate {
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)  {
+        
+        let mvc = AddPPPViewController(nibName: "AddPPPViewController", bundle: NSBundle.mainBundle())
+        mvc.modalTransitionStyle = UIModalTransitionStyle.PartialCurl
+        mvc.selectedSegment = selectedSegment //pass the selected segment to create the correct PPP instance
+        mvc.selectedPPPElement = indexPath.row
+        
+        let nc = UINavigationController(rootViewController: mvc)
+        nc.navigationBar.barTintColor = UIColor.blackColor()
+        nc.navigationBar.tintColor = UIColor.whiteColor()
+        nc.navigationBar.barStyle = UIBarStyle.BlackTranslucent
+        
+        self.navigationController?.presentViewController(nc, animated: true, completion: nil)
+    }
+    
+}
+
+// MARK: --------------------------------
+// MARK: UITableViewDatasource methods
+// MARK: --------------------------------
+
+extension ComposeViewController: UITableViewDataSource {
+    
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        switch (selectedSegment) {
+            
+        case 0:
+            return user.getDraftBrief().progress.count
+            
+        case 1:
+            return user.getDraftBrief().plans.count
+            
+        case 2:
+            return user.getDraftBrief().problems.count
+            
+        default:
+            return 0
+        }
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        var cell = table.dequeueReusableCellWithIdentifier(cellName, forIndexPath: indexPath) as ComposeItemTableViewCell
+        
+        var text:String
+        var id: String
+        
+        var draftBrief = user.getDraftBrief()
+        
+        switch (selectedSegment) {
+            
+            
+        case 0:
+            text = draftBrief.progress[indexPath.row].getContent()
+            id = draftBrief.progress[indexPath.row].getId()
+            
+        case 1:
+            text = draftBrief.plans[indexPath.row].getContent()
+            id = draftBrief.plans[indexPath.row].getId()
+            
+        case 2:
+            text = draftBrief.problems[indexPath.row].getContent()
+            id = draftBrief.problems[indexPath.row].getId()
+            
+        default:
+            text = ""
+            id = ""
+        }
+        
+        cell.briefId = id
+        cell.cellLabel.text = text
+        
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if (editingStyle == .Delete) {
+            
+            var draftBrief = user.getDraftBrief()
+            
+            switch (selectedSegment) {
+                
+            case 0:
+                
+                // delete from iCloud
+                var progress = draftBrief.progress[indexPath.row]
+                var recordID = CKRecordID(recordName: progress.id)
+                var record = CKRecord(recordType: "Progress", recordID: recordID)
+                cloudManager.deleteRecord(record)
+                
+                // delete from local model
+                draftBrief.deleteProgress(indexPath.row)
+                
+            case 1:
+                
+                // delete from iCloud
+                var plan = draftBrief.plans[indexPath.row]
+                var recordID = CKRecordID(recordName: plan.id)
+                var record = CKRecord(recordType: "Plan", recordID: recordID)
+                cloudManager.deleteRecord(record)
+                
+                // delete from local model
+                draftBrief.deletePlan(indexPath.row)
+                
+            case 2:
+                
+                // delete from iCloud
+                var problem = draftBrief.problems[indexPath.row]
+                var recordID = CKRecordID(recordName: problem.id)
+                var record = CKRecord(recordType: "Problem", recordID: recordID)
+                cloudManager.deleteRecord(record)
+                
+                // delete from local model
+                draftBrief.deleteProblem(indexPath.row)
+                
+            default:
+                table.reloadData()
+            }
+            
+            refreshToolbarItems()
+            
+            var cellToDelete = NSIndexPath(index: indexPath.row)
+            table.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            determineNoPPPItemLabelVisibility()
+        }
+    }
+}

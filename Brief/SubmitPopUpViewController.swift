@@ -9,7 +9,7 @@
 import UIKit
 import QuartzCore
 
-class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextViewDelegate {
+class SubmitPopUpViewController: UIViewController {
 
     // MARK: --------------------------------
     // MARK: Properties
@@ -56,7 +56,7 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
     // MARK: View Configuration methods
     // MARK: --------------------------------
     
-    func configurePopupView() {
+    private func configurePopupView() {
         
         self.view.layer.cornerRadius = 10.0
         self.view.layer.shadowColor = UIColor.blackColor().CGColor
@@ -65,7 +65,7 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
         self.view.layer.shadowOpacity = 0.5
     }
     
-    func configureCollectionView() {
+    private func configureCollectionView() {
         
         // load the custom cell via NIB
         var nib = UINib(nibName: collectionViewCellName, bundle: NSBundle.mainBundle())
@@ -83,7 +83,7 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
         
     }
     
-    func configureTextView() {
+    private func configureTextView() {
         
         self.commentText.layer.cornerRadius = 3.0
         self.commentText.delegate = self
@@ -116,10 +116,15 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
         
     }
 
-    // MARK: --------------------------------
-    // MARK: CollectionView Delegate Methods
-    // MARK: --------------------------------
+}
 
+// MARK: --------------------------------
+// MARK: CollectionView Delegate Methods
+// MARK: --------------------------------
+
+extension SubmitPopUpViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
+    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         
         if (indexPath.item == 0 || indexPath.item == (briefReviewerArray.count - 1)) {
@@ -155,7 +160,7 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            
+        
         self.briefReviewerArray = user.briefReviewers
         self.briefReviewerArray.insert(TeamMember(), atIndex: 0) // add a buffer for the beginning
         self.briefReviewerArray.insert(TeamMember(), atIndex: user.briefReviewers.count) //add buffer for the end
@@ -202,5 +207,8 @@ class SubmitPopUpViewController: UIViewController, UICollectionViewDataSource, U
         desiredPoint = CGRectNull.origin;
     }
     
+}
 
+extension SubmitPopUpViewController: UITextViewDelegate {
+    
 }

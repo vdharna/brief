@@ -26,7 +26,7 @@ class PPPItem {
     private var cloudManager = BriefCloudManager()
         
     init(content: String) {
-        self.id = NSUUID.UUID().UUIDString
+        self.id = NSUUID().UUIDString
         self.content = content
         self.flagged = false
         self.containsComments = false

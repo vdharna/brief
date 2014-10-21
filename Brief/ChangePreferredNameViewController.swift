@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChangePreferredNameViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+class ChangePreferredNameViewController: UIViewController {
 
     @IBOutlet weak var table: UITableView!
     
@@ -52,10 +52,14 @@ class ChangePreferredNameViewController: UIViewController, UITableViewDelegate, 
         self.textField.resignFirstResponder()
         self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
-    
-    // MARK: --------------------------------
-    // MARK: UITableViewDatasource methods
-    // MARK: --------------------------------
+
+}
+
+// MARK: --------------------------------
+// MARK: UITableViewDatasource methods
+// MARK: --------------------------------
+
+extension ChangePreferredNameViewController: UITableViewDataSource {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -65,7 +69,7 @@ class ChangePreferredNameViewController: UIViewController, UITableViewDelegate, 
         var cell = self.table.dequeueReusableCellWithIdentifier("UITableViewCell") as UITableViewCell
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         var text = "Name"
-        cell.textLabel?.text = text
+        cell.textLabel.text = text
         
         textField = UITextField(frame: CGRectMake(100, 0, cell.frame.width - 100, cell.frame.height))
         textField.adjustsFontSizeToFitWidth = true
@@ -94,10 +98,15 @@ class ChangePreferredNameViewController: UIViewController, UITableViewDelegate, 
         return 1
     }
     
-    // MARK: --------------------------------
-    // MARK: UITextFieldDelegate methods
-    // MARK: --------------------------------
-    
+}
+
+
+// MARK: --------------------------------
+// MARK: UITextFieldDelegate methods
+// MARK: --------------------------------
+
+extension ChangePreferredNameViewController: UITextFieldDelegate {
+
     func textFieldDidEndEditing(textField: UITextField) {
         user.updatePreferredName(textField.text)
     }
@@ -106,5 +115,5 @@ class ChangePreferredNameViewController: UIViewController, UITableViewDelegate, 
         textField.resignFirstResponder()
         return true
     }
-
+    
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddPPPViewController: UIViewController, UITextViewDelegate {
+class AddPPPViewController: UIViewController {
 
     @IBOutlet
     var content: UITextView!
@@ -331,44 +331,6 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
         }
     }
     
-    // ===========================================
-    // MARK: TextView Delegate methods
-    // ===========================================
-    
-    func textViewDidChange(textView: UITextView!) {
-        
-        if (!self.itemDescription.hidden) {
-            self.itemDescription.hidden = true
-        }
-        if (content.text.utf16Count == 0) {
-            self.itemDescription.hidden = false
-        }
-        
-        self.charCountView.updateCharacterCount(content.text.utf16Count)
-        toggleSaveButton()
-
-    }
-    
-    func textViewShouldBeginEditing(textView: UITextView!) -> Bool {
-        return true
-    }
-    
-    func textViewDidBeginEditing(textView: UITextView!) {
-        if (content.text.isEmpty) {
-            configureLabelDescription()
-            content.selectedRange = NSMakeRange(0, 0)
-        }
-    }
-    
-    func textViewShouldEndEditing(textView: UITextView!) -> Bool {
-        return true
-    }
-    
-    func textViewDidEndEditing(textView: UITextView!) {
-    }
-    
-    
-    
     
     // ===========================================
     // MARK: View methods
@@ -399,4 +361,44 @@ class AddPPPViewController: UIViewController, UITextViewDelegate {
 
     }
 
+}
+
+// ===========================================
+// MARK: TextView Delegate methods
+// ===========================================
+
+extension AddPPPViewController: UITextViewDelegate {
+    
+    func textViewDidChange(textView: UITextView!) {
+        
+        if (!self.itemDescription.hidden) {
+            self.itemDescription.hidden = true
+        }
+        if (content.text.utf16Count == 0) {
+            self.itemDescription.hidden = false
+        }
+        
+        self.charCountView.updateCharacterCount(content.text.utf16Count)
+        toggleSaveButton()
+        
+    }
+    
+    func textViewShouldBeginEditing(textView: UITextView!) -> Bool {
+        return true
+    }
+    
+    func textViewDidBeginEditing(textView: UITextView!) {
+        if (content.text.isEmpty) {
+            configureLabelDescription()
+            content.selectedRange = NSMakeRange(0, 0)
+        }
+    }
+    
+    func textViewShouldEndEditing(textView: UITextView!) -> Bool {
+        return true
+    }
+    
+    func textViewDidEndEditing(textView: UITextView!) {
+    }
+    
 }

@@ -28,11 +28,23 @@ class BriefCloudManager {
             if (error != nil) {
                 
                 println("\(error)")
-                dispatch_async(dispatch_get_main_queue(), {
-                    completionClosure(applicationPermissionStatus == CKApplicationPermissionStatus.Granted)
-                    
-                })
                 
+                switch (error.code) {
+                    
+                case CKErrorCode.RequestRateLimited.rawValue:
+                    if let userInfo = error.userInfo {
+                        var retryAfter = userInfo[CKErrorRetryAfterKey] as NSNumber
+                        println("Error: \(error). Recoverable, retry after \(retryAfter) seconds")
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(retryAfter.intValue) * Int64(NSEC_PER_SEC)), dispatch_get_main_queue(), {
+                            completionClosure(applicationPermissionStatus == CKApplicationPermissionStatus.Granted)
+                        })
+                        
+                    }
+
+                default:
+                    println(error.code)
+                }
+
             } else {
                 
                 dispatch_async(dispatch_get_main_queue(), {
@@ -73,6 +85,22 @@ class BriefCloudManager {
                 
                 println("\(error)")
                 
+                switch (error.code) {
+                    
+                case CKErrorCode.RequestRateLimited.rawValue:
+                    if let userInfo = error.userInfo {
+                        var retryAfter = userInfo[CKErrorRetryAfterKey] as NSNumber
+                        println("Error: \(error). Recoverable, retry after \(retryAfter) seconds")
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(retryAfter.intValue) * Int64(NSEC_PER_SEC)), dispatch_get_main_queue(), {
+                            completionClosure(userInfo: user)
+                        })
+                        
+                    }
+                    
+                default:
+                    println(error.code)
+                }
+                
             } else {
                 
                 dispatch_async(dispatch_get_main_queue(), {
@@ -92,6 +120,29 @@ class BriefCloudManager {
             if (error != nil) {
                 
                 println("\(error)")
+                
+                switch (error.code) {
+                    
+                case CKErrorCode.RequestRateLimited.rawValue:
+                    
+                    let userInfo : NSDictionary = error.userInfo!
+                    
+                    if let retryAfter = userInfo[CKErrorRetryAfterKey] as? NSNumber {
+                        
+                        let delay = retryAfter.doubleValue * Double(NSEC_PER_SEC)
+                        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                        
+                        dispatch_after(time, dispatch_get_main_queue()) {
+                            self.container.discoverAllContactUserInfosWithCompletionHandler({ userInfos, error in
+                                completionClosure(userInfos: userInfos as [CKDiscoveredUserInfo])
+                            })
+                        }
+                        
+                    }
+                    
+                default:
+                    println(error.code)
+                }
                 
             } else {
                 dispatch_async(dispatch_get_main_queue(), {
@@ -179,7 +230,7 @@ class BriefCloudManager {
     
         var record: CKRecord = CKRecord(recordType: BriefRecordType, recordID: CKRecordID(recordName: draftBrief.id))
         // update the draft brief status
-        record.setObject(draftBrief.status.toRaw(), forKey: StatusField)
+        record.setObject(draftBrief.status.rawValue, forKey: StatusField)
         
         self.publicDatabase.saveRecord(record, completionHandler: { record, error in
             

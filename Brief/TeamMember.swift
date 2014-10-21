@@ -120,13 +120,16 @@ class TeamMember {
                     var record = records.first
                 
                     var id = record?.recordID.recordName
-                    var statusRaw = record?.objectForKey(StatusField) as NSNumber
-                    var status = Status.fromRaw(statusRaw)
-                
-                    var draftBrief = Brief(status: status!)
-                    draftBrief.id = id!
-                
-                    self.draftBrief = draftBrief
+                    var statusRaw = record?.objectForKey(StatusField) as Int
+                    
+                    if let status = Status(rawValue: statusRaw) {
+                        var draftBrief = Brief(status: status)
+                        draftBrief.id = id!
+                        
+                        self.draftBrief = draftBrief
+                    }
+                    
+
                 
                 } else {
                     
@@ -155,17 +158,20 @@ class TeamMember {
             // loop through array
             for i in (0 ..< records.count) {
                 var record = records[i] as CKRecord
-                var brief = Brief(status: Status.fromRaw(record.objectForKey(StatusField) as NSNumber)!)
-                brief.id = record.recordID.recordName
-                brief.submittedDate = record.objectForKey(SubmittedDateField) as? NSDate
-                self.completedBriefs.append(brief)
-                
-                if (i == 0) {
-                    // load the first one by default
-                    brief.loadPPPItems({ completed in
-                        // do nothing
-                    })
+                if let status = Status(rawValue: record.objectForKey(StatusField) as Int) {
+                    var brief = Brief(status: status)
+                    brief.id = record.recordID.recordName
+                    brief.submittedDate = record.objectForKey(SubmittedDateField) as? NSDate
+                    self.completedBriefs.append(brief)
+                    
+                    if (i == 0) {
+                        // load the first one by default
+                        brief.loadPPPItems({ completed in
+                            // do nothing
+                        })
+                    }
                 }
+
             }
             
             dispatch_async(dispatch_get_main_queue(), {
@@ -251,7 +257,7 @@ class TeamMember {
             // update the draft brief status
             self.draftBrief!.status = Status.IsCompleted
             self.draftBrief!.submittedDate = NSDate()
-            record.setObject(self.draftBrief!.status.toRaw(), forKey: StatusField)
+            record.setObject(self.draftBrief!.status.rawValue, forKey: StatusField)
             record.setObject(self.draftBrief!.submittedDate, forKey: SubmittedDateField)
             // save the record to iCloud
             self.cloudManager.saveRecord(record, completionClosure: { success in

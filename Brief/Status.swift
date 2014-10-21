@@ -24,7 +24,7 @@ enum Status: Int {
         case .IsCompleted:
             return "Completed"
         default:
-            return String(self.toRaw())
+            return String(self.rawValue)
             
         }
     }
